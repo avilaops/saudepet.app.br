@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perguntas Frequentes (FAQ) — Saúde PET</title>
+  <meta name="description" content="Tire suas dúvidas sobre o atendimento veterinário domiciliar, profissionais verificados, agendamento e valores.">
+  <link rel="icon" href="assets/logo-symbol.png" type="image/png">
+  <meta name="theme-color" content="#0d9488">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d9488;
+      --secondary: #e6f7f6;
+      --accent: #f97316;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink); background: #ffffff; line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .wrap-narrow { max-width: 780px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .brand img { width: 170px; height: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a.nav-item { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
+    .nav-links a.nav-item:hover { color: var(--primary); }
+
+    .btn-orange {
+      background: var(--accent); color: #ffffff !important; padding: 12px 24px; border-radius: 999px;
+      font-weight: 700; font-size: 0.95rem; transition: transform 0.2s ease;
+    }
+    .btn-orange:hover { transform: translateY(-2px); }
+
+    .hero-faq {
+      padding: 64px 0; text-align: center;
+      background: radial-gradient(800px 400px at 50% 0%, var(--secondary) 0%, rgba(255,255,255,0) 100%);
+    }
+    .tag {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; color: var(--primary);
+      text-transform: uppercase; margin-bottom: 10px; display: inline-block;
+    }
+    h1 { font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 800; margin-bottom: 16px; }
+    .hero-faq p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 28px; }
+
+    .search-bar {
+      width: 100%; max-width: 540px; margin: 0 auto;
+      padding: 16px 22px; border-radius: 999px; border: 1.5px solid var(--border);
+      font-size: 1rem; outline: none; box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .search-bar:focus { border-color: var(--primary); }
+
+    section { padding: 60px 0; }
+    .faq-cat-title { font-size: 1.35rem; font-weight: 800; margin: 32px 0 16px; border-bottom: 2px solid var(--secondary); padding-bottom: 6px; }
+
+    details.faq-item {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 12px; overflow: hidden;
+    }
+    details.faq-item summary {
+      padding: 20px 24px; font-weight: 700; font-size: 1.05rem; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary:after { content: "▼"; font-size: 0.8rem; color: var(--muted); }
+    details.faq-item[open] summary:after { content: "▲"; color: var(--primary); }
+    details.faq-item p { padding: 0 24px 20px; color: var(--muted); font-size: 0.95rem; }
+
+    footer { background: #0f172a; color: #cbd5e1; padding: 48px 0 28px; margin-top: 60px; }
+    .footer-bottom { border-top: 1px solid #1e293b; padding-top: 20px; margin-top: 36px; font-size: 0.85rem; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <a href="index.html"><img src="assets/logo-completa.png" alt="Saúde PET" width="290" height="80"></a>
+    </div>
+    <nav class="nav-links">
+      <a class="nav-item" href="index.html">Início</a>
+      <a class="nav-item" href="index.html#como-funciona">Como funciona</a>
+      <a class="nav-item" href="faq.html" style="color:var(--primary)">FAQ</a>
+      <a class="nav-item" href="/blog">Blog</a>
+      <a class="btn-orange" href="index.html#contato">Solicitar atendimento</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-faq">
+  <div class="wrap">
+    <span class="tag">CENTRAL DE AJUDA</span>
+    <h1>Perguntas <span style="color:var(--primary)">Frequentes</span></h1>
+    <p>Tudo o que você precisa saber sobre nosso atendimento veterinário em casa.</p>
+    <input type="text" id="faqSearch" class="search-bar" placeholder="Buscar uma dúvida (ex.: valor, CRMV, horário, vacina)..." onkeyup="filterFaq()">
+  </div>
+</section>
+
+<section>
+  <div class="wrap-narrow">
+    <h2 class="faq-cat-title">Como funciona</h2>
+    <details class="faq-item" open>
+      <summary>Como funciona o atendimento veterinário em casa?</summary>
+      <p>O atendimento funciona de forma simples: você solicita pelo site ou aplicativo informando seu endereço e os dados do seu pet. Um veterinário credenciado próximo aceita a chamada e vai até a sua residência equipado para realizar a consulta, vacinação ou avaliação.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Em quanto tempo o veterinário chega?</summary>
+      <p>O tempo médio de chegada é de até 30 minutos em áreas urbanas atendidas, dependendo do trânsito e da disponibilidade dos profissionais na sua região.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Posso escolher o veterinário ou o app escolhe para mim?</summary>
+      <p>A plataforma conecta você automaticamente ao profissional verificado mais próximo disponível para garantir a maior rapidez. No entanto, você sempre poderá visualizar o perfil, foto e avaliações do veterinário designado antes da chegada.</p>
+    </details>
+    <details class="faq-item">
+      <summary>O atendimento é imediato ou preciso agendar?</summary>
+      <p>Oferecemos tanto atendimento sob demanda em tempo real para necessidades imediatas quanto opção de agendamento prévio para consultas e vacinações de rotina.</p>
+    </details>
+
+    <h2 class="faq-cat-title">Profissionais & Segurança</h2>
+    <details class="faq-item">
+      <summary>Os veterinários são realmente profissionais formados?</summary>
+      <p>Sim! Todos os veterinários cadastrados passam por uma verificação rigorosa de documentos e diploma de Medicina Veterinária antes de realizarem qualquer atendimento.</p>
+    </details>
+    <details class="faq-item">
+      <summary>O veterinário tem registro no conselho?</summary>
+      <p>Com certeza. Exigimos o registro ativo e regular no Conselho Regional de Medicina Veterinária (CRMV) de todos os profissionais parceiros.</p>
+    </details>
+    <details class="faq-item">
+      <summary>O app garante a qualidade do profissional?</summary>
+      <p>Sim, além da validação cadastral inicial, monitoramos constantemente as avaliações dadas pelos tutores após cada atendimento para manter um padrão elevado de excelência.</p>
+    </details>
+
+    <h2 class="faq-cat-title">Tipos de atendimento & Limitações</h2>
+    <details class="faq-item">
+      <summary>Quais tipos de atendimento posso solicitar?</summary>
+      <p>Você pode solicitar consultas clínicas gerais, vacinação presencial no lar, avaliações de saúde (check-ups) e orientações profissionais com veterinários experientes.</p>
+    </details>
+    <details class="faq-item">
+      <summary>E se meu pet precisar de procedimentos cirúrgicos ou exames complexos?</summary>
+      <p>Alguns procedimentos mais complexos (como cirurgias ou exames de imagem avançados) precisam ser realizados em clínicas especializadas. O veterinário que fizer a consulta domiciliar orientará e encaminhará seu pet aos locais parceiros adequados.</p>
+    </details>
+
+    <h2 class="faq-cat-title">Valores & Pagamento</h2>
+    <details class="faq-item">
+      <summary>Como funciona o pagamento da consulta domiciliar?</summary>
+      <p>O valor do atendimento é exibido de forma transparente no app antes de você confirmar a solicitação, com opções de pagamento rápidas e seguras via PIX ou cartão de crédito.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Existe taxa de deslocamento extra?</summary>
+      <p>O valor total informado no aplicativo já inclui o deslocamento do profissional até a sua residência, sem surpresas na hora do atendimento.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">
+      <p>© 2026 Saúde Pet. Um produto Avila Ops. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function filterFaq() {
+  const input = document.getElementById('faqSearch').value.toLowerCase();
+  const items = document.querySelectorAll('details.faq-item');
+  items.forEach(item => {
+    const text = item.innerText.toLowerCase();
+    if (text.includes(input)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

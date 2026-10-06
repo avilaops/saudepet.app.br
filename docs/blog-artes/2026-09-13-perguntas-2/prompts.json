@@ -1,0 +1,12 @@
+{
+  "colecao": "Saúde Pet, perguntas essenciais II",
+  "data": "2026-09-13",
+  "metodo": "image_gen integrado",
+  "status": "Lote de quatro artes finais geradas e revisadas localmente; associação e publicação pendentes.",
+  "imagens": [
+    {"id":"PER-005","slug":"o-que-e-microchip-e-para-que-serve","tema":"O que é microchip e para que serve","estilo":"Desenho técnico amigável","proporcao":"4:3","alt_planejado":"Ilustração técnica acolhedora com veterinária usando leitor perto de cão tranquilo e ficha neutra de identificação, com referência Saúde Pet."},
+    {"id":"PER-006","slug":"o-que-e-carrapaticida-e-como-ele-age","tema":"O que é carrapaticida e como ele age","estilo":"Ilustração de objetos em natureza-morta","proporcao":"1:1","alt_planejado":"Mesa de consulta com embalagem neutra fechada, lupa e silhueta ampliada de carrapato em cartão separado, sem medicamento identificado."},
+    {"id":"PER-007","slug":"o-que-e-zoonose-em-palavras-simples","tema":"O que é zoonose, em palavras simples","estilo":"Diagrama ilustrado de convivência","proporcao":"4:3","alt_planejado":"Pessoa e cachorro em ambiente doméstico conectados por linhas a ícones de higiene, água limpa e rotina de cuidado, em paleta Saúde Pet."},
+    {"id":"PER-008","slug":"o-que-significam-as-categorias-escritas-no-saco-de-racao","tema":"O que significam as categorias escritas no saco de ração","estilo":"Colagem de embalagem educativa","proporcao":"4:5","alt_planejado":"Colagem de saco neutro de ração aberto como mapa, etiquetas em branco, lupa e gato observando a embalagem, com assinatura Saúde Pet."}
+  ]
+}

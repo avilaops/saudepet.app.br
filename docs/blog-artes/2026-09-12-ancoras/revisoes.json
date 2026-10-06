@@ -1,0 +1,29 @@
+{
+  "metodo": "image_gen integrado, revisão visual individual",
+  "revisoes": [
+    {
+      "id": "ANC-031",
+      "versao_anterior": "frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-v1-transporte-revisado.png",
+      "versao_final": "frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-por-que-a-vacina-continua-obrigatoria-todo-ano.png",
+      "motivo": "Versão anterior substituída: separação de cão e gato no transporte e retirada da identificação fictícia da clínica. A versão final preserva o nome Saúde Pet na carteira."
+    }
+  ],
+  "refinamento_criativo": {
+    "origem": "Pedido do Nicolas para elevar a beleza mantendo o cronograma",
+    "ids": [
+      "ANC-037",
+      "ANC-039",
+      "ANC-040",
+      "ANC-041",
+      "ANC-042",
+      "ANC-043",
+      "ANC-044",
+      "ANC-045",
+      "ANC-047",
+      "ANC-048",
+      "ANC-049",
+      "ANC-052"
+    ],
+    "descricao": "Direções aperfeiçoadas antes da geração final: luz, textura, composição e cenários específicos. Prompts efetivamente usados estão em prompts.json."
+  }
+}

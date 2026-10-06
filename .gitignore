@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+.env.production
+# Exceção: o .env.production do frontend não tem segredo (é Vite, vai pro bundle
+# público de qualquer forma) e PRECISA estar versionado — o build de produção
+# depende dele pra não cair no fallback de localhost.
+!frontend/.env.production
+!*/.env.example
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Database
+*.db
+*.sqlite
+*.dump
+backend/backups/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# Uploads
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.pdf
+!frontend/public/**/*.png
+!frontend/public/blog-media/social/frio-em-curitiba-quais-pets-sofrem-mais.jpg
+!frontend/public/blog-media/social/emergencia-veterinaria-em-curitiba-o-plano-antes-de-precisar.jpg
+!frontend/public/blog-media/social/passeio-no-inverno-de-curitiba-o-que-muda.jpg
+!frontend/public/blog-media/social/casa-fechada-no-inverno-pele-e-respiracao-do-pet.jpg
+!landing-page/assets/*.png
+
+# Test coverage
+coverage/
+.nyc_output/
+.playwright-cli/
+
+# Temporary files
+tmp/
+temp/
+
+# Deploy archives (gerados por scripts/deploy.ps1, nunca versionar)
+*.tar.gz
+*.bundle
+
+# Retratos das telas (scripts/snapshots.ts) — imagens não versionadas
+snapshots/
+
+# Visual QA (scripts/screenshots-telas.mjs)
+output/screenshots/
+
+# IDE / logs locais
+.vs/
+output/
+*.code-workspace

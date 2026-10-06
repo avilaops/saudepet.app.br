@@ -1,0 +1,21 @@
+{
+  "id": "/tutor",
+  "name": "Saúde Pet",
+  "short_name": "Saúde Pet",
+  "description": "Atendimento veterinário em casa: peça, acompanhe e guarde o histórico do seu pet.",
+  "lang": "pt-BR",
+  "start_url": "/tutor",
+  "scope": "/tutor",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#159fa3",
+  "icons": [
+    { "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/pwa-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Pedir atendimento", "url": "/tutor/solicitar" },
+    { "name": "Meus pets", "url": "/tutor/pets" }
+  ]
+}

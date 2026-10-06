@@ -1,0 +1,28 @@
+{
+  // O app é React com Vite, que já entende TypeScript sem configuração — este
+  // arquivo existe para o editor e para `tsc --noEmit` valerem as mesmas regras.
+  // A migração do frontend terminou: `src` só aceita `.ts`/`.tsx`, e o modo
+  // estrito impede um arquivo novo de reintroduzir contratos implícitos.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+
+    "allowJs": false,
+
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "types": ["vite/client", "vite-plugin-pwa/client"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

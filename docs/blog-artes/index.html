@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Acervo de artes autorais do Saúde Pet. Explore temas, linguagens e formatos com as imagens completas.">
+  <link rel="icon" href="data:,">
+  <title>Saúde Pet · Mundos visuais</title>
+  <style>
+    :root{--tinta:#173b3c;--petroleo:#07595b;--turquesa:#19a4a7;--laranja:#f58235;--papel:#faf8f2;--linha:#d6e2dc;--cinza:#536d6b}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit;text-underline-offset:4px}button,input,select{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--laranja);outline-offset:4px}[hidden]{display:none!important}.wrap{width:min(1460px,calc(100% - 88px));margin:auto}
+    .pular{position:fixed;left:16px;top:-80px;padding:12px;background:var(--tinta);color:white;z-index:10}.pular:focus{top:16px}.topo{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px 0;border-bottom:1px solid var(--linha)}.marca{width:162px;height:auto;display:block}.assinatura{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}.topo a{text-decoration:none;font-size:.78rem;font-weight:700}
+    .abertura{display:grid;grid-template-columns:1.2fr .8fr;gap:72px;align-items:end;padding:70px 0 54px}.sobretitulo{display:flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--petroleo);margin:0 0 22px}.sobretitulo:before{content:'';width:28px;height:3px;background:var(--laranja)}h1{font:400 clamp(3rem,6.2vw,6.5rem)/.98 Georgia,'Times New Roman',serif;letter-spacing:-.055em;margin:0}h1 em{color:var(--petroleo);font-weight:400}.apresentacao{color:var(--cinza);max-width:470px;font-size:1.06rem;line-height:1.75;margin:0 0 24px}.numeros{display:flex;gap:28px;padding-top:22px;border-top:1px solid var(--linha)}.numeros strong{font-family:Georgia,'Times New Roman',serif;display:block;font-size:2.6rem;font-weight:400;line-height:1.1;color:var(--tinta)}.numeros span{font-size:.72rem;color:var(--cinza)}
+    .faixa{border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding:15px 0;display:flex;justify-content:space-between;gap:20px;font-size:.76rem;color:var(--cinza)}.faixa strong{font-weight:400;color:var(--petroleo)}.filtros{display:grid;grid-template-columns:minmax(230px,1.6fr) minmax(160px,1fr) minmax(140px,.7fr) auto;gap:18px;align-items:end;padding:28px 0 24px}.campo label{display:block;font-size:.7rem;font-weight:700;margin-bottom:8px;color:var(--cinza);letter-spacing:.03em}.campo input,.campo select{width:100%;height:46px;border:1px solid #bdcfca;border-radius:4px;padding:0 13px;background:#fffefb;color:var(--tinta);font-size:.87rem}.campo input::placeholder{color:#6b807d}.limpar{height:46px;border:0;background:transparent;color:var(--petroleo);cursor:pointer;text-decoration:underline;text-underline-offset:4px;font-size:.8rem;padding:0 6px}.resultado{display:flex;justify-content:space-between;gap:20px;color:var(--cinza);font-size:.76rem;margin:0 0 26px}.resultado p{margin:0}
+    .galeria{columns:3;column-gap:30px;padding-bottom:30px}.arte{display:inline-block;width:100%;margin:0 0 45px;break-inside:avoid}.imagem{display:block;position:relative;background:#edece4;border-radius:4px;text-decoration:none}.imagem img{display:block;width:100%;height:auto;border-radius:4px}.imagem:hover{outline:2px solid var(--turquesa);outline-offset:4px}.abrir{position:absolute;right:12px;bottom:12px;background:rgba(250,248,242,.95);color:var(--tinta);font-size:.69rem;line-height:1.4;padding:7px 10px;border-radius:3px;opacity:0;transition:opacity .16s}.imagem:hover .abrir,.imagem:focus-visible .abrir{opacity:1}figcaption{padding-top:17px}.linha-arte{display:flex;justify-content:space-between;gap:12px;color:var(--petroleo);font-size:.65rem;text-transform:uppercase;letter-spacing:.07em}.arte h2{font:400 1.45rem/1.19 Georgia,'Times New Roman',serif;letter-spacing:-.02em;margin:12px 0 9px}.linguagem{font-size:.8rem;color:var(--cinza);margin:0 0 16px}.arquivo{border-top:1px solid var(--linha);padding-top:10px;display:flex;justify-content:space-between;gap:12px;font-size:.71rem;color:var(--cinza)}.arquivo a{color:var(--petroleo);font-weight:700;text-decoration:none}.origem{display:inline-block;margin-top:10px;font-size:.67rem;color:var(--cinza);text-decoration:none}.origem:hover,.arquivo a:hover{text-decoration:underline}.vazio{padding:70px 16px 90px;text-align:center;border-top:1px solid var(--linha)}.vazio h2{font:400 2rem Georgia,'Times New Roman',serif}.vazio p{color:var(--cinza)}
+    .colecoes{border-top:1px solid var(--linha);padding:35px 0 40px;display:grid;grid-template-columns:.6fr 1.4fr;gap:36px}.colecoes h2{font:400 2rem Georgia,'Times New Roman',serif;letter-spacing:-.035em;margin:0}.colecoes ul{list-style:none;padding:0;margin:0}.colecoes li{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:12px 0;border-bottom:1px solid var(--linha)}.colecoes li:first-child{padding-top:0}.colecoes a{font-size:.83rem}.colecoes small{color:var(--cinza);white-space:nowrap}.rodape{padding:28px 0 42px;border-top:1px solid var(--linha);display:flex;justify-content:space-between;gap:28px;color:var(--cinza);font-size:.72rem}.rodape p{margin:0;max-width:580px}.rodape a{white-space:nowrap}
+    @media(min-width:1550px){.galeria{column-gap:38px}}@media(max-width:1100px){.wrap{width:calc(100% - 56px)}.abertura{gap:38px}.galeria{columns:2}.filtros{grid-template-columns:1.3fr 1fr .8fr}.limpar{grid-column:3;height:auto;justify-self:end}.numeros{gap:20px}}@media(max-width:720px){.wrap{width:calc(100% - 36px)}.topo{padding:22px 0}.marca{width:135px}.assinatura{display:none}.abertura{grid-template-columns:1fr;padding:40px 0 28px;gap:25px}.apresentacao{font-size:.95rem;max-width:100%;margin-bottom:20px}h1{font-size:clamp(3.5rem,11.5vw,5rem)}.numeros{gap:32px}.numeros strong{font-size:2.15rem}.faixa{display:block}.faixa span{display:block;margin-top:5px}.filtros{grid-template-columns:1fr 1fr;gap:14px;padding:22px 0 20px}.campo-busca{grid-column:1/-1}.limpar{grid-column:1/-1;justify-self:end}.resultado{font-size:.72rem}.galeria{columns:1}.arte{margin-bottom:36px}.arte h2{font-size:1.55rem}.abrir{opacity:1}.colecoes{grid-template-columns:1fr;gap:24px}.colecoes li{display:block}.colecoes small{display:block;margin-top:7px}.rodape{display:block}.rodape a{display:inline-block;margin-top:16px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.abrir{transition:none}}
+  </style>
+</head>
+<body>
+  <a class="pular" href="#acervo">Pular para as artes</a>
+  <div class="wrap">
+    <nav class="topo" aria-label="Navegação do acervo">
+      <img class="marca" src="../../frontend/public/brand/logo-completa-290.png" alt="Saúde Pet" width="290" height="100">
+      <span class="assinatura">Acervo editorial · Saúde Pet</span>
+      <a href="../BLOG_DIRECAO_VISUAL.md">Direção visual ↗</a>
+    </nav>
+    <header class="abertura">
+      <div><p class="sobretitulo">Uma marca. Muitas histórias.</p><h1>Todo tema tem<br>seu próprio <em>mundo.</em></h1></div>
+      <div><p class="apresentacao">Tem espaço para o riso, o afeto, a curiosidade e o cuidado. Cada história encontra uma linguagem — e o Saúde Pet aparece nos detalhes.</p>
+        <div class="numeros" aria-label="Números do acervo"><div><strong>62</strong><span>artes finais</span></div><div><strong>4</strong><span>coleções</span></div><div><strong>7</strong><span>formatos</span></div></div>
+      </div>
+    </header>
+    <div class="faixa"><strong>Fotografia, desenho, humor e imaginação.</strong><span>Imagens completas, preservadas em suas proporções originais.</span></div>
+    <main id="acervo">
+      <form class="filtros" id="filtros" role="search" aria-label="Encontrar uma arte">
+        <div class="campo campo-busca"><label for="busca">Tema ou estilo</label><input id="busca" type="search" placeholder="Busque por gato, aquarela, ANC-001…" autocomplete="off"></div>
+        <div class="campo"><label for="colecao">Coleção</label><select id="colecao"><option value="">Todas as coleções</option><option value="2026-09-12">Saúde Pet, liberdade visual por tema · 12/09/2026</option><option value="2026-09-12-ancoras">Saúde Pet, âncoras do calendário · 12/09/2026</option><option value="2026-09-13-perguntas">Saúde Pet, âncoras do calendário · 12/09/2026</option><option value="2026-09-13-perguntas-2">Saúde Pet, âncoras do calendário · 12/09/2026</option></select></div>
+        <div class="campo"><label for="formato">Formato</label><select id="formato"><option value="">Todos os formatos</option><option value="16:9">Panorâmico · 16:9</option><option value="1:1">Quadrado · 1:1</option><option value="2:3">2:3</option><option value="3:2">Horizontal · 3:2</option><option value="4:3">4:3</option><option value="4:5">Retrato · 4:5</option><option value="9:16">Vertical · 9:16</option></select></div>
+        <button class="limpar" type="reset">Limpar filtros</button>
+      </form>
+      <div class="resultado"><p id="contagem" role="status" aria-live="polite">62 artes no acervo</p><p>Toque na imagem para abrir o original</p></div>
+      <noscript><p>A busca e os filtros precisam de JavaScript. Todas as artes estão disponíveis abaixo.</p></noscript>
+      <div class="galeria" id="galeria">
+      <figure class="arte" data-colecao="2026-09-12" data-formato="3:2" data-busca="anc-001 quanto custa ter um cachorro por mes, a conta real colagem editorial com fotografia e recortes">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png" aria-label="Abrir original: Quanto custa ter um cachorro por mês, a conta real">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png" alt="Colagem com cachorro caramelo, tigela de ração, guia, calendário e cofrinho; assinatura Saúde Pet em turquesa e laranja." width="1536" height="1024" loading="eager" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-001</span><span>Horizontal · 3:2</span></div>
+          <h2>Quanto custa ter um cachorro por mês, a conta real</h2>
+          <p class="linguagem">Colagem editorial com fotografia e recortes</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-002 calor forte: como saber se o seu pet esta sofrendo com a temperatura fotografia editorial de verao com sombra grafica">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/calor-forte-como-saber-se-o-seu-pet-esta-sofrendo-com-a-temperatura.png" aria-label="Abrir original: Calor forte: como saber se o seu pet está sofrendo com a temperatura">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/calor-forte-como-saber-se-o-seu-pet-esta-sofrendo-com-a-temperatura.png" alt="Cachorro preto descansa à sombra de uma árvore no quintal, junto de tigela turquesa com água; a área ensolarada está vazia." width="1672" height="941" loading="eager" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-002</span><span>Panorâmico · 16:9</span></div>
+          <h2>Calor forte: como saber se o seu pet está sofrendo com a temperatura</h2>
+          <p class="linguagem">Fotografia editorial de verão com sombra gráfica</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/calor-forte-como-saber-se-o-seu-pet-esta-sofrendo-com-a-temperatura.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-003 passeio no asfalto quente: o teste dos sete segundos risografia urbana ao nivel do chao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/passeio-no-asfalto-quente-o-teste-dos-sete-segundos.png" aria-label="Abrir original: Passeio no asfalto quente: o teste dos sete segundos">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/passeio-no-asfalto-quente-o-teste-dos-sete-segundos.png" alt="Risografia de tutor e cachorro aguardando na sombra da calçada, com guia laranja; o asfalto ensolarado está separado pelo meio-fio." width="1122" height="1402" loading="eager" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-003</span><span>Retrato · 4:5</span></div>
+          <h2>Passeio no asfalto quente: o teste dos sete segundos</h2>
+          <p class="linguagem">Risografia urbana ao nível do chão</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/passeio-no-asfalto-quente-o-teste-dos-sete-segundos.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="1:1" data-busca="anc-004 o enxoval do pet: o que ter em casa antes de ele chegar fotografia de objetos vista de cima, enxoval preparado">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-enxoval-do-pet-o-que-ter-em-casa-antes-de-ele-chegar.png" aria-label="Abrir original: O enxoval do pet: o que ter em casa antes de ele chegar">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-enxoval-do-pet-o-que-ter-em-casa-antes-de-ele-chegar.png" alt="Enxoval sobre tapete vinho, com cama, tigelas, peitoral turquesa, brinquedos e escova; um filhote tigrado espia pela borda." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-004</span><span>Quadrado · 1:1</span></div>
+          <h2>O enxoval do pet: o que ter em casa antes de ele chegar</h2>
+          <p class="linguagem">Fotografia de objetos vista de cima, enxoval preparado</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-enxoval-do-pet-o-que-ter-em-casa-antes-de-ele-chegar.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-005 carnaval: como preparar o pet para barulho, gente e viagem teatro de sombras e papel recortado de carnaval">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/carnaval-como-preparar-o-pet-para-barulho-gente-e-viagem.png" aria-label="Abrir original: Carnaval: como preparar o pet para barulho, gente e viagem">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/carnaval-como-preparar-o-pet-para-barulho-gente-e-viagem.png" alt="Cenário de papel em camadas mostra gato branco em refúgio dentro de casa e desfile de Carnaval distante, visto pela janela fechada." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-005</span><span>Panorâmico · 16:9</span></div>
+          <h2>Carnaval: como preparar o pet para barulho, gente e viagem</h2>
+          <p class="linguagem">Teatro de sombras e papel recortado de Carnaval</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/carnaval-como-preparar-o-pet-para-barulho-gente-e-viagem.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-006 pet sozinho em casa: quanto tempo e tempo demais carvao contemplativo com um acento laranja">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/pet-sozinho-em-casa-quanto-tempo-e-tempo-demais.png" aria-label="Abrir original: Pet sozinho em casa: quanto tempo é tempo demais">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/pet-sozinho-em-casa-quanto-tempo-e-tempo-demais.png" alt="Carvão de galgo preto na caminha olhando para a porta, com luz da tarde e pequena etiqueta laranja como único ponto de cor." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-006</span><span>Horizontal · 3:2</span></div>
+          <h2>Pet sozinho em casa: quanto tempo é tempo demais</h2>
+          <p class="linguagem">Carvão contemplativo com um acento laranja</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/pet-sozinho-em-casa-quanto-tempo-e-tempo-demais.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="16:9" data-busca="anc-007 quanta agua o seu cao e o seu gato precisam beber por dia miniatura artesanal em argila">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png" aria-label="Abrir original: Quanta água o seu cão e o seu gato precisam beber por dia">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png" alt="Gato e cachorro modelados em argila junto de tigelas de água; a tigela turquesa traz o nome Saúde Pet." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-007</span><span>Panorâmico · 16:9</span></div>
+          <h2>Quanta água o seu cão e o seu gato precisam beber por dia</h2>
+          <p class="linguagem">Miniatura artesanal em argila</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-008 como ler o rotulo da racao e entender o que voce esta comprando colagem editorial de embalagem, lupa e papel rasgado">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-ler-o-rotulo-da-racao-e-entender-o-que-voce-esta-comprando.png" aria-label="Abrir original: Como ler o rótulo da ração e entender o que você está comprando">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-ler-o-rotulo-da-racao-e-entender-o-que-voce-esta-comprando.png" alt="Colagem de pacote neutro de ração com rótulo desdobrado, lupa e títulos Ingredientes, Composição e Validade; linha turquesa acompanha o papel." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-008</span><span>Retrato · 4:5</span></div>
+          <h2>Como ler o rótulo da ração e entender o que você está comprando</h2>
+          <p class="linguagem">Colagem editorial de embalagem, lupa e papel rasgado</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-ler-o-rotulo-da-racao-e-entender-o-que-voce-esta-comprando.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-009 racao seca, umida ou natural: o que muda na pratica natureza-morta gastronomica de tres texturas">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/racao-seca-umida-ou-natural-o-que-muda-na-pratica.png" aria-label="Abrir original: Ração seca, úmida ou natural: o que muda na prática">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/racao-seca-umida-ou-natural-o-que-muda-na-pratica.png" alt="Ração seca, alimento úmido e preparação cozida em recipientes diferentes sobre madeira escura, acompanhados de embalagens neutras." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-009</span><span>Panorâmico · 16:9</span></div>
+          <h2>Ração seca, úmida ou natural: o que muda na prática</h2>
+          <p class="linguagem">Natureza-morta gastronômica de três texturas</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/racao-seca-umida-ou-natural-o-que-muda-na-pratica.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-010 quanto de racao dar por dia, por porte e por idade ilustracao geometrica com brinquedos de madeira">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/quanto-de-racao-dar-por-dia-por-porte-e-por-idade.png" aria-label="Abrir original: Quanto de ração dar por dia, por porte e por idade">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/quanto-de-racao-dar-por-dia-por-porte-e-por-idade.png" alt="Cães de madeira pintada, um pequeno idoso e um grande jovem, ladeiam balança turquesa com recipiente vazio e pacote neutro de ração." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-010</span><span>4:3</span></div>
+          <h2>Quanto de ração dar por dia, por porte e por idade</h2>
+          <p class="linguagem">Ilustração geométrica com brinquedos de madeira</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/quanto-de-racao-dar-por-dia-por-porte-e-por-idade.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="1:1" data-busca="anc-011 petisco: quanto cabe sem desequilibrar a dieta miniatura cinematografica com humor de recompensa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/petisco-quanto-cabe-sem-desequilibrar-a-dieta.png" aria-label="Abrir original: Petisco: quanto cabe sem desequilibrar a dieta">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/petisco-quanto-cabe-sem-desequilibrar-a-dieta.png" alt="Miniatura de cinema com dachshund de pelo duro esperando perto de um petisco e ingresso laranja com o nome Saúde Pet." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-011</span><span>Quadrado · 1:1</span></div>
+          <h2>Petisco: quanto cabe sem desequilibrar a dieta</h2>
+          <p class="linguagem">Miniatura cinematográfica com humor de recompensa</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/petisco-quanto-cabe-sem-desequilibrar-a-dieta.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-012 alimentos da nossa casa que fazem mal ao pet xilogravura contemporanea de cozinha protegida">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/alimentos-da-nossa-casa-que-fazem-mal-ao-pet.png" aria-label="Abrir original: Alimentos da nossa casa que fazem mal ao pet">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/alimentos-da-nossa-casa-que-fazem-mal-ao-pet.png" alt="Xilogravura com chocolate, uvas e cebolas dentro de armário fechado; beagle no chão junto da tigela, longe desses alimentos." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-012</span><span>Retrato · 4:5</span></div>
+          <h2>Alimentos da nossa casa que fazem mal ao pet</h2>
+          <p class="linguagem">Xilogravura contemporânea de cozinha protegida</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/alimentos-da-nossa-casa-que-fazem-mal-ao-pet.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-013 como trocar a racao sem causar diarreia: o passo a passo de sete dias jardim em miniatura com caminho de transicao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-trocar-a-racao-sem-causar-diarreia-o-passo-a-passo-de-sete-dias.png" aria-label="Abrir original: Como trocar a ração sem causar diarreia: o passo a passo de sete dias">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-trocar-a-racao-sem-causar-diarreia-o-passo-a-passo-de-sete-dias.png" alt="Cachorro preto e castanho observa pedras que atravessam um riacho de jardim entre duas embalagens de ração fechadas, uma lilás e outra laranja." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-013</span><span>Panorâmico · 16:9</span></div>
+          <h2>Como trocar a ração sem causar diarreia: o passo a passo de sete dias</h2>
+          <p class="linguagem">Jardim em miniatura com caminho de transição</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-trocar-a-racao-sem-causar-diarreia-o-passo-a-passo-de-sete-dias.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-014 vermifugacao: com que frequencia e por que cianotipia de agenda e objetos de cuidado">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/vermifugacao-com-que-frequencia-e-por-que.png" aria-label="Abrir original: Vermifugação: com que frequência e por quê">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/vermifugacao-com-que-frequencia-e-por-que.png" alt="Cianotipia azul com agenda sem datas, guia e perfil de spaniel; marcador de tecido laranja atravessa a composição." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-014</span><span>4:3</span></div>
+          <h2>Vermifugação: com que frequência e por quê</h2>
+          <p class="linguagem">Cianotipia de agenda e objetos de cuidado</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/vermifugacao-com-que-frequencia-e-por-que.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-015 abril laranja: como reconhecer e como denunciar maus tratos bordado de campanha abril laranja">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/abril-laranja-como-reconhecer-e-como-denunciar-maus-tratos.png" aria-label="Abrir original: Abril Laranja: como reconhecer e como denunciar maus tratos">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/abril-laranja-como-reconhecer-e-como-denunciar-maus-tratos.png" alt="Bordado em linho laranja com cachorro protegido por mãos e frase Cuidado é proteção, acompanhado do nome Saúde Pet." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-015</span><span>Retrato · 4:5</span></div>
+          <h2>Abril Laranja: como reconhecer e como denunciar maus tratos</h2>
+          <p class="linguagem">Bordado de campanha Abril Laranja</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/abril-laranja-como-reconhecer-e-como-denunciar-maus-tratos.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-016 castracao: o que ela previne e o que ela nao previne lapis de cor documental antes da decisao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/castracao-o-que-ela-previne-e-o-que-ela-nao-previne.png" aria-label="Abrir original: Castração: o que ela previne e o que ela não previne">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/castracao-o-que-ela-previne-e-o-que-ela-nao-previne.png" alt="Lápis de cor de tutor conversando com veterinária, labrador chocolate tranquilo entre as cadeiras e pasta turquesa." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-016</span><span>Horizontal · 3:2</span></div>
+          <h2>Castração: o que ela previne e o que ela não previne</h2>
+          <p class="linguagem">Lápis de cor documental antes da decisão</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/castracao-o-que-ela-previne-e-o-que-ela-nao-previne.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="1:1" data-busca="anc-017 microchip e identificacao: o que fazer hoje para nao perder o seu pet recorte de papel em camadas">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png" aria-label="Abrir original: Microchip e identificação: o que fazer hoje para não perder o seu pet">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png" alt="Cachorro de papel com coleira e identificação segue um caminho laranja até uma casa turquesa com o nome Saúde Pet." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-017</span><span>Quadrado · 1:1</span></div>
+          <h2>Microchip e identificação: o que fazer hoje para não perder o seu pet</h2>
+          <p class="linguagem">Recorte de papel em camadas</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="3:2" data-busca="anc-018 escovar os dentes do pet: como comecar sem virar briga desenho editorial com humor gentil">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png" aria-label="Abrir original: Escovar os dentes do pet: como começar sem virar briga">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png" alt="Cachorro de pelo longo observa uma pequena escova de dentes turquesa sobre toalha laranja com etiqueta Saúde Pet." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-018</span><span>Horizontal · 3:2</span></div>
+          <h2>Escovar os dentes do pet: como começar sem virar briga</h2>
+          <p class="linguagem">Desenho editorial com humor gentil</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-019 banho e tosa: frequencia certa por tipo de pelagem retratos texteis de tres pelagens">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/banho-e-tosa-frequencia-certa-por-tipo-de-pelagem.png" aria-label="Abrir original: Banho e tosa: frequência certa por tipo de pelagem">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/banho-e-tosa-frequencia-certa-por-tipo-de-pelagem.png" alt="Retratos de lã mostram pelo curto de cão preto e branco, cachos de poodle prateado e pelagem longa de gato cinza e branco." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-019</span><span>Horizontal · 3:2</span></div>
+          <h2>Banho e tosa: frequência certa por tipo de pelagem</h2>
+          <p class="linguagem">Retratos têxteis de três pelagens</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/banho-e-tosa-frequencia-certa-por-tipo-de-pelagem.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-020 unhas, ouvidos e almofadinhas: a rotina de dez minutos monotipia de observacao das patas e orelhas">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/unhas-ouvidos-e-almofadinhas-a-rotina-de-dez-minutos.png" aria-label="Abrir original: Unhas, ouvidos e almofadinhas: a rotina de dez minutos">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/unhas-ouvidos-e-almofadinhas-a-rotina-de-dez-minutos.png" alt="Monotipia de cachorro marrom descansando, com pequenos estudos da parte externa da orelha, unhas e almofadinhas." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-020</span><span>4:3</span></div>
+          <h2>Unhas, ouvidos e almofadinhas: a rotina de dez minutos</h2>
+          <p class="linguagem">Monotipia de observação das patas e orelhas</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/unhas-ouvidos-e-almofadinhas-a-rotina-de-dez-minutos.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="2:3" data-busca="anc-021 o cuidado semanal do pet em quinze minutos: o checklist fotografia vertical de rotina e checklist vazio">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-cuidado-semanal-do-pet-em-quinze-minutos-o-checklist.png" aria-label="Abrir original: O cuidado semanal do pet em quinze minutos: o checklist">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-cuidado-semanal-do-pet-em-quinze-minutos-o-checklist.png" alt="Caderno com caixas vazias, escova, toalha, guia e materiais de cuidado vistos de cima; cauda de gato aparece ao lado." width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-021</span><span>2:3</span></div>
+          <h2>O cuidado semanal do pet em quinze minutos: o checklist</h2>
+          <p class="linguagem">Fotografia vertical de rotina e checklist vazio</p>
+          <div class="arquivo"><span>1024 × 1536 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-cuidado-semanal-do-pet-em-quinze-minutos-o-checklist.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-022 frio em curitiba: quais pets sofrem mais e como proteger pintura a oleo de inverno curitibano">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/frio-em-curitiba-quais-pets-sofrem-mais-e-como-proteger.png" aria-label="Abrir original: Frio em Curitiba: quais pets sofrem mais e como proteger">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/frio-em-curitiba-quais-pets-sofrem-mais-e-como-proteger.png" alt="Pintura a óleo de cachorro idoso e gata tricolor em camas separadas numa casa acolhedora, com chuva e araucária além da janela fechada." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-022</span><span>Panorâmico · 16:9</span></div>
+          <h2>Frio em Curitiba: quais pets sofrem mais e como proteger</h2>
+          <p class="linguagem">Pintura a óleo de inverno curitibano</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/frio-em-curitiba-quais-pets-sofrem-mais-e-como-proteger.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-023 tosse no inverno: tosse dos canis, gripe felina e o que e urgencia fotografia documental de atencao no inverno">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-no-inverno-tosse-dos-canis-gripe-felina-e-o-que-e-urgencia.png" aria-label="Abrir original: Tosse no inverno: tosse dos canis, gripe felina e o que é urgência">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-no-inverno-tosse-dos-canis-gripe-felina-e-o-que-e-urgencia.png" alt="Tutora ao telefone observa gato idoso numa manhã de inverno, com janela fechada ao fundo e tecido turquesa na cadeira." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-023</span><span>Horizontal · 3:2</span></div>
+          <h2>Tosse no inverno: tosse dos canis, gripe felina e o que é urgência</h2>
+          <p class="linguagem">Fotografia documental de atenção no inverno</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-no-inverno-tosse-dos-canis-gripe-felina-e-o-que-e-urgencia.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-024 festa junina e fogos: o plano para atravessar a noite maquete de feltro de refugio em noite junina">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/festa-junina-e-fogos-o-plano-para-atravessar-a-noite.png" aria-label="Abrir original: Festa junina e fogos: o plano para atravessar a noite">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/festa-junina-e-fogos-o-plano-para-atravessar-a-noite.png" alt="Maquete de feltro com cachorro e tutora num refúgio interno, com casinha turquesa e bandeirinhas juninas do lado de fora." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-024</span><span>4:3</span></div>
+          <h2>Festa junina e fogos: o plano para atravessar a noite</h2>
+          <p class="linguagem">Maquete de feltro de refúgio em noite junina</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/festa-junina-e-fogos-o-plano-para-atravessar-a-noite.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-025 cama, casinha e roupinha: o que aquece de verdade e o que e enfeite estudo de produto em tecido e papel">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/cama-casinha-e-roupinha-o-que-aquece-de-verdade-e-o-que-e-enfeite.png" aria-label="Abrir original: Cama, casinha e roupinha: o que aquece de verdade e o que é enfeite">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/cama-casinha-e-roupinha-o-que-aquece-de-verdade-e-o-que-e-enfeite.png" alt="Estudo de cama para pet com base, colchão e tecidos; pequeno galgo repousa na parte montada com costura turquesa." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-025</span><span>Retrato · 4:5</span></div>
+          <h2>Cama, casinha e roupinha: o que aquece de verdade e o que é enfeite</h2>
+          <p class="linguagem">Estudo de produto em tecido e papel</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/cama-casinha-e-roupinha-o-que-aquece-de-verdade-e-o-que-e-enfeite.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-026 ansiedade de separacao: como identificar e o que realmente ajuda narrativa delicada a tinta e aguada">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ansiedade-de-separacao-como-identificar-e-o-que-realmente-ajuda.png" aria-label="Abrir original: Ansiedade de separação: como identificar e o que realmente ajuda">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ansiedade-de-separacao-como-identificar-e-o-que-realmente-ajuda.png" alt="Tutora ajoelhada perto de cachorro preto junto à entrada, com porta turquesa entreaberta e chaves sobre um móvel em desenho a tinta." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-026</span><span>Horizontal · 3:2</span></div>
+          <h2>Ansiedade de separação: como identificar e o que realmente ajuda</h2>
+          <p class="linguagem">Narrativa delicada a tinta e aguada</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ansiedade-de-separacao-como-identificar-e-o-que-realmente-ajuda.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="1:1" data-busca="anc-027 por que o cachorro late demais, e o que fazer sem gritar quadrinho comico de cachorro locutor">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/por-que-o-cachorro-late-demais-e-o-que-fazer-sem-gritar.png" aria-label="Abrir original: Por que o cachorro late demais, e o que fazer sem gritar">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/por-que-o-cachorro-late-demais-e-o-que-fazer-sem-gritar.png" alt="Quadrinho de schnauzer sob a frase Tenho um comunicado, com balões de campainha, bicicleta e bola e detalhes laranja." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-027</span><span>Quadrado · 1:1</span></div>
+          <h2>Por que o cachorro late demais, e o que fazer sem gritar</h2>
+          <p class="linguagem">Quadrinho cômico de cachorro locutor</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/por-que-o-cachorro-late-demais-e-o-que-fazer-sem-gritar.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-028 gato fazendo xixi fora da caixa quase nunca e birra serigrafia felina com pergunta sem culpa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-fazendo-xixi-fora-da-caixa-quase-nunca-e-birra.png" aria-label="Abrir original: Gato fazendo xixi fora da caixa quase nunca é birra">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-fazendo-xixi-fora-da-caixa-quase-nunca-e-birra.png" alt="Serigrafia de gata tricolor perto de caixa de areia acessível, com tutora atenta ao fundo e um ponto de interrogação." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-028</span><span>Retrato · 4:5</span></div>
+          <h2>Gato fazendo xixi fora da caixa quase nunca é birra</h2>
+          <p class="linguagem">Serigrafia felina com pergunta sem culpa</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-fazendo-xixi-fora-da-caixa-quase-nunca-e-birra.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="4:5" data-busca="anc-029 enriquecimento ambiental em apartamento: brincar nao e luxo quadrinhos com cenario em corte">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png" aria-label="Abrir original: Enriquecimento ambiental em apartamento: brincar não é luxo">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png" alt="Ilustração de apartamento em corte com gato em prateleiras turquesa junto à janela telada e cachorro brincando no tapete de farejar laranja." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-029</span><span>Retrato · 4:5</span></div>
+          <h2>Enriquecimento ambiental em apartamento: brincar não é luxo</h2>
+          <p class="linguagem">Quadrinhos com cenário em corte</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="1:1" data-busca="anc-030 o que todo tutor de gato faz errado sem perceber gato arquiteto em planta desenhada a mao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-que-todo-tutor-de-gato-faz-errado-sem-perceber.png" aria-label="Abrir original: O que todo tutor de gato faz errado sem perceber">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-que-todo-tutor-de-gato-faz-errado-sem-perceber.png" alt="Cartum de gato cinza sobre planta de apartamento, com lápis laranja e frase Vou revisar essa planta." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-030</span><span>Quadrado · 1:1</span></div>
+          <h2>O que todo tutor de gato faz errado sem perceber</h2>
+          <p class="linguagem">Gato arquiteto em planta desenhada à mão</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/o-que-todo-tutor-de-gato-faz-errado-sem-perceber.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-031 raiva: por que a vacina continua obrigatoria todo ano fotografia de maos e carteira de vacinacao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-por-que-a-vacina-continua-obrigatoria-todo-ano.png" aria-label="Abrir original: Raiva: por que a vacina continua obrigatória todo ano">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-por-que-a-vacina-continua-obrigatoria-todo-ano.png" alt="Mãos seguram carteira turquesa com nome Saúde Pet; ao fundo, cachorro com peitoral descansa no chão e gato cinza fica em sua caixa de transporte separada." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-031</span><span>Horizontal · 3:2</span></div>
+          <h2>Raiva: por que a vacina continua obrigatória todo ano</h2>
+          <p class="linguagem">Fotografia de mãos e carteira de vacinação</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-por-que-a-vacina-continua-obrigatoria-todo-ano.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="2:3" data-busca="anc-032 gato de apartamento: telamento, janela e plantas toxicas ilustracao art nouveau de janela telada">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-de-apartamento-telamento-janela-e-plantas-toxicas.png" aria-label="Abrir original: Gato de apartamento: telamento, janela e plantas tóxicas">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-de-apartamento-telamento-janela-e-plantas-toxicas.png" alt="Ilustração art nouveau de gato cinza em apoio interno estável diante de janela totalmente telada, com vaso laranja de grama para gatos." width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-032</span><span>2:3</span></div>
+          <h2>Gato de apartamento: telamento, janela e plantas tóxicas</h2>
+          <p class="linguagem">Ilustração art nouveau de janela telada</p>
+          <div class="arquivo"><span>1024 × 1536 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-de-apartamento-telamento-janela-e-plantas-toxicas.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-033 fiv e felv: o exame que todo gato deveria fazer uma vez serigrafia de conversa veterinaria e duas siglas">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/fiv-e-felv-o-exame-que-todo-gato-deveria-fazer-uma-vez.png" aria-label="Abrir original: FIV e FeLV: o exame que todo gato deveria fazer uma vez">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/fiv-e-felv-o-exame-que-todo-gato-deveria-fazer-uma-vez.png" alt="Serigrafia de gato preto no colo durante conversa veterinária, com cartões FIV e FeLV sobre a mesa." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-033</span><span>4:3</span></div>
+          <h2>FIV e FeLV: o exame que todo gato deveria fazer uma vez</h2>
+          <p class="linguagem">Serigrafia de conversa veterinária e duas siglas</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/fiv-e-felv-o-exame-que-todo-gato-deveria-fazer-uma-vez.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-034 leptospirose: o risco que aparece junto com a chuva fotografia cinematografica de chuva e decisao de rota">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/leptospirose-o-risco-que-aparece-junto-com-a-chuva.png" aria-label="Abrir original: Leptospirose: o risco que aparece junto com a chuva">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/leptospirose-o-risco-que-aparece-junto-com-a-chuva.png" alt="Tutora de capa turquesa e cachorro preto e branco aguardam em piso elevado sob abrigo, longe da área da rua alagada pela chuva." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-034</span><span>Panorâmico · 16:9</span></div>
+          <h2>Leptospirose: o risco que aparece junto com a chuva</h2>
+          <p class="linguagem">Fotografia cinematográfica de chuva e decisão de rota</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/leptospirose-o-risco-que-aparece-junto-com-a-chuva.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="3:2" data-busca="anc-035 pele do pet: coceira, queda de pelo e o que cada uma indica fotografia editorial macro">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png" aria-label="Abrir original: Pele do pet: coceira, queda de pelo e o que cada uma indica">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png" alt="Mãos afastam suavemente os pelos de um cachorro deitado sobre manta turquesa para observar sua pele." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-035</span><span>Horizontal · 3:2</span></div>
+          <h2>Pele do pet: coceira, queda de pelo e o que cada uma indica</h2>
+          <p class="linguagem">Fotografia editorial macro</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-036 como medir em casa a respiracao e os batimentos do seu pet desenho de descanso, tempo e observacao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-medir-em-casa-a-respiracao-e-os-batimentos-do-seu-pet.png" aria-label="Abrir original: Como medir em casa a respiração e os batimentos do seu pet">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-medir-em-casa-a-respiracao-e-os-batimentos-do-seu-pet.png" alt="Cachorro branco com orelha preta descansa de lado, observado pela tutora com caderno e cronômetro laranja sem valores." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-036</span><span>Horizontal · 3:2</span></div>
+          <h2>Como medir em casa a respiração e os batimentos do seu pet</h2>
+          <p class="linguagem">Desenho de descanso, tempo e observação</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/como-medir-em-casa-a-respiracao-e-os-batimentos-do-seu-pet.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="1:1" data-busca="anc-037 olhos: secrecao, olho vermelho e o que nao pode esperar retrato felino em claro-escuro, olho ambar e linho turquesa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/olhos-secrecao-olho-vermelho-e-o-que-nao-pode-esperar.png" aria-label="Abrir original: Olhos: secreção, olho vermelho e o que não pode esperar">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/olhos-secrecao-olho-vermelho-e-o-que-nao-pode-esperar.png" alt="Retrato próximo de gato preto, com olho âmbar iluminado pela janela, detalhes dos pelos e linho turquesa na borda inferior." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-037</span><span>Quadrado · 1:1</span></div>
+          <h2>Olhos: secreção, olho vermelho e o que não pode esperar</h2>
+          <p class="linguagem">Retrato felino em claro-escuro, olho âmbar e linho turquesa</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/olhos-secrecao-olho-vermelho-e-o-que-nao-pode-esperar.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="16:9" data-busca="anc-038 dia do veterinario: como escolher um profissional de confianca fotografia com narrativa cinematografica">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png" aria-label="Abrir original: Dia do Veterinário: como escolher um profissional de confiança">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png" alt="Veterinária de roupa turquesa conversa com uma tutora em casa, acompanhadas de um cachorro preto e branco." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-038</span><span>Panorâmico · 16:9</span></div>
+          <h2>Dia do Veterinário: como escolher um profissional de confiança</h2>
+          <p class="linguagem">Fotografia com narrativa cinematográfica</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-039 outubro rosa pet: nodulo na mama da cadela, o que fazer retrato de campanha em seda rosa e luz de janela">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/outubro-rosa-pet-nodulo-na-mama-da-cadela-o-que-fazer.png" aria-label="Abrir original: Outubro Rosa pet: nódulo na mama da cadela, o que fazer">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/outubro-rosa-pet-nodulo-na-mama-da-cadela-o-que-fazer.png" alt="Cadela preta e castanha de focinho grisalho junto à tutora, com tecido rosa em curvas suaves, pequeno laço e assinatura Saúde Pet." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-039</span><span>Retrato · 4:5</span></div>
+          <h2>Outubro Rosa pet: nódulo na mama da cadela, o que fazer</h2>
+          <p class="linguagem">Retrato de campanha em seda rosa e luz de janela</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/outubro-rosa-pet-nodulo-na-mama-da-cadela-o-que-fazer.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-040 doenca renal cronica em gatos: o inimigo silencioso pintura em guache de manha tranquila, pedra e luz">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/doenca-renal-cronica-em-gatos-o-inimigo-silencioso.png" aria-label="Abrir original: Doença renal crônica em gatos: o inimigo silencioso">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/doenca-renal-cronica-em-gatos-o-inimigo-silencioso.png" alt="Gato idoso cinza e branco repousa num banco baixo à luz da manhã; uma tigela de água e um diário turquesa acompanham a cena." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-040</span><span>Horizontal · 3:2</span></div>
+          <h2>Doença renal crônica em gatos: o inimigo silencioso</h2>
+          <p class="linguagem">Pintura em guache de manhã tranquila, pedra e luz</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/doenca-renal-cronica-em-gatos-o-inimigo-silencioso.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-041 diabetes em caes e gatos: os sinais que vem antes do diagnostico diario visual em colagem de papel japones e fotografias">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/diabetes-em-caes-e-gatos-os-sinais-que-vem-antes-do-diagnostico.png" aria-label="Abrir original: Diabetes em cães e gatos: os sinais que vêm antes do diagnóstico">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/diabetes-em-caes-e-gatos-os-sinais-que-vem-antes-do-diagnostico.png" alt="Colagem de três momentos cotidianos de cão e gato — água, alimentação e passeio — sobre papéis texturizados com detalhes turquesa." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-041</span><span>4:3</span></div>
+          <h2>Diabetes em cães e gatos: os sinais que vêm antes do diagnóstico</h2>
+          <p class="linguagem">Diário visual em colagem de papel japonês e fotografias</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/diabetes-em-caes-e-gatos-os-sinais-que-vem-antes-do-diagnostico.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-042 tosse a noite nao e normal: quando o coracao e a causa fotografia noturna de cinema, atencao em luz ambar">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-a-noite-nao-e-normal-quando-o-coracao-e-a-causa.png" aria-label="Abrir original: Tosse à noite não é normal: quando o coração é a causa">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-a-noite-nao-e-normal-quando-o-coracao-e-a-causa.png" alt="Homem ao telefone observa cachorro de focinho grisalho num quarto azul escuro, sob a luz de um pequeno abajur laranja." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-042</span><span>Panorâmico · 16:9</span></div>
+          <h2>Tosse à noite não é normal: quando o coração é a causa</h2>
+          <p class="linguagem">Fotografia noturna de cinema, atenção em luz âmbar</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-a-noite-nao-e-normal-quando-o-coracao-e-a-causa.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-043 dia dos animais: o que avaliar antes de adotar teatro de papel esculpido, luz de patio e primeiro encontro">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/dia-dos-animais-o-que-avaliar-antes-de-adotar.png" aria-label="Abrir original: Dia dos Animais: o que avaliar antes de adotar">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/dia-dos-animais-o-que-avaliar-antes-de-adotar.png" alt="Teatro de papel mostra homem sentado em banco turquesa e cachorro tigrado que se aproxima com calma, sob arco claro e luz dourada; agenda e porta-moedas repousam no banco." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-043</span><span>Retrato · 4:5</span></div>
+          <h2>Dia dos Animais: o que avaliar antes de adotar</h2>
+          <p class="linguagem">Teatro de papel esculpido, luz de pátio e primeiro encontro</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/dia-dos-animais-o-que-avaliar-antes-de-adotar.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:5" data-busca="anc-044 exames de rotina depois dos sete anos: quais e de quanto em quanto tempo retrato fotografico em prata, focinho grisalho e luz de janela">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/exames-de-rotina-depois-dos-sete-anos-quais-e-de-quanto-em-quanto-tempo.png" aria-label="Abrir original: Exames de rotina depois dos sete anos: quais e de quanto em quanto tempo">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/exames-de-rotina-depois-dos-sete-anos-quais-e-de-quanto-em-quanto-tempo.png" alt="Fotografia em preto e branco de labrador idoso com focinho grisalho e olhar atento, iluminado de lado; um calendário vazio com pequeno clipe laranja aparece no primeiro plano." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-044</span><span>Retrato · 4:5</span></div>
+          <h2>Exames de rotina depois dos sete anos: quais e de quanto em quanto tempo</h2>
+          <p class="linguagem">Retrato fotográfico em prata, focinho grisalho e luz de janela</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/exames-de-rotina-depois-dos-sete-anos-quais-e-de-quanto-em-quanto-tempo.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="3:2" data-busca="anc-045 novembro azul pet: prostata em caes machos azulejaria autoral em cobalto, conversa e cuidado">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/novembro-azul-pet-prostata-em-caes-machos.png" aria-label="Abrir original: Novembro Azul pet: próstata em cães machos">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/novembro-azul-pet-prostata-em-caes-machos.png" alt="Painel de azulejos pintados em azul cobalto mostra tutora e veterinário conversando com um cachorro adulto entre eles; o caderno turquesa tem um pequeno laço azul." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-045</span><span>Horizontal · 3:2</span></div>
+          <h2>Novembro Azul pet: próstata em cães machos</h2>
+          <p class="linguagem">Azulejaria autoral em cobalto, conversa e cuidado</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/novembro-azul-pet-prostata-em-caes-machos.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="4:5" data-busca="anc-046 ele parou de subir no sofa: artrose e dor cronica aquarela narrativa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png" aria-label="Abrir original: Ele parou de subir no sofá: artrose e dor crônica">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png" alt="Aquarela de tutora junto de cachorro idoso descansando na caminha, ao lado de sofá turquesa, manta laranja e rampa." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-046</span><span>Retrato · 4:5</span></div>
+          <h2>Ele parou de subir no sofá: artrose e dor crônica</h2>
+          <p class="linguagem">Aquarela narrativa</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-047 rotina de um pet com doenca cronica sem virar um segundo emprego fotografia de rotina em varanda, linho e sombras de veneziana">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/rotina-de-um-pet-com-doenca-cronica-sem-virar-um-segundo-emprego.png" aria-label="Abrir original: Rotina de um pet com doença crônica sem virar um segundo emprego">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/rotina-de-um-pet-com-doenca-cronica-sem-virar-um-segundo-emprego.png" alt="Luz de veneziana atravessa mesa de madeira com agenda Saúde Pet turquesa, estojo fechado e guia; ao lado, terrier idoso branco descansa perto das pernas do tutor." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-047</span><span>4:3</span></div>
+          <h2>Rotina de um pet com doença crônica sem virar um segundo emprego</h2>
+          <p class="linguagem">Fotografia de rotina em varanda, linho e sombras de veneziana</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/rotina-de-um-pet-com-doenca-cronica-sem-virar-um-segundo-emprego.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-048 ceia de natal: os alimentos que mandam pet para a emergencia panorama natalino em guache e pastel, luz de verao">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ceia-de-natal-os-alimentos-que-mandam-pet-para-a-emergencia.png" aria-label="Abrir original: Ceia de Natal: os alimentos que mandam pet para a emergência">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ceia-de-natal-os-alimentos-que-mandam-pet-para-a-emergencia.png" alt="Natal em guache mostra homem, gato preto e branco e cachorro cinza em área acolhedora, separados da ceia por porta de vidro fechada; luzes douradas, tigela turquesa e laço laranja completam a cena." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-048</span><span>Panorâmico · 16:9</span></div>
+          <h2>Ceia de Natal: os alimentos que mandam pet para a emergência</h2>
+          <p class="linguagem">Panorama natalino em guache e pastel, luz de verão</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/ceia-de-natal-os-alimentos-que-mandam-pet-para-a-emergencia.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="16:9" data-busca="anc-049 reveillon e fogos: o plano completo, hora a hora livro sanfonado em papel, do dourado da tarde ao azul da noite">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/reveillon-e-fogos-o-plano-completo-hora-a-hora.png" aria-label="Abrir original: Réveillon e fogos: o plano completo, hora a hora">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/reveillon-e-fogos-o-plano-completo-hora-a-hora.png" alt="Livro sanfonado artesanal reúne três momentos do mesmo tutor e cachorro no Réveillon, do preparo do refúgio turquesa ao descanso à noite, em ambientes fechados." width="1672" height="941" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-049</span><span>Panorâmico · 16:9</span></div>
+          <h2>Réveillon e fogos: o plano completo, hora a hora</h2>
+          <p class="linguagem">Livro sanfonado em papel, do dourado da tarde ao azul da noite</p>
+          <div class="arquivo"><span>1672 × 941 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/reveillon-e-fogos-o-plano-completo-hora-a-hora.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="9:16" data-busca="anc-050 viajar com o pet: transporte, documento e o que levar poster de viagem ilustrado">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png" aria-label="Abrir original: Viajar com o pet: transporte, documento e o que levar">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png" alt="Pôster vertical com a frase Boa viagem, gato na caixa de transporte turquesa, mala laranja e paisagem brasileira ao fundo." width="940" height="1673" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-050</span><span>Vertical · 9:16</span></div>
+          <h2>Viajar com o pet: transporte, documento e o que levar</h2>
+          <p class="linguagem">Pôster de viagem ilustrado</p>
+          <div class="arquivo"><span>940 × 1673 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="3:2" data-busca="anc-051 qualidade de vida: como conversar sobre eutanasia com o veterinario pintura em pastel e cenario intimo">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png" aria-label="Abrir original: Qualidade de vida: como conversar sobre eutanásia com o veterinário">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png" alt="Pintura em pastel de cachorro idoso descansando sobre manta turquesa, com a mão do tutor junto de sua pata." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-051</span><span>Horizontal · 3:2</span></div>
+          <h2>Qualidade de vida: como conversar sobre eutanásia com o veterinário</h2>
+          <p class="linguagem">Pintura em pastel e cenário íntimo</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12-ancoras" data-formato="4:3" data-busca="anc-052 a revisao anual do seu pet: o retrospecto de doze meses album em papel de algodao, fotografias e sol de fim de tarde">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/a-revisao-anual-do-seu-pet-o-retrospecto-de-doze-meses.png" aria-label="Abrir original: A revisão anual do seu pet: o retrospecto de doze meses">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/a-revisao-anual-do-seu-pet-o-retrospecto-de-doze-meses.png" alt="Álbum artesanal com título Nosso ano reúne quatro fotografias do mesmo cachorro preto e branco em momentos de casa, passeio e consulta; capa turquesa e fita laranja aparecem entre páginas de papel texturizado." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>ANC-052</span><span>4:3</span></div>
+          <h2>A revisão anual do seu pet: o retrospecto de doze meses</h2>
+          <p class="linguagem">Álbum em papel de algodão, fotografias e sol de fim de tarde</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12-ancoras/a-revisao-anual-do-seu-pet-o-retrospecto-de-doze-meses.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="1:1" data-busca="mit-002 cachorro enxerga em preto e branco arte em pixels com metafora visual">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/cachorro-enxerga-cores-pixel-v1.png" aria-label="Abrir original: Cachorro enxerga em preto e branco">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/cachorro-enxerga-cores-pixel-v1.png" alt="Cachorro desenhado em pixels observa bolas amarela e azul num jardim; a frase Um mundo de cores aparece acima." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>MIT-002</span><span>Quadrado · 1:1</span></div>
+          <h2>Cachorro enxerga em preto e branco</h2>
+          <p class="linguagem">Arte em pixels com metáfora visual</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/cachorro-enxerga-cores-pixel-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas" data-formato="1:1" data-busca="per-001 o que e vermifugacao e para que serve ilustracao editorial em lapis colorido e guache">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vermifugacao-e-para-que-serve.png" aria-label="Abrir original: O que é vermifugação e para que serve">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vermifugacao-e-para-que-serve.png" alt="Ilustração de consulta veterinária acolhedora com tutora, veterinária, cachorro tranquilo, caderno de dúvidas, formas abstratas de prevenção e assinatura Saúde Pet." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-001</span><span>Quadrado · 1:1</span></div>
+          <h2>O que é vermifugação e para que serve</h2>
+          <p class="linguagem">Ilustração editorial em lápis colorido e guache</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vermifugacao-e-para-que-serve.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas" data-formato="3:2" data-busca="per-002 o que e castracao e o que muda no animal diptico ilustrado em colagem de papel">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-castracao-e-o-que-muda-no-animal.png" aria-label="Abrir original: O que é castração e o que muda no animal">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-castracao-e-o-que-muda-no-animal.png" alt="Colagem em dois momentos: conversa respeitosa entre tutora, veterinária e cachorro antes da decisão, seguida de descanso do pet em casa com a tutora." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-002</span><span>Horizontal · 3:2</span></div>
+          <h2>O que é castração e o que muda no animal</h2>
+          <p class="linguagem">Díptico ilustrado em colagem de papel</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-castracao-e-o-que-muda-no-animal.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas" data-formato="4:5" data-busca="per-003 o que e vacina polivalente (v8, v10) e o que ela protege colagem tipografica educativa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vacina-polivalente-v8-v10-e-o-que-ela-protege.png" aria-label="Abrir original: O que é vacina polivalente (V8, V10) e o que ela protege">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vacina-polivalente-v8-v10-e-o-que-ela-protege.png" alt="Tutora e veterinária analisam cartões V8 e V10 ao lado de cão e gato, com escudo e paleta Saúde Pet em composição editorial limpa." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-003</span><span>Retrato · 4:5</span></div>
+          <h2>O que é vacina polivalente (V8, V10) e o que ela protege</h2>
+          <p class="linguagem">Colagem tipográfica educativa</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-vacina-polivalente-v8-v10-e-o-que-ela-protege.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas" data-formato="3:2" data-busca="per-004 o que e reforco de vacina e por que precisa repetir fotografia editorial de mesa e rotina">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-reforco-de-vacina-e-por-que-precisa-repetir.png" aria-label="Abrir original: O que é reforço de vacina e por que precisa repetir">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-reforco-de-vacina-e-por-que-precisa-repetir.png" alt="Calendário de cuidados com duas marcações relacionadas, guia, caixa de transporte com gato e cartão de consulta veterinária em mesa de madeira." width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-004</span><span>Horizontal · 3:2</span></div>
+          <h2>O que é reforço de vacina e por que precisa repetir</h2>
+          <p class="linguagem">Fotografia editorial de mesa e rotina</p>
+          <div class="arquivo"><span>1536 × 1024 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas/o-que-e-reforco-de-vacina-e-por-que-precisa-repetir.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas-2" data-formato="4:3" data-busca="per-005 o que e microchip e para que serve desenho tecnico amigavel">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-microchip-e-para-que-serve.png" aria-label="Abrir original: O que é microchip e para que serve">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-microchip-e-para-que-serve.png" alt="Ilustração técnica acolhedora com veterinária usando leitor perto de cão tranquilo e ficha neutra de identificação, com referência Saúde Pet." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-005</span><span>4:3</span></div>
+          <h2>O que é microchip e para que serve</h2>
+          <p class="linguagem">Desenho técnico amigável</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-microchip-e-para-que-serve.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas-2/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas-2" data-formato="1:1" data-busca="per-006 o que e carrapaticida e como ele age ilustracao de objetos em natureza-morta">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-carrapaticida-e-como-ele-age.png" aria-label="Abrir original: O que é carrapaticida e como ele age">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-carrapaticida-e-como-ele-age.png" alt="Mesa de consulta com embalagem neutra fechada, lupa e silhueta ampliada de carrapato em cartão separado, sem medicamento identificado." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-006</span><span>Quadrado · 1:1</span></div>
+          <h2>O que é carrapaticida e como ele age</h2>
+          <p class="linguagem">Ilustração de objetos em natureza-morta</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-carrapaticida-e-como-ele-age.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas-2/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas-2" data-formato="4:3" data-busca="per-007 o que e zoonose, em palavras simples diagrama ilustrado de convivencia">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-zoonose-em-palavras-simples.png" aria-label="Abrir original: O que é zoonose, em palavras simples">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-zoonose-em-palavras-simples.png" alt="Pessoa e cachorro em ambiente doméstico conectados por linhas a ícones de higiene, água limpa e rotina de cuidado, em paleta Saúde Pet." width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-007</span><span>4:3</span></div>
+          <h2>O que é zoonose, em palavras simples</h2>
+          <p class="linguagem">Diagrama ilustrado de convivência</p>
+          <div class="arquivo"><span>1448 × 1086 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-e-zoonose-em-palavras-simples.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas-2/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-13-perguntas-2" data-formato="4:5" data-busca="per-008 o que significam as categorias escritas no saco de racao colagem de embalagem educativa">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-significam-as-categorias-escritas-no-saco-de-racao.png" aria-label="Abrir original: O que significam as categorias escritas no saco de ração">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-significam-as-categorias-escritas-no-saco-de-racao.png" alt="Colagem de saco neutro de ração aberto como mapa, etiquetas em branco, lupa e gato observando a embalagem, com assinatura Saúde Pet." width="1122" height="1402" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-008</span><span>Retrato · 4:5</span></div>
+          <h2>O que significam as categorias escritas no saco de ração</h2>
+          <p class="linguagem">Colagem de embalagem educativa</p>
+          <div class="arquivo"><span>1122 × 1402 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-13-perguntas-2/o-que-significam-as-categorias-escritas-no-saco-de-racao.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-13-perguntas-2/entregas.json">Saúde Pet, âncoras do calendário <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      <figure class="arte" data-colecao="2026-09-12" data-formato="1:1" data-busca="per-053 por que gato amassa paozinho meme fotografico original">
+        <a class="imagem" href="../../frontend/public/blog-media/editorial/2026-09-12/gato-amassa-paozinho-meme-v1.png" aria-label="Abrir original: Por que gato amassa pãozinho">
+          <img src="../../frontend/public/blog-media/editorial/2026-09-12/gato-amassa-paozinho-meme-v1.png" alt="Gato laranja amassa uma manta turquesa sob a frase Padaria aberta; etiqueta laranja com o nome Saúde Pet." width="1254" height="1254" loading="lazy" decoding="async">
+          <span class="abrir" aria-hidden="true">Ver original ↗</span>
+        </a>
+        <figcaption>
+          <div class="linha-arte"><span>PER-053</span><span>Quadrado · 1:1</span></div>
+          <h2>Por que gato amassa pãozinho</h2>
+          <p class="linguagem">Meme fotográfico original</p>
+          <div class="arquivo"><span>1254 × 1254 px</span><a href="../../frontend/public/blog-media/editorial/2026-09-12/gato-amassa-paozinho-meme-v1.png" download>Baixar PNG <span aria-hidden="true">↓</span></a></div>
+          <a class="origem" href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+      </div>
+      <div class="vazio" id="vazio" hidden><h2>Nenhuma arte por aqui.</h2><p>Experimente outro tema ou limpe os filtros para explorar o acervo.</p></div>
+    </main>
+    <section class="colecoes" aria-labelledby="titulo-colecoes"><h2 id="titulo-colecoes">Explore as coleções</h2><ul><li><a href="2026-09-12/index.html">Saúde Pet, liberdade visual por tema ↗</a><small>12/09/2026 · 12 artes · <a href="2026-09-12/entregas.json">Manifesto</a></small></li><li><a href="2026-09-12-ancoras/entregas.json">Saúde Pet, âncoras do calendário ↗</a><small>12/09/2026 · 42 artes · <a href="2026-09-12-ancoras/entregas.json">Manifesto</a></small></li><li><a href="2026-09-13-perguntas/entregas.json">Saúde Pet, âncoras do calendário ↗</a><small>12/09/2026 · 4 artes · <a href="2026-09-13-perguntas/entregas.json">Manifesto</a></small></li><li><a href="2026-09-13-perguntas-2/entregas.json">Saúde Pet, âncoras do calendário ↗</a><small>12/09/2026 · 4 artes · <a href="2026-09-13-perguntas-2/entregas.json">Manifesto</a></small></li></ul></section>
+    <footer class="rodape"><p>Acervo de criação do Saúde Pet. Estar nesta galeria indica uma arte final salva no projeto; a associação e a publicação de cada post são acompanhadas nos manifestos.</p><a href="README.md">Sobre este acervo ↗</a></footer>
+  </div>
+  <script>
+    (() => {
+      const busca = document.getElementById('busca');
+      const colecao = document.getElementById('colecao');
+      const formato = document.getElementById('formato');
+      const filtros = document.getElementById('filtros');
+      const artes = Array.from(document.querySelectorAll('.arte'));
+      const normalizar = valor => valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+      function atualizar() {
+        const termos = normalizar(busca.value.trim()).split(/\s+/).filter(Boolean);
+        let quantidade = 0;
+        for (const arte of artes) {
+          const visivel = (!colecao.value || arte.dataset.colecao === colecao.value)
+            && (!formato.value || arte.dataset.formato === formato.value)
+            && termos.every(termo => arte.dataset.busca.includes(termo));
+          arte.hidden = !visivel;
+          if (visivel) quantidade += 1;
+        }
+        document.getElementById('contagem').textContent = quantidade + (quantidade === 1 ? ' arte encontrada' : ' artes encontradas') + ' de ' + artes.length;
+        document.getElementById('vazio').hidden = quantidade > 0;
+      }
+      busca.addEventListener('input', atualizar);
+      colecao.addEventListener('change', atualizar);
+      formato.addEventListener('change', atualizar);
+      filtros.addEventListener('submit', evento => evento.preventDefault());
+      filtros.addEventListener('reset', () => {
+        busca.value = ''; colecao.value = ''; formato.value = ''; atualizar();
+      });
+    })();
+  </script>
+</body>
+</html>

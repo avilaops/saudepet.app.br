@@ -1,0 +1,12 @@
+-- A oferta dirigida que nunca existiu.
+--
+-- `oferta_vence_em` nasceu para um fluxo de oferta com prazo que foi descartado
+-- em 19/08, quando a fila aberta virou o modelo oficial. Desde então nenhuma
+-- linha do sistema escrevia um valor nela — só a limpava, para nulo, ao
+-- aceitar. Coluna que ninguém preenche e ninguém lê é convite a alguém supor
+-- que ela significa alguma coisa.
+--
+-- O valor `oferta_enviada` do enum PERMANECE: a máquina de estados ainda o
+-- aceita como origem, e remover valor de enum no Postgres exige recriar o tipo
+-- inteiro — risco desproporcional para apagar um nome que não atrapalha.
+ALTER TABLE "solicitacoes" DROP COLUMN IF EXISTS "oferta_vence_em";

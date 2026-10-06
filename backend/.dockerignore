@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log*
+coverage
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+uploads
+*.log
+
+# Saída do compilador TypeScript
+dist/

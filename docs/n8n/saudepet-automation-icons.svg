@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="128" viewBox="0 0 768 128" role="img" aria-labelledby="title desc">
+  <title id="title">Icones das automacoes do Saude Pet</title>
+  <desc id="desc">Seis icones originais para rastreio, Curitiba, notificacoes, cuidados, relatorios e conteudo.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0F766E"/><stop offset="1" stop-color="#14B8A6"/></linearGradient>
+    <style>.b{fill:#F0FDFA;stroke:#99F6E4;stroke-width:2}.i{fill:none;stroke:url(#g);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}.p{fill:#0F766E}</style>
+  </defs>
+  <g transform="translate(8 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M30 42h48l10 18v24H30zM78 42v18h10M43 84a8 8 0 1 0 0 .1M77 84a8 8 0 1 0 0 .1"/><path class="i" d="M38 29h34"/></g>
+  <g transform="translate(136 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M56 91S30 67 30 48a26 26 0 1 1 52 0c0 19-26 43-26 43z"/><circle class="p" cx="56" cy="48" r="8"/><path class="i" d="M46 26l10-9 10 9"/></g>
+  <g transform="translate(264 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M34 75h44l-6-9V49a16 16 0 0 0-32 0v17zM49 84c2 7 12 7 14 0"/><circle class="p" cx="82" cy="32" r="10"/></g>
+  <g transform="translate(392 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M56 87C31 72 25 55 32 43c7-12 22-8 24 2 2-10 17-14 24-2 7 12 1 29-24 44z"/><path class="i" d="M56 54v20M46 64h20"/></g>
+  <g transform="translate(520 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M31 83h52M38 75V58M55 75V39M72 75V50"/><path class="i" d="M34 35l17-9 15 7 17-13"/></g>
+  <g transform="translate(648 8)"><rect class="b" width="112" height="112" rx="28"/><path class="i" d="M32 28h48v64H32zM42 44h28M42 57h28M42 70h16"/><path class="i" d="M70 82l8-8 8 8-8 8z"/></g>
+</svg>

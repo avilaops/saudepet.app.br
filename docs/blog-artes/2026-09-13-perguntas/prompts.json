@@ -1,0 +1,12 @@
+{
+  "colecao": "Saúde Pet, perguntas essenciais",
+  "data": "2026-09-13",
+  "metodo": "image_gen integrado",
+  "status": "Lote inicial de quatro artes finais geradas e revisadas localmente; associação e publicação pendentes.",
+  "imagens": [
+    {"id":"PER-001","slug":"o-que-e-vermifugacao-e-para-que-serve","tema":"O que é vermifugação e para que serve","estilo":"Ilustração editorial em lápis colorido e guache","proporcao":"1:1","alt_planejado":"Ilustração de uma consulta veterinária acolhedora: tutora com caderno de dúvidas, veterinária e cachorro tranquilo, com formas abstratas de prevenção e assinatura Saúde Pet."},
+    {"id":"PER-002","slug":"o-que-e-castracao-e-o-que-muda-no-animal","tema":"O que é castração e o que muda no animal","estilo":"Díptico ilustrado em colagem de papel","proporcao":"3:2","alt_planejado":"Colagem em dois momentos: conversa respeitosa entre tutora, veterinária e cachorro antes da decisão, seguida de descanso do pet em casa com a tutora."},
+    {"id":"PER-003","slug":"o-que-e-vacina-polivalente-v8-v10-e-o-que-ela-protege","tema":"O que é vacina polivalente (V8, V10) e o que ela protege","estilo":"Colagem tipográfica educativa","proporcao":"4:5","alt_planejado":"Tutora e veterinária analisam cartões V8 e V10 ao lado de cão e gato, com escudo e paleta Saúde Pet em uma composição editorial limpa."},
+    {"id":"PER-004","slug":"o-que-e-reforco-de-vacina-e-por-que-precisa-repetir","tema":"O que é reforço de vacina e por que precisa repetir","estilo":"Fotografia editorial de mesa e rotina","proporcao":"3:2","alt_planejado":"Calendário de cuidados com duas marcações relacionadas, guia, caixa de transporte com gato e cartão de consulta veterinária em mesa de madeira."}
+  ]
+}

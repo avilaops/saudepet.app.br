@@ -1,0 +1,40 @@
+{
+  "name": "saude-pet-tests",
+  "version": "1.0.0",
+  "description": "Testes E2E, Unitários e de Segurança para Saúde Pet",
+  "scripts": {
+    "test": "npm run test:e2e && npm run test:api && npm run test:security",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:firefox": "playwright test --project=firefox",
+    "test:e2e:webkit": "playwright test --project=webkit",
+    "test:e2e:mobile": "playwright test --project=\"Mobile Chrome\" --project=\"Mobile Safari\"",
+    "test:api": "playwright test api.spec.js",
+    "test:auth": "playwright test auth.spec.js",
+    "test:tutor": "playwright test tutor.spec.js",
+    "test:vet": "playwright test veterinario.spec.js",
+    "test:admin": "playwright test admin.spec.js",
+    "test:security": "playwright test security.spec.js",
+    "test:docker": "docker-compose -f docker-compose.test.yml up --abort-on-container-exit",
+    "test:docker:down": "docker-compose -f docker-compose.test.yml down -v",
+    "test:coverage": "playwright test --reporter=html",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install",
+    "install:all": "npm install && playwright install",
+    "pretest": "echo 'Verificando se servidores estão rodando...'",
+    "posttest": "npm run test:report"
+  },
+  "keywords": ["tests", "e2e", "playwright", "security", "api"],
+  "author": "Saúde Pet Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.6"
+  }
+}

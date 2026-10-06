@@ -1,0 +1,47 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Relatórios de Testes
+playwright-report/
+test-results/
+test-results.json
+test-results.xml
+
+# Screenshots e Vídeos
+screenshots/
+videos/
+traces/
+
+# Playwright
+.playwright/
+
+# Ambiente
+.env
+.env.local
+.env.test
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+.temp/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+.nyc_output/

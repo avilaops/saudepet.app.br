@@ -1,0 +1,128 @@
+name: Build e deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  # Mesmo papel do `verify` do app.avilaops.com: nenhuma imagem é gerada, e
+  # nada vai para produção, sem tipos e testes verdes. Antes disto o pipeline
+  # só compilava as imagens, e um teste quebrado chegava ao servidor.
+  # Sem banco: os testes unitários não dependem dele (os de integração e e2e,
+  # que dependem, ficam fora daqui).
+  verify:
+    name: Validar tipos e testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Dados falsos em tela
+        run: node scripts/verificar-dados-falsos.mjs
+      - name: Tipos do frontend
+        run: npx tsc --noEmit
+        working-directory: frontend
+      - name: Cliente do Prisma
+        run: npx prisma generate
+        working-directory: backend
+      - name: Tipos do backend
+        run: npx tsc --noEmit
+        working-directory: backend
+      - name: Testes unitários do backend
+        run: npx jest tests/unit
+        working-directory: backend
+        env:
+          NODE_ENV: test
+  backend:
+    needs: verify
+    permissions:
+      contents: read
+      packages: write
+    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      context: .
+      dockerfile: Dockerfile
+      target: 'backend'
+      image-suffix: '-backend'
+      publish: ${{ github.event_name != 'pull_request' }}
+  web:
+    needs: verify
+    permissions:
+      contents: read
+      packages: write
+    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      context: .
+      dockerfile: Dockerfile
+      target: 'web'
+      image-suffix: '-web'
+      publish: ${{ github.event_name != 'pull_request' }}
+  transcricao:
+    needs: verify
+    permissions:
+      contents: read
+      packages: write
+    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      context: transcricao-service
+      dockerfile: transcricao-service/Dockerfile
+      target: ''
+      image-suffix: '-transcricao'
+      publish: ${{ github.event_name != 'pull_request' }}
+  deploy_backend:
+    needs: [backend, web, transcricao]
+    if: github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true'
+    permissions:
+      contents: read
+      packages: read
+    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      application: saudepet-backend
+      image: ${{ needs.backend.outputs.image }}
+    secrets:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_BACKEND_SSH_KEY }}
+      DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+  deploy_web:
+    needs: [web, deploy_backend]
+    if: github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true'
+    permissions:
+      contents: read
+      packages: read
+    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      application: saudepet.app.br
+      image: ${{ needs.web.outputs.image }}
+    secrets:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_WEB_SSH_KEY }}
+      DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+  deploy_transcricao:
+    needs: [transcricao, deploy_web]
+    if: github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true'
+    permissions:
+      contents: read
+      packages: read
+    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    with:
+      application: saudepet-transcricao
+      image: ${{ needs.transcricao.outputs.image }}
+    secrets:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_TRANSCRICAO_SSH_KEY }}
+      DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}

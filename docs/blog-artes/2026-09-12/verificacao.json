@@ -1,0 +1,36 @@
+{
+  "data": "2026-09-12",
+  "escopo": "Coleção local, documentação e leitura do estado de produção",
+  "artes_finais": 12,
+  "hashes_sha256_distintos": 12,
+  "referencias_locais_da_galeria": 17,
+  "referencias_ausentes": [],
+  "navegador": {
+    "ferramenta": "Playwright CLI",
+    "desktop": { "largura_janela": 1280, "largura_documento": 1280 },
+    "celular": { "largura_janela": 390, "altura_janela": 844, "largura_documento": 390 },
+    "imagens_carregadas": 13,
+    "observacao": "12 artes mais o logotipo da galeria; originais sem recorte, dimensões nativas e textos alternativos presentes.",
+    "capturas_locais": ["output/playwright/colecao-artes-desktop.png", "output/playwright/colecao-artes-mobile.png"]
+  },
+  "direcao_visual": {
+    "entradas": 294,
+    "ancoras": 52,
+    "perguntas": 104,
+    "verbetes": 114,
+    "modulos": 12,
+    "mitos_explicitados": 12,
+    "observacao": "Conferência das tabelas pelo agente de direção visual: IDs únicos, seis colunas por linha e títulos de âncoras, perguntas e verbetes iguais ao calendário. Não equivale a 365 imagens prontas."
+  },
+  "producao_somente_leitura": {
+    "servidor": "produção",
+    "repositorio": "/opt/saudepet",
+    "commit_observado": "7b7bc63",
+    "servicos": { "backend": "healthy", "web": "healthy", "transcricao": "healthy" },
+    "nginx_api_health": "200, status ok",
+    "nginx_api_health_timestamp": "2026-09-12T08:00:36.118Z",
+    "alteracoes_remotas_nesta_tarefa": false
+  },
+  "validacao_git": "git diff --check sem erros; avisos existentes de normalização LF/CRLF",
+  "publicacao": "Esta tarefa não publicou, não associou as artes a posts e não alterou workflows do n8n."
+}

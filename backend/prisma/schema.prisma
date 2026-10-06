@@ -1,0 +1,3076 @@
+// Prisma Schema para Saúde Pet
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TipoUsuario {
+  tutor
+  veterinario
+  admin
+  super_admin // Admin global que gerencia múltiplos tenants
+}
+
+enum StatusAtendimento {
+  criado
+  procurando_veterinario
+  oferta_enviada
+  veterinario_encontrado
+  aceito
+  a_caminho
+  chegou
+  atendimento_em_andamento
+  finalizado
+  concluido // Sinônimo de finalizado para compatibilidade
+  encaminhado // Emergência clínica: tutor orientado a buscar serviço de emergência
+  sem_veterinario
+  expirado
+  recusado
+  cancelado
+  cancelado_tutor
+  cancelado_vet
+  cancelado_admin
+  pagamento_falhou
+  contestado
+}
+
+enum TipoAtendimento {
+  emergencia
+  consulta_domiciliar
+  teleorientacao
+  // Os três que o briefing pede e a vitrine não oferecia. Vacinação já tinha
+  // lastro clínico (a aplicação é gravada em `pets_vacinas` e alimenta a
+  // carteira digital e a tag da coleira); faltava poder pedir.
+  vacinacao
+  avaliacao
+  consulta_rotina
+}
+
+enum CategoriaCatalogoVeterinario {
+  SERVICO_DOMICILIAR
+  VACINA
+  OUTRO_SERVICO
+  ADICIONAL_HORARIO
+}
+
+enum StatusTenant {
+  ativo
+  suspenso
+  trial
+  cancelado
+}
+
+enum PlanoTenant {
+  free
+  basic
+  premium
+  enterprise
+}
+
+// ═══════════════════════════════════════════════════════
+// MULTI-TENANT
+// ═══════════════════════════════════════════════════════
+
+model Tenant {
+  id              String       @id @default(uuid())
+  nome            String // Nome da clínica/organização
+  slug            String       @unique // URL-friendly identifier
+  cnpj            String?      @unique
+  email           String
+  telefone        String
+  endereco        String?
+  cidade          String
+  estado          String
+  logo            String?
+  plano           PlanoTenant  @default(free)
+  status          StatusTenant @default(trial)
+  limite_usuarios Int          @default(10)
+  limite_pets     Int          @default(100)
+  criado_em       DateTime     @default(now())
+  atualizado_em   DateTime     @updatedAt
+  expira_em       DateTime? // Data de expiração do plano
+
+  // Relações
+  usuarios      Usuario[]
+  configuracoes ConfiguracaoTenant?
+
+  @@index([slug])
+  @@index([status])
+  @@map("tenants")
+}
+
+model ConfiguracaoTenant {
+  id                      String   @id @default(uuid())
+  tenant_id               String   @unique
+  permitir_cadastro       Boolean  @default(true)
+  requer_aprovacao_vet    Boolean  @default(true)
+  notificacoes_email      Boolean  @default(true)
+  notificacoes_sms        Boolean  @default(false)
+  cor_primaria            String   @default("#3B82F6")
+  cor_secundaria          String   @default("#10B981")
+  // Regras comerciais configuráveis pelo painel (antes fixas em código/env)
+  comissao_plataforma_pct Decimal  @default(15.00) @db.Decimal(5, 2)
+  cidade_padrao           String?
+  criado_em               DateTime @default(now())
+  atualizado_em           DateTime @updatedAt
+
+  // Relações
+  tenant Tenant @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@map("configuracoes_tenant")
+}
+
+// ═══════════════════════════════════════════════════════
+// USUÁRIOS E PERFIS
+// ═══════════════════════════════════════════════════════
+
+model Usuario {
+  id                   String      @id @default(uuid())
+  tenant_id            String? // Cada usuário pertence a um tenant
+  nome                 String
+  email                String
+  senha                String? // Opcional para usuários autenticados via OAuth (Google, Apple, etc.)
+  senha_hash           String?
+  tipo_usuario         TipoUsuario @default(tutor)
+  telefone             String?
+  cpf                  String?
+  /// Pedida pelo briefing no perfil do tutor, e útil na emergência: idade do
+  /// responsável muda a orientação que o veterinário dá por telefone.
+  data_nascimento      DateTime?
+  cep                  String?
+  endereco             String?
+  numero               String?
+  complemento          String?
+  bairro               String?
+  cidade               String?
+  estado               String?
+  avatar               String?
+  foto_perfil          String?
+  foto_capa            String?
+  sobre                String?
+  ativo                Boolean     @default(true)
+  email_verificado     Boolean     @default(false)
+  primeiro_acesso      Boolean     @default(true)
+  data_ultimo_acesso   DateTime?
+  preferencias         String? // JSON com preferências do usuário
+  // Invalidação em massa de sessão: qualquer JWT emitido ANTES desta marca é
+  // recusado no authMiddleware. É o que faz "revogar sessões", suspender um
+  // veterinário e trocar a senha derrubarem de fato quem já estava logado —
+  // antes disso o access token de 7 dias continuava valendo e as três ações
+  // eram só aviso na tela.
+  /// Reputação do tutor, escrita quando um veterinário o avalia. Fica aqui, e
+  /// não calculada na leitura, porque o veterinário precisa dela na FILA de
+  /// chamados — calcular por chamado seria uma consulta a mais em cada card.
+  avaliacao_media      Float?
+  total_avaliacoes     Int         @default(0)
+  sessoes_revogadas_em DateTime?
+  // Bloqueio aplicado pela moderação. Espelhado aqui (em vez de consultar
+  // `Punicao` a cada request) porque o authMiddleware roda em toda chamada:
+  // o dado já vem no mesmo `findUnique` que carrega o usuário.
+  bloqueado            Boolean     @default(false)
+  bloqueado_ate        DateTime? // NULL com bloqueado=true significa permanente
+  bloqueio_motivo      String?
+  criado_em            DateTime    @default(now())
+  atualizado_em        DateTime    @updatedAt
+
+  // Relações
+  tenant             Tenant?              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  pets               Pet[]
+  veterinario        Veterinario?
+  solicitacoes       Solicitacao[]        @relation("TutorSolicitacoes")
+  mensagensEnviadas  Mensagem[]           @relation("MensagensEnviadas")
+  mensagensRecebidas Mensagem[]           @relation("MensagensRecebidas")
+  avaliacoes         Avaliacao[]          @relation("AvaliacoesTutor")
+  onboardings        TutorOnboarding[]
+  identities         AuthIdentity[]
+  exchangeCodes      AuthExchangeCode[]
+  agendamentos       Agendamento[]        @relation("TutorAgendamentos")
+  fichasDeCliente    ClienteVeterinario[] @relation("ClientesDoVeterinario")
+  pushSubscriptions  PushSubscription[]
+  notificacoes       Notificacao[]
+  enderecos          EnderecoTutor[]
+  // Saúde Pet Mercado: a mesma conta que pede atendimento compra no mercado, e
+  // pode também RESPONDER por uma loja — o dono do petshop tem cachorro em casa
+  // como qualquer pessoa.
+  lojasMercado       LojaMercado[]        @relation("LojasDoResponsavel")
+  carrinhosMercado   CarrinhoMercado[]    @relation("CarrinhosDoTutor")
+  pedidosMercado     PedidoMercado[]      @relation("PedidosDoTutor")
+  assinaturasMercado AssinaturaMercado[]  @relation("AssinaturasDoTutor")
+  cartoesSalvos      CartaoSalvo[]
+
+  @@unique([tenant_id, email]) // Email único por tenant
+  @@index([tenant_id])
+  @@index([email])
+  @@index([tipo_usuario])
+  @@index([bloqueado])
+  @@map("usuarios")
+}
+
+model AuthIdentity {
+  id               String   @id @default(uuid())
+  tenant_id        String
+  usuario_id       String
+  provider         String // "google", "facebook", "apple"
+  provider_user_id String // sub
+  criado_em        DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@unique([tenant_id, provider, provider_user_id])
+  @@index([usuario_id])
+  @@index([tenant_id])
+  @@map("auth_identities")
+}
+
+model AuthExchangeCode {
+  id         String    @id @default(uuid())
+  tenant_id  String
+  code_hash  String    @unique
+  usuario_id String
+  expires_at DateTime
+  used_at    DateTime?
+  criado_em  DateTime  @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([code_hash])
+  @@index([usuario_id])
+  @@map("auth_exchange_codes")
+}
+
+model Pet {
+  id                      String    @id @default(uuid())
+  tenant_id               String // Herdado do tutor
+  tutor_id                String
+  nome                    String
+  tipo                    String?
+  especie                 String? // cão, gato, pássaro, etc
+  raca                    String?
+  idade                   Int?
+  sexo                    String? // macho, fêmea
+  peso                    Float? // em kg
+  data_nascimento         DateTime?
+  porte                   String? // pequeno, médio, grande
+  cor                     String?
+  /// Registro de pedigree, quando o animal tem. O briefing pede, e para quem
+  /// cria é dado de identidade tanto quanto o microchip.
+  pedigree                String?
+  castrado                Boolean   @default(false)
+  microchip               String?
+  /// O que o animal já tem e não vai embora — cardiopatia, epilepsia, diabetes.
+  /// Antes só cabia no texto livre de `observacoes`, onde ninguém consulta e
+  /// que a ficha clínica não lê.
+  condicoes_preexistentes String?   @db.Text
+  rga                     String?
+  observacoes             String?
+  foto                    String?
+  ativo                   Boolean   @default(true)
+  criado_em               DateTime  @default(now())
+  atualizado_em           DateTime  @default(now()) @updatedAt
+
+  // Relações
+  tutor              Usuario                @relation(fields: [tutor_id], references: [id], onDelete: Cascade)
+  solicitacoes       Solicitacao[]
+  prontuarios        ProntuarioEletronico[]
+  vacinas            PetVacina[]
+  medicamentos       PetMedicamento[]
+  alergias           PetAlergia[]
+  lembretes          LembretePet[]
+  agendamentos       Agendamento[]
+  leiturasDaTag      PetTagScan[]
+  assinaturasMercado AssinaturaMercado[]
+
+  @@index([tenant_id])
+  @@index([tutor_id])
+  @@map("pets")
+}
+
+enum StatusCredenciamento {
+  DRAFT
+  PENDING_DOCUMENTS
+  PENDING_REVIEW
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  SUSPENDED
+  EXPIRED
+  REQUIRES_RESUBMISSION
+}
+
+enum StatusFinanceiroVet {
+  NOT_STARTED
+  PENDING_DATA
+  PENDING_PROVIDER
+  UNDER_REVIEW
+  ACTIVE
+  RESTRICTED
+  REJECTED
+  SUSPENDED
+}
+
+model Veterinario {
+  id                    String               @id @default(uuid())
+  tenant_id             String // Herdado do usuário
+  usuario_id            String               @unique
+  crmv                  String
+  /// UF do conselho que emitiu o CRMV ("SP", "MG"). O número sozinho não
+  /// identifica o profissional: cada conselho regional tem a própria numeração.
+  crmv_uf               String?              @db.VarChar(2)
+  especialidade         String
+  sobre                 String?
+  aprovado_admin        Boolean              @default(false)
+  status_credenciamento StatusCredenciamento @default(PENDING_REVIEW)
+  motivo_decisao        String?
+  observacao_interna    String?
+  decidido_por_id       String?
+  decidido_em           DateTime?
+  /// Até onde este profissional aceita ir. Vazio = usa o raio da cidade.
+  ///
+  /// Antes o raio era só da cidade, igual para todos: o veterinário que só
+  /// atende a zona sul recebia chamado do outro lado, recusava, e o tutor
+  /// esperava mais por um "não" previsível.
+  raio_atendimento_km   Int?
+  /// Onde ele costuma atender, em palavras ("zona sul e centro"). É informação
+  /// para o tutor e para o despacho manual — o filtro de verdade é o raio.
+  area_atuacao          String?
+  online                Boolean              @default(false)
+  avaliacao_media       Float                @default(0)
+  total_atendimentos    Int                  @default(0)
+  latitude              Float?
+  longitude             Float?
+  ultimo_ping_online    DateTime?
+  criado_em             DateTime             @default(now())
+
+  // Onboarding & Carteira Financeira (Asaas / Split)
+  status_financeiro   StatusFinanceiroVet @default(NOT_STARTED)
+  provider_financeiro String?             @default("asaas")
+  asaas_account_id    String?
+  asaas_wallet_id     String?
+  dados_bancarios     String? // Criptografado JSON
+  habilita_split      Boolean             @default(false)
+  habilitado_em       DateTime?
+
+  // Documentos profissionais (CRMV/diploma) e verificação por IA
+  documento_url            String?
+  diploma_url              String?
+  documento_identidade_url String?
+  documento_analise        Json?
+  documento_analisado_em   DateTime?
+
+  // Relações
+  usuario        Usuario                   @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  atendimentos   Solicitacao[]
+  avaliacoes     Avaliacao[]               @relation("AvaliacoesVeterinario")
+  agendas        AgendaDisponivel[]
+  agendamentos   Agendamento[]
+  midias         MidiaAtendimento[]
+  clientes       ClienteVeterinario[]
+  lembretes      LembretePet[]
+  prontuarios    ProntuarioEletronico[]
+  submissoes     VeterinarioSubmissao[]
+  payments       Payment[]                 @relation("VeterinarioPayments")
+  catalogo_itens CatalogoItemVeterinario[]
+
+  @@unique([tenant_id, crmv]) // CRMV único por tenant
+  @@index([tenant_id])
+  @@index([tenant_id, online])
+  @@index([status_credenciamento])
+  @@index([status_financeiro])
+  @@index([crmv_uf])
+  @@map("veterinarios")
+}
+
+/// Tabela comercial publicada por cada profissional. A cidade continua
+/// definindo o preço de referência da plataforma; esta tabela permite que o
+/// tutor compare o valor real de quem escolheu, sem misturar preço com agenda.
+model CatalogoItemVeterinario {
+  id               String                       @id @default(uuid())
+  tenant_id        String
+  veterinario_id   String
+  codigo           String                       @db.VarChar(80)
+  nome             String                       @db.VarChar(120)
+  categoria        CategoriaCatalogoVeterinario
+  tipo_atendimento TipoAtendimento?
+  preco            Decimal?                     @db.Decimal(10, 2)
+  ativo            Boolean                      @default(false)
+  ordem            Int                          @default(0)
+  criado_em        DateTime                     @default(now())
+  atualizado_em    DateTime                     @updatedAt
+
+  veterinario Veterinario @relation(fields: [veterinario_id], references: [id], onDelete: Cascade)
+
+  @@unique([veterinario_id, codigo])
+  @@index([tenant_id, categoria, ativo])
+  @@index([tenant_id, tipo_atendimento, ativo])
+  @@map("catalogo_itens_veterinario")
+}
+
+model VeterinarioSubmissao {
+  id                       String    @id @default(uuid())
+  veterinario_id           String
+  status                   String
+  documento_url            String?
+  diploma_url              String?
+  documento_identidade_url String?
+  documento_analise        Json?
+  motivo                   String?
+  observacao_admin         String?
+  decidido_por_id          String?
+  decidido_em              DateTime?
+  criado_em                DateTime  @default(now())
+
+  veterinario Veterinario @relation(fields: [veterinario_id], references: [id], onDelete: Cascade)
+
+  @@index([veterinario_id])
+  @@map("veterinarios_submissoes")
+}
+
+model Solicitacao {
+  id                  String            @id @default(uuid())
+  tenant_id           String // Herdado do tutor
+  tutor_id            String
+  veterinario_id      String?
+  pet_id              String
+  tipo_atendimento    TipoAtendimento
+  status              StatusAtendimento @default(procurando_veterinario)
+  localizacao_cliente String?
+  valor_estimado      Float?
+  latitude            Float?
+  longitude           Float?
+  latitude_vet        Float?
+  longitude_vet       Float?
+  ultimo_ping_vet     DateTime?
+  motivo_cancelamento String?
+  diagnostico         String? // Diagnóstico do veterinário
+  receita             String? // Receita/prescrição
+  // Versão vigente do documento de receita. 1 = original; cada retificação
+  // depois do fechamento incrementa e gera um PDF novo, marcado como tal.
+  receita_versao      Int               @default(1)
+  receita_pdf_url     String? // URL do PDF no R2
+  prontuario_pdf_url  String? // URL do Prontuário no R2
+  observacoes         String? // Observações adicionais
+  criado_em           DateTime          @default(now())
+  atualizado_em       DateTime          @updatedAt
+  finalizado_em       DateTime?
+
+  // Relações
+  tutor               Usuario      @relation("TutorSolicitacoes", fields: [tutor_id], references: [id])
+  veterinario         Veterinario? @relation(fields: [veterinario_id], references: [id])
+  pet                 Pet          @relation(fields: [pet_id], references: [id])
+  /// Quando o pedido de avaliação foi enviado ao tutor. Sem esta marca, o
+  /// worker mandaria o mesmo e-mail de hora em hora até ele avaliar — a melhor
+  /// forma de ensinar alguém a ignorar as nossas mensagens.
+  avaliacao_pedida_em DateTime?
+
+  /// Encaminhamento clínico: o caso excedeu o atendimento domiciliar e o tutor
+  /// foi orientado a procurar um serviço de emergência.
+  ///
+  /// Nasceram porque motivo e orientação eram enfiados dentro de `diagnostico` e
+  /// `receita` com o prefixo `[EMERGÊNCIA]` — servia para exibir e não servia
+  /// para consultar, contar nem imprimir em seção própria. Pior: a tela do tutor
+  /// já lia um campo `orientacao_encaminhamento` que NUNCA existiu, então a
+  /// orientação escrita pelo veterinário não chegava a ele.
+  encaminhamento_motivo     String?   @db.Text
+  encaminhamento_orientacao String?   @db.Text
+  encaminhado_em            DateTime?
+
+  /// Duas, agora: a do tutor sobre o veterinário e a do veterinário sobre o tutor.
+  avaliacoes     Avaliacao[]
+  mensagens      Mensagem[]
+  timeline       SolicitacaoTimeline[]
+  prontuario     ProntuarioEletronico?
+  midiasEnviadas MidiaAtendimento[]
+  agendamento    Agendamento?
+  retificacoes   ReceitaRetificacao[]
+  /// Auditoria da teleorientação. Ver `GravacaoChamada`.
+  gravacoes      GravacaoChamada[]
+
+  @@index([tenant_id])
+  @@index([tenant_id, status])
+  @@index([tenant_id, tutor_id])
+  @@index([tenant_id, veterinario_id])
+  @@map("solicitacoes")
+}
+
+/// Cartão que o tutor mandou guardar.
+///
+/// Guardamos REFERÊNCIA, nunca o cartão: o identificador que o gateway devolve,
+/// mais o que serve para a pessoa reconhecer qual é (bandeira, quatro últimos
+/// dígitos, validade). Número e código de segurança nunca passam pelo nosso
+/// servidor — quem os recebe é o SDK do gateway, direto do navegador.
+///
+/// Existe por um motivo de uso, não de tecnologia: na segunda emergência,
+/// digitar o cartão inteiro é atrito no pior momento possível. Com o cartão
+/// guardado, o checkout pede só o código de segurança.
+model CartaoSalvo {
+  id         String @id @default(uuid())
+  tenant_id  String
+  usuario_id String
+
+  /// `mercadopago` hoje. A coluna existe para o dia em que houver outro.
+  gateway     String @default("mercadopago")
+  /// Identificadores do gateway. O cartão vive lá, não aqui.
+  customer_id String
+  card_id     String
+
+  bandeira        String?
+  ultimos_digitos String
+  validade_mes    Int?
+  validade_ano    Int?
+  /// Como a pessoa chama ("meu Nubank"). Opcional: os quatro dígitos já
+  /// identificam, e obrigar a nomear cartão é burocracia.
+  apelido         String?
+  principal       Boolean  @default(false)
+  criado_em       DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@unique([usuario_id, gateway, card_id])
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@map("cartoes_salvos")
+}
+
+/// Avaliação de um atendimento — nas duas direções.
+///
+/// O modelo só sabia uma: `tutor_id` era sempre quem avaliava e `veterinario_id`
+/// sempre quem era avaliado, com um atendimento comportando uma avaliação só. A
+/// confiança bilateral que o produto promete exigia mudar isto, não só criar
+/// uma tela: agora `autor_papel` diz quem escreveu, e cada atendimento comporta
+/// as duas avaliações — uma de cada lado.
+///
+/// As colunas continuam nomeando as PESSOAS envolvidas (o tutor e o veterinário
+/// do atendimento), não os papéis de autor e avaliado. Quem lê descobre a
+/// direção por `autor_papel`.
+model Avaliacao {
+  id             String   @id @default(uuid())
+  tenant_id      String // Herdado do atendimento
+  atendimento_id String
+  tutor_id       String // O tutor do atendimento
+  veterinario_id String // O veterinário do atendimento
+  /// tutor = o tutor avaliou o veterinário. veterinario = o contrário.
+  autor_papel    String   @default("tutor")
+  nota           Int // 1 a 5
+  comentario     String?
+  criado_em      DateTime @default(now())
+
+  // Relações
+  atendimento Solicitacao @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+  tutor       Usuario     @relation("AvaliacoesTutor", fields: [tutor_id], references: [id])
+  veterinario Veterinario @relation("AvaliacoesVeterinario", fields: [veterinario_id], references: [id])
+
+  /// Uma avaliação por lado, por atendimento.
+  @@unique([atendimento_id, autor_papel])
+  @@index([tenant_id])
+  @@index([veterinario_id])
+  @@index([tutor_id])
+  @@map("avaliacoes")
+}
+
+model Mensagem {
+  id              String    @id @default(uuid())
+  tenant_id       String // Herdado do remetente
+  remetente_id    String
+  destinatario_id String
+  atendimento_id  String?
+  // Nulo quando a mensagem é só um anexo ou uma localização.
+  conteudo        String?
+  lida            Boolean   @default(false)
+  arquivada       Boolean   @default(false)
+  tipo            String    @default("texto") // texto, imagem, documento, localizacao, video
+  metadados       String? // JSON com metadados (tamanho arquivo, etc)
+  criado_em       DateTime  @default(now())
+  lida_em         DateTime?
+  editada_em      DateTime?
+  deletada_em     DateTime? // Soft delete: o conteúdo original permanece na linha
+  deletada_por_id String?
+
+  // Localização compartilhada como ponto único, não rastreamento ao vivo.
+  // Colunas próprias em vez de JSON em `metadados` porque isto é validado na
+  // entrada e lido por quem audita o atendimento.
+  latitude  Float?
+  longitude Float?
+  endereco  String?
+
+  // Relações
+  remetente    Usuario          @relation("MensagensEnviadas", fields: [remetente_id], references: [id], onDelete: Cascade)
+  destinatario Usuario          @relation("MensagensRecebidas", fields: [destinatario_id], references: [id], onDelete: Cascade)
+  atendimento  Solicitacao?     @relation(fields: [atendimento_id], references: [id], onDelete: SetNull)
+  anexos       MensagemAnexo[]
+  edicoes      MensagemEdicao[]
+
+  // Índices otimizados para alto volume
+  @@index([tenant_id, criado_em(sort: Desc)]) // Busca por tenant ordenada por data
+  @@index([remetente_id, criado_em(sort: Desc)]) // Mensagens enviadas
+  @@index([destinatario_id, lida, criado_em(sort: Desc)]) // Mensagens recebidas não lidas
+  @@index([atendimento_id, criado_em(sort: Desc)]) // Mensagens de um atendimento
+  @@index([tenant_id, remetente_id, destinatario_id]) // Conversas específicas
+  @@index([criado_em]) // Queries por período
+  @@map("mensagens")
+}
+
+/// Arquivo trocado no chat, preso à mensagem que o enviou — e não ao atendimento,
+/// para que continue rastreável quem mandou o quê, quando, e em qual conversa.
+model MensagemAnexo {
+  id          String @id @default(uuid())
+  tenant_id   String
+  mensagem_id String
+
+  /// Chave do objeto no R2. Guardamos a chave, nunca a URL pública: o acesso ao
+  /// arquivo é sempre por URL assinada de curta duração, gerada na leitura.
+  storage_key   String
+  nome_original String
+  mime_type     String
+  tamanho_bytes Int
+  tipo          String // imagem | documento | video
+  criado_em     DateTime @default(now())
+
+  /// Quando o binário saiu do R2 por política de retenção (`ANEXO_RETENCAO_DIAS`).
+  /// A linha permanece — a auditoria da conversa é intencional; o que some é só
+  /// o arquivo. Preenchido, a API devolve `url: null` e a tela avisa em vez de
+  /// tentar exibir uma imagem que não existe mais.
+  arquivo_removido_em DateTime?
+
+  mensagem Mensagem @relation(fields: [mensagem_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([mensagem_id])
+  @@map("mensagens_anexos")
+}
+
+/// Histórico de edição de mensagem. Cada edição arquiva o conteúdo anterior, de
+/// modo que a versão original de uma conversa nunca desaparece — é o que torna a
+/// auditoria de um atendimento confiável.
+model MensagemEdicao {
+  id                String   @id @default(uuid())
+  tenant_id         String
+  mensagem_id       String
+  conteudo_anterior String   @db.Text
+  editado_por_id    String
+  editado_em        DateTime @default(now())
+
+  mensagem Mensagem @relation(fields: [mensagem_id], references: [id], onDelete: Cascade)
+
+  @@index([mensagem_id, editado_em])
+  @@map("mensagens_edicoes")
+}
+
+model ConfiguracaoNotificacao {
+  id                     String   @id @default(uuid())
+  notificacao_email      Boolean  @default(true)
+  notificacao_popup      Boolean  @default(true)
+  notificacao_sms        Boolean  @default(false)
+  email_novo_veterinario Boolean  @default(true)
+  popup_novo_veterinario Boolean  @default(true)
+  sms_novo_veterinario   Boolean  @default(false)
+  criado_em              DateTime @default(now())
+  atualizado_em          DateTime @updatedAt
+
+  @@map("configuracoes_notificacao")
+}
+
+// ═══════════════════════════════════════════════════════
+// AUTENTICAÇÃO AVANÇADA
+// ═══════════════════════════════════════════════════════
+
+model RefreshToken {
+  id         String   @id @default(uuid())
+  usuario_id String
+  token      String   @unique
+  expira_em  DateTime
+  criado_em  DateTime @default(now())
+  ip         String?
+  user_agent String?
+
+  @@index([usuario_id])
+  @@index([token])
+  @@index([expira_em])
+  @@map("refresh_tokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  tenant_id String?
+  email     String
+  token     String   @unique
+  expira_em DateTime
+  usado     Boolean  @default(false)
+  criado_em DateTime @default(now())
+  ip        String?
+
+  @@index([email])
+  @@index([token])
+  @@index([expira_em])
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id         String   @id @default(uuid())
+  tenant_id  String?
+  email      String
+  token      String   @unique
+  expira_em  DateTime
+  verificado Boolean  @default(false)
+  criado_em  DateTime @default(now())
+
+  @@index([email])
+  @@index([token])
+  @@map("email_verification_tokens")
+}
+
+model AuditLog {
+  id               String   @id @default(uuid())
+  tenant_id        String?
+  usuario_id       String? // actor_user_id
+  actor_role       String? // role do usuario
+  acao             String // ex: 'SOLICITACAO_CRIADA', 'PAGAMENTO_CONFIRMADO', etc
+  recurso          String? // entity_type
+  recurso_id       String? // entity_id
+  entity_type      String? // alias explicito para integridade pericial
+  entity_id        String? // alias explicito para integridade pericial
+  request_id       String? // correlation id HTTP
+  ip               String?
+  user_agent       String?
+  estado_anterior  Json? // snapshot antes
+  estado_posterior Json? // snapshot depois
+  motivo           String? // justificativa da acao
+  detalhes         String? // JSON legilve/extra
+  sucesso          Boolean  @default(true)
+  erro_mensagem    String?
+  criado_em        DateTime @default(now())
+
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([acao])
+  @@index([recurso, recurso_id])
+  @@index([criado_em])
+  @@map("audit_logs")
+}
+
+model TokenBlacklist {
+  id         String   @id @default(uuid())
+  token      String   @unique
+  usuario_id String
+  motivo     String // 'logout', 'force_logout', 'password_changed'
+  expira_em  DateTime
+  criado_em  DateTime @default(now())
+
+  @@index([token])
+  @@index([expira_em])
+  @@map("token_blacklist")
+}
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA DE FORMULÁRIOS
+// ═══════════════════════════════════════════════════════
+
+enum TipoFormulario {
+  pre_consulta // Formulário antes da consulta
+  anamnese // Histórico do pet
+  pos_consulta // Feedback pós-consulta
+  cadastro_pet // Cadastro detalhado do pet
+  termo_consentimento // Termos e autorizações
+  custom // Formulário personalizado
+}
+
+enum StatusFormulario {
+  ativo
+  inativo
+  arquivado
+}
+
+model Formulario {
+  id            String           @id @default(uuid())
+  tenant_id     String
+  titulo        String
+  descricao     String?
+  tipo          TipoFormulario
+  status        StatusFormulario @default(ativo)
+  campos        String // JSON com definição dos campos
+  obrigatorio   Boolean          @default(false)
+  criado_por    String? // ID do usuário que criou
+  criado_em     DateTime         @default(now())
+  atualizado_em DateTime         @updatedAt
+
+  // Relações
+  respostas RespostaFormulario[]
+
+  @@index([tenant_id])
+  @@index([tenant_id, tipo])
+  @@index([tenant_id, status])
+  @@map("formularios")
+}
+
+model RespostaFormulario {
+  id             String   @id @default(uuid())
+  tenant_id      String
+  formulario_id  String
+  usuario_id     String // Quem respondeu
+  atendimento_id String? // Vinculado a um atendimento?
+  pet_id         String? // Vinculado a um pet?
+  respostas      String // JSON com as respostas
+  criado_em      DateTime @default(now())
+  atualizado_em  DateTime @updatedAt
+
+  // Relações
+  formulario Formulario @relation(fields: [formulario_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([formulario_id])
+  @@index([usuario_id])
+  @@index([atendimento_id])
+  @@index([criado_em])
+  @@map("respostas_formulario")
+}
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA DE MODERAÇÃO E BANIMENTO
+// ═══════════════════════════════════════════════════════
+
+enum TipoViolacao {
+  spam // Envio de spam
+  abuso_verbal // Linguagem abusiva
+  assedio // Assédio a outros usuários
+  conteudo_inapropriado // Conteúdo impróprio
+  fraude // Tentativa de fraude
+  informacao_falsa // Informações falsas sobre credenciais
+  violacao_termos // Violação dos termos de uso
+  other // Outro tipo
+}
+
+enum StatusViolacao {
+  pendente // Aguardando análise
+  em_analise // Em análise pela moderação
+  confirmada // Violação confirmada
+  rejeitada // Não caracteriza violação
+  resolvida // Violação resolvida
+}
+
+enum TipoPunicao {
+  advertencia // Apenas advertência
+  suspensao_temp // Suspensão temporária
+  suspensao_perm // Suspensão permanente (banimento)
+  restricao_funcao // Restrição de funcionalidade específica
+}
+
+model Violacao {
+  id            String         @id @default(uuid())
+  tenant_id     String
+  usuario_id    String // Usuário que cometeu a violação
+  reportado_por String? // Usuário que reportou (pode ser sistema)
+  tipo          TipoViolacao
+  status        StatusViolacao @default(pendente)
+  descricao     String
+  evidencias    String? // JSON com evidências (links, screenshots, etc)
+  gravidade     Int            @default(1) // 1-5 (1=leve, 5=grave)
+  pontos        Int            @default(1) // Pontos de penalidade
+  criado_em     DateTime       @default(now())
+  analisado_em  DateTime?
+  analisado_por String? // Admin que analisou
+  resolucao     String? // Texto explicando a resolução
+
+  // Relações
+  punicoes Punicao[]
+
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([status])
+  @@index([tipo])
+  @@index([criado_em])
+  @@map("violacoes")
+}
+
+model Punicao {
+  id               String      @id @default(uuid())
+  tenant_id        String
+  usuario_id       String // Usuário punido
+  violacao_id      String // Violação que originou a punição
+  tipo             TipoPunicao
+  motivo           String
+  inicio_em        DateTime    @default(now())
+  termina_em       DateTime? // NULL para punições permanentes
+  ativa            Boolean     @default(true)
+  aplicada_por     String // Admin que aplicou
+  revogada_em      DateTime?
+  revogada_por     String? // Admin que revogou
+  motivo_revogacao String?
+  criado_em        DateTime    @default(now())
+
+  // Relações
+  violacao Violacao @relation(fields: [violacao_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([usuario_id, ativa])
+  @@index([termina_em])
+  @@map("punicoes")
+}
+
+model HistoricoModeracaoUsuario {
+  id                 String    @id @default(uuid())
+  tenant_id          String
+  usuario_id         String
+  total_violacoes    Int       @default(0)
+  total_pontos       Int       @default(0)
+  advertencias       Int       @default(0)
+  suspensoes_temp    Int       @default(0)
+  suspensoes_perm    Int       @default(0)
+  ultima_violacao_em DateTime?
+  banido             Boolean   @default(false)
+  atualizado_em      DateTime  @updatedAt
+
+  @@unique([tenant_id, usuario_id])
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([banido])
+  @@map("historico_moderacao_usuario")
+}
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA DE BILLING E PAGAMENTOS
+// ═══════════════════════════════════════════════════════
+
+enum TipoTransacao {
+  pagamento_atendimento // Pagamento de atendimento
+  assinatura_plano // Pagamento de plano mensal
+  comissao_plataforma // Comissão da plataforma
+  transferencia_vet // Transferência para veterinário
+  estorno // Estorno de pagamento
+  bonus // Bônus/crédito
+}
+
+enum StatusTransacao {
+  pendente // Aguardando processamento
+  processando // Em processamento
+  aprovada // Aprovada
+  concluida // Concluída
+  falhou // Falhou
+  cancelada // Cancelada
+  estornada // Estornada
+}
+
+enum MetodoPagamento {
+  cartao_credito
+  cartao_debito
+  pix
+  boleto
+  saldo_wallet // Saldo em carteira
+}
+
+model Transacao {
+  id                    String          @id @default(uuid())
+  tenant_id             String
+  tipo                  TipoTransacao
+  status                StatusTransacao @default(pendente)
+  valor_total           Decimal         @db.Decimal(10, 2) // Valor total da transação
+  valor_tutor           Decimal?        @db.Decimal(10, 2) // Quanto o tutor paga
+  valor_veterinario     Decimal?        @db.Decimal(10, 2) // Quanto o vet recebe
+  valor_plataforma      Decimal?        @db.Decimal(10, 2) // Taxa da plataforma
+  percentual_plataforma Decimal         @default(15) @db.Decimal(5, 2) // % da plataforma
+
+  // Vinculações
+  atendimento_id String? // Vinculado a um atendimento
+  tutor_id       String? // Quem paga
+  veterinario_id String? // Quem recebe
+
+  // Pagamento
+  metodo_pagamento     MetodoPagamento?
+  gateway_transacao_id String? // ID da transação no gateway (Stripe, PagSeguro, etc)
+  gateway_resposta     String? // JSON com resposta do gateway
+
+  // Datas
+  criado_em     DateTime  @default(now())
+  processado_em DateTime?
+  concluido_em  DateTime?
+
+  // Observações
+  descricao String?
+  notas     String?
+
+  @@index([tenant_id])
+  @@index([tenant_id, status])
+  @@index([atendimento_id])
+  @@index([tutor_id])
+  @@index([veterinario_id])
+  @@index([criado_em])
+  @@map("transacoes")
+}
+
+model CarteiraTutor {
+  id            String   @id @default(uuid())
+  tenant_id     String
+  tutor_id      String   @unique
+  saldo         Decimal  @default(0) @db.Decimal(10, 2)
+  total_gasto   Decimal  @default(0) @db.Decimal(10, 2)
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  @@index([tenant_id])
+  @@index([tutor_id])
+  @@map("carteiras_tutor")
+}
+
+model CarteiraVeterinario {
+  id                String   @id @default(uuid())
+  tenant_id         String
+  veterinario_id    String   @unique
+  saldo_disponivel  Decimal  @default(0) @db.Decimal(10, 2)
+  saldo_pendente    Decimal  @default(0) @db.Decimal(10, 2) // Aguardando compensação
+  total_recebido    Decimal  @default(0) @db.Decimal(10, 2)
+  total_transferido Decimal  @default(0) @db.Decimal(10, 2)
+  dados_bancarios   String? // JSON com dados para transferência
+  criado_em         DateTime @default(now())
+  atualizado_em     DateTime @updatedAt
+
+  @@index([tenant_id])
+  @@index([veterinario_id])
+  @@map("carteiras_veterinario")
+}
+
+model PlanoAssinatura {
+  id                  String   @id @default(uuid())
+  tenant_id           String
+  nome                String // "Básico", "Premium", "Veterinário Pro"
+  descricao           String?
+  tipo_usuario        String // "tutor", "veterinario"
+  valor_mensal        Decimal  @db.Decimal(10, 2)
+  /// Percentual de desconto que o plano dá nos atendimentos. Vivia só no texto
+  /// de benefícios ("10% de desconto..."), que é vitrine e não regra.
+  desconto_pct        Decimal  @default(0) @db.Decimal(5, 2)
+  /// Quantos atendimentos por mês recebem o desconto. NULL = todos. NÃO é teto
+  /// de atendimento: o tutor sempre pode chamar, com ou sem benefício.
+  limite_atendimentos Int? // Limite mensal de atendimentos (NULL = ilimitado)
+  beneficios          String // JSON com lista de benefícios
+  ativo               Boolean  @default(true)
+  criado_em           DateTime @default(now())
+  atualizado_em       DateTime @updatedAt
+
+  // Relações
+  assinaturas AssinaturaUsuario[]
+
+  @@index([tenant_id])
+  @@index([ativo])
+  @@map("planos_assinatura")
+}
+
+model AssinaturaUsuario {
+  id               String    @id @default(uuid())
+  tenant_id        String
+  usuario_id       String
+  plano_id         String
+  status           String    @default("ativa") // ativa, cancelada, suspensa, expirada
+  valor_mensal     Decimal   @db.Decimal(10, 2)
+  inicio_em        DateTime  @default(now())
+  proxima_cobranca DateTime
+  cancelada_em     DateTime?
+  criado_em        DateTime  @default(now())
+  atualizado_em    DateTime  @updatedAt
+
+  // Relações
+  plano PlanoAssinatura @relation(fields: [plano_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([plano_id])
+  @@index([status])
+  @@index([proxima_cobranca])
+  @@map("assinaturas_usuario")
+}
+
+model Fatura {
+  id               String           @id @default(uuid())
+  tenant_id        String
+  usuario_id       String // Quem deve pagar
+  descricao        String
+  valor            Decimal          @db.Decimal(10, 2)
+  status           String           @default("pendente") // pendente, paga, vencida, cancelada
+  vencimento       DateTime
+  paga_em          DateTime?
+  metodo_pagamento MetodoPagamento?
+  transacao_id     String? // Vinculada a uma transação
+  criado_em        DateTime         @default(now())
+  atualizado_em    DateTime         @updatedAt
+
+  @@index([tenant_id])
+  @@index([usuario_id])
+  @@index([status])
+  @@index([vencimento])
+  @@map("faturas")
+}
+
+model HistoricoFinanceiroTenant {
+  id                     String   @id @default(uuid())
+  tenant_id              String   @unique
+  total_transacoes       Int      @default(0)
+  total_faturado         Decimal  @default(0) @db.Decimal(12, 2)
+  total_comissao         Decimal  @default(0) @db.Decimal(12, 2)
+  total_transferido_vets Decimal  @default(0) @db.Decimal(12, 2)
+  mes_referencia         String // "2026-01"
+  atualizado_em          DateTime @updatedAt
+
+  @@index([tenant_id])
+  @@index([mes_referencia])
+  @@map("historico_financeiro_tenant")
+}
+
+// ═══════════════════════════════════════════════════════
+// GATEWAY DE PAGAMENTOS
+// ═══════════════════════════════════════════════════════
+
+enum GatewayTipo {
+  stripe
+  mercado_pago
+  paypal
+}
+
+enum AmbienteGateway {
+  sandbox
+  production
+}
+
+model GatewayConfig {
+  id        String          @id @default(uuid())
+  tenant_id String
+  gateway   GatewayTipo
+  ambiente  AmbienteGateway @default(sandbox)
+
+  // Credenciais criptografadas (AES-256-GCM)
+  public_key_encrypted     String? // Client ID / Public Key
+  secret_key_encrypted     String // Secret Key (criptografado)
+  webhook_secret_encrypted String? // Webhook Secret (criptografado)
+
+  // Configurações extras (JSON)
+  configuracao_extra String? @db.Text
+
+  // Status
+  ativo       Boolean   @default(true)
+  testado_em  DateTime? // Última vez que testou conexão
+  ultimo_erro String?   @db.Text
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  @@unique([tenant_id, gateway]) // Um gateway por tenant
+  @@index([tenant_id])
+  @@index([gateway])
+  @@index([ativo])
+  @@map("gateway_configs")
+}
+
+// ═══════════════════════════════════════════════════════
+// CONTEÚDO, LEADS E ANALYTICS PRÓPRIO
+// ═══════════════════════════════════════════════════════
+
+enum LeadStatus {
+  novo
+  contatado
+  qualificado
+  convertido
+  perdido
+  arquivado
+}
+
+enum BlogPostStatus {
+  rascunho
+  agendado
+  publicado
+}
+
+model VisitSession {
+  id                   String   @id @default(uuid())
+  tenant_id            String
+  anonymous_visitor_id String
+  anonymous_session_id String
+  first_path           String
+  referrer             String?
+  utm_source           String?
+  utm_medium           String?
+  utm_campaign         String?
+  utm_content          String?
+  utm_term             String?
+  device_category      String?
+  browser_family       String?
+  ip_hash              String?
+  is_bot               Boolean  @default(false)
+  started_at           DateTime @default(now())
+  last_seen_at         DateTime @default(now())
+
+  page_views PageView[]
+  leads      Lead[]
+
+  @@unique([tenant_id, anonymous_session_id])
+  @@index([tenant_id, started_at])
+  @@index([tenant_id, anonymous_visitor_id])
+  @@index([tenant_id, utm_source])
+  @@index([tenant_id, utm_campaign])
+  @@map("visit_sessions")
+}
+
+model PageView {
+  id              String   @id @default(uuid())
+  tenant_id       String
+  session_id      String
+  navigation_id   String
+  path            String
+  page_title      String?
+  referrer        String?
+  utm_source      String?
+  utm_medium      String?
+  utm_campaign    String?
+  utm_content     String?
+  utm_term        String?
+  device_category String?
+  article_slug    String?
+  occurred_at     DateTime @default(now())
+
+  session VisitSession @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@unique([session_id, navigation_id])
+  @@index([tenant_id, occurred_at])
+  @@index([tenant_id, path])
+  @@index([tenant_id, utm_source])
+  @@index([tenant_id, utm_campaign])
+  @@index([tenant_id, article_slug])
+  @@map("page_views")
+}
+
+model Lead {
+  id                     String     @id @default(uuid())
+  tenant_id              String
+  session_id             String?
+  name                   String
+  phone                  String
+  email                  String?
+  city                   String?
+  state                  String?
+  pet_name               String?
+  pet_type               String?
+  interest               String
+  preferred_contact_time String?
+  privacy_accepted       Boolean
+  privacy_accepted_at    DateTime
+  privacy_purpose        String
+  status                 LeadStatus @default(novo)
+  source_page            String?
+  referrer               String?
+  utm_source             String?
+  utm_medium             String?
+  utm_campaign           String?
+  utm_content            String?
+  utm_term               String?
+  notes                  String?
+  archived_at            DateTime?
+  external_id            String? // id do lead na origem externa (ex: leadgen_id do Meta Lead Ads), pra evitar duplicar em retry de webhook
+  created_at             DateTime   @default(now())
+  updated_at             DateTime   @updatedAt
+
+  session VisitSession? @relation(fields: [session_id], references: [id], onDelete: SetNull)
+
+  @@unique([tenant_id, external_id])
+  @@index([tenant_id, created_at])
+  @@index([tenant_id, status])
+  @@index([tenant_id, source_page])
+  @@index([tenant_id, utm_campaign])
+  @@index([tenant_id, session_id])
+  @@map("leads")
+}
+
+model BlogCategory {
+  id          String   @id @default(uuid())
+  tenant_id   String
+  slug        String
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  posts BlogPost[]
+
+  @@unique([tenant_id, slug])
+  @@index([tenant_id, name])
+  @@map("blog_categories")
+}
+
+model BlogPost {
+  id              String         @id @default(uuid())
+  tenant_id       String
+  slug            String
+  title           String
+  excerpt         String
+  content         String         @db.Text
+  content_format  String         @default("markdown")
+  cover_image     String?
+  cover_image_alt String?
+  author_name     String
+  author_id       String?
+  category_id     String?
+  tags            String[]       @default([])
+  status          BlogPostStatus @default(rascunho)
+  seo_title       String?
+  seo_description String?
+  social_image    String?
+  published_at    DateTime?
+  scheduled_for   DateTime?
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+
+  category BlogCategory? @relation(fields: [category_id], references: [id], onDelete: SetNull)
+
+  @@unique([tenant_id, slug])
+  @@index([tenant_id, status, published_at])
+  @@index([tenant_id, category_id])
+  @@index([tenant_id, scheduled_for])
+  @@map("blog_posts")
+}
+
+// ═══════════════════════════════════════════════════════
+// INTEGRAÇÃO META (WhatsApp Cloud API)
+// ═══════════════════════════════════════════════════════
+
+// Referências a Usuario/Solicitacao são armazenadas como id solto (sem @relation
+// no Prisma) de propósito: essa tabela é escrita a partir de um webhook externo,
+// então não deve travar em FK caso o registro relacionado já não exista mais.
+model WhatsappMessage {
+  id             String   @id @default(uuid())
+  tenant_id      String
+  direction      String // 'inbound' | 'outbound'
+  wa_message_id  String?  @unique // id da mensagem na Meta, evita duplicar em retry de webhook
+  wa_phone       String // telefone do contato em E.164 sem "+", ex: 5511999999999
+  usuario_id     String?
+  solicitacao_id String?
+  template_name  String?
+  body           String?  @db.Text
+  status         String   @default("enviada") // enviada|entregue|lida|falhou|recebida
+  error_detail   String?
+  created_at     DateTime @default(now())
+
+  @@index([tenant_id, wa_phone])
+  @@index([tenant_id, created_at])
+  @@index([tenant_id, usuario_id])
+  @@map("whatsapp_messages")
+}
+
+// ═══════════════════════════════════════════════════════
+// JORNADA DO TUTOR E SAÚDE PET (ONBOARDING, SAÚDE, TRACKING, PRONTUÁRIOS)
+// ═══════════════════════════════════════════════════════
+
+model TutorOnboarding {
+  id                   String    @id @default(uuid())
+  tenant_id            String
+  tutor_id             String
+  onboarding_concluido Boolean   @default(false)
+  passo_atual          Int       @default(1)
+  tutorial_visto       Boolean   @default(false)
+  concluido_em         DateTime?
+  criado_em            DateTime  @default(now())
+  atualizado_em        DateTime  @updatedAt
+
+  tutor Usuario @relation(fields: [tutor_id], references: [id], onDelete: Cascade)
+
+  @@unique([tenant_id, tutor_id])
+  @@index([tenant_id])
+  @@map("tutores_onboarding")
+}
+
+model DicaSaudePet {
+  id           String   @id @default(uuid())
+  tenant_id    String
+  titulo       String
+  conteudo     String   @db.Text
+  categoria    String // alimentacao, vacinacao, comportamento, higiene
+  especie_alvo String? // cachorro, gato, todos
+  imagem_url   String?
+  ativo        Boolean  @default(true)
+  publicado_em DateTime @default(now())
+
+  @@index([tenant_id, ativo, publicado_em])
+  @@map("dicas_saude_pet")
+}
+
+model PetVacina {
+  id               String    @id @default(uuid())
+  tenant_id        String
+  pet_id           String
+  nome_vacina      String // V10, Antirrábica, Giárdia, etc.
+  laboratorio      String?
+  lote             String?
+  data_aplicacao   DateTime
+  proxima_dose     DateTime?
+  veterinario_nome String?
+  comprovante_url  String? // Foto do selo/carteirinha
+  criado_em        DateTime  @default(now())
+
+  // Correção e remoção auditadas da ficha clínica (ver migration
+  // 20260820070000). Dado clínico não se apaga: `ativo = false` tira o registro
+  // de todas as leituras e guarda quem removeu, quando e por quê.
+  ativo          Boolean   @default(true)
+  atualizado_em  DateTime?
+  atualizado_por String?
+  removido_em    DateTime?
+  removido_por   String?
+  motivo_remocao String?
+
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, pet_id])
+  @@index([tenant_id, pet_id, ativo])
+  @@index([proxima_dose])
+  @@map("pets_vacinas")
+}
+
+model PetMedicamento {
+  id               String    @id @default(uuid())
+  tenant_id        String
+  pet_id           String
+  nome_medicamento String
+  dosagem          String // ex: 10mg, 1 gota/kg
+  frequencia_horas Int // ex: a cada 8 horas, 12 horas, 24 horas
+  uso_continuo     Boolean   @default(false)
+  data_inicio      DateTime
+  data_fim         DateTime?
+  observacoes      String?
+  criado_em        DateTime  @default(now())
+
+  // Correção e remoção auditadas da ficha clínica (ver migration
+  // 20260820070000). Dado clínico não se apaga: `ativo = false` tira o registro
+  // de todas as leituras e guarda quem removeu, quando e por quê.
+  ativo          Boolean   @default(true)
+  atualizado_em  DateTime?
+  atualizado_por String?
+  removido_em    DateTime?
+  removido_por   String?
+  motivo_remocao String?
+
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, pet_id])
+  @@index([tenant_id, pet_id, ativo])
+  @@map("pets_medicamentos")
+}
+
+model PetAlergia {
+  id          String   @id @default(uuid())
+  tenant_id   String
+  pet_id      String
+  alergia     String // ex: Dipirona, Frango, Pinetree
+  gravidade   String   @default("moderada") // leve, moderada, grave
+  observacoes String?
+  criado_em   DateTime @default(now())
+
+  // Correção e remoção auditadas da ficha clínica (ver migration
+  // 20260820070000). Dado clínico não se apaga: `ativo = false` tira o registro
+  // de todas as leituras e guarda quem removeu, quando e por quê.
+  ativo          Boolean   @default(true)
+  atualizado_em  DateTime?
+  atualizado_por String?
+  removido_em    DateTime?
+  removido_por   String?
+  motivo_remocao String?
+
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, pet_id])
+  @@index([tenant_id, pet_id, ativo])
+  @@map("pets_alergias")
+}
+
+model SolicitacaoTimeline {
+  id              String             @id @default(uuid())
+  tenant_id       String
+  atendimento_id  String
+  status          StatusAtendimento
+  status_anterior StatusAtendimento?
+  // Quem provocou a mudança. `ator_id` fica nulo quando a origem é o próprio
+  // sistema (worker de expiração, por exemplo).
+  ator_id         String?
+  ator_tipo       String? // tutor | veterinario | admin | sistema
+  origem          String             @default("api") // api | worker | n8n | admin
+  latitude        Float?
+  longitude       Float?
+  observacao      String?
+  registrado_em   DateTime           @default(now())
+
+  atendimento Solicitacao @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, atendimento_id, registrado_em])
+  @@map("solicitacoes_timeline")
+}
+
+/// Histórico de correções da receita depois do atendimento fechado. Guarda a
+/// versão anterior por inteiro (texto, itens e PDF) — a receita que o tutor
+/// já tinha em mãos não desaparece do registro.
+model ReceitaRetificacao {
+  id               String   @id @default(uuid())
+  tenant_id        String
+  atendimento_id   String
+  prontuario_id    String?
+  veterinario_id   String
+  versao           Int
+  motivo           String   @db.Text
+  receita_anterior String?  @db.Text
+  receita_nova     String?  @db.Text
+  itens_anteriores Json?
+  itens_novos      Json?
+  pdf_anterior_url String?
+  pdf_novo_url     String?
+  criado_em        DateTime @default(now())
+
+  atendimento Solicitacao @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+
+  @@index([atendimento_id, versao])
+  @@index([tenant_id])
+  @@map("receitas_retificacoes")
+}
+
+model ProntuarioEletronico {
+  id                     String    @id @default(uuid())
+  tenant_id              String
+  atendimento_id         String    @unique
+  pet_id                 String
+  veterinario_id         String
+  queixa_principal       String    @db.Text
+  exame_fisico           String?   @db.Text
+  hipotese_diagnostica   String    @db.Text
+  diagnostico_definitivo String?   @db.Text
+  orientacoes_tutor      String?   @db.Text
+  retorno_sugerido_em    DateTime?
+  pdf_prontuario_url     String?
+  criado_em              DateTime  @default(now())
+
+  atendimento       Solicitacao        @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+  pet               Pet                @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  veterinario       Veterinario        @relation(fields: [veterinario_id], references: [id])
+  itensPrescricao   PrescricaoItem[]
+  examesSolicitados SolicitacaoExame[]
+
+  @@index([tenant_id, pet_id])
+  @@index([veterinario_id])
+  @@map("prontuarios_eletronicos")
+}
+
+/// Mídia do atendimento: o que a descrição escrita não mostra.
+///
+/// Duas origens, um lugar só. O TUTOR anexa ao pedir socorro — a foto da ferida,
+/// o vídeo da convulsão, o áudio da respiração —, e é isso que o veterinário
+/// olha antes de aceitar. O VETERINÁRIO anexa durante a consulta, e é isso que
+/// permite comparar a lesão no retorno.
+///
+/// Antes, nada disso existia: o tutor só conseguia mandar arquivo pelo chat,
+/// que só abre DEPOIS que alguém aceita, e a foto do veterinário ia para o mesmo
+/// chat — onde a retenção de 90 dias a apagava. Registro clínico não expira
+/// junto com bate-papo.
+///
+/// Guardamos a chave do R2, nunca a URL pública: o acesso é sempre por URL
+/// assinada de curta duração. Quem lê são os participantes do atendimento, o
+/// admin do tenant e — enquanto ninguém aceitou — os veterinários aprovados do
+/// tenant, que precisam ver para decidir. É dado sensível de saúde: não entra na
+/// tag pública da coleira.
+model MidiaAtendimento {
+  id             String @id @default(uuid())
+  tenant_id      String
+  atendimento_id String
+
+  /// Quem enviou, e em que papel. O papel importa na leitura: a mídia do tutor
+  /// é relato, a do veterinário é registro clínico.
+  autor_usuario_id String
+  autor_papel      String // tutor | veterinario
+  /// Preenchido quando quem enviou é o profissional do atendimento.
+  veterinario_id   String?
+
+  storage_key   String
+  nome_original String
+  mime_type     String
+  tamanho_bytes Int
+  tipo          String // imagem | video | audio
+  /// O que o arquivo mostra ("lesão no membro anterior direito", "tosse desde
+  /// ontem"). Sem isso, um álbum solto não diz nada a quem atender depois.
+  legenda       String?  @db.Text
+  criado_em     DateTime @default(now())
+
+  atendimento Solicitacao  @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+  veterinario Veterinario? @relation(fields: [veterinario_id], references: [id])
+
+  @@index([tenant_id])
+  @@index([atendimento_id])
+  @@map("midias_atendimento")
+}
+
+/// Gravação de uma teleorientação, guardada para auditoria interna.
+///
+/// TODA chamada é gravada — decisão do Nicolas em 27/08/2026, e a razão é
+/// controle de risco, não curiosidade: numa consulta por vídeo entre um
+/// profissional e um cliente, quando alguém denuncia abuso ou quebra de regra
+/// o que existe hoje são duas versões e nada mais. Sem gravação, a primeira
+/// denúncia séria é justamente a que não dá para apurar.
+///
+/// O que NÃO é: não é conteúdo do produto. Nem o tutor nem o veterinário têm
+/// player, link ou download. A gravação existe para a moderação abrir quando
+/// houver denúncia, e todo acesso deixa rastro em `AuditLog` — auditoria que
+/// ninguém audita é só um acervo.
+///
+/// Áudio, não vídeo: o que se apura numa denúncia de conduta é o que foi DITO,
+/// e vídeo de consulta custa uma ordem de grandeza a mais em armazenamento
+/// para responder a mesma pergunta. `GRAVAR_VIDEO` no serviço inverte isso.
+model GravacaoChamada {
+  id             String @id @default(uuid())
+  tenant_id      String
+  atendimento_id String
+
+  /// Cada lado grava a própria versão da conversa. São duas por chamada, de
+  /// propósito: se um navegador fecha no meio, a do outro lado sobrevive — e
+  /// numa apuração de conduta perder metade é perder tudo.
+  autor_usuario_id String
+  autor_papel      String // tutor | veterinario
+
+  /// Partes na ordem em que foram enviadas. A primeira carrega o cabeçalho do
+  /// contêiner; tocar é concatenar na ordem. Subir em pedaços durante a
+  /// chamada é o que evita perder tudo quando o aparelho desliga no meio.
+  partes        GravacaoChamadaParte[]
+  duracao_seg   Int?
+  tamanho_bytes Int                    @default(0)
+  mime_type     String                 @default("audio/webm")
+
+  /// gravando | finalizada | interrompida
+  /// `interrompida` é a chamada cujo navegador sumiu sem avisar — a varredura
+  /// fecha depois do prazo. É estado normal, não erro: o material gravado até
+  /// ali continua valendo.
+  status String @default("gravando")
+
+  iniciada_em   DateTime  @default(now())
+  finalizada_em DateTime?
+
+  /// LGPD: gravação de consulta é dado sensível e não pode ficar para sempre.
+  /// A varredura apaga o áudio depois desta data; a LINHA fica, para o
+  /// histórico mostrar que existiu uma gravação e que ela venceu.
+  expira_em DateTime
+
+  atendimento Solicitacao @relation(fields: [atendimento_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([atendimento_id])
+  @@index([expira_em])
+  @@map("gravacoes_chamada")
+}
+
+/// Um pedaço da gravação, do jeito que chegou do navegador.
+model GravacaoChamadaParte {
+  id            String   @id @default(uuid())
+  gravacao_id   String
+  /// Ordem de chegada. Fora de ordem, o áudio não toca.
+  indice        Int
+  storage_key   String
+  tamanho_bytes Int
+  criado_em     DateTime @default(now())
+
+  gravacao GravacaoChamada @relation(fields: [gravacao_id], references: [id], onDelete: Cascade)
+
+  @@unique([gravacao_id, indice])
+  @@index([gravacao_id])
+  @@map("gravacoes_chamada_partes")
+}
+
+model PrescricaoItem {
+  id                 String  @id @default(uuid())
+  prontuario_id      String
+  medicamento        String
+  concentracao       String?
+  // A coluna nasceu com o nome trocado ("farmacia" em vez de "farmacêutica").
+  // O @map mantém a coluna como está no banco e expõe o termo correto no
+  // código — antes o backend gravava num nome e lia noutro, e a forma
+  // farmacêutica sumia silenciosamente do prontuário e do texto da receita.
+  forma_farmaceutica String? @map("forma_farmacia") // comprimido, xarope, pomada
+  posologia          String // "Tomar 1 comp a cada 12h por 7 dias"
+  duracao_dias       Int?
+
+  prontuario ProntuarioEletronico @relation(fields: [prontuario_id], references: [id], onDelete: Cascade)
+
+  @@map("prescricoes_itens")
+}
+
+model SolicitacaoExame {
+  id            String  @id @default(uuid())
+  prontuario_id String
+  nome_exame    String // Hemograma completo, Ultrassom Abdominal
+  justificativa String?
+
+  prontuario ProntuarioEletronico @relation(fields: [prontuario_id], references: [id], onDelete: Cascade)
+
+  @@map("solicitacoes_exames")
+}
+
+model LembretePet {
+  id            String   @id @default(uuid())
+  tenant_id     String
+  tutor_id      String
+  pet_id        String
+  titulo        String // "Vacina V10", "Dar Vermífugo", "Consulta de retorno"
+  tipo          String // vacina, medicamento, retorno, higienizacao
+  data_lembrete DateTime
+  concluido     Boolean  @default(false)
+  notificado    Boolean  @default(false)
+  criado_em     DateTime @default(now())
+
+  // Quem pediu o retorno. Nulo nos lembretes que o próprio tutor cria e nos
+  // que já existiam antes desta coluna. Sem ele, o e-mail de retorno saía
+  // assinado com a string literal "veterinário responsável" — o tutor não
+  // conseguia sequer saber qual vet o chamou de volta.
+  veterinario_id String?
+  // Mensagem que o vet escreve ao convocar o retorno; sai no e-mail.
+  mensagem       String?
+
+  pet         Pet          @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  veterinario Veterinario? @relation(fields: [veterinario_id], references: [id], onDelete: SetNull)
+
+  @@index([tenant_id, tutor_id])
+  @@index([pet_id])
+  @@index([data_lembrete, concluido])
+  @@index([tenant_id, veterinario_id])
+  @@map("lembretes_pet")
+}
+
+// ═══════════════════════════════════════════════════════
+// LANDING PAGE BANNERS & CAMPANHAS
+// ═══════════════════════════════════════════════════════
+
+enum BannerStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  PAUSED
+  ARCHIVED
+}
+
+model LandingBanner {
+  id              String       @id @default(cuid())
+  tenantId        String
+  title           String
+  altText         String
+  desktopImageUrl String
+  mobileImageUrl  String?
+  targetUrl       String?
+  buttonLabel     String?
+  status          BannerStatus @default(DRAFT)
+  position        Int          @default(0)
+  startsAt        DateTime?
+  endsAt          DateTime?
+  publishedAt     DateTime?
+  publishedById   String?
+  createdById     String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  auditLogs BannerAuditLog[]
+
+  @@index([tenantId, status, position])
+  @@map("landing_banners")
+}
+
+model BannerAuditLog {
+  id              String   @id @default(cuid())
+  tenantId        String
+  bannerId        String
+  action          String // LANDING_BANNER_PUBLISHED, DRAFT_SAVED, UNPUBLISHED, RESTORED, REORDERED
+  bannerTitle     String
+  performedById   String
+  performedByName String
+  userIp          String?
+  previousVersion String? // JSON stringified state
+  newVersion      String? // JSON stringified state
+  createdAt       DateTime @default(now())
+
+  banner LandingBanner @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, bannerId])
+  @@index([createdAt])
+  @@map("banner_audit_logs")
+}
+
+// ═══════════════════════════════════════════════════════
+// REDE DE PARCEIROS, INDICAÇÕES & COMISSÕES DINÂMICAS
+// ═══════════════════════════════════════════════════════
+
+enum PartnerType {
+  CLINIC
+  HOSPITAL
+  LABORATORY
+  DIAGNOSTIC_CENTER
+  PHARMACY
+  PET_SHOP
+  REHABILITATION
+  OTHER
+}
+
+enum PartnerStatus {
+  DRAFT
+  PENDING_REVIEW
+  ACTIVE
+  SUSPENDED
+  REJECTED
+  ARCHIVED
+}
+
+enum ReferralStatus {
+  CREATED
+  SENT
+  VIEWED
+  ACCEPTED
+  SCHEDULED
+  ATTENDED
+  PENDING_CONFIRMATION
+  CONVERTED
+  CANCELLED
+  EXPIRED
+  DISPUTED
+  REJECTED
+}
+
+enum CommissionType {
+  PERCENTAGE
+  FIXED
+  PERCENTAGE_PLUS_FIXED
+}
+
+enum SettlementStatus {
+  OPEN
+  PENDING_REVIEW
+  APPROVED
+  DUE
+  PAID
+  OVERDUE
+  CANCELLED
+  DISPUTED
+}
+
+model Partner {
+  id               String        @id @default(cuid())
+  tenantId         String
+  legalName        String
+  tradeName        String
+  documentNumber   String        @unique
+  partnerType      PartnerType   @default(CLINIC)
+  description      String?       @db.Text
+  email            String
+  phone            String
+  whatsapp         String?
+  website          String?
+  logoUrl          String?
+  status           PartnerStatus @default(PENDING_REVIEW)
+  approvalStatus   String        @default("PENDING") // PENDING, APPROVED, REJECTED
+  approvedAt       DateTime?
+  approvedBy       String?
+  suspendedAt      DateTime?
+  suspensionReason String?
+  rating           Decimal       @default(5.0) @db.Decimal(3, 2)
+  totalReviews     Int           @default(0)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  units           PartnerUnit[]
+  services        PartnerService[]
+  commissionRules CommissionRule[]
+  referrals       Referral[]
+  settlements     CommissionSettlement[]
+  reviews         PartnerReview[]
+  users           PartnerUser[]
+
+  @@index([tenantId, status, partnerType])
+  @@map("partners")
+}
+
+model PartnerUnit {
+  id               String   @id @default(cuid())
+  partnerId        String
+  name             String
+  email            String?
+  phone            String?
+  whatsapp         String?
+  addressLine      String
+  addressNumber    String
+  complement       String?
+  district         String
+  city             String
+  state            String
+  postalCode       String
+  latitude         Float?
+  longitude        Float?
+  openingHours     String?
+  emergencyService Boolean  @default(false)
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  partner   Partner          @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  services  PartnerService[]
+  referrals Referral[]
+  users     PartnerUser[]
+
+  @@index([partnerId, city, state])
+  @@map("partner_units")
+}
+
+model PartnerCategory {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String?
+  icon         String?
+  active       Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  services PartnerService[]
+
+  @@map("partner_categories")
+}
+
+model PartnerService {
+  id                 String   @id @default(cuid())
+  partnerId          String
+  partnerUnitId      String?
+  categoryId         String
+  name               String
+  description        String?  @db.Text
+  publicPrice        Decimal  @db.Decimal(10, 2)
+  priceType          String   @default("FIXED") // FIXED, STARTING_FROM, ESTIMATE
+  requiresScheduling Boolean  @default(true)
+  estimatedDuration  Int? // minutos
+  active             Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  partner   Partner         @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  unit      PartnerUnit?    @relation(fields: [partnerUnitId], references: [id], onDelete: SetNull)
+  category  PartnerCategory @relation(fields: [categoryId], references: [id])
+  referrals Referral[]
+
+  @@index([partnerId, categoryId])
+  @@map("partner_services")
+}
+
+model CommissionRule {
+  id                String         @id @default(cuid())
+  tenantId          String
+  partnerId         String?
+  partnerUnitId     String?
+  partnerServiceId  String?
+  name              String
+  calculationType   CommissionType @default(PERCENTAGE)
+  percentage        Decimal        @default(10.00) @db.Decimal(5, 2)
+  fixedAmount       Decimal        @default(0.00) @db.Decimal(10, 2)
+  minimumCommission Decimal?       @db.Decimal(10, 2)
+  maximumCommission Decimal?       @db.Decimal(10, 2)
+  validFrom         DateTime       @default(now())
+  validUntil        DateTime?
+  priority          Int            @default(0)
+  active            Boolean        @default(true)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  partner Partner? @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, partnerId, active])
+  @@map("commission_rules")
+}
+
+model Referral {
+  id                 String         @id @default(cuid())
+  tenantId           String
+  referralCode       String         @unique // Ex: SP-2026-X89A
+  tutorId            String
+  petId              String
+  partnerId          String
+  partnerUnitId      String
+  partnerServiceId   String?
+  source             String         @default("APP_TUTOR")
+  reason             String?        @db.Text
+  status             ReferralStatus @default(CREATED)
+  qrCodePayload      String         @db.Text
+  scheduledAt        DateTime?
+  attendedAt         DateTime?
+  expiresAt          DateTime
+  cancelledAt        DateTime?
+  cancellationReason String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  partner     Partner              @relation(fields: [partnerId], references: [id])
+  unit        PartnerUnit          @relation(fields: [partnerUnitId], references: [id])
+  service     PartnerService?      @relation(fields: [partnerServiceId], references: [id])
+  conversions ReferralConversion[]
+  reviews     PartnerReview[]
+  documents   ReferralDocument[]
+
+  @@index([tenantId, tutorId])
+  @@index([partnerId, status])
+  @@index([referralCode])
+  @@map("referrals")
+}
+
+model ReferralConversion {
+  id                           String   @id @default(cuid())
+  referralId                   String
+  grossAmount                  Decimal  @db.Decimal(10, 2)
+  eligibleAmount               Decimal  @db.Decimal(10, 2)
+  discountAmount               Decimal  @default(0.00) @db.Decimal(10, 2)
+  commissionTypeSnapshot       String
+  commissionPercentageSnapshot Decimal  @db.Decimal(5, 2)
+  commissionFixedSnapshot      Decimal  @db.Decimal(10, 2)
+  commissionAmount             Decimal  @db.Decimal(10, 2)
+  partnerNetAmount             Decimal  @db.Decimal(10, 2)
+  confirmedBy                  String
+  confirmedAt                  DateTime @default(now())
+  status                       String   @default("CONFIRMED") // CONFIRMED, DISPUTED, CANCELLED
+  // Em que fechamento esta conversão entrou. Sem isto, gerar o fechamento duas
+  // vezes contaria a mesma comissão de novo.
+  settlementId                 String?
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+
+  referral   Referral              @relation(fields: [referralId], references: [id], onDelete: Cascade)
+  settlement CommissionSettlement? @relation(fields: [settlementId], references: [id], onDelete: SetNull)
+
+  @@index([referralId])
+  @@index([settlementId])
+  @@map("referral_conversions")
+}
+
+model CommissionSettlement {
+  id               String           @id @default(cuid())
+  // O fechamento só guardava `partnerId`: a listagem do painel mostrava
+  // fechamento de qualquer organização para o admin de qualquer uma.
+  tenantId         String?
+  partnerId        String
+  periodStart      DateTime
+  periodEnd        DateTime
+  grossAmount      Decimal          @db.Decimal(10, 2)
+  commissionAmount Decimal          @db.Decimal(10, 2)
+  netAmount        Decimal          @db.Decimal(10, 2)
+  status           SettlementStatus @default(OPEN)
+  dueDate          DateTime
+  paidAt           DateTime?
+  paymentReference String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  partner     Partner              @relation(fields: [partnerId], references: [id])
+  conversions ReferralConversion[]
+
+  @@index([partnerId, status])
+  @@index([tenantId, status])
+  @@map("commission_settlements")
+}
+
+model PartnerReview {
+  id         String   @id @default(cuid())
+  referralId String
+  tutorId    String
+  partnerId  String
+  rating     Int
+  comment    String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  referral Referral @relation(fields: [referralId], references: [id])
+  partner  Partner  @relation(fields: [partnerId], references: [id])
+
+  @@index([partnerId])
+  @@map("partner_reviews")
+}
+
+model PartnerUser {
+  id            String    @id @default(cuid())
+  userId        String
+  partnerId     String
+  partnerUnitId String?
+  role          String    @default("STAFF") // OWNER, MANAGER, STAFF
+  active        Boolean   @default(true)
+  invitedAt     DateTime  @default(now())
+  acceptedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  partner Partner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  unit    PartnerUnit? @relation(fields: [partnerUnitId], references: [id], onDelete: SetNull)
+
+  @@index([userId, partnerId])
+  @@map("partner_users")
+}
+
+model ReferralDocument {
+  id           String   @id @default(cuid())
+  referralId   String
+  documentType String   @default("VOUCHER") // VOUCHER, RECEIPT, EXAM_RESULT
+  fileUrl      String
+  originalName String
+  mimeType     String
+  fileSize     Int
+  uploadedBy   String
+  createdAt    DateTime @default(now())
+
+  referral Referral @relation(fields: [referralId], references: [id], onDelete: Cascade)
+
+  @@index([referralId])
+  @@map("referral_documents")
+}
+
+// ═══════════════════════════════════════════════════════
+// ENGINE FINANCEIRO, PAYMENT GATEWAY & SPLIT (ASAAS)
+// ═══════════════════════════════════════════════════════
+
+enum StatusPagamento {
+  CREATED
+  PENDING
+  PROCESSING
+  AUTHORIZED
+  PAID
+  FAILED
+  EXPIRED
+  CANCELLED
+  PARTIALLY_REFUNDED
+  REFUNDED
+  CHARGEBACK
+  DISPUTED
+}
+
+enum PaymentMethod {
+  PIX
+  CREDIT_CARD
+  DEBIT_CARD
+  BOLETO
+}
+
+model Payment {
+  id                     String          @id @default(uuid())
+  tenant_id              String
+  atendimento_id         String?
+  // Cobrança de assinatura (plano do tutor / clube do veterinário). O webhook
+  // usa este campo para saber qual assinatura ativar quando o dinheiro entra.
+  assinatura_id          String?
+  // Compra no Saúde Pet Mercado. O webhook usa este campo para marcar o pedido
+  // como pago e liberar a separação na loja — o mesmo papel que
+  // `atendimento_id` faz para a consulta.
+  pedido_mercado_id      String?
+  // Desconto do plano do tutor. `preco_cheio` guarda o valor de tabela: o
+  // repasse do veterinário é calculado sobre ele, e o desconto sai da comissão
+  // da plataforma — quem vende o plano é quem banca o benefício.
+  preco_cheio            Decimal?        @db.Decimal(10, 2)
+  desconto_valor         Decimal         @default(0) @db.Decimal(10, 2)
+  desconto_assinatura_id String?
+  tutor_id               String
+  veterinario_id         String?
+  provider               String          @default("asaas") // 'asaas', 'pagar_me', 'mercado_pago'
+  external_payment_id    String?         @unique
+  idempotency_key        String?         @unique
+  method                 PaymentMethod   @default(PIX)
+  amount                 Decimal         @db.Decimal(10, 2)
+  currency               String          @default("BRL")
+  status                 StatusPagamento @default(CREATED)
+
+  // Dados Específicos do PIX
+  pix_copy_paste  String?
+  pix_qr_code_ref String?
+
+  // Dados Cartão Tokenizado
+  card_last_four String?
+  card_brand     String?
+  installments   Int?    @default(1)
+
+  // Carimbos de Data/Hora
+  expires_at    DateTime?
+  paid_at       DateTime?
+  cancelled_at  DateTime?
+  refunded_at   DateTime?
+  criado_em     DateTime  @default(now())
+  atualizado_em DateTime  @updatedAt
+
+  // Relações
+  veterinario Veterinario?   @relation("VeterinarioPayments", fields: [veterinario_id], references: [id], onDelete: SetNull)
+  splits      PaymentSplit[]
+  refunds     Refund[]
+
+  @@index([tenant_id])
+  @@index([tutor_id])
+  @@index([veterinario_id])
+  @@index([atendimento_id])
+  @@index([assinatura_id])
+  @@index([desconto_assinatura_id])
+  @@index([pedido_mercado_id])
+  @@index([status])
+  @@index([external_payment_id])
+  @@map("payments")
+}
+
+model PaymentSplit {
+  id                    String   @id @default(uuid())
+  payment_id            String
+  recipient_type        String // 'PLATFORM', 'VETERINARIAN', 'PARTNER'
+  recipient_id          String?
+  provider_recipient_id String? // Wallet ID / Account ID no Asaas
+  gross_amount          Decimal  @db.Decimal(10, 2)
+  gateway_fee           Decimal  @default(0) @db.Decimal(10, 2)
+  platform_fee          Decimal  @default(0) @db.Decimal(10, 2)
+  recipient_amount      Decimal  @db.Decimal(10, 2)
+  status                String   @default("PENDING") // PENDING, PAID, REFUNDED
+  criado_em             DateTime @default(now())
+  atualizado_em         DateTime @updatedAt
+
+  payment Payment @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@index([payment_id])
+  @@index([recipient_id])
+  @@map("payment_splits")
+}
+
+model PaymentEvent {
+  id                String    @id @default(uuid())
+  provider          String // 'asaas'
+  external_event_id String    @unique
+  event_type        String // 'PAYMENT_RECEIVED', 'PAYMENT_OVERDUE', etc.
+  payload_hash      String
+  payload           Json
+  processing_status String    @default("PENDING") // PENDING, PROCESSED, FAILED
+  attempts          Int       @default(0)
+  last_error        String?
+  received_at       DateTime  @default(now())
+  processed_at      DateTime?
+
+  @@index([provider, external_event_id])
+  @@index([processing_status])
+  @@map("payment_events")
+}
+
+model Refund {
+  id                 String    @id @default(uuid())
+  payment_id         String
+  external_refund_id String?   @unique
+  amount             Decimal   @db.Decimal(10, 2)
+  reason             String?
+  requested_by       String? // ID do Usuário/Admin que solicitou
+  status             String    @default("PENDING") // PENDING, COMPLETED, FAILED
+  criado_em          DateTime  @default(now())
+  completed_at       DateTime?
+
+  payment Payment @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@index([payment_id])
+  @@map("refunds")
+}
+
+// ═══════════════════════════════════════════════════════
+// AGENDAMENTO FUTURO & GRADE DE HORÁRIOS DOS VETERINÁRIOS
+// ═══════════════════════════════════════════════════════
+
+model AgendaDisponivel {
+  id             String   @id @default(uuid())
+  tenant_id      String
+  veterinario_id String
+  dia_semana     Int // 0 (domingo) a 6 (sábado)
+  hora_inicio    String // "08:00"
+  hora_fim       String // "18:00"
+  ativo          Boolean  @default(true)
+  criado_em      DateTime @default(now())
+  atualizado_em  DateTime @updatedAt
+
+  veterinario Veterinario @relation(fields: [veterinario_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, veterinario_id, dia_semana])
+  @@map("agendas_disponiveis")
+}
+
+// A consulta marcada para uma data futura. `AgendaDisponivel` acima é só o
+// molde semanal ("atendo terça das 8h às 18h"); é este modelo que representa
+// um horário realmente reservado com tutor e pet.
+//
+// Vive separado de `Solicitacao` de propósito: a solicitação é o chamado
+// imediato, nasce em `procurando_veterinario` e vale para o primeiro vet que
+// aceitar. Um agendamento nasce já com dono, e só vira `Solicitacao` quando a
+// hora chega — daí `solicitacao_id`, preenchido na conversão.
+model Agendamento {
+  id                    String            @id @default(uuid())
+  tenant_id             String
+  veterinario_id        String
+  tutor_id              String
+  pet_id                String
+  // Instante único em UTC. A grade guarda "08:00" como texto porque descreve
+  // um molde que se repete toda semana; um compromisso real precisa de data.
+  inicio                DateTime
+  fim                   DateTime
+  tipo_atendimento      TipoAtendimento
+  status                StatusAgendamento @default(pendente)
+  observacoes           String?
+  /// Snapshot do preço próprio publicado pelo veterinário no momento em que
+  /// o tutor marcou. Mudanças futuras no catálogo não reescrevem o combinado.
+  valor_estimado        Decimal?          @db.Decimal(10, 2)
+  preco_catalogo_codigo String?           @db.VarChar(80)
+  motivo_cancelamento   String?
+  cancelado_por_id      String?
+  // Preenchido quando o agendamento vira atendimento de verdade.
+  solicitacao_id        String?           @unique
+  criado_por_id         String // quem marcou: o tutor ou o próprio vet
+  lembrete_enviado      Boolean           @default(false)
+  criado_em             DateTime          @default(now())
+  atualizado_em         DateTime          @updatedAt
+
+  veterinario Veterinario  @relation(fields: [veterinario_id], references: [id], onDelete: Cascade)
+  tutor       Usuario      @relation("TutorAgendamentos", fields: [tutor_id], references: [id], onDelete: Cascade)
+  pet         Pet          @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  solicitacao Solicitacao? @relation(fields: [solicitacao_id], references: [id])
+
+  // O índice que sustenta a checagem de conflito de horário.
+  @@index([tenant_id, veterinario_id, inicio])
+  @@index([tenant_id, tutor_id])
+  @@index([status, inicio])
+  @@map("agendamentos")
+}
+
+// ═══════════════════════════════════════════════════════
+// CRM DO VETERINÁRIO — CLIENTELA, NOTAS E RETENÇÃO
+// ═══════════════════════════════════════════════════════
+
+// A ficha comercial que o veterinário mantém sobre um tutor que ele atendeu.
+//
+// Modelo híbrido, decidido em 2026-08-16: o histórico CLÍNICO continua
+// compartilhado dentro do tenant (é o que sustenta a continuidade do
+// tratamento quando quem atende hoje não é quem atendeu da última vez), mas a
+// leitura COMERCIAL — nota privada, tag, apelido, follow-up — é de cada
+// veterinário. Por isso a chave é (veterinario_id + tutor_id), e não só
+// tutor_id: dois vets do mesmo tenant mantêm fichas independentes do mesmo
+// tutor, e nenhum enxerga a anotação do outro.
+model ClienteVeterinario {
+  id             String @id @default(uuid())
+  tenant_id      String
+  veterinario_id String
+  tutor_id       String
+
+  // Notas privadas do vet sobre o cliente. Nunca entram em PDF, e-mail ou
+  // qualquer tela do tutor — ao contrário de `ProntuarioEletronico.orientacoes_tutor`.
+  notas_privadas String?
+  tags           String[] @default([])
+  apelido        String? // como o vet se refere ao cliente
+  favorito       Boolean  @default(false)
+
+  // Denormalizado a partir dos atendimentos, para a lista carregar sem varrer
+  // o histórico inteiro a cada abertura. Recalculado no fechamento.
+  total_atendimentos Int       @default(0)
+  ultimo_atendimento DateTime?
+  valor_total        Decimal   @default(0) @db.Decimal(10, 2)
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  veterinario Veterinario @relation(fields: [veterinario_id], references: [id], onDelete: Cascade)
+  tutor       Usuario     @relation("ClientesDoVeterinario", fields: [tutor_id], references: [id], onDelete: Cascade)
+
+  @@unique([veterinario_id, tutor_id])
+  @@index([tenant_id, veterinario_id])
+  @@index([tenant_id, veterinario_id, ultimo_atendimento])
+  @@map("clientes_veterinario")
+}
+
+enum StatusAgendamento {
+  pendente // marcado, aguardando confirmação do vet
+  confirmado
+  cancelado
+  concluido // virou atendimento
+  nao_compareceu
+}
+
+// ═══════════════════════════════════════════════════════
+// GESTÃO DINÂMICA DE CIDADES, PREÇOS E COBERTURA (ADMIN)
+// ═══════════════════════════════════════════════════════
+
+// Inscrição Web Push de um navegador/dispositivo. O endpoint é único por
+// definição do protocolo e serve de chave idempotente; inscrição morta
+// (410/404 no envio) é apagada pelo push.service.
+model PushSubscription {
+  id         String   @id @default(uuid())
+  tenant_id  String
+  usuario_id String
+  endpoint   String   @unique
+  p256dh     String
+  auth       String
+  user_agent String?
+  criado_em  DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, usuario_id])
+  @@map("push_subscriptions")
+}
+
+/// Histórico do que foi avisado a uma pessoa.
+///
+/// Até 31/08/2026 a "central de notificações" era um array escrito à mão no
+/// frontend, com quatro itens de exemplo iguais para todo mundo. O produto
+/// já disparava push nos momentos certos, mas nada disso ficava: quem não
+/// estava com o celular na mão no segundo exato perdia o aviso para sempre.
+///
+/// A linha nasce no mesmo funil que envia o push (`push.service`), então o
+/// histórico é o que REALMENTE foi avisado, e não uma segunda lista que
+/// alguém precisa lembrar de alimentar. Ela é gravada mesmo quando não há
+/// push para entregar — sem inscrição, com a permissão bloqueada ou com o
+/// VAPID ausente —, que é justamente quando a pessoa mais precisa achar o
+/// aviso depois.
+model Notificacao {
+  id         String   @id @default(uuid())
+  tenant_id  String
+  usuario_id String
+
+  titulo    String
+  mensagem  String
+  /// Rota interna para onde o aviso leva. Nula quando não há o que abrir.
+  link      String?
+  /// Nome do ícone do AppKit.
+  icone     String  @default("bell")
+  urgente   Boolean @default(false)
+
+  lida      Boolean   @default(false)
+  lida_em   DateTime?
+  criado_em DateTime  @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  /// A consulta da tela é sempre "as minhas, mais novas primeiro".
+  @@index([tenant_id, usuario_id, criado_em(sort: Desc)])
+  /// E o contador do sino é "as minhas não lidas".
+  @@index([usuario_id, lida])
+  @@map("notificacoes")
+}
+
+model CidadeCobertura {
+  id                    String   @id @default(uuid())
+  tenant_id             String
+  nome                  String // "São Paulo", "Campinas", etc.
+  estado                String // "SP", "RJ", etc.
+  raio_atendimento_km   Int      @default(20)
+  preco_emergencia      Decimal  @default(150.00) @db.Decimal(10, 2)
+  preco_domiciliar      Decimal  @default(150.00) @db.Decimal(10, 2)
+  preco_teleorientacao  Decimal  @default(80.00) @db.Decimal(10, 2)
+  /// Aplicação em domicílio: o valor da vacina em si varia por marca e entra na
+  /// cobrança à parte, quando houver.
+  preco_vacinacao       Decimal  @default(120.00) @db.Decimal(10, 2)
+  /// Avaliação clínica sem urgência — mais curta que a consulta completa.
+  preco_avaliacao       Decimal  @default(120.00) @db.Decimal(10, 2)
+  /// Preventiva, marcada com antecedência: é a mais barata porque o
+  /// profissional organiza o deslocamento com folga.
+  preco_consulta_rotina Decimal  @default(130.00) @db.Decimal(10, 2)
+  /// Quanto a plataforma retém de cada atendimento desta cidade. Era constante
+  /// no código (15%) enquanto o plano do produto diz 20 — e mudar comissão não
+  /// pode exigir deploy.
+  percentual_plataforma Int      @default(20)
+  ativo                 Boolean  @default(true)
+  criado_em             DateTime @default(now())
+  atualizado_em         DateTime @updatedAt
+
+  @@unique([tenant_id, nome, estado])
+  @@index([tenant_id, ativo])
+  @@map("cidades_cobertura")
+}
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA DE AUDITORIA FORENSE E IMUTÁVEL (APPEND-ONLY)
+// ═══════════════════════════════════════════════════════
+
+/// Leitura da coleira pelo QR público.
+///
+/// O botão "Achei este Pet! Alertar Tutor" era só um deeplink de WhatsApp: o
+/// sistema nunca ficava sabendo que a coleira tinha sido lida, e o tutor de um
+/// animal perdido não tinha nenhum sinal de que ele havia sido visto.
+model PetTagScan {
+  id         String   @id @default(uuid())
+  tenant_id  String?
+  pet_id     String
+  latitude   Float?
+  longitude  Float?
+  mensagem   String?
+  contato    String?
+  ip         String?
+  user_agent String?
+  /// Abertura da página (passiva) x toque em "Achei este pet" (deliberado).
+  deliberado Boolean  @default(false)
+  criado_em  DateTime @default(now())
+
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+
+  @@index([pet_id, criado_em])
+  @@index([tenant_id])
+  @@map("pet_tag_scans")
+}
+
+/// Endereço salvo do tutor, com coordenada já confirmada uma vez.
+///
+/// Escolher o local do zero a cada chamado é atrito no pior momento possível:
+/// o pet passando mal e a pessoa procurando a própria casa no mapa.
+model EnderecoTutor {
+  id            String    @id @default(uuid())
+  tenant_id     String
+  tutor_id      String
+  rotulo        String
+  endereco      String
+  complemento   String?
+  cidade        String?
+  latitude      Float
+  longitude     Float
+  principal     Boolean   @default(false)
+  /// Última vez que este endereço foi usado num chamado — ordena a lista pelo
+  /// que a pessoa realmente usa.
+  usado_em      DateTime?
+  criado_em     DateTime  @default(now())
+  atualizado_em DateTime  @updatedAt
+
+  tutor Usuario @relation(fields: [tutor_id], references: [id], onDelete: Cascade)
+
+  @@index([tutor_id])
+  @@index([tenant_id])
+  @@map("enderecos_tutor")
+}
+
+// ═══════════════════════════════════════════════════════
+// SAÚDE PET MERCADO — loja, catálogo, carrinho e pedido
+// ═══════════════════════════════════════════════════════
+//
+// O terceiro módulo do briefing. A diferença para tudo que existe aqui é que o
+// vendedor não é a plataforma: é uma empresa de fora — petshop, agropecuária,
+// distribuidora — que cadastra a própria loja, o próprio catálogo e recebe o
+// próprio repasse. Por isso a loja tem status de aprovação como o veterinário
+// tem: quem vende medicamento para animal doente passa por conferência antes
+// de aparecer na vitrine.
+//
+// Esta primeira fatia entrega da vitrine ao pagamento. A entrega por
+// ENTREGADOR ainda não existe — `EntregaMercado` já reserva o valor, mas o
+// pedido desta fatia só sai por retirada no balcão ou combinação direta com a
+// loja. Prometer entrega em tela sem ter quem entregue seria vender o que não
+// se tem.
+
+enum StatusLojaMercado {
+  rascunho // A empresa começou o cadastro e ainda não enviou
+  pendente // Enviada, esperando conferência da equipe
+  aprovada
+  suspensa
+  recusada
+}
+
+enum StatusPedidoMercado {
+  aguardando_pagamento
+  pagamento_falhou
+  pago
+  em_separacao
+  pronto // Separado, esperando o tutor buscar / a loja combinar a entrega
+  concluido
+  cancelado
+  reembolsado
+}
+
+enum EntregaMercado {
+  retirada // Tutor busca no balcão
+  combinar // Loja combina a entrega direto com o tutor
+  entregador // Reservado para a fatia da logística; nada emite este valor ainda
+  loja // A própria loja leva, dentro do raio dela, com frete calculado pela plataforma
+  transportadora // PAC, SEDEX, Jadlog ou Loggi cotados e emitidos pela CepCerto
+}
+
+model LojaMercado {
+  id             String  @id @default(uuid())
+  tenant_id      String
+  /// Quem responde pela loja — a conta que administra catálogo e pedidos.
+  responsavel_id String
+  nome_fantasia  String
+  razao_social   String?
+  cnpj           String?
+  slug           String
+  descricao      String?
+  logo_url       String?
+  email          String
+  telefone       String
+  whatsapp       String?
+
+  // Onde o tutor busca o pedido. Endereço é obrigatório mesmo na fatia sem
+  // entregador: sem ele, "retirada no balcão" não diz em que balcão.
+  cep         String?
+  endereco    String
+  numero      String?
+  complemento String?
+  bairro      String?
+  cidade      String
+  estado      String
+  latitude    Float?
+  longitude   Float?
+
+  status        StatusLojaMercado @default(rascunho)
+  motivo_recusa String?
+  enviada_em    DateTime?
+  aprovada_em   DateTime?
+  aprovada_por  String?
+
+  /// Loja de demonstração: criada por seed para testar o Mercado, nunca por
+  /// um lojista. O portão é estrutural porque em 01/09/2026 a BioVet (seed)
+  /// foi aprovada no painel e apareceu na vitrine, no sitemap e no feed do
+  /// Google como se existisse. Com o campo, toda leitura pública exclui a
+  /// loja e a aprovação recusa, independente de quem clique onde.
+  demonstracao Boolean @default(false)
+
+  /// Comissão da plataforma sobre o pedido. Nulo usa a do tenant
+  /// (`configuracoes_tenant.comissao_plataforma_pct`) — a loja só ganha número
+  /// próprio quando alguém negocia um.
+  comissao_pct Decimal? @db.Decimal(5, 2)
+
+  /// Identificador do recebedor no gateway. Enquanto for nulo, o dinheiro fica
+  /// retido na plataforma e o repasse sai por Pix, como já acontece com o
+  /// veterinário sem subconta.
+  gateway_recebedor_id String?
+
+  aceita_retirada   Boolean @default(true)
+  aceita_combinar   Boolean @default(true)
+  prazo_preparo_min Int     @default(60)
+  pedido_minimo     Decimal @default(0) @db.Decimal(10, 2)
+
+  // ── Entrega pela própria loja (segunda fatia, 27/08/2026).
+  //
+  // Ração pesada só fecha conta em raio curto. O raio, o frete e o piso do
+  // frete grátis são DA LOJA; a plataforma faz a conta pela distância entre a
+  // coordenada da loja e a do endereço do tutor, e recusa o que está fora.
+  // Sem coordenada da loja não há entrega — é a validação, não a tela, que
+  // impede a promessa vazia.
+  aceita_entrega      Boolean  @default(false)
+  /// Até onde a loja leva, em km. Nulo enquanto a loja não definir.
+  entrega_raio_km     Decimal? @db.Decimal(5, 1)
+  /// Parcela fixa do frete, cobrada em toda entrega.
+  frete_base          Decimal  @default(0) @db.Decimal(10, 2)
+  /// Parcela por km rodado, sobre a distância em linha reta.
+  frete_por_km        Decimal  @default(0) @db.Decimal(10, 2)
+  /// Subtotal a partir do qual o frete é zero. Nulo = nunca é grátis.
+  frete_gratis_acima  Decimal? @db.Decimal(10, 2)
+  /// Prazo que a loja promete para entregar, em horas. Só informação na tela.
+  entrega_prazo_horas Int?
+
+  // Envio nacional pela CepCerto. A loja só ativa quando o CEP de origem e a
+  // caixa padrão estão completos; produto sem peso continua indisponível para
+  // transportadora, porque estimar peso escondido cobraria frete errado.
+  aceita_transportadora Boolean @default(false)
+
+  // ── Assinatura de ração com entrega programada (terceira fatia) ─────────────
+  //
+  // É a loja quem decide se vende por assinatura e quanto abre mão por isso:
+  // o desconto é o preço da recorrência (o tutor deixa de comparar a cada
+  // saco) e o frete grátis, quando ela entrega, é o que faz a conta fechar
+  // para ração pesada. Ambos ficam CONGELADOS na assinatura no ato de assinar:
+  // mudar a política amanhã vale para quem assinar amanhã.
+  aceita_assinatura        Boolean  @default(false)
+  assinatura_desconto_pct  Decimal  @default(5) @db.Decimal(5, 2)
+  assinatura_frete_gratis  Boolean  @default(false)
+  embalagem_altura_cm      Decimal? @db.Decimal(5, 1)
+  embalagem_largura_cm     Decimal? @db.Decimal(5, 1)
+  embalagem_comprimento_cm Decimal? @db.Decimal(5, 1)
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  responsavel Usuario             @relation("LojasDoResponsavel", fields: [responsavel_id], references: [id], onDelete: Cascade)
+  produtos    ProdutoMercado[]
+  carrinhos   CarrinhoMercado[]
+  pedidos     PedidoMercado[]
+  assinaturas AssinaturaMercado[]
+
+  @@unique([tenant_id, slug])
+  @@index([tenant_id, status])
+  @@index([responsavel_id])
+  @@index([cidade])
+  @@map("mercado_lojas")
+}
+
+/// Prateleira da vitrine. Curada pela plataforma, não pela loja: se cada
+/// vendedor inventasse a própria categoria, a busca do tutor viraria um
+/// amontoado de sinônimos.
+model CategoriaMercado {
+  id                String   @id @default(uuid())
+  tenant_id         String
+  nome              String
+  slug              String
+  icone             String?
+  ordem             Int      @default(0)
+  ativo             Boolean  @default(true)
+  /// Margem que o produto desta prateleira herda quando não tem a própria.
+  /// 0.25 = 25%. Ração premium suporta 18–30%; acessório e cosmético, bem mais
+  /// — decisão comercial de 27/08/2026, no lugar do 40% fixo.
+  margem_padrao_pct Decimal? @db.Decimal(5, 4)
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  produtos ProdutoMercado[]
+
+  @@unique([tenant_id, slug])
+  @@index([tenant_id, ativo])
+  @@map("mercado_categorias")
+}
+
+model ProdutoMercado {
+  id           String  @id @default(uuid())
+  tenant_id    String
+  loja_id      String
+  categoria_id String?
+
+  nome      String
+  slug      String
+  descricao String?
+  marca     String?
+  sku       String?
+  /// Código de barras. É ele que evita o mesmo produto entrar duas vezes quando
+  /// um segundo fornecedor subir o catálogo dele — o nome muda de loja para
+  /// loja, o EAN não.
+  ean       String?
+  /// Sabor, público ou linha: "Frango e arroz - porte pequeno". Fica separado do
+  /// nome para virar filtro depois sem ter de quebrar texto.
+  variacao  String?
+  /// Como a embalagem se apresenta na prateleira: "15 kg", "500 g", "P". É
+  /// texto porque nem tudo é peso — coleira tem tamanho, roupa tem numeração.
+  tamanho   String?
+
+  // ── Economia da loja. Nada aqui aparece para o tutor: a seleção de campos
+  // públicos do catálogo não inclui nenhum destes três.
+  /// Quanto a loja paga ao fornecedor.
+  custo      Decimal? @db.Decimal(10, 2)
+  /// Margem aplicada sobre o custo para chegar ao preço. 0.40 = 40%.
+  margem_pct Decimal? @db.Decimal(5, 4)
+  /// De quem a loja compra. Permite ranquear margem por fornecedor depois.
+  fornecedor String?
+
+  preco             Decimal  @db.Decimal(10, 2)
+  /// Preço promocional vigente. Quando preenchido e menor que `preco`, é ele
+  /// que o tutor paga — e a tela mostra o de tabela riscado ao lado.
+  preco_promocional Decimal? @db.Decimal(10, 2)
+
+  unidade     String @default("un")
+  /// Peso bruto, para o cálculo de frete e para a logística de retirada: saco
+  /// de 15 kg não sai na mochila de ninguém.
+  peso_gramas Int?
+  estoque     Int    @default(0)
+
+  /// A loja faz contagem deste item?
+  ///
+  /// Petshop de bairro em geral NÃO faz — vende enquanto tem e confere na hora
+  /// de separar. Forçar contagem nesse caso produziria a pior das mentiras:
+  /// prateleira cheia aparecendo como "esgotado" porque ninguém digitou número
+  /// nenhum. Com `false`, o item vende sem reservar estoque e a loja confirma
+  /// na separação; com `true`, cada pedido baixa a quantidade e o último item
+  /// só é vendido uma vez.
+  controla_estoque Boolean @default(true)
+
+  /// Vendido a peso, tirado do fardo na hora. Não tem embalagem lacrada nem
+  /// código de barras, e a quantidade é em quilos.
+  granel               Boolean @default(false)
+  /// A loja não mantém em estoque: pede ao fornecedor quando alguém compra.
+  /// Sem o prazo à vista, o tutor descobre a espera depois de pagar.
+  sob_encomenda        Boolean @default(false)
+  prazo_reposicao_dias Int?
+
+  /// Pendência do levantamento ("CONFIRMAR peso", "conferir sabor"). É recado
+  /// entre a loja e quem cadastrou — nunca chega ao tutor.
+  nota_interna String?
+
+  /// Medicamento de uso veterinário sob prescrição. O pedido com item assim
+  /// nasce marcado e a loja é obrigada a conferir a receita antes de separar —
+  /// vender antimicrobiano sem receita é infração, não detalhe de produto.
+  exige_receita Boolean @default(false)
+  /// 'cao', 'gato', 'ambos' ou nulo quando não se aplica (higiene, acessório).
+  especie_alvo  String?
+
+  imagem_url String?
+  /// Texto alternativo da capa: vai no `alt` do <img> e no JSON-LD. Sem ele a
+  /// vitrine usa o nome completo do produto.
+  imagem_alt String?
+  /// 'aprovada' (vitrine), 'revisar' (fila de QA) ou 'rejeitada'. Nulo sem capa.
+  imagem_status String?
+  /// A etiqueta de preço do balcão aparece na foto: publicável, mas na fila de troca.
+  imagem_tem_etiqueta Boolean @default(false)
+  /// Fotos adicionais, em ordem de exibição.
+  imagens    Json?
+
+  ativo Boolean @default(true)
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  loja            LojaMercado             @relation(fields: [loja_id], references: [id], onDelete: Cascade)
+  categoria       CategoriaMercado?       @relation(fields: [categoria_id], references: [id], onDelete: SetNull)
+  itens           ItemCarrinhoMercado[]
+  assinaturaItens ItemAssinaturaMercado[]
+
+  @@unique([loja_id, slug])
+  @@index([tenant_id, ativo])
+  @@index([loja_id, ativo])
+  @@index([categoria_id])
+  @@index([ean])
+  @@map("mercado_produtos")
+}
+
+/// Um carrinho POR LOJA, e não um só com tudo dentro.
+///
+/// Cada loja separa, embala e entrega o que é dela; um carrinho único com itens
+/// de três vendedores viraria três pedidos, três repasses e três prazos escondidos
+/// atrás de um botão só. Aqui o tutor pode ter carrinho aberto em várias lojas
+/// ao mesmo tempo, e paga um de cada vez — o que ele vê na tela é o que acontece
+/// no balcão.
+model CarrinhoMercado {
+  id        String @id @default(uuid())
+  tenant_id String
+  tutor_id  String
+  loja_id   String
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  tutor Usuario               @relation("CarrinhosDoTutor", fields: [tutor_id], references: [id], onDelete: Cascade)
+  loja  LojaMercado           @relation(fields: [loja_id], references: [id], onDelete: Cascade)
+  itens ItemCarrinhoMercado[]
+
+  @@unique([tutor_id, loja_id])
+  @@index([tenant_id])
+  @@map("mercado_carrinhos")
+}
+
+/// O item guarda só a quantidade. O preço é lido do produto na hora de mostrar
+/// e de fechar: congelar preço no carrinho faria o tutor pagar um valor que a
+/// loja já mudou, e descongelar sem avisar seria pior.
+model ItemCarrinhoMercado {
+  id          String @id @default(uuid())
+  carrinho_id String
+  produto_id  String
+  quantidade  Int    @default(1)
+
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  carrinho CarrinhoMercado @relation(fields: [carrinho_id], references: [id], onDelete: Cascade)
+  produto  ProdutoMercado  @relation(fields: [produto_id], references: [id], onDelete: Cascade)
+
+  @@unique([carrinho_id, produto_id])
+  @@index([produto_id])
+  @@map("mercado_carrinho_itens")
+}
+
+model PedidoMercado {
+  id        String @id @default(uuid())
+  tenant_id String
+  loja_id   String
+  tutor_id  String
+  /// Código curto para o balcão. Ninguém dita um UUID no telefone.
+  codigo    String @unique
+
+  status       StatusPedidoMercado @default(aguardando_pagamento)
+  entrega_tipo EntregaMercado      @default(retirada)
+
+  // Endereço só existe quando a loja vai levar. Guardado como cópia: mudar o
+  // endereço salvo depois não pode reescrever para onde um pedido antigo foi.
+  entrega_endereco     String?
+  entrega_cep          String?
+  entrega_numero       String?
+  entrega_complemento  String?
+  entrega_cidade       String?
+  entrega_latitude     Float?
+  entrega_longitude    Float?
+  /// Distância cobrada quando a própria loja entrega. Guardada, não
+  /// recalculada: a loja pode mudar o raio amanhã, e o frete pago hoje precisa
+  /// continuar explicável.
+  entrega_distancia_km Decimal? @db.Decimal(6, 2)
+
+  // Fotografia da cotação CepCerto escolhida. Peso e medidas ficam no pedido:
+  // editar o catálogo ou a caixa padrão amanhã não muda a postagem já vendida.
+  frete_servico        String?
+  frete_transportadora String?
+  frete_prazo          String?
+  frete_peso_gramas    Int?
+  frete_altura_cm      Decimal?  @db.Decimal(5, 1)
+  frete_largura_cm     Decimal?  @db.Decimal(5, 1)
+  frete_comprimento_cm Decimal?  @db.Decimal(5, 1)
+  rastreio_codigo      String?
+  etiqueta_url         String?
+  declaracao_url       String?
+  etiqueta_emitida_em  DateTime?
+
+  subtotal Decimal @db.Decimal(10, 2)
+  desconto Decimal @default(0) @db.Decimal(10, 2)
+  frete    Decimal @default(0) @db.Decimal(10, 2)
+  total    Decimal @db.Decimal(10, 2)
+
+  comissao_pct   Decimal @db.Decimal(5, 2)
+  comissao_valor Decimal @db.Decimal(10, 2)
+  repasse_loja   Decimal @db.Decimal(10, 2)
+
+  /// Cobrança em `payments`. O webhook do gateway usa o caminho inverso
+  /// (`payments.pedido_mercado_id`) para marcar o pedido como pago.
+  payment_id String?
+
+  /// Pedido gerado por um ciclo de assinatura. Nulo na compra avulsa.
+  assinatura_id String?
+
+  /// Algum item exige receita. Copiado para o pedido para a loja ver na fila,
+  /// sem precisar abrir item por item.
+  exige_receita Boolean @default(false)
+
+  observacao       String?
+  cancelado_motivo String?
+  cancelado_por    String?
+
+  /// Prazo da cobrança. Passou disto sem pagar, o estoque volta para a prateleira.
+  expira_em     DateTime?
+  pago_em       DateTime?
+  separado_em   DateTime?
+  pronto_em     DateTime?
+  concluido_em  DateTime?
+  cancelado_em  DateTime?
+  criado_em     DateTime  @default(now())
+  atualizado_em DateTime  @updatedAt
+
+  loja       LojaMercado           @relation(fields: [loja_id], references: [id], onDelete: Restrict)
+  tutor      Usuario               @relation("PedidosDoTutor", fields: [tutor_id], references: [id], onDelete: Restrict)
+  assinatura AssinaturaMercado?    @relation(fields: [assinatura_id], references: [id], onDelete: SetNull)
+  itens      ItemPedidoMercado[]
+  eventos    EventoPedidoMercado[]
+
+  @@index([tenant_id, status])
+  @@index([loja_id, status])
+  @@index([tutor_id])
+  @@index([payment_id])
+  @@index([assinatura_id])
+  @@map("mercado_pedidos")
+}
+
+/// Cópia do produto no instante da compra. O catálogo muda todo dia; a nota do
+/// que foi vendido, não.
+model ItemPedidoMercado {
+  id         String  @id @default(uuid())
+  pedido_id  String
+  produto_id String?
+
+  nome                 String
+  sku                  String?
+  /// Sabor ou linha, como estava na hora da compra.
+  variacao             String?
+  unidade              String  @default("un")
+  preco_unitario       Decimal @db.Decimal(10, 2)
+  quantidade           Int
+  subtotal             Decimal @db.Decimal(10, 2)
+  exige_receita        Boolean @default(false)
+  /// Prazo prometido quando o item era sob encomenda. Fica no item, e não no
+  /// produto, porque é a promessa feita NAQUELA compra — mudar o cadastro
+  /// depois não pode reescrever o que o tutor leu antes de pagar.
+  prazo_encomenda_dias Int?
+  /// Peso congelado para a declaração e o pacote da transportadora.
+  peso_gramas          Int?
+
+  criado_em DateTime @default(now())
+
+  pedido PedidoMercado @relation(fields: [pedido_id], references: [id], onDelete: Cascade)
+
+  @@index([pedido_id])
+  @@index([produto_id])
+  @@map("mercado_pedido_itens")
+}
+
+/// Linha do tempo do pedido, no mesmo espírito de `solicitacoes_timeline`:
+/// quem mudou, de que estado para qual, quando e por quê. Só entra, nunca sai.
+model EventoPedidoMercado {
+  id              String               @id @default(uuid())
+  pedido_id       String
+  status          StatusPedidoMercado
+  status_anterior StatusPedidoMercado?
+  ator_id         String?
+  ator_papel      String?
+  origem          String? // 'tutor', 'loja', 'admin', 'webhook', 'worker'
+  motivo          String?
+  criado_em       DateTime             @default(now())
+
+  pedido PedidoMercado @relation(fields: [pedido_id], references: [id], onDelete: Cascade)
+
+  @@index([pedido_id])
+  @@map("mercado_pedido_eventos")
+}
+
+enum StatusAssinaturaMercado {
+  ativa
+  pausada
+  cancelada
+}
+
+/// Assinatura de ração com entrega programada (terceira fatia do mercado).
+///
+/// A recorrência aqui é HONESTA: o ciclo gera um pedido `aguardando_pagamento`
+/// e avisa o tutor com o Pix pronto. Não há cobrança automática — o checkout
+/// não guarda cartão sem CVV (decisão de 24/08) e o preapproval do Mercado
+/// Pago ainda não foi contratado. Quando um dos dois existir, o worker passa
+/// a cobrar em vez de lembrar, e o resto continua igual.
+model AssinaturaMercado {
+  id        String                  @id @default(uuid())
+  tenant_id String
+  loja_id   String
+  tutor_id  String
+  pet_id    String?
+  status    StatusAssinaturaMercado @default(ativa)
+
+  /// A cada quantos dias nasce um pedido. Sugerido pelo porte do pet e pelo
+  /// peso do saco; o tutor pode ajustar.
+  frequencia_dias  Int
+  proximo_ciclo_em DateTime
+
+  // Como recebe: retirada, combinar ou entrega pela loja. Transportadora fica
+  // de fora — cotação por ciclo exigiria CPF e CepCerto a cada geração.
+  entrega_tipo        EntregaMercado @default(retirada)
+  entrega_endereco    String?
+  entrega_cep         String?
+  entrega_numero      String?
+  entrega_complemento String?
+  entrega_cidade      String?
+  entrega_latitude    Float?
+  entrega_longitude   Float?
+
+  // Política da loja no ato de assinar, congelada.
+  desconto_pct Decimal @default(0) @db.Decimal(5, 2)
+  frete_gratis Boolean @default(false)
+
+  ciclos_gerados           Int     @default(0)
+  ciclos_pagos             Int     @default(0)
+  /// Ciclos seguidos que venceram sem pagamento. Três pausam a assinatura:
+  /// continuar gerando pedido para quem não paga só prende estoque da loja.
+  ciclos_perdidos_seguidos Int     @default(0)
+  ultimo_pedido_id         String?
+  ultimo_erro              String?
+
+  observacao       String?
+  pausada_em       DateTime?
+  cancelada_em     DateTime?
+  cancelado_motivo String?
+  criado_em        DateTime  @default(now())
+  atualizado_em    DateTime  @updatedAt
+
+  loja    LojaMercado             @relation(fields: [loja_id], references: [id], onDelete: Restrict)
+  tutor   Usuario                 @relation("AssinaturasDoTutor", fields: [tutor_id], references: [id], onDelete: Cascade)
+  pet     Pet?                    @relation(fields: [pet_id], references: [id], onDelete: SetNull)
+  itens   ItemAssinaturaMercado[]
+  pedidos PedidoMercado[]
+
+  @@index([tenant_id, status, proximo_ciclo_em])
+  @@index([loja_id, status])
+  @@index([tutor_id])
+  @@map("mercado_assinaturas")
+}
+
+model ItemAssinaturaMercado {
+  id            String @id @default(uuid())
+  assinatura_id String
+  produto_id    String
+  quantidade    Int    @default(1)
+
+  criado_em DateTime @default(now())
+
+  assinatura AssinaturaMercado @relation(fields: [assinatura_id], references: [id], onDelete: Cascade)
+  produto    ProdutoMercado    @relation(fields: [produto_id], references: [id], onDelete: Cascade)
+
+  @@unique([assinatura_id, produto_id])
+  @@index([produto_id])
+  @@map("mercado_assinatura_itens")
+}

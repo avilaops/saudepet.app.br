@@ -1,0 +1,68 @@
+# Smoke da política de acesso (Auth v1.0) contra um ambiente já publicado.
+#
+# Job MANUAL, de propósito: o passo de confirmação de e-mail precisa do token
+# que chega por e-mail (ou de uma leitura no banco do ambiente), e automatizar
+# isso na CI seria gambiarra. Quem dispara informa o token , ou deixa em branco
+# e o job falha no passo 06 mostrando até onde foi.
+#
+# Segredos esperados no repositório (Settings → Secrets → Actions):
+#   SMOKE_ADMIN_EMAIL / SMOKE_ADMIN_SENHA  , admin do tenant no ambiente alvo
+#
+# Uso: Actions → "Smoke Auth v1.0" → Run workflow → api_url + verify_token.
+name: Smoke Auth v1.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_url:
+        description: "Base da API versionada (ex.: https://staging.saudepet.app.br/api/v1)"
+        required: true
+        default: https://staging.saudepet.app.br/api/v1
+      tenant_slug:
+        description: "Slug do tenant"
+        required: false
+        default: saudepet
+      verify_token:
+        description: "Token do e-mail de verificação da conta de teste (passo 06). Cadastre antes com SMOKE_EMAIL ou deixe vazio para ver até onde vai."
+        required: false
+      smoke_email:
+        description: "E-mail fixo da conta de teste (opcional; combine com verify_token)"
+        required: false
+      limpar:
+        description: "Apagar a conta de teste no final"
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 20
+
+      # Sem dependências: o script usa só fetch/readline do Node.
+      - name: Smoke Auth v1.0
+        env:
+          API_URL: ${{ inputs.api_url }}
+          TENANT_SLUG: ${{ inputs.tenant_slug }}
+          ADMIN_EMAIL: ${{ secrets.SMOKE_ADMIN_EMAIL }}
+          ADMIN_SENHA: ${{ secrets.SMOKE_ADMIN_SENHA }}
+          VERIFY_TOKEN: ${{ inputs.verify_token }}
+          SMOKE_EMAIL: ${{ inputs.smoke_email }}
+          LIMPAR: ${{ inputs.limpar }}
+        run: |
+          if [ -z "$ADMIN_EMAIL" ] || [ -z "$ADMIN_SENHA" ]; then
+            echo "::error::Defina os segredos SMOKE_ADMIN_EMAIL e SMOKE_ADMIN_SENHA"; exit 2
+          fi
+          # Sem token, força modo não interativo (stdin não é TTY) e o script
+          # falha no passo 06 com mensagem clara, em vez de esperar entrada.
+          node scripts/smoke-auth.mjs < /dev/null

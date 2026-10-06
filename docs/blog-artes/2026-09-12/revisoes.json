@@ -1,0 +1,11 @@
+{
+  "revisoes": [
+    {
+      "id": "anc-029",
+      "original": "enriquecimento-ambiental-apartamento-quadrinhos-v1.png",
+      "final": "enriquecimento-ambiental-apartamento-quadrinhos-v2.png",
+      "motivo": "Simplificar cenário e retirar plantas internas; manter apenas grama para gatos.",
+      "prompt": "Edit this existing Saúde Pet apartment illustration. Preserve the same beautiful hand-drawn graphic-novel medium, vertical composition, architecture in cross-section, screened window, teal cat shelves, exactly one grey cat, one caramel dog sniffing orange mat, cat scratching posts, cardboard tunnel, furniture, colors, light and Saúde Pet wall print. Make just this precise correction: remove ALL houseplants, trailing vines, flowers and leaf-patterned cushions and botanical wall prints from inside the apartment. Replace those areas with clean wall, simple plain lavender and orange cushions, or a few neatly placed closed books as appropriate. Keep ONLY the existing small pot of short grass next to the scratching post downstairs. Outside landscape greenery can remain. Do not add new pets, letters, other decorations or extra objects. Reduce clutter and keep this a plausible welcoming apartment for pets. All other parts remain unchanged."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+faster-whisper==1.1.1
+
+# faster-whisper 1.1.1 faz `import requests` em utils.py (download do modelo)
+# mas nao declara a dependencia: o container subia, importava e morria com
+# ModuleNotFoundError, entrando em restart loop. 153 reinicios ate 08/09/2026.
+requests==2.32.3

@@ -1,0 +1,4410 @@
+{
+  "fornecedor": {
+    "referencia": "FOR01",
+    "nome_fantasia": "Casa de Rações Filhos de 4 Patas",
+    "cidade": "Ribeirão Preto",
+    "estado": "SP",
+    "telefone": "(16) 99428-8613"
+  },
+  "gerado_em": "2026-08-29",
+  "status_possiveis": [
+    "aprovada",
+    "revisar",
+    "sem_foto",
+    "rejeitada"
+  ],
+  "origem": "Google Drive, pasta com 55 fotos do levantamento de 26/08/2026 (IMG_4244 a IMG_4298)",
+  "tratamento": "removedor-de-fundo (motor ia, U-2-Net), quadro 1200 px, respiro 6%, webp 1200x1200 com fundo branco",
+  "total": 132,
+  "aprovadas": 92,
+  "revisar": 40,
+  "fotos": [
+    {
+      "referencia": "FOR01-0008",
+      "slug": "spert-spert-caes-adultos-15-kg",
+      "arquivo_webp": "for01-0008-spert-spert-caes-adultos-15-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Cães Adultos 15 kg - Todos os portes",
+      "alt": "Ração Spert Cães Adultos 15 kg para cães - Todos os portes",
+      "descricao": "Ração Spert Cães Adultos 15 kg para cães - Todos os portes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "cães",
+        "15 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4270.HEIC",
+        "recorte": [
+          0.2,
+          0.78,
+          0.76,
+          0.89
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0009",
+      "slug": "special-dog-special-dog-gold-adultos-15-kg",
+      "arquivo_webp": "for01-0009-special-dog-special-dog-gold-adultos-15-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Gold Adultos 15 kg",
+      "alt": "Ração Special Dog Gold Adultos 15 kg para cães",
+      "descricao": "Ração Special Dog Gold Adultos 15 kg para cães. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Ração",
+        "cães",
+        "15 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4270.HEIC",
+        "recorte": [
+          0.2,
+          0.59,
+          0.8,
+          0.7
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0013",
+      "slug": "begacao-begacao-premium-natural-adultos-7-kg",
+      "arquivo_webp": "for01-0013-begacao-begacao-premium-natural-adultos-7-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Begacão Premium Natural Adultos 7 kg - Todos os portes",
+      "alt": "Ração Begacão Premium Natural Adultos 7 kg para cães - Todos os portes",
+      "descricao": "Ração Begacão Premium Natural Adultos 7 kg para cães - Todos os portes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Begacão",
+        "Ração",
+        "cães",
+        "7 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4267.HEIC",
+        "recorte": [
+          0.0,
+          0.19,
+          1.0,
+          0.4
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0021",
+      "slug": "golden-premierpet-golden-cookie",
+      "arquivo_webp": "for01-0021-golden-premierpet-golden-cookie.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Cookie - Original - adultos porte pequeno",
+      "alt": "Petisco Golden Cookie para cães - Original - adultos porte pequeno",
+      "descricao": "Petisco Golden Cookie para cães - Original - adultos porte pequeno. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4286.HEIC",
+        "recorte": [
+          0.63,
+          0.2,
+          0.83,
+          0.68
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0022",
+      "slug": "special-dog-special-dog-ultralife-biscoitos-assados",
+      "arquivo_webp": "for01-0022-special-dog-special-dog-ultralife-biscoitos-assados.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Ultralife Biscoitos Assados - Frutas vermelhas",
+      "alt": "Petisco Special Dog Ultralife Biscoitos Assados para cães - Frutas vermelhas",
+      "descricao": "Petisco Special Dog Ultralife Biscoitos Assados para cães - Frutas vermelhas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4286.HEIC",
+        "recorte": [
+          0.46,
+          0.17,
+          0.66,
+          0.68
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0025",
+      "slug": "brincalhao-tapete-higienico-premium-pacote-com-6-un",
+      "arquivo_webp": "for01-0025-brincalhao-tapete-higienico-premium-pacote-com-6-un.webp",
+      "arquivo_jpg": null,
+      "titulo": "Tapete Higiênico Premium Pacote com 6 un. - Cães",
+      "alt": "Higiene e banho Brincalhão Tapete Higiênico Premium Pacote com 6 un. para cães e gatos - Cães",
+      "descricao": "Higiene e banho Brincalhão Tapete Higiênico Premium Pacote com 6 un. para cães e gatos - Cães. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Brincalhão",
+        "Higiene e banho",
+        "cães e gatos",
+        "Pacote com 6 un.",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4271.HEIC",
+        "recorte": [
+          0.85,
+          0.0,
+          1.0,
+          0.23
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0026",
+      "slug": "brincat-areia-sanitaria-biodegradavel-2-kg",
+      "arquivo_webp": "for01-0026-brincat-areia-sanitaria-biodegradavel-2-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Areia Sanitária Biodegradável 2 kg - Capim-limão - grãos finos",
+      "alt": "Higiene e banho Brincat Areia Sanitária Biodegradável 2 kg para cães e gatos - Capim-limão - grãos finos",
+      "descricao": "Higiene e banho Brincat Areia Sanitária Biodegradável 2 kg para cães e gatos - Capim-limão - grãos finos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Brincat",
+        "Higiene e banho",
+        "cães e gatos",
+        "2 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4257.HEIC",
+        "recorte": [
+          0.08,
+          0.04,
+          0.86,
+          0.96
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0027",
+      "slug": "brincat-areia-sanitaria-biodegradavel-2-kg",
+      "arquivo_webp": "for01-0027-brincat-areia-sanitaria-biodegradavel-2-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Areia Sanitária Biodegradável 2 kg - Natural - grãos finos",
+      "alt": "Higiene e banho Brincat Areia Sanitária Biodegradável 2 kg para cães e gatos - Natural - grãos finos",
+      "descricao": "Higiene e banho Brincat Areia Sanitária Biodegradável 2 kg para cães e gatos - Natural - grãos finos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Brincat",
+        "Higiene e banho",
+        "cães e gatos",
+        "2 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4258.HEIC",
+        "recorte": [
+          0.17,
+          0.04,
+          0.86,
+          0.98
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0030",
+      "slug": "cc-albium-alimento-completo-para-passaros-250-g",
+      "arquivo_webp": "for01-0030-cc-albium-alimento-completo-para-passaros-250-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Alimento Completo para Pássaros 250 g - Papinha para filhotes",
+      "alt": "Ração CC-Albium Alimento Completo para Pássaros 250 g para pássaros - Papinha para filhotes",
+      "descricao": "Ração CC-Albium Alimento Completo para Pássaros 250 g para pássaros - Papinha para filhotes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "CC-Albium",
+        "Ração",
+        "pássaros",
+        "250 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4281.HEIC",
+        "recorte": [
+          0.05,
+          0.47,
+          0.42,
+          0.78
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0049",
+      "slug": "confirmar-shampoo-2-em-1-limpa-e-condiciona",
+      "arquivo_webp": "for01-0049-confirmar-shampoo-2-em-1-limpa-e-condiciona.webp",
+      "arquivo_jpg": null,
+      "titulo": "Shampoo 2 em 1 (limpa e condiciona) - Cães e gatos filhotes",
+      "alt": "Higiene e banho Shampoo 2 em 1 (limpa e condiciona) para cães e gatos - Cães e gatos filhotes",
+      "descricao": "Higiene e banho Shampoo 2 em 1 (limpa e condiciona) para cães e gatos - Cães e gatos filhotes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4298.HEIC",
+        "recorte": [
+          0.36,
+          0.03,
+          0.92,
+          0.31
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0050",
+      "slug": "confirmar-shampoo-vegetal-com-condicionador",
+      "arquivo_webp": "for01-0050-confirmar-shampoo-vegetal-com-condicionador.webp",
+      "arquivo_jpg": null,
+      "titulo": "Shampoo Vegetal com condicionador - Melancia",
+      "alt": "Higiene e banho Shampoo Vegetal com condicionador para cães e gatos - Melancia",
+      "descricao": "Higiene e banho Shampoo Vegetal com condicionador para cães e gatos - Melancia. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4298.HEIC",
+        "recorte": [
+          0.38,
+          0.26,
+          0.88,
+          0.49
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0051",
+      "slug": "confirmar-shampoo-antiparasitario",
+      "arquivo_webp": "for01-0051-confirmar-shampoo-antiparasitario.webp",
+      "arquivo_jpg": null,
+      "titulo": "Shampoo Antiparasitário - Antipulgas e carrapatos",
+      "alt": "Higiene e banho Shampoo Antiparasitário para cães e gatos - Antipulgas e carrapatos",
+      "descricao": "Higiene e banho Shampoo Antiparasitário para cães e gatos - Antipulgas e carrapatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4298.HEIC",
+        "recorte": [
+          0.4,
+          0.45,
+          0.92,
+          0.67
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0052",
+      "slug": "confirmar-shampoo-clorexidina",
+      "arquivo_webp": "for01-0052-confirmar-shampoo-clorexidina.webp",
+      "arquivo_jpg": null,
+      "titulo": "Shampoo Clorexidina - Antiqueda, antisséptico e antisseborreico",
+      "alt": "Higiene e banho Shampoo Clorexidina para cães e gatos - Antiqueda, antisséptico e antisseborreico",
+      "descricao": "Higiene e banho Shampoo Clorexidina para cães e gatos - Antiqueda, antisséptico e antisseborreico. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4298.HEIC",
+        "recorte": [
+          0.44,
+          0.63,
+          0.97,
+          0.85
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0054",
+      "slug": "diversos-toalha-de-secagem-pet",
+      "arquivo_webp": "for01-0054-diversos-toalha-de-secagem-pet.webp",
+      "arquivo_jpg": null,
+      "titulo": "Toalha de secagem pet - Diversas cores",
+      "alt": "Higiene e banho Toalha de secagem pet para cães e gatos - Diversas cores",
+      "descricao": "Higiene e banho Toalha de secagem pet para cães e gatos - Diversas cores. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4298.HEIC",
+        "recorte": [
+          0.04,
+          0.54,
+          0.42,
+          0.9
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0055",
+      "slug": "diversos-manta-cobertor-soft-pet",
+      "arquivo_webp": "for01-0055-diversos-manta-cobertor-soft-pet.webp",
+      "arquivo_jpg": null,
+      "titulo": "Manta / cobertor soft pet - Azul e verde-limão",
+      "alt": "Casa e conforto Manta / cobertor soft pet para cães e gatos - Azul e verde-limão",
+      "descricao": "Casa e conforto Manta / cobertor soft pet para cães e gatos - Azul e verde-limão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Casa e conforto",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4297.HEIC",
+        "recorte": [
+          0.0,
+          0.26,
+          1.0,
+          0.87
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0056",
+      "slug": "diversos-colchonete-cama-pet-estampada-p-m-g",
+      "arquivo_webp": "for01-0056-diversos-colchonete-cama-pet-estampada-p-m-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Colchonete / cama pet estampada P / M / G - Ossinhos, patinhas, ursinhos",
+      "alt": "Casa e conforto Colchonete / cama pet estampada P / M / G para cães e gatos - Ossinhos, patinhas, ursinhos",
+      "descricao": "Casa e conforto Colchonete / cama pet estampada P / M / G para cães e gatos - Ossinhos, patinhas, ursinhos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Casa e conforto",
+        "cães e gatos",
+        "P / M / G",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4296.HEIC",
+        "recorte": [
+          0.0,
+          0.03,
+          0.96,
+          0.87
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0057",
+      "slug": "napi-guia-retratil-unico",
+      "arquivo_webp": "for01-0057-napi-guia-retratil-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Guia Retrátil Único - Cães de raças pequenas até 15 kg",
+      "alt": "Acessório Napi Guia Retrátil Único para cães e gatos - Cães de raças pequenas até 15 kg",
+      "descricao": "Acessório Napi Guia Retrátil Único para cães e gatos - Cães de raças pequenas até 15 kg. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Napi",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4295.HEIC",
+        "recorte": [
+          0.2,
+          0.09,
+          0.74,
+          0.64
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0058",
+      "slug": "diversos-mordedor-de-borracha-unico",
+      "arquivo_webp": "for01-0058-diversos-mordedor-de-borracha-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Mordedor de borracha Único - Formatos variados",
+      "alt": "Brinquedo Mordedor de borracha Único para cães e gatos - Formatos variados",
+      "descricao": "Brinquedo Mordedor de borracha Único para cães e gatos - Formatos variados. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4294.HEIC",
+        "recorte": [
+          0.44,
+          0.06,
+          0.81,
+          0.94
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0059",
+      "slug": "diversos-mordedor-osso-de-borracha-unico",
+      "arquivo_webp": "for01-0059-diversos-mordedor-osso-de-borracha-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Mordedor osso de borracha Único - Roxo / vinho",
+      "alt": "Brinquedo Mordedor osso de borracha Único para cães e gatos - Roxo / vinho",
+      "descricao": "Brinquedo Mordedor osso de borracha Único para cães e gatos - Roxo / vinho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4294.HEIC",
+        "recorte": [
+          0.77,
+          0.28,
+          1.0,
+          0.92
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0060",
+      "slug": "finotrato-cat-stix-snack-liquido-super-premium-15-g-por-sach",
+      "arquivo_webp": "for01-0060-finotrato-cat-stix-snack-liquido-super-premium-15-g-por-sach.webp",
+      "arquivo_jpg": null,
+      "titulo": "Cat Stix Snack Líquido Super Premium 15 g por sachê (caixa 540 g com 36) - Salmão",
+      "alt": "Petisco Finotrato Cat Stix Snack Líquido Super Premium 15 g por sachê (caixa 540 g com 36) para gatos - Salmão",
+      "descricao": "Petisco Finotrato Cat Stix Snack Líquido Super Premium 15 g por sachê (caixa 540 g com 36) para gatos - Salmão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Finotrato",
+        "Petisco",
+        "gatos",
+        "15 g por sachê (caixa 540 g com 36)",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4294.HEIC",
+        "recorte": [
+          0.02,
+          0.26,
+          0.41,
+          0.97
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0061",
+      "slug": "purina-friskies-sache-85-g",
+      "arquivo_webp": "for01-0061-purina-friskies-sache-85-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Sachê 85 g - Carne ao molho",
+      "alt": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Carne ao molho",
+      "descricao": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Carne ao molho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "gatos",
+        "85 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.09,
+          0.04,
+          0.35,
+          0.5
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0062",
+      "slug": "purina-friskies-sache-85-g",
+      "arquivo_webp": "for01-0062-purina-friskies-sache-85-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Sachê 85 g - Salmão ao molho",
+      "alt": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Salmão ao molho",
+      "descricao": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Salmão ao molho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "gatos",
+        "85 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.32,
+          0.09,
+          0.53,
+          0.49
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0063",
+      "slug": "purina-friskies-sache-85-g",
+      "arquivo_webp": "for01-0063-purina-friskies-sache-85-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Sachê 85 g - Atum ao molho",
+      "alt": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Atum ao molho",
+      "descricao": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Atum ao molho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "gatos",
+        "85 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.09,
+          0.5,
+          0.36,
+          0.96
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0064",
+      "slug": "purina-friskies-sache-85-g",
+      "arquivo_webp": "for01-0064-purina-friskies-sache-85-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Sachê 85 g - Peixe branco ao molho",
+      "alt": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Peixe branco ao molho",
+      "descricao": "Alimento úmido Purina Friskies Sachê 85 g para gatos - Peixe branco ao molho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "gatos",
+        "85 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.33,
+          0.49,
+          0.53,
+          0.93
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0065",
+      "slug": "purina-friskies-sache-filhotes-85-g",
+      "arquivo_webp": "for01-0065-purina-friskies-sache-filhotes-85-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Sachê Filhotes 85 g - Carne ao molho",
+      "alt": "Alimento úmido Purina Friskies Sachê Filhotes 85 g para gatos - Carne ao molho",
+      "descricao": "Alimento úmido Purina Friskies Sachê Filhotes 85 g para gatos - Carne ao molho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "gatos",
+        "85 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.49,
+          0.54,
+          0.69,
+          0.89
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0066",
+      "slug": "special-cat-special-cat-ultralife-sache",
+      "arquivo_webp": "for01-0066-special-cat-special-cat-ultralife-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Ultralife Sachê - Frango com batata-doce - gatos adultos",
+      "alt": "Alimento úmido Special Cat Ultralife Sachê para gatos - Frango com batata-doce - gatos adultos",
+      "descricao": "Alimento úmido Special Cat Ultralife Sachê para gatos - Frango com batata-doce - gatos adultos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4293.HEIC",
+        "recorte": [
+          0.65,
+          0.51,
+          0.83,
+          0.83
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0067",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0067-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Salmão - gato adulto",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Salmão - gato adulto",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Salmão - gato adulto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.0,
+          0.07,
+          0.21,
+          0.43
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0068",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0068-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Carne - gato adulto",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Carne - gato adulto",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Carne - gato adulto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.19,
+          0.09,
+          0.43,
+          0.41
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0069",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0069-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Atum - gato adulto",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Atum - gato adulto",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Atum - gato adulto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.41,
+          0.09,
+          0.63,
+          0.41
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0070",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0070-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Frango - gato adulto castrado",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Frango - gato adulto castrado",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Frango - gato adulto castrado. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.61,
+          0.09,
+          0.81,
+          0.43
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0071",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0071-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Ovelha - gato adulto castrado",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Ovelha - gato adulto castrado",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Ovelha - gato adulto castrado. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.23,
+          0.49,
+          0.47,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0072",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0072-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Salmão e frango - gato adulto castrado",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Salmão e frango - gato adulto castrado",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Salmão e frango - gato adulto castrado. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.45,
+          0.49,
+          0.67,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0073",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0073-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Frango - gato filhote",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Frango - gato filhote",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para gatos - Frango - gato filhote. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4291.HEIC",
+        "recorte": [
+          0.0,
+          0.51,
+          0.25,
+          0.86
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0074",
+      "slug": "whiskas-whiskas-lata-adulto-1-290-g",
+      "arquivo_webp": "for01-0074-whiskas-whiskas-lata-adulto-1-290-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Whiskas Lata Adulto 1+ 290 g - Frango patê",
+      "alt": "Alimento úmido Whiskas Lata Adulto 1+ 290 g para gatos - Frango patê",
+      "descricao": "Alimento úmido Whiskas Lata Adulto 1+ 290 g para gatos - Frango patê. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Whiskas",
+        "Alimento úmido",
+        "gatos",
+        "290 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4292.HEIC",
+        "recorte": [
+          0.51,
+          0.17,
+          0.77,
+          0.47
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0075",
+      "slug": "whiskas-whiskas-lata-adulto-1-290-g",
+      "arquivo_webp": "for01-0075-whiskas-whiskas-lata-adulto-1-290-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Whiskas Lata Adulto 1+ 290 g - Atum patê",
+      "alt": "Alimento úmido Whiskas Lata Adulto 1+ 290 g para gatos - Atum patê",
+      "descricao": "Alimento úmido Whiskas Lata Adulto 1+ 290 g para gatos - Atum patê. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Whiskas",
+        "Alimento úmido",
+        "gatos",
+        "290 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4292.HEIC",
+        "recorte": [
+          0.49,
+          0.45,
+          0.75,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0076",
+      "slug": "pedigree-pedigree-lata-adulto-280-g",
+      "arquivo_webp": "for01-0076-pedigree-pedigree-lata-adulto-280-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pedigree Lata Adulto 280 g - Frango patê",
+      "alt": "Alimento úmido Pedigree Lata Adulto 280 g para cães - Frango patê",
+      "descricao": "Alimento úmido Pedigree Lata Adulto 280 g para cães - Frango patê. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Pedigree",
+        "Alimento úmido",
+        "cães",
+        "280 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4292.HEIC",
+        "recorte": [
+          0.09,
+          0.13,
+          0.33,
+          0.46
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0077",
+      "slug": "pedigree-pedigree-lata-adulto-280-g",
+      "arquivo_webp": "for01-0077-pedigree-pedigree-lata-adulto-280-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pedigree Lata Adulto 280 g - Carne patê",
+      "alt": "Alimento úmido Pedigree Lata Adulto 280 g para cães - Carne patê",
+      "descricao": "Alimento úmido Pedigree Lata Adulto 280 g para cães - Carne patê. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Pedigree",
+        "Alimento úmido",
+        "cães",
+        "280 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4292.HEIC",
+        "recorte": [
+          0.32,
+          0.13,
+          0.55,
+          0.46
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0078",
+      "slug": "doogs-doogs-nuggets-dental-fresh",
+      "arquivo_webp": "for01-0078-doogs-doogs-nuggets-dental-fresh.webp",
+      "arquivo_jpg": null,
+      "titulo": "Doogs Nuggets Dental Fresh - Menta - hálito refrescante",
+      "alt": "Petisco Doogs Nuggets Dental Fresh para cães - Menta - hálito refrescante",
+      "descricao": "Petisco Doogs Nuggets Dental Fresh para cães - Menta - hálito refrescante. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Doogs",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4290.HEIC",
+        "recorte": [
+          0.09,
+          0.01,
+          0.71,
+          0.99
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0079",
+      "slug": "unna-bifinho-unna",
+      "arquivo_webp": "for01-0079-unna-bifinho-unna.webp",
+      "arquivo_jpg": null,
+      "titulo": "Bifinho Unna - Carne",
+      "alt": "Petisco Bifinho Unna para cães - Carne",
+      "descricao": "Petisco Bifinho Unna para cães - Carne. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Unna",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4289.HEIC",
+        "recorte": [
+          0.06,
+          0.54,
+          0.36,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0080",
+      "slug": "batuta-batuta-bifinhos-super-premium-200-g",
+      "arquivo_webp": "for01-0080-batuta-batuta-bifinhos-super-premium-200-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Batuta Bifinhos Super Premium 200 g - Carne",
+      "alt": "Petisco Batuta Bifinhos Super Premium 200 g para cães - Carne",
+      "descricao": "Petisco Batuta Bifinhos Super Premium 200 g para cães - Carne. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Batuta",
+        "Petisco",
+        "cães",
+        "200 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4289.HEIC",
+        "recorte": [
+          0.53,
+          0.29,
+          0.96,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0082",
+      "slug": "purina-dog-chow-extra-life-sache",
+      "arquivo_webp": "for01-0082-purina-dog-chow-extra-life-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Chow Extra Life Sachê - Frango - adultos minis e pequenos",
+      "alt": "Alimento úmido Purina Dog Chow Extra Life Sachê para cães - Frango - adultos minis e pequenos",
+      "descricao": "Alimento úmido Purina Dog Chow Extra Life Sachê para cães - Frango - adultos minis e pequenos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.14,
+          0.19,
+          0.31,
+          0.51
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0083",
+      "slug": "purina-dog-chow-extra-life-sache",
+      "arquivo_webp": "for01-0083-purina-dog-chow-extra-life-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Chow Extra Life Sachê - Frango - adultos todos os tamanhos",
+      "alt": "Alimento úmido Purina Dog Chow Extra Life Sachê para cães - Frango - adultos todos os tamanhos",
+      "descricao": "Alimento úmido Purina Dog Chow Extra Life Sachê para cães - Frango - adultos todos os tamanhos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.29,
+          0.19,
+          0.46,
+          0.51
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0084",
+      "slug": "purina-dog-chow-nutricao-reforcada-sache",
+      "arquivo_webp": "for01-0084-purina-dog-chow-nutricao-reforcada-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Chow Nutrição Reforçada Sachê - Adulto todos os tamanhos",
+      "alt": "Alimento úmido Purina Dog Chow Nutrição Reforçada Sachê para cães - Adulto todos os tamanhos",
+      "descricao": "Alimento úmido Purina Dog Chow Nutrição Reforçada Sachê para cães - Adulto todos os tamanhos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.46,
+          0.49,
+          0.61,
+          0.81
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0085",
+      "slug": "kelco-sache-kelco-kelldog",
+      "arquivo_webp": "for01-0085-kelco-sache-kelco-kelldog.webp",
+      "arquivo_jpg": null,
+      "titulo": "Sachê Kelco (Kelldog) - Frango com ervilha e cenoura",
+      "alt": "Alimento úmido Sachê Kelco (Kelldog) para cães - Frango com ervilha e cenoura",
+      "descricao": "Alimento úmido Sachê Kelco (Kelldog) para cães - Frango com ervilha e cenoura. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Kelco",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.06,
+          0.51,
+          0.29,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0086",
+      "slug": "kelco-sache-kelco-kelldog",
+      "arquivo_webp": "for01-0086-kelco-sache-kelco-kelldog.webp",
+      "arquivo_jpg": null,
+      "titulo": "Sachê Kelco (Kelldog) - Carne com ervilha e cenoura",
+      "alt": "Alimento úmido Sachê Kelco (Kelldog) para cães - Carne com ervilha e cenoura",
+      "descricao": "Alimento úmido Sachê Kelco (Kelldog) para cães - Carne com ervilha e cenoura. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Kelco",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.27,
+          0.51,
+          0.47,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0087",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0087-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Carne - cão adulto",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para cães - Carne - cão adulto",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para cães - Carne - cão adulto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.59,
+          0.19,
+          0.79,
+          0.51
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0088",
+      "slug": "gran-plus-gran-plus-gourmet-sache",
+      "arquivo_webp": "for01-0088-gran-plus-gran-plus-gourmet-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Sachê - Frango - cão adulto",
+      "alt": "Alimento úmido Gran Plus Gourmet Sachê para cães - Frango - cão adulto",
+      "descricao": "Alimento úmido Gran Plus Gourmet Sachê para cães - Frango - cão adulto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Alimento úmido",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4288.HEIC",
+        "recorte": [
+          0.61,
+          0.51,
+          0.81,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0089",
+      "slug": "origens-origens-sache-gato-castrado",
+      "arquivo_webp": "for01-0089-origens-origens-sache-gato-castrado.webp",
+      "arquivo_jpg": null,
+      "titulo": "Origens Sachê Gato Castrado - Frango e carne",
+      "alt": "Alimento úmido Origens Sachê Gato Castrado para gatos - Frango e carne",
+      "descricao": "Alimento úmido Origens Sachê Gato Castrado para gatos - Frango e carne. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Origens",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4259.HEIC",
+        "recorte": [
+          0.31,
+          0.21,
+          0.67,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0090",
+      "slug": "paladar-canino-palito-mastigavel-natural-8-mm-1-kg-105-unida",
+      "arquivo_webp": "for01-0090-paladar-canino-palito-mastigavel-natural-8-mm-1-kg-105-unida.webp",
+      "arquivo_jpg": null,
+      "titulo": "Palito mastigável natural 8 mm 1 kg (105 unidades) - Natural",
+      "alt": "Petisco Paladar Canino Palito mastigável natural 8 mm 1 kg (105 unidades) para cães - Natural",
+      "descricao": "Petisco Paladar Canino Palito mastigável natural 8 mm 1 kg (105 unidades) para cães - Natural. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Paladar Canino",
+        "Petisco",
+        "cães",
+        "1 kg (105 unidades)",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4287.HEIC",
+        "recorte": [
+          0.24,
+          0.09,
+          0.56,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0091",
+      "slug": "gran-plus-gran-plus-biscoitos",
+      "arquivo_webp": "for01-0091-gran-plus-gran-plus-biscoitos.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Biscoitos - Leite - cães filhotes de todos os portes",
+      "alt": "Petisco Gran Plus Biscoitos para cães - Leite - cães filhotes de todos os portes",
+      "descricao": "Petisco Gran Plus Biscoitos para cães - Leite - cães filhotes de todos os portes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4286.HEIC",
+        "recorte": [
+          0.24,
+          0.19,
+          0.48,
+          0.7
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0092",
+      "slug": "special-dog-special-dog-ultralife-biscoitos-assados-filhotes",
+      "arquivo_webp": "for01-0092-special-dog-special-dog-ultralife-biscoitos-assados-filhotes.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Ultralife Biscoitos Assados Filhotes 250 g - Frutas vermelhas",
+      "alt": "Petisco Special Dog Ultralife Biscoitos Assados Filhotes 250 g para cães - Frutas vermelhas",
+      "descricao": "Petisco Special Dog Ultralife Biscoitos Assados Filhotes 250 g para cães - Frutas vermelhas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Petisco",
+        "cães",
+        "250 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4286.HEIC",
+        "recorte": [
+          0.46,
+          0.17,
+          0.66,
+          0.68
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0093",
+      "slug": "confirmar-cama-redonda-toca-pet",
+      "arquivo_webp": "for01-0093-confirmar-cama-redonda-toca-pet.webp",
+      "arquivo_jpg": null,
+      "titulo": "Cama redonda / toca pet - Preta com rosa, preta com vermelho",
+      "alt": "Casa e conforto Cama redonda / toca pet para cães e gatos - Preta com rosa, preta com vermelho",
+      "descricao": "Casa e conforto Cama redonda / toca pet para cães e gatos - Preta com rosa, preta com vermelho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Casa e conforto",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4284.HEIC",
+        "recorte": [
+          0.19,
+          0.14,
+          0.89,
+          0.63
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0094",
+      "slug": "confirmar-almofada-colchonete-estampado-p-m-g",
+      "arquivo_webp": "for01-0094-confirmar-almofada-colchonete-estampado-p-m-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Almofada / colchonete estampado P / M / G - Gatinhos, patinhas, ossinhos",
+      "alt": "Casa e conforto Almofada / colchonete estampado P / M / G para cães e gatos - Gatinhos, patinhas, ossinhos",
+      "descricao": "Casa e conforto Almofada / colchonete estampado P / M / G para cães e gatos - Gatinhos, patinhas, ossinhos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Casa e conforto",
+        "cães e gatos",
+        "P / M / G",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4283.HEIC",
+        "recorte": [
+          0.04,
+          0.0,
+          0.73,
+          0.59
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0095",
+      "slug": "diversos-caixa-de-transporte-plastica",
+      "arquivo_webp": "for01-0095-diversos-caixa-de-transporte-plastica.webp",
+      "arquivo_jpg": null,
+      "titulo": "Caixa de transporte plástica - Porta rosa, azul e roxa",
+      "alt": "Casa e conforto Caixa de transporte plástica para cães e gatos - Porta rosa, azul e roxa",
+      "descricao": "Casa e conforto Caixa de transporte plástica para cães e gatos - Porta rosa, azul e roxa. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Casa e conforto",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4282.HEIC",
+        "recorte": [
+          0.13,
+          0.29,
+          0.63,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0096",
+      "slug": "diversos-caixa-de-transporte-modelo-branco",
+      "arquivo_webp": "for01-0096-diversos-caixa-de-transporte-modelo-branco.webp",
+      "arquivo_jpg": null,
+      "titulo": "Caixa de transporte (modelo branco) - Branca",
+      "alt": "Casa e conforto Caixa de transporte (modelo branco) para cães e gatos - Branca",
+      "descricao": "Casa e conforto Caixa de transporte (modelo branco) para cães e gatos - Branca. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Casa e conforto",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4282.HEIC",
+        "recorte": [
+          0.0,
+          0.31,
+          0.15,
+          0.76
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0097",
+      "slug": "diversos-bandeja-sanitaria-com-grade",
+      "arquivo_webp": "for01-0097-diversos-bandeja-sanitaria-com-grade.webp",
+      "arquivo_jpg": null,
+      "titulo": "Bandeja sanitária com grade - Vermelha, rosa e vinho",
+      "alt": "Higiene e banho Bandeja sanitária com grade para cães e gatos - Vermelha, rosa e vinho",
+      "descricao": "Higiene e banho Bandeja sanitária com grade para cães e gatos - Vermelha, rosa e vinho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4280.HEIC",
+        "recorte": [
+          0.14,
+          0.34,
+          0.76,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0098",
+      "slug": "cleaning-cats-granulado-higienico-de-madeira-10-kg",
+      "arquivo_webp": "for01-0098-cleaning-cats-granulado-higienico-de-madeira-10-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Granulado higiênico de madeira 10 kg - Gatos",
+      "alt": "Higiene e banho Cleaning Cats Granulado higiênico de madeira 10 kg para cães e gatos - Gatos",
+      "descricao": "Higiene e banho Cleaning Cats Granulado higiênico de madeira 10 kg para cães e gatos - Gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Cleaning Cats",
+        "Higiene e banho",
+        "cães e gatos",
+        "10 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4280.HEIC",
+        "recorte": [
+          0.07,
+          0.67,
+          0.66,
+          1.0
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "quase tudo foi removido; reduza a tolerancia",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0099",
+      "slug": "diversos-borrifador-pulverizador-manual",
+      "arquivo_webp": "for01-0099-diversos-borrifador-pulverizador-manual.webp",
+      "arquivo_jpg": null,
+      "titulo": "Borrifador / pulverizador manual - Tampa vermelha e rosa",
+      "alt": "Higiene e banho Borrifador / pulverizador manual para cães e gatos - Tampa vermelha e rosa",
+      "descricao": "Higiene e banho Borrifador / pulverizador manual para cães e gatos - Tampa vermelha e rosa. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Higiene e banho",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4281.HEIC",
+        "recorte": [
+          0.59,
+          0.34,
+          0.89,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0100",
+      "slug": "diversos-colar-elizabetano",
+      "arquivo_webp": "for01-0100-diversos-colar-elizabetano.webp",
+      "arquivo_jpg": null,
+      "titulo": "Colar elizabetano - Gatos",
+      "alt": "Acessório Colar elizabetano para cães e gatos - Gatos",
+      "descricao": "Acessório Colar elizabetano para cães e gatos - Gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4281.HEIC",
+        "recorte": [
+          0.39,
+          0.11,
+          0.67,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0101",
+      "slug": "diversos-avental-capa-de-tosa-unico",
+      "arquivo_webp": "for01-0101-diversos-avental-capa-de-tosa-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Avental / capa de tosa Único - Preto",
+      "alt": "Acessório Avental / capa de tosa Único para cães e gatos - Preto",
+      "descricao": "Acessório Avental / capa de tosa Único para cães e gatos - Preto. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4281.HEIC",
+        "recorte": [
+          0.14,
+          0.07,
+          0.61,
+          0.56
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0104",
+      "slug": "special-cat-special-cat-ultralife-gatos-castrados-10-1-kg",
+      "arquivo_webp": "for01-0104-special-cat-special-cat-ultralife-gatos-castrados-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Ultralife Gatos Castrados 10,1 kg - Salmão",
+      "alt": "Ração Special Cat Ultralife Gatos Castrados 10,1 kg para gatos - Salmão",
+      "descricao": "Ração Special Cat Ultralife Gatos Castrados 10,1 kg para gatos - Salmão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.04,
+          0.19,
+          0.96,
+          0.33
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0105",
+      "slug": "special-cat-special-cat-gatos-castrados-10-1-kg",
+      "arquivo_webp": "for01-0105-special-cat-special-cat-gatos-castrados-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Gatos Castrados 10,1 kg - Salmão - linha PremieRpet",
+      "alt": "Ração Special Cat Gatos Castrados 10,1 kg para gatos - Salmão - linha PremieRpet",
+      "descricao": "Ração Special Cat Gatos Castrados 10,1 kg para gatos - Salmão - linha PremieRpet. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.0,
+          0.07,
+          0.96,
+          0.23
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0106",
+      "slug": "purina-friskies-gatos-10-1-kg",
+      "arquivo_webp": "for01-0106-purina-friskies-gatos-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Gatos 10,1 kg",
+      "alt": "Ração Purina Friskies Gatos 10,1 kg para gatos",
+      "descricao": "Ração Purina Friskies Gatos 10,1 kg para gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.24,
+          0.71,
+          0.76,
+          0.81
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0107",
+      "slug": "golden-premierpet-golden-formula-filhotes-10-1-kg",
+      "arquivo_webp": "for01-0107-golden-premierpet-golden-formula-filhotes-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Filhotes 10,1 kg - Carne e arroz",
+      "alt": "Ração Golden Formula Filhotes 10,1 kg para cães - Carne e arroz",
+      "descricao": "Ração Golden Formula Filhotes 10,1 kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4270.HEIC",
+        "recorte": [
+          0.14,
+          0.44,
+          0.81,
+          0.58
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0108",
+      "slug": "golden-premierpet-golden-delicias-da-granja-adultos",
+      "arquivo_webp": "for01-0108-golden-premierpet-golden-delicias-da-granja-adultos.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Delícias da Granja Adultos - Frango e arroz",
+      "alt": "Ração Golden Delícias da Granja Adultos para cães - Frango e arroz",
+      "descricao": "Ração Golden Delícias da Granja Adultos para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.39,
+          0.75,
+          0.96,
+          0.86
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0109",
+      "slug": "spert-spert-caes-adultos-10-1-kg",
+      "arquivo_webp": "for01-0109-spert-spert-caes-adultos-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Cães Adultos 10,1 kg - Carne e arroz - todos os portes",
+      "alt": "Ração Spert Cães Adultos 10,1 kg para cães - Carne e arroz - todos os portes",
+      "descricao": "Ração Spert Cães Adultos 10,1 kg para cães - Carne e arroz - todos os portes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.09,
+          0.47,
+          0.96,
+          0.61
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0110",
+      "slug": "spert-spert-caes-filhotes-10-1-kg",
+      "arquivo_webp": "for01-0110-spert-spert-caes-filhotes-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Cães Filhotes 10,1 kg - Fêmeas em gestação e lactação",
+      "alt": "Ração Spert Cães Filhotes 10,1 kg para cães - Fêmeas em gestação e lactação",
+      "descricao": "Ração Spert Cães Filhotes 10,1 kg para cães - Fêmeas em gestação e lactação. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.14,
+          0.57,
+          0.96,
+          0.69
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0111",
+      "slug": "gran-plus-gran-plus-gourmet-gatos-10-1-kg",
+      "arquivo_webp": "for01-0111-gran-plus-gran-plus-gourmet-gatos-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Gatos 10,1 kg",
+      "alt": "Ração Gran Plus Gourmet Gatos 10,1 kg para gatos",
+      "descricao": "Ração Gran Plus Gourmet Gatos 10,1 kg para gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4279.HEIC",
+        "recorte": [
+          0.04,
+          0.29,
+          0.91,
+          0.43
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0112",
+      "slug": "diversos-comedouro-plastico-redondo",
+      "arquivo_webp": "for01-0112-diversos-comedouro-plastico-redondo.webp",
+      "arquivo_jpg": null,
+      "titulo": "Comedouro plástico redondo - Laranja",
+      "alt": "Acessório Comedouro plástico redondo para cães e gatos - Laranja",
+      "descricao": "Acessório Comedouro plástico redondo para cães e gatos - Laranja. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4287.HEIC",
+        "recorte": [
+          0.05,
+          0.34,
+          0.29,
+          0.69
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": false,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0113",
+      "slug": "spert-spert-gatos-adultos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0113-spert-spert-gatos-adultos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Gatos Adultos Granel - preço por kg - Frango e salmão - 32% proteína",
+      "alt": "Ração Spert Gatos Adultos Granel - preço por kg para gatos - Frango e salmão - 32% proteína",
+      "descricao": "Ração Spert Gatos Adultos Granel - preço por kg para gatos - Frango e salmão - 32% proteína. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4278.HEIC",
+        "recorte": [
+          0.0,
+          0.14,
+          0.31,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0114",
+      "slug": "golden-premierpet-golden-gatos-filhotes-granel-preco-por-kg",
+      "arquivo_webp": "for01-0114-golden-premierpet-golden-gatos-filhotes-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Gatos Filhotes Granel - preço por kg - Frango - nova fórmula",
+      "alt": "Ração Golden Gatos Filhotes Granel - preço por kg para gatos - Frango - nova fórmula",
+      "descricao": "Ração Golden Gatos Filhotes Granel - preço por kg para gatos - Frango - nova fórmula. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4278.HEIC",
+        "recorte": [
+          0.29,
+          0.11,
+          0.59,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0115",
+      "slug": "special-cat-special-cat-filhotes-granel-preco-por-kg",
+      "arquivo_webp": "for01-0115-special-cat-special-cat-filhotes-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Filhotes Granel - preço por kg",
+      "alt": "Ração Special Cat Filhotes Granel - preço por kg para gatos",
+      "descricao": "Ração Special Cat Filhotes Granel - preço por kg para gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4278.HEIC",
+        "recorte": [
+          0.57,
+          0.11,
+          0.83,
+          0.79
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0116",
+      "slug": "dog-choni-uauu-gatos-alimento-premium-granel-preco-por-kg",
+      "arquivo_webp": "for01-0116-dog-choni-uauu-gatos-alimento-premium-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Uauu! Gatos Alimento Premium Granel - preço por kg - Peixe, carne e frango",
+      "alt": "Ração Dog Choni Uauu! Gatos Alimento Premium Granel - preço por kg para gatos - Peixe, carne e frango",
+      "descricao": "Ração Dog Choni Uauu! Gatos Alimento Premium Granel - preço por kg para gatos - Peixe, carne e frango. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Dog Choni",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4277.HEIC",
+        "recorte": [
+          0.0,
+          0.09,
+          0.29,
+          0.79
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0117",
+      "slug": "purina-friskies-gatos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0117-purina-friskies-gatos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Gatos Granel - preço por kg - Frango, peru e cenoura",
+      "alt": "Ração Purina Friskies Gatos Granel - preço por kg para gatos - Frango, peru e cenoura",
+      "descricao": "Ração Purina Friskies Gatos Granel - preço por kg para gatos - Frango, peru e cenoura. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4277.HEIC",
+        "recorte": [
+          0.27,
+          0.09,
+          0.53,
+          0.81
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0118",
+      "slug": "finotrato-finotrato-prime-gatos-adultos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0118-finotrato-finotrato-prime-gatos-adultos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Finotrato Prime Gatos Adultos Granel - preço por kg - Salmão",
+      "alt": "Ração Finotrato Prime Gatos Adultos Granel - preço por kg para gatos - Salmão",
+      "descricao": "Ração Finotrato Prime Gatos Adultos Granel - preço por kg para gatos - Salmão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Finotrato",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4276.HEIC",
+        "recorte": [
+          0.04,
+          0.09,
+          0.33,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0119",
+      "slug": "gran-plus-gran-plus-gourmet-gato-adulto-castrado-granel-prec",
+      "arquivo_webp": "for01-0119-gran-plus-gran-plus-gourmet-gato-adulto-castrado-granel-prec.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Gato Adulto Castrado Granel - preço por kg - Salmão e frango",
+      "alt": "Ração Gran Plus Gourmet Gato Adulto Castrado Granel - preço por kg para gatos - Salmão e frango",
+      "descricao": "Ração Gran Plus Gourmet Gato Adulto Castrado Granel - preço por kg para gatos - Salmão e frango. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4276.HEIC",
+        "recorte": [
+          0.32,
+          0.11,
+          0.59,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0120",
+      "slug": "spert-spert-gatos-castrados-granel-preco-por-kg",
+      "arquivo_webp": "for01-0120-spert-spert-gatos-castrados-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Gatos Castrados Granel - preço por kg - Frango e salmão - 36% proteína",
+      "alt": "Ração Spert Gatos Castrados Granel - preço por kg para gatos - Frango e salmão - 36% proteína",
+      "descricao": "Ração Spert Gatos Castrados Granel - preço por kg para gatos - Frango e salmão - 36% proteína. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4276.HEIC",
+        "recorte": [
+          0.55,
+          0.11,
+          0.76,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0121",
+      "slug": "golden-premierpet-golden-gatos-castrados-granel-preco-por-kg",
+      "arquivo_webp": "for01-0121-golden-premierpet-golden-gatos-castrados-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Gatos Castrados Granel - preço por kg - Frango",
+      "alt": "Ração Golden Gatos Castrados Granel - preço por kg para gatos - Frango",
+      "descricao": "Ração Golden Gatos Castrados Granel - preço por kg para gatos - Frango. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4276.HEIC",
+        "recorte": [
+          0.72,
+          0.14,
+          0.89,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0122",
+      "slug": "special-cat-special-cat-ultralife-gatos-castrados-granel-pre",
+      "arquivo_webp": "for01-0122-special-cat-special-cat-ultralife-gatos-castrados-granel-pre.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Ultralife Gatos Castrados Granel - preço por kg - Salmão",
+      "alt": "Ração Special Cat Ultralife Gatos Castrados Granel - preço por kg para gatos - Salmão",
+      "descricao": "Ração Special Cat Ultralife Gatos Castrados Granel - preço por kg para gatos - Salmão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4276.HEIC",
+        "recorte": [
+          0.85,
+          0.14,
+          1.0,
+          0.73
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0123",
+      "slug": "dog-choni-dog-choni-adultos-pequeno-porte-granel-preco-por-k",
+      "arquivo_webp": "for01-0123-dog-choni-dog-choni-adultos-pequeno-porte-granel-preco-por-k.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Choni Adultos Pequeno Porte Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Dog Choni Adultos Pequeno Porte Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Dog Choni Adultos Pequeno Porte Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Dog Choni",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4275.HEIC",
+        "recorte": [
+          0.01,
+          0.04,
+          0.41,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0124",
+      "slug": "dog-choni-dog-choni-adultos-medios-granel-preco-por-kg",
+      "arquivo_webp": "for01-0124-dog-choni-dog-choni-adultos-medios-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Choni Adultos Médios Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Dog Choni Adultos Médios Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Dog Choni Adultos Médios Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Dog Choni",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4275.HEIC",
+        "recorte": [
+          0.39,
+          0.04,
+          0.65,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0125",
+      "slug": "dog-choni-uauu-adultos-todas-as-racas-granel-preco-por-kg",
+      "arquivo_webp": "for01-0125-dog-choni-uauu-adultos-todas-as-racas-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Uauu! Adultos Todas as Raças Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Dog Choni Uauu! Adultos Todas as Raças Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Dog Choni Uauu! Adultos Todas as Raças Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Dog Choni",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4275.HEIC",
+        "recorte": [
+          0.61,
+          0.07,
+          0.86,
+          0.63
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0126",
+      "slug": "special-dog-special-dog-junior-granel-preco-por-kg",
+      "arquivo_webp": "for01-0126-special-dog-special-dog-junior-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Júnior Granel - preço por kg - Carne - 26% proteína",
+      "alt": "Ração Special Dog Júnior Granel - preço por kg para cães - Carne - 26% proteína",
+      "descricao": "Ração Special Dog Júnior Granel - preço por kg para cães - Carne - 26% proteína. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4274.HEIC",
+        "recorte": [
+          0.0,
+          0.04,
+          0.23,
+          0.81
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0127",
+      "slug": "special-dog-special-dog-pro-adultos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0127-special-dog-special-dog-pro-adultos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Pró Adultos Granel - preço por kg - Vegetais - 21% proteína",
+      "alt": "Ração Special Dog Pró Adultos Granel - preço por kg para cães - Vegetais - 21% proteína",
+      "descricao": "Ração Special Dog Pró Adultos Granel - preço por kg para cães - Vegetais - 21% proteína. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4274.HEIC",
+        "recorte": [
+          0.23,
+          0.04,
+          0.59,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0128",
+      "slug": "flock-flock-adultos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0128-flock-flock-adultos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Flock Adultos Granel - preço por kg - Carne",
+      "alt": "Ração Flock Adultos Granel - preço por kg para cães - Carne",
+      "descricao": "Ração Flock Adultos Granel - preço por kg para cães - Carne. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Flock",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4274.HEIC",
+        "recorte": [
+          0.55,
+          0.14,
+          0.77,
+          0.81
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0129",
+      "slug": "spert-spert-caes-adultos-pequeno-porte-granel-preco-por-kg",
+      "arquivo_webp": "for01-0129-spert-spert-caes-adultos-pequeno-porte-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Cães Adultos Pequeno Porte Granel - preço por kg",
+      "alt": "Ração Spert Cães Adultos Pequeno Porte Granel - preço por kg para cães",
+      "descricao": "Ração Spert Cães Adultos Pequeno Porte Granel - preço por kg para cães. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4274.HEIC",
+        "recorte": [
+          0.71,
+          0.14,
+          0.89,
+          0.76
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0130",
+      "slug": "gran-plus-gran-plus-menu-mini-adulto-granel-preco-por-kg",
+      "arquivo_webp": "for01-0130-gran-plus-gran-plus-menu-mini-adulto-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Menu Mini Adulto Granel - preço por kg - Frango e arroz",
+      "alt": "Ração Gran Plus Menu Mini Adulto Granel - preço por kg para cães - Frango e arroz",
+      "descricao": "Ração Gran Plus Menu Mini Adulto Granel - preço por kg para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4273.HEIC",
+        "recorte": [
+          0.0,
+          0.07,
+          0.21,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0131",
+      "slug": "finotrato-finotrato-prime-caes-filhotes-granel-preco-por-kg",
+      "arquivo_webp": "for01-0131-finotrato-finotrato-prime-caes-filhotes-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Finotrato Prime Cães Filhotes Granel - preço por kg - Frango e arroz - raças pequenas e médias",
+      "alt": "Ração Finotrato Prime Cães Filhotes Granel - preço por kg para cães - Frango e arroz - raças pequenas e médias",
+      "descricao": "Ração Finotrato Prime Cães Filhotes Granel - preço por kg para cães - Frango e arroz - raças pequenas e médias. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Finotrato",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4273.HEIC",
+        "recorte": [
+          0.19,
+          0.09,
+          0.51,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0132",
+      "slug": "finotrato-finotrato-nature-super-premium-caes-adultos-granel",
+      "arquivo_webp": "for01-0132-finotrato-finotrato-nature-super-premium-caes-adultos-granel.webp",
+      "arquivo_jpg": null,
+      "titulo": "Finotrato Nature Super Premium Cães Adultos Granel - preço por kg - Raças pequenas e médias",
+      "alt": "Ração Finotrato Nature Super Premium Cães Adultos Granel - preço por kg para cães - Raças pequenas e médias",
+      "descricao": "Ração Finotrato Nature Super Premium Cães Adultos Granel - preço por kg para cães - Raças pequenas e médias. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Finotrato",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4273.HEIC",
+        "recorte": [
+          0.49,
+          0.19,
+          0.77,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0133",
+      "slug": "golden-premierpet-golden-formula-adultos-porte-pequeno-grane",
+      "arquivo_webp": "for01-0133-golden-premierpet-golden-formula-adultos-porte-pequeno-grane.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Adultos Porte Pequeno Granel - preço por kg - Frango e arroz",
+      "alt": "Ração Golden Formula Adultos Porte Pequeno Granel - preço por kg para cães - Frango e arroz",
+      "descricao": "Ração Golden Formula Adultos Porte Pequeno Granel - preço por kg para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.01,
+          0.21,
+          0.25,
+          0.89
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0134",
+      "slug": "golden-premierpet-golden-formula-adultos-porte-pequeno-grane",
+      "arquivo_webp": "for01-0134-golden-premierpet-golden-formula-adultos-porte-pequeno-grane.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Adultos Porte Pequeno Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Golden Formula Adultos Porte Pequeno Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Golden Formula Adultos Porte Pequeno Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.23,
+          0.21,
+          0.49,
+          0.86
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0135",
+      "slug": "golden-premierpet-golden-formula-filhotes-porte-pequeno-gran",
+      "arquivo_webp": "for01-0135-golden-premierpet-golden-formula-filhotes-porte-pequeno-gran.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Filhotes Porte Pequeno Granel - preço por kg - Frango e arroz",
+      "alt": "Ração Golden Formula Filhotes Porte Pequeno Granel - preço por kg para cães - Frango e arroz",
+      "descricao": "Ração Golden Formula Filhotes Porte Pequeno Granel - preço por kg para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.47,
+          0.21,
+          0.71,
+          0.81
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0136",
+      "slug": "golden-premierpet-golden-formula-filhotes-porte-pequeno-gran",
+      "arquivo_webp": "for01-0136-golden-premierpet-golden-formula-filhotes-porte-pequeno-gran.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Filhotes Porte Pequeno Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Golden Formula Filhotes Porte Pequeno Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Golden Formula Filhotes Porte Pequeno Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.65,
+          0.21,
+          0.87,
+          0.81
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0137",
+      "slug": "finotrato-finotrato-prime-caes-adultos-granel-preco-por-kg",
+      "arquivo_webp": "for01-0137-finotrato-finotrato-prime-caes-adultos-granel-preco-por-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Finotrato Prime Cães Adultos Granel - preço por kg - Raças pequenas e médias",
+      "alt": "Ração Finotrato Prime Cães Adultos Granel - preço por kg para cães - Raças pequenas e médias",
+      "descricao": "Ração Finotrato Prime Cães Adultos Granel - preço por kg para cães - Raças pequenas e médias. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Finotrato",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.83,
+          0.21,
+          1.0,
+          0.76
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0138",
+      "slug": "purina-dog-chow-extra-life-adultos-minis-e-pequenos-granel-p",
+      "arquivo_webp": "for01-0138-purina-dog-chow-extra-life-adultos-minis-e-pequenos-granel-p.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Chow Extra Life Adultos Minis e Pequenos Granel - preço por kg - Carne, frango e arroz",
+      "alt": "Ração Purina Dog Chow Extra Life Adultos Minis e Pequenos Granel - preço por kg para cães - Carne, frango e arroz",
+      "descricao": "Ração Purina Dog Chow Extra Life Adultos Minis e Pequenos Granel - preço por kg para cães - Carne, frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4271.HEIC",
+        "recorte": [
+          0.0,
+          0.14,
+          0.25,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0139",
+      "slug": "purina-dog-chow-otimo-comeco-filhotes-minis-e-pequenos-grane",
+      "arquivo_webp": "for01-0139-purina-dog-chow-otimo-comeco-filhotes-minis-e-pequenos-grane.webp",
+      "arquivo_jpg": null,
+      "titulo": "Dog Chow Ótimo Começo Filhotes Minis e Pequenos Granel - preço por kg - Carne, frango, frutas e leite",
+      "alt": "Ração Purina Dog Chow Ótimo Começo Filhotes Minis e Pequenos Granel - preço por kg para cães - Carne, frango, frutas e leite",
+      "descricao": "Ração Purina Dog Chow Ótimo Começo Filhotes Minis e Pequenos Granel - preço por kg para cães - Carne, frango, frutas e leite. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4271.HEIC",
+        "recorte": [
+          0.25,
+          0.14,
+          0.49,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0140",
+      "slug": "gran-plus-gran-plus-menu-filhote-medio-e-grande-granel-preco",
+      "arquivo_webp": "for01-0140-gran-plus-gran-plus-menu-filhote-medio-e-grande-granel-preco.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Menu Filhote Médio e Grande Granel - preço por kg - Carne e arroz",
+      "alt": "Ração Gran Plus Menu Filhote Médio e Grande Granel - preço por kg para cães - Carne e arroz",
+      "descricao": "Ração Gran Plus Menu Filhote Médio e Grande Granel - preço por kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "cães",
+        "Granel - preço por kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4271.HEIC",
+        "recorte": [
+          0.49,
+          0.17,
+          0.71,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0141",
+      "slug": "gran-plus-gran-plus-menu-mini-adulto-10-1-kg",
+      "arquivo_webp": "for01-0141-gran-plus-gran-plus-menu-mini-adulto-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Menu Mini Adulto 10,1 kg - Frango e arroz",
+      "alt": "Ração Gran Plus Menu Mini Adulto 10,1 kg para cães - Frango e arroz",
+      "descricao": "Ração Gran Plus Menu Mini Adulto 10,1 kg para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4269.HEIC",
+        "recorte": [
+          0.09,
+          0.11,
+          0.98,
+          0.31
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0142",
+      "slug": "gran-plus-gran-plus-menu-mini-filhote-10-1-kg",
+      "arquivo_webp": "for01-0142-gran-plus-gran-plus-menu-mini-filhote-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Menu Mini Filhote 10,1 kg - Frango e arroz",
+      "alt": "Ração Gran Plus Menu Mini Filhote 10,1 kg para cães - Frango e arroz",
+      "descricao": "Ração Gran Plus Menu Mini Filhote 10,1 kg para cães - Frango e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4270.HEIC",
+        "recorte": [
+          0.11,
+          0.32,
+          0.86,
+          0.46
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "quase tudo foi removido; reduza a tolerancia"
+      ]
+    },
+    {
+      "referencia": "FOR01-0143",
+      "slug": "dog-choni-uauu-todas-as-idades-e-racas-10-1-kg",
+      "arquivo_webp": "for01-0143-dog-choni-uauu-todas-as-idades-e-racas-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Uauu! Todas as Idades e Raças 10,1 kg - Peixe, carne e frango",
+      "alt": "Ração Dog Choni Uauu! Todas as Idades e Raças 10,1 kg para cães - Peixe, carne e frango",
+      "descricao": "Ração Dog Choni Uauu! Todas as Idades e Raças 10,1 kg para cães - Peixe, carne e frango. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Dog Choni",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4269.HEIC",
+        "recorte": [
+          0.09,
+          0.27,
+          0.96,
+          0.43
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0144",
+      "slug": "golden-premierpet-golden-formula-filhotes-porte-pequeno-10-1",
+      "arquivo_webp": "for01-0144-golden-premierpet-golden-formula-filhotes-porte-pequeno-10-1.webp",
+      "arquivo_jpg": null,
+      "titulo": "Golden Formula Filhotes Porte Pequeno 10,1 kg - Carne e arroz",
+      "alt": "Ração Golden Formula Filhotes Porte Pequeno 10,1 kg para cães - Carne e arroz",
+      "descricao": "Ração Golden Formula Filhotes Porte Pequeno 10,1 kg para cães - Carne e arroz. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Golden (PremieRpet)",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4269.HEIC",
+        "recorte": [
+          0.14,
+          0.41,
+          0.96,
+          0.59
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0145",
+      "slug": "spert-spert-gatos-castrados-10-1-kg",
+      "arquivo_webp": "for01-0145-spert-spert-gatos-castrados-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Spert Gatos Castrados 10,1 kg - Frango e salmão",
+      "alt": "Ração Spert Gatos Castrados 10,1 kg para gatos - Frango e salmão",
+      "descricao": "Ração Spert Gatos Castrados 10,1 kg para gatos - Frango e salmão. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Spert",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4269.HEIC",
+        "recorte": [
+          0.17,
+          0.59,
+          0.96,
+          0.76
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0146",
+      "slug": "special-cat-special-cat-gatos-adultos-10-1-kg",
+      "arquivo_webp": "for01-0146-special-cat-special-cat-gatos-adultos-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Gatos Adultos 10,1 kg - Peixe",
+      "alt": "Ração Special Cat Gatos Adultos 10,1 kg para gatos - Peixe",
+      "descricao": "Ração Special Cat Gatos Adultos 10,1 kg para gatos - Peixe. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4268.HEIC",
+        "recorte": [
+          0.0,
+          0.07,
+          0.81,
+          0.36
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0147",
+      "slug": "special-cat-special-cat-gatos-filhotes-10-1-kg",
+      "arquivo_webp": "for01-0147-special-cat-special-cat-gatos-filhotes-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Cat Gatos Filhotes 10,1 kg - Mix de carnes",
+      "alt": "Ração Special Cat Gatos Filhotes 10,1 kg para gatos - Mix de carnes",
+      "descricao": "Ração Special Cat Gatos Filhotes 10,1 kg para gatos - Mix de carnes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Cat",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4267.HEIC",
+        "recorte": [
+          0.01,
+          0.39,
+          0.99,
+          0.58
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0148",
+      "slug": "gran-plus-gran-plus-gourmet-gato-adulto-castrado-10-1-kg",
+      "arquivo_webp": "for01-0148-gran-plus-gran-plus-gourmet-gato-adulto-castrado-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Gran Plus Gourmet Gato Adulto Castrado 10,1 kg - Salmão e frango",
+      "alt": "Ração Gran Plus Gourmet Gato Adulto Castrado 10,1 kg para gatos - Salmão e frango",
+      "descricao": "Ração Gran Plus Gourmet Gato Adulto Castrado 10,1 kg para gatos - Salmão e frango. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Gran Plus",
+        "Ração",
+        "gatos",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4267.HEIC",
+        "recorte": [
+          0.01,
+          0.56,
+          0.99,
+          0.73
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0149",
+      "slug": "agromix-agromix-naturale-filhotes-10-1-kg",
+      "arquivo_webp": "for01-0149-agromix-agromix-naturale-filhotes-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Agromix Naturale Filhotes 10,1 kg - Natural Line - todas as raças",
+      "alt": "Ração Agromix Naturale Filhotes 10,1 kg para cães - Natural Line - todas as raças",
+      "descricao": "Ração Agromix Naturale Filhotes 10,1 kg para cães - Natural Line - todas as raças. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Agromix",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4268.HEIC",
+        "recorte": [
+          0.0,
+          0.37,
+          0.86,
+          0.51
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0150",
+      "slug": "agromix-agromix-naturale-adultos-10-1-kg",
+      "arquivo_webp": "for01-0150-agromix-agromix-naturale-adultos-10-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Agromix Naturale Adultos 10,1 kg - Natural Line - raças pequenas",
+      "alt": "Ração Agromix Naturale Adultos 10,1 kg para cães - Natural Line - raças pequenas",
+      "descricao": "Ração Agromix Naturale Adultos 10,1 kg para cães - Natural Line - raças pequenas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Agromix",
+        "Ração",
+        "cães",
+        "10,1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4268.HEIC",
+        "recorte": [
+          0.0,
+          0.57,
+          0.86,
+          0.67
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0151",
+      "slug": "begacao-begacao-premium-natural-adultos-7-kg",
+      "arquivo_webp": "for01-0151-begacao-begacao-premium-natural-adultos-7-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Begacão Premium Natural Adultos 7 kg - Todos os portes",
+      "alt": "Ração Begacão Premium Natural Adultos 7 kg para cães - Todos os portes",
+      "descricao": "Ração Begacão Premium Natural Adultos 7 kg para cães - Todos os portes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Begacão",
+        "Ração",
+        "cães",
+        "7 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4267.HEIC",
+        "recorte": [
+          0.0,
+          0.19,
+          1.0,
+          0.4
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0152",
+      "slug": "origens-origens-sache",
+      "arquivo_webp": "for01-0152-origens-origens-sache.webp",
+      "arquivo_jpg": null,
+      "titulo": "Origens Sachê - Carne ao molho - adultos e filhotes",
+      "alt": "Alimento úmido Origens Sachê para gatos - Carne ao molho - adultos e filhotes",
+      "descricao": "Alimento úmido Origens Sachê para gatos - Carne ao molho - adultos e filhotes. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Origens",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4259.HEIC",
+        "recorte": [
+          0.04,
+          0.19,
+          0.33,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0153",
+      "slug": "origens-origens-sache-castrados",
+      "arquivo_webp": "for01-0153-origens-origens-sache-castrados.webp",
+      "arquivo_jpg": null,
+      "titulo": "Origens Sachê Castrados - Frango e carne - bolas de pelo",
+      "alt": "Alimento úmido Origens Sachê Castrados para gatos - Frango e carne - bolas de pelo",
+      "descricao": "Alimento úmido Origens Sachê Castrados para gatos - Frango e carne - bolas de pelo. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Origens",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4259.HEIC",
+        "recorte": [
+          0.31,
+          0.21,
+          0.67,
+          0.73
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0154",
+      "slug": "origens-origens-sache-castrados",
+      "arquivo_webp": "for01-0154-origens-origens-sache-castrados.webp",
+      "arquivo_jpg": null,
+      "titulo": "Origens Sachê Castrados - Salmão - trato urinário",
+      "alt": "Alimento úmido Origens Sachê Castrados para gatos - Salmão - trato urinário",
+      "descricao": "Alimento úmido Origens Sachê Castrados para gatos - Salmão - trato urinário. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Origens",
+        "Alimento úmido",
+        "gatos",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4259.HEIC",
+        "recorte": [
+          0.67,
+          0.27,
+          0.99,
+          0.75
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0155",
+      "slug": "humaita-humaita-pet-treats-osso-suino",
+      "arquivo_webp": "for01-0155-humaita-humaita-pet-treats-osso-suino.webp",
+      "arquivo_jpg": null,
+      "titulo": "Humaitá Pet Treats Osso Suíno - Natural",
+      "alt": "Petisco Humaitá Pet Treats Osso Suíno para cães - Natural",
+      "descricao": "Petisco Humaitá Pet Treats Osso Suíno para cães - Natural. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Humaitá",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4265.HEIC",
+        "recorte": [
+          0.01,
+          0.04,
+          0.99,
+          0.99
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0156",
+      "slug": "brincalhao-hora-do-lanche-soft-snacks",
+      "arquivo_webp": "for01-0156-brincalhao-hora-do-lanche-soft-snacks.webp",
+      "arquivo_jpg": null,
+      "titulo": "Hora do Lanche Soft Snacks - Carne e arroz com beterraba e linhaça",
+      "alt": "Petisco Brincalhão Hora do Lanche Soft Snacks para cães - Carne e arroz com beterraba e linhaça",
+      "descricao": "Petisco Brincalhão Hora do Lanche Soft Snacks para cães - Carne e arroz com beterraba e linhaça. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Brincalhão",
+        "Petisco",
+        "cães",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4260.HEIC",
+        "recorte": [
+          0.14,
+          0.0,
+          0.76,
+          0.93
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0157",
+      "slug": "brincat-brincalhao-brincat-snacks-funcionais-40-g",
+      "arquivo_webp": "for01-0157-brincat-brincalhao-brincat-snacks-funcionais-40-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "BrinCat Snacks Funcionais 40 g - Catnip - fluidez digestiva",
+      "alt": "Petisco BrinCat Snacks Funcionais 40 g para gatos - Catnip - fluidez digestiva",
+      "descricao": "Petisco BrinCat Snacks Funcionais 40 g para gatos - Catnip - fluidez digestiva. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "BrinCat (Brincalhão)",
+        "Petisco",
+        "gatos",
+        "40 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4263.HEIC",
+        "recorte": [
+          0.27,
+          0.14,
+          0.69,
+          0.43
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0158",
+      "slug": "purina-friskies-party-mix-40-g",
+      "arquivo_webp": "for01-0158-purina-friskies-party-mix-40-g.webp",
+      "arquivo_jpg": null,
+      "titulo": "Friskies Party Mix 40 g - Cordeiro e carne suína",
+      "alt": "Petisco Purina Friskies Party Mix 40 g para gatos - Cordeiro e carne suína",
+      "descricao": "Petisco Purina Friskies Party Mix 40 g para gatos - Cordeiro e carne suína. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Purina",
+        "Petisco",
+        "gatos",
+        "40 g",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4263.HEIC",
+        "recorte": [
+          0.09,
+          0.56,
+          0.43,
+          0.86
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0159",
+      "slug": "mix-pet-coleira-com-guizo-para-caes-e-gatos-unico",
+      "arquivo_webp": "for01-0159-mix-pet-coleira-com-guizo-para-caes-e-gatos-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Coleira com guizo para cães e gatos Único - Diversas estampas",
+      "alt": "Acessório Mix Pet Coleira com guizo para cães e gatos Único para cães e gatos - Diversas estampas",
+      "descricao": "Acessório Mix Pet Coleira com guizo para cães e gatos Único para cães e gatos - Diversas estampas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Mix Pet",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4264.HEIC",
+        "recorte": [
+          0.17,
+          0.23,
+          0.99,
+          0.67
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0160",
+      "slug": "diversos-pet-socks-meias-antiderrapantes-m",
+      "arquivo_webp": "for01-0160-diversos-pet-socks-meias-antiderrapantes-m.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pet Socks - meias antiderrapantes M - Azul",
+      "alt": "Acessório Pet Socks - meias antiderrapantes M para cães e gatos - Azul",
+      "descricao": "Acessório Pet Socks - meias antiderrapantes M para cães e gatos - Azul. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "M",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4264.HEIC",
+        "recorte": [
+          0.49,
+          0.59,
+          0.81,
+          0.89
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0161",
+      "slug": "diversos-bolinha-com-guizo-para-gato-unico",
+      "arquivo_webp": "for01-0161-diversos-bolinha-com-guizo-para-gato-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Bolinha com guizo para gato Único - Cores variadas",
+      "alt": "Brinquedo Bolinha com guizo para gato Único para cães e gatos - Cores variadas",
+      "descricao": "Brinquedo Bolinha com guizo para gato Único para cães e gatos - Cores variadas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4266.HEIC",
+        "recorte": [
+          0.14,
+          0.0,
+          0.83,
+          0.58
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0162",
+      "slug": "diversos-ratinho-de-pelucia-para-gato-unico",
+      "arquivo_webp": "for01-0162-diversos-ratinho-de-pelucia-para-gato-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Ratinho de pelúcia para gato Único - Cores variadas",
+      "alt": "Brinquedo Ratinho de pelúcia para gato Único para cães e gatos - Cores variadas",
+      "descricao": "Brinquedo Ratinho de pelúcia para gato Único para cães e gatos - Cores variadas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4266.HEIC",
+        "recorte": [
+          0.19,
+          0.56,
+          0.81,
+          1.0
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0163",
+      "slug": "diversos-peixe-de-pelucia-com-catnip-unico",
+      "arquivo_webp": "for01-0163-diversos-peixe-de-pelucia-com-catnip-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Peixe de pelúcia com catnip Único - Estampas variadas",
+      "alt": "Brinquedo Peixe de pelúcia com catnip Único para cães e gatos - Estampas variadas",
+      "descricao": "Brinquedo Peixe de pelúcia com catnip Único para cães e gatos - Estampas variadas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.54,
+          0.49,
+          0.81,
+          0.83
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0164",
+      "slug": "diversos-bola-mordedora-cravada-unico",
+      "arquivo_webp": "for01-0164-diversos-bola-mordedora-cravada-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Bola mordedora cravada Único - Roxa",
+      "alt": "Brinquedo Bola mordedora cravada Único para cães e gatos - Roxa",
+      "descricao": "Brinquedo Bola mordedora cravada Único para cães e gatos - Roxa. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.79,
+          0.57,
+          1.0,
+          0.79
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0165",
+      "slug": "diversos-mordedor-de-borracha-vermelho-unico",
+      "arquivo_webp": "for01-0165-diversos-mordedor-de-borracha-vermelho-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Mordedor de borracha vermelho Único - Vermelho",
+      "alt": "Brinquedo Mordedor de borracha vermelho Único para cães e gatos - Vermelho",
+      "descricao": "Brinquedo Mordedor de borracha vermelho Único para cães e gatos - Vermelho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.47,
+          0.01,
+          0.67,
+          0.23
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0166",
+      "slug": "diversos-pelucia-com-apito-unico",
+      "arquivo_webp": "for01-0166-diversos-pelucia-com-apito-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pelúcia com apito Único - Cinza com osso",
+      "alt": "Brinquedo Pelúcia com apito Único para cães e gatos - Cinza com osso",
+      "descricao": "Brinquedo Pelúcia com apito Único para cães e gatos - Cinza com osso. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.31,
+          0.09,
+          0.63,
+          0.31
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0167",
+      "slug": "pet-ninho-pa-higienica-para-areia-unico",
+      "arquivo_webp": "for01-0167-pet-ninho-pa-higienica-para-areia-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pá higiênica para areia Único - Vermelha, rosa e vinho",
+      "alt": "Higiene e banho Pet Ninho Pá higiênica para areia Único para cães e gatos - Vermelha, rosa e vinho",
+      "descricao": "Higiene e banho Pet Ninho Pá higiênica para areia Único para cães e gatos - Vermelha, rosa e vinho. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Pet Ninho",
+        "Higiene e banho",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.49,
+          0.24,
+          0.86,
+          0.56
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0168",
+      "slug": "bompet-saquinhos-higienicos-em-rolo-rolo",
+      "arquivo_webp": "for01-0168-bompet-saquinhos-higienicos-em-rolo-rolo.webp",
+      "arquivo_jpg": null,
+      "titulo": "Saquinhos higiênicos em rolo Rolo - Contém 60 unidades",
+      "alt": "Higiene e banho BomPet Saquinhos higiênicos em rolo Rolo para cães e gatos - Contém 60 unidades",
+      "descricao": "Higiene e banho BomPet Saquinhos higiênicos em rolo Rolo para cães e gatos - Contém 60 unidades. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "BomPet",
+        "Higiene e banho",
+        "cães e gatos",
+        "Rolo",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.27,
+          0.49,
+          0.49,
+          0.69
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0169",
+      "slug": "diversos-cortador-de-unha-tipo-alicate-com-lixa-unico",
+      "arquivo_webp": "for01-0169-diversos-cortador-de-unha-tipo-alicate-com-lixa-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Cortador de unha tipo alicate com lixa Único - Cães e gatos",
+      "alt": "Acessório Cortador de unha tipo alicate com lixa Único para cães e gatos - Cães e gatos",
+      "descricao": "Acessório Cortador de unha tipo alicate com lixa Único para cães e gatos - Cães e gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.09,
+          0.05,
+          0.41,
+          0.33
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0170",
+      "slug": "polo-cortador-de-unha-com-lixa-e-corrente-unico",
+      "arquivo_webp": "for01-0170-polo-cortador-de-unha-com-lixa-e-corrente-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Cortador de unha com lixa e corrente Único - Cães e gatos",
+      "alt": "Acessório Polo Cortador de unha com lixa e corrente Único para cães e gatos - Cães e gatos",
+      "descricao": "Acessório Polo Cortador de unha com lixa e corrente Único para cães e gatos - Cães e gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Polo",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.22,
+          0.3,
+          0.4,
+          0.52
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0171",
+      "slug": "diversos-kit-mamadeira-e-escova-para-filhotes-kit",
+      "arquivo_webp": "for01-0171-diversos-kit-mamadeira-e-escova-para-filhotes-kit.webp",
+      "arquivo_jpg": null,
+      "titulo": "Kit mamadeira e escova para filhotes Kit - Cães e gatos",
+      "alt": "Acessório Kit mamadeira e escova para filhotes Kit para cães e gatos - Cães e gatos",
+      "descricao": "Acessório Kit mamadeira e escova para filhotes Kit para cães e gatos - Cães e gatos. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "Kit",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.09,
+          0.65,
+          0.36,
+          0.89
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0172",
+      "slug": "pet-ninho-peitoral-com-guia-para-gato-unico",
+      "arquivo_webp": "for01-0172-pet-ninho-peitoral-com-guia-para-gato-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Peitoral com guia para gato Único - Azul estampado",
+      "alt": "Acessório Pet Ninho Peitoral com guia para gato Único para cães e gatos - Azul estampado",
+      "descricao": "Acessório Pet Ninho Peitoral com guia para gato Único para cães e gatos - Azul estampado. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Pet Ninho",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4261.HEIC",
+        "recorte": [
+          0.0,
+          0.0,
+          0.41,
+          0.28
+        ]
+      },
+      "tratamento": "removedor-de-fundo, motor ia",
+      "status": "aprovada",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural"
+      ]
+    },
+    {
+      "referencia": "FOR01-0173",
+      "slug": "diversos-plaquinha-de-identificacao-personalizada-unico",
+      "arquivo_webp": "for01-0173-diversos-plaquinha-de-identificacao-personalizada-unico.webp",
+      "arquivo_jpg": null,
+      "titulo": "Plaquinha de identificação personalizada Único - Redonda",
+      "alt": "Acessório Plaquinha de identificação personalizada Único para cães e gatos - Redonda",
+      "descricao": "Acessório Plaquinha de identificação personalizada Único para cães e gatos - Redonda. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Acessório",
+        "cães e gatos",
+        "Único",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.73,
+          0.48,
+          0.98,
+          0.63
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0174",
+      "slug": "diversos-pacote-de-bolinhas-coloridas-pacote",
+      "arquivo_webp": "for01-0174-diversos-pacote-de-bolinhas-coloridas-pacote.webp",
+      "arquivo_jpg": null,
+      "titulo": "Pacote de bolinhas coloridas Pacote - Sortidas",
+      "alt": "Brinquedo Pacote de bolinhas coloridas Pacote para cães e gatos - Sortidas",
+      "descricao": "Brinquedo Pacote de bolinhas coloridas Pacote para cães e gatos - Sortidas. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Diversos",
+        "Brinquedo",
+        "cães e gatos",
+        "Pacote",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4262.HEIC",
+        "recorte": [
+          0.39,
+          0.29,
+          0.61,
+          0.51
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    },
+    {
+      "referencia": "FOR01-0175",
+      "slug": "special-dog-special-dog-ultralife-premium-especial-1-kg",
+      "arquivo_webp": "for01-0175-special-dog-special-dog-ultralife-premium-especial-1-kg.webp",
+      "arquivo_jpg": null,
+      "titulo": "Special Dog Ultralife Premium Especial 1 kg - Cordeiro - adultos raças pequenas a partir de 12 meses",
+      "alt": "Ração Special Dog Ultralife Premium Especial 1 kg para cães - Cordeiro - adultos raças pequenas a partir de 12 meses",
+      "descricao": "Ração Special Dog Ultralife Premium Especial 1 kg para cães - Cordeiro - adultos raças pequenas a partir de 12 meses. Vendido por Casa de Rações Filhos de 4 Patas, Ribeirão Preto/SP, no Saúde Pet Mercado.",
+      "palavras_chave": [
+        "Special Dog",
+        "Ração",
+        "cães",
+        "1 kg",
+        "pet shop",
+        "Ribeirão Preto",
+        "Saúde Pet"
+      ],
+      "origem": {
+        "foto": "IMG_4272.HEIC",
+        "recorte": [
+          0.35,
+          0.69,
+          0.55,
+          0.98
+        ]
+      },
+      "tratamento": "recorte bruto em quadro branco (a IA não isolou bem o produto)",
+      "status": "revisar",
+      "tem_etiqueta_preco": true,
+      "avisos_tratamento": [
+        "fundo nao uniforme: usei so a rede neural",
+        "o produto encosta na borda da foto original"
+      ]
+    }
+  ]
+}

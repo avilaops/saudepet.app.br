@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Saúde PET">
+  <path fill="#f58235" d="M5 27 32 6l27 21-5 6-22-17L10 33z"/>
+  <path fill="#f58235" d="M11 29v27h42V29l-21-16z"/>
+  <path fill="#159fa3" d="M32 20c9 0 17 4 17 13 0 13-9 21-17 25-8-4-17-12-17-25 0-9 8-13 17-13z"/>
+  <path fill="#fff" d="M32 29c-4 0-8 3-8 8 0 7 5 11 8 13 3-2 8-6 8-13 0-5-4-8-8-8z"/>
+  <path fill="#f58235" d="M30 33h4v12h-4zM26 37h12v4H26z"/>
+</svg>

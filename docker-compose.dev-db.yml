@@ -1,0 +1,40 @@
+# Banco local do Saúde Pet — desenvolvimento e teste.
+#
+# Existe porque a porta 5432 desta máquina é disputada: o cluster nativo do
+# PostgreSQL 18 (serviço `postgresql-x64-18`) e o container `avila_erp_postgres`,
+# de outro projeto, querem os dois a mesma porta. Quando o nativo parou, o ERP
+# assumiu a 5432 e todo `postgresql://postgres:postgres@localhost:5432/...` do
+# Saúde Pet passou a bater no banco errado e falhar na autenticação, sem dizer
+# por quê.
+#
+# A saída é não disputar: este banco vive na 5445 e é só do Saúde Pet.
+#
+#   docker compose -f docker-compose.dev-db.yml up -d
+#   cd backend && DATABASE_URL="postgresql://postgres:postgres@localhost:5445/saudepet" npx prisma migrate deploy
+#
+# O volume é nomeado, então derrubar o container não apaga os dados.
+
+services:
+  saudepet-db:
+    image: postgres:16-alpine
+    container_name: saudepet-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: saudepet
+    ports:
+      - "5445:5432"
+    volumes:
+      - saudepet-db-data:/var/lib/postgresql/data
+      # Cria o banco de teste junto do de desenvolvimento, na primeira subida.
+      - ./scripts/init-db-local.sql:/docker-entrypoint-initdb.d/10-cria-banco-de-teste.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  saudepet-db-data:
+    name: saudepet-db-data

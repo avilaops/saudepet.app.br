@@ -1,0 +1,177 @@
+LICENÇA DE SOFTWARE PROPRIETÁRIO
+================================================================================
+
+Saúde Pet - Sistema de Atendimento Veterinário
+Copyright © 2026 AvilaOps. Todos os direitos reservados.
+
+================================================================================
+TERMOS E CONDIÇÕES
+================================================================================
+
+1. CONCESSÃO DE LICENÇA
+
+   AvilaOps ("Licenciante") concede ao licenciado uma licença não exclusiva,
+   não transferível e revogável para usar o software Saúde Pet ("Software")
+   de acordo com os termos estabelecidos neste documento.
+
+2. DIREITOS AUTORAIS E PROPRIEDADE INTELECTUAL
+
+   2.1. O Software, incluindo mas não limitado a código-fonte, código-objeto,
+        documentação, design, estrutura, organização e todos os materiais
+        relacionados, é propriedade exclusiva da AvilaOps.
+
+   2.2. Todos os direitos de propriedade intelectual, incluindo direitos
+        autorais, marcas registradas, patentes e segredos comerciais,
+        pertencem exclusivamente à AvilaOps.
+
+   2.3. Esta licença não transfere nenhum direito de propriedade do Software
+        ao licenciado.
+
+3. RESTRIÇÕES DE USO
+
+   O licenciado NÃO está autorizado a:
+
+   3.1. Copiar, modificar, adaptar, traduzir ou criar obras derivadas do
+        Software sem autorização expressa por escrito da AvilaOps.
+
+   3.2. Fazer engenharia reversa, descompilar, desmontar ou tentar derivar
+        o código-fonte do Software.
+
+   3.3. Vender, alugar, emprestar, sublicenciar, distribuir ou transferir
+        o Software ou qualquer parte dele a terceiros.
+
+   3.4. Remover, alterar ou obscurecer quaisquer avisos de direitos autorais,
+        marcas registradas ou outros avisos de propriedade no Software.
+
+   3.5. Usar o Software para fins ilegais ou não autorizados.
+
+   3.6. Incorporar o Software em outros produtos ou serviços sem autorização
+        expressa por escrito da AvilaOps.
+
+4. MODALIDADES DE LICENCIAMENTO
+
+   4.1. LICENÇA DE DESENVOLVIMENTO
+        - Permite uso para desenvolvimento, teste e avaliação
+        - Não autoriza uso em ambiente de produção
+        - Sujeita a restrições adicionais
+
+   4.2. LICENÇA COMERCIAL
+        - Permite uso em ambiente de produção
+        - Requer acordo comercial específico com AvilaOps
+        - Sujeita a taxas e termos negociados
+
+   4.3. LICENÇA ENTERPRISE
+        - Inclui todos os direitos da Licença Comercial
+        - Suporte técnico prioritário
+        - Recursos e customizações adicionais
+        - Termos específicos definidos em contrato separado
+
+5. SUPORTE E MANUTENÇÃO
+
+   5.1. O suporte técnico e manutenção são fornecidos conforme acordado
+        no contrato de licenciamento específico.
+
+   5.2. AvilaOps se reserva o direito de descontinuar o suporte para
+        versões antigas do Software mediante aviso prévio.
+
+6. ATUALIZAÇÕES E MODIFICAÇÕES
+
+   6.1. AvilaOps pode fornecer atualizações, correções e melhorias do
+        Software a seu exclusivo critério.
+
+   6.2. As atualizações estarão sujeitas aos termos desta licença, salvo
+        disposição em contrário.
+
+7. CONFIDENCIALIDADE
+
+   7.1. O licenciado reconhece que o Software contém informações
+        confidenciais e proprietárias da AvilaOps.
+
+   7.2. O licenciado concorda em manter a confidencialidade do Software
+        e não divulgar informações proprietárias a terceiros.
+
+8. GARANTIAS E ISENÇÕES
+
+   8.1. O SOFTWARE É FORNECIDO "COMO ESTÁ", SEM GARANTIAS DE QUALQUER TIPO,
+        EXPRESSAS OU IMPLÍCITAS, INCLUINDO MAS NÃO LIMITADO A GARANTIAS DE
+        COMERCIALIZAÇÃO, ADEQUAÇÃO A UM PROPÓSITO ESPECÍFICO E NÃO VIOLAÇÃO.
+
+   8.2. AvilaOps não garante que o Software será livre de erros, funcionará
+        sem interrupções ou atenderá aos requisitos específicos do licenciado.
+
+9. LIMITAÇÃO DE RESPONSABILIDADE
+
+   9.1. EM NENHUMA CIRCUNSTÂNCIA A AvilaOps SERÁ RESPONSÁVEL POR QUAISQUER
+        DANOS DIRETOS, INDIRETOS, INCIDENTAIS, ESPECIAIS, CONSEQUENCIAIS OU
+        PUNITIVOS, INCLUINDO MAS NÃO LIMITADO A PERDA DE LUCROS, DADOS OU
+        USO, DECORRENTES DO USO OU INCAPACIDADE DE USO DO SOFTWARE.
+
+   9.2. A responsabilidade total da AvilaOps não excederá o valor pago pelo
+        licenciado pela licença do Software nos 12 meses anteriores.
+
+10. RESCISÃO
+
+    10.1. Esta licença é efetiva até ser rescindida.
+
+    10.2. AvilaOps pode rescindir esta licença imediatamente, sem aviso
+          prévio, se o licenciado violar qualquer termo desta licença.
+
+    10.3. Após a rescisão, o licenciado deve cessar todo o uso do Software
+          e destruir todas as cópias em sua posse.
+
+11. CONFORMIDADE COM LEIS
+
+    11.1. O licenciado deve usar o Software em conformidade com todas as
+          leis e regulamentos aplicáveis, incluindo mas não limitado à
+          Lei Geral de Proteção de Dados (LGPD).
+
+    11.2. O licenciado é responsável por obter e manter todas as licenças,
+          permissões e autorizações necessárias para o uso do Software.
+
+12. DISPOSIÇÕES GERAIS
+
+    12.1. LEGISLAÇÃO APLICÁVEL
+          Esta licença será regida e interpretada de acordo com as leis
+          do Brasil, sem considerar conflitos de disposições legais.
+
+    12.2. FORO
+          Fica eleito o foro da comarca de [Cidade], [Estado], Brasil,
+          para dirimir quaisquer questões oriundas desta licença.
+
+    12.3. ACORDO INTEGRAL
+          Esta licença constitui o acordo integral entre as partes em
+          relação ao Software e substitui todos os acordos anteriores.
+
+    12.4. MODIFICAÇÕES
+          AvilaOps se reserva o direito de modificar estes termos a
+          qualquer momento mediante notificação ao licenciado.
+
+    12.5. DIVISIBILIDADE
+          Se qualquer disposição desta licença for considerada inválida
+          ou inexequível, as demais disposições permanecerão em pleno
+          vigor e efeito.
+
+================================================================================
+INFORMAÇÕES DE CONTATO
+================================================================================
+
+Para questões sobre licenciamento, suporte ou uso comercial:
+
+AvilaOps
+Email: licensing@avilaops.com
+Website: https://avilaops.com
+Telefone: [Inserir telefone]
+
+================================================================================
+RECONHECIMENTO
+================================================================================
+
+AO USAR ESTE SOFTWARE, VOCÊ RECONHECE TER LIDO, COMPREENDIDO E CONCORDADO
+EM ESTAR VINCULADO AOS TERMOS E CONDIÇÕES DESTA LICENÇA.
+
+SE VOCÊ NÃO CONCORDAR COM ESTES TERMOS, NÃO USE O SOFTWARE.
+
+================================================================================
+Última atualização: 03 de Maio de 2026
+Versão: 1.0
+================================================================================

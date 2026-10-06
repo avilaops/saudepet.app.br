@@ -1,0 +1,54 @@
+{
+  "data": "2026-09-12T19:18:48.954Z",
+  "artes_finais": 54,
+  "novas_artes": 42,
+  "ancoras_completas": 52,
+  "colecoes": 2,
+  "proporcoes": [
+    "16:9",
+    "1:1",
+    "2:3",
+    "3:2",
+    "4:3",
+    "4:5",
+    "9:16"
+  ],
+  "pngs_incluindo_historico": 56,
+  "bytes_finais": 141943090,
+  "ids_duplicados": 0,
+  "hashes_duplicados": 0,
+  "arquivos_ausentes": 0,
+  "dimensoes_hashes_e_bytes_conferidos": true,
+  "titulos_do_cronograma_conferidos": true,
+  "textos_alternativos_presentes": true,
+  "revisao_visual": "Todas as artes inspecionadas individualmente após a geração; revisão específica de ANC-031 documentada.",
+  "publicadas": 0,
+  "associadas_a_posts": 0,
+  "animacoes_entregues": 0,
+  "galeria": {
+    "artes_verificadas": 54,
+    "colecoes": 2,
+    "busca_por_estilo": true,
+    "busca_sem_acentos": true,
+    "filtros_combinados": true,
+    "estado_vazio_e_reset": true,
+    "imagens_carregadas_e_proporcoes_preservadas": true,
+    "dimensoes_e_alts_conferidos_no_navegador": true,
+    "links_de_navegacao_validos": 5,
+    "desktop": "1440 × 1050",
+    "celular": "390 × 844",
+    "celular_sem_overflow": true,
+    "erros_javascript": [],
+    "evidencias_locais": [
+      "output/playwright/blog-artes-desktop.png",
+      "output/playwright/blog-artes-mobile-topo.png",
+      "output/playwright/blog-artes-mobile-artes.png"
+    ]
+  },
+  "scripts_typescript": {
+    "compilacao_sem_emissao": "aprovada",
+    "registro_idempotente": "conferido",
+    "substituicao_de_versao_nao_final": "cinco cenarios isolados conferidos",
+    "registros": "sequenciais"
+  }
+}

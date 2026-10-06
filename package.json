@@ -1,0 +1,24 @@
+{
+  "name": "saude-pet",
+  "version": "1.0.0",
+  "description": "PWA para conectar tutores de pets com veterinários",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run verificar:dados-falsos && cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "verificar:dados-falsos": "node scripts/verificar-dados-falsos.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "playwright": "^1.62.1",
+    "tsx": "^4.21.0"
+  }
+}

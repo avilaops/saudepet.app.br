@@ -1,0 +1,39 @@
+{
+  // TypeScript é o padrão da casa (ver ROADMAP, Fase 1). O backend nasceu em
+  // JavaScript e migra por camadas, então `allowJs` mantém os dois convivendo:
+  // o compilador atravessa `src` inteiro e escreve tudo em `dist`, que é o que
+  // o container executa. `checkJs` fica desligado de propósito — checar 321
+  // arquivos JS de uma vez encheria a tela de erro sem ninguém para corrigir;
+  // cada arquivo passa a ser verificado quando vira `.ts`.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "dist",
+
+    "allowJs": false,
+    "checkJs": false,
+
+    "strict": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // O código usa campos de classe como atribuição (`metodo = asyncHandler(...)`).
+    // Com `useDefineForClassFields` ligado — o padrão em ES2022 — a semântica
+    // muda para `Object.defineProperty` e herança de método por atributo quebra
+    // em silêncio. Desligado, o comportamento continua o de hoje.
+    "useDefineForClassFields": false,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": false,
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}

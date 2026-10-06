@@ -1,0 +1,68 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Mapas: o que precisa de CSS de verdade.
+
+   Os pinos são SVG desenhados em `mapa.js` — só o veterinário, que se move,
+   precisa de estilo: o halo que pulsa (é ele que diz "está vindo agora",
+   distinguindo o profissional a caminho de um pino qualquer parado) e a
+   transição que faz o marcador deslizar entre uma leitura de GPS e a
+   seguinte, em vez de teleportar de esquina em esquina.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.mapa-pino {
+  /* O `divIcon` do Leaflet vem com fundo branco e borda; o pino é o desenho. */
+  background: none;
+  border: 0;
+}
+
+.mapa-vet {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.mapa-vet__halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--brand-orange, #f58235);
+  opacity: 0.4;
+  animation: mapa-pulso 2.1s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+.mapa-vet__disco {
+  position: absolute;
+  inset: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 2.5px solid #fff;
+  background: var(--brand-orange, #f58235);
+  box-shadow: 0 2px 7px rgba(11, 63, 66, 0.35);
+}
+
+@keyframes mapa-pulso {
+  0% { transform: scale(0.55); opacity: 0.45; }
+  70% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* Movimento entre duas leituras do GPS. O intervalo real entre elas é maior
+   que a transição, então o marcador chega e espera — nunca fica atrasado
+   fingindo uma posição que já mudou. */
+.leaflet-marker-icon.mapa-suave {
+  transition: transform 0.8s linear;
+}
+
+/* Durante o zoom o Leaflet reposiciona todos os marcadores de uma vez; com a
+   transição ligada eles sairiam deslizando pela tela atrás do mapa. A classe
+   `leaflet-zoom-anim` é do próprio Leaflet e só existe nesse intervalo. */
+.leaflet-zoom-anim .leaflet-marker-icon.mapa-suave {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapa-vet__halo { animation: none; opacity: 0.3; }
+  .leaflet-marker-icon.mapa-suave { transition: none; }
+}

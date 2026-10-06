@@ -1,0 +1,6 @@
+services:
+  backend:
+    volumes: !override
+      - uploads-data:/app/uploads
+  web:
+    volumes: !reset []

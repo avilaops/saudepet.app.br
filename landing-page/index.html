@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Tag Manager — container GTM-T67L58J3 (TagFlow), publica o GA4
+       G-L0K82B1N4Y. Mesmo container da aplicação em /frontend: a landing e o
+       app são a mesma jornada (visita → solicitação de atendimento), e
+       containers separados quebrariam a sessão no meio dela. -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T67L58J3');</script>
+  <!-- End Google Tag Manager -->
+  <title>Saúde PET — Veterinário na sua casa em minutos</title>
+  <meta name="description" content="Atendimento veterinário domiciliar rápido, seguro e profissional para cuidar do seu pet sem sair de casa.">
+  <link rel="icon" href="assets/logo-symbol.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/logo-symbol.png">
+
+  <!-- Card de link. URL absoluta no domínio do projeto: caminho relativo
+       (ainda mais sem barra inicial) não é resolvido pelo robô de preview. -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://saudepet.app.br/">
+  <meta property="og:site_name" content="Saúde PET">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Saúde PET — Veterinário na sua casa em minutos">
+  <meta property="og:description" content="Atendimento veterinário domiciliar rápido, seguro e profissional para cuidar do seu pet sem sair de casa.">
+  <meta property="og:image" content="https://saudepet.app.br/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Saúde PET — Veterinário na sua casa em minutos">
+  <meta name="twitter:description" content="Atendimento veterinário domiciliar rápido, seguro e profissional para cuidar do seu pet sem sair de casa.">
+  <meta name="twitter:image" content="https://saudepet.app.br/assets/og-default.png">
+  <meta name="theme-color" content="#0d9488">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --secondary: #e6f7f6;
+      --accent: #f97316;
+      --accent-dark: #ea580c;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .wrap-narrow { max-width: 780px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; }
+    .brand img { width: 290px; height: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a.nav-item { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
+    .nav-links a.nav-item:hover { color: var(--primary); }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer; border: none;
+    }
+    .btn-orange {
+      background: var(--accent); color: #ffffff !important;
+      box-shadow: 0 10px 24px -6px rgba(249, 115, 22, 0.4);
+    }
+    .btn-orange:hover {
+      background: var(--accent-dark); transform: translateY(-2px);
+      box-shadow: 0 14px 28px -6px rgba(249, 115, 22, 0.5);
+    }
+    .btn-outline {
+      background: #ffffff; color: var(--ink); border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--primary); color: var(--primary) !important; background: var(--bg-light);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 64px;
+      background: radial-gradient(800px 400px at 50% 0%, var(--secondary) 0%, rgba(255,255,255,0) 100%);
+      text-align: center;
+    }
+    .badge-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: var(--secondary); color: var(--primary);
+      font-weight: 700; font-size: 0.85rem; margin-bottom: 24px;
+      border: 1px solid #ccf0ec;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px;
+    }
+    .text-teal { color: var(--primary); }
+    .text-orange { color: var(--accent); }
+    .hero p.lead {
+      font-size: 1.15rem; color: var(--muted); max-width: 640px;
+      margin: 0 auto 32px; line-height: 1.6;
+    }
+    .hero-ctas {
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 32px;
+    }
+    .trust-badge {
+      font-size: 0.9rem; color: var(--muted); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .bg-light { background-color: var(--bg-light); }
+    .section-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+    .tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.08em; color: var(--primary); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-head h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .section-head p { font-size: 1.05rem; color: var(--muted); }
+
+    /* Grids */
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    /* Cards */
+    .card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px;
+      padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 14px; background: var(--secondary);
+      color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+    }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+    /* Steps */
+    .step-card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 28px;
+    }
+    .step-num { font-size: 0.8rem; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .step-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 6px; }
+    .step-card p { font-size: 0.9rem; color: var(--muted); }
+
+    /* Services */
+    .service-card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 26px;
+      display: flex; align-items: flex-start; gap: 18px;
+    }
+    .warning-box {
+      margin-top: 36px; background: #fff7ed; border: 1px solid #ffedd5; border-radius: 16px;
+      padding: 16px 22px; display: flex; align-items: center; gap: 14px; color: #9a3412; font-size: 0.92rem;
+    }
+
+    /* Doctors */
+    .doctor-card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 28px; text-align: center;
+    }
+    .doctor-avatar {
+      width: 64px; height: 64px; border-radius: 50%; background: var(--secondary); color: var(--primary);
+      font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .stars { color: #f59e0b; font-size: 0.95rem; }
+    .quote-card {
+      background: #f0fdfa; border: 1px solid #ccf0ec; border-radius: 20px; padding: 28px;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 30px;
+    }
+    .author { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--secondary); color: var(--primary);
+      font-weight: 800; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Differentials */
+    .diff-card {
+      background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 26px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .full-width { grid-column: 1 / -1; }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--primary), #14b8a6);
+      border-radius: 28px; padding: 56px 36px; text-align: center; color: #ffffff;
+    }
+    .cta-banner h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 14px; }
+    .cta-banner p { font-size: 1.1rem; opacity: 0.92; margin-bottom: 28px; }
+
+    /* FAQ Details */
+    details.faq-item {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 12px; overflow: hidden;
+    }
+    details.faq-item summary {
+      padding: 20px 24px; font-weight: 700; font-size: 1.05rem; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary:after { content: "▼"; font-size: 0.8rem; color: var(--muted); }
+    details.faq-item[open] summary:after { content: "▲"; color: var(--primary); }
+    details.faq-item p { padding: 0 24px 20px; color: var(--muted); font-size: 0.95rem; }
+
+    /* Footer */
+    footer { background: #0f172a; color: #cbd5e1; padding: 60px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+    footer h5 { color: #ffffff; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 10px; }
+    footer a { color: #94a3b8; font-size: 0.92rem; }
+    footer a:hover { color: #ffffff; }
+    .footer-bottom {
+      margin-top: 48px; padding-top: 24px; border-top: 1px solid #1e293b;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      color: #64748b; font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      h1 { font-size: 2.2rem; }
+      .cta-banner { padding: 36px 20px; }
+      .cta-banner h2 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T67L58J3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <img src="assets/logo-completa.png" alt="Saúde PET" width="290" height="80">
+    </div>
+    <nav class="nav-links">
+      <a class="nav-item" href="#diferenciais">Sobre</a>
+      <a class="nav-item" href="faq.html">FAQ</a>
+      <a class="nav-item" href="https://saudepet.app.br/register?role=vet">Seja Veterinário</a>
+      <a class="nav-item" href="/blog">Blog</a>
+      <a class="btn btn-orange" href="/login">Entrar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="badge-pill">
+      <span>🕒 Tempo médio de chegada: até 30 min</span>
+    </div>
+    <h1>Veterinário na sua casa em <span class="text-orange">minutos.</span></h1>
+    <p class="lead">Atendimento veterinário domiciliar rápido, seguro e profissional para cuidar do seu pet sem sair de casa.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-orange" href="/login">Entrar →</a>
+      <a class="btn btn-outline" href="#como-funciona">Como funciona</a>
+    </div>
+    <div class="trust-badge">
+      <span>🧡</span> Mais de 2.000 pets atendidos com carinho
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Veterinários verificados</h3>
+        <p>Todos os profissionais são credenciados e verificados.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏠</div>
+        <h3>Atendimento domiciliar</h3>
+        <p>Seu pet recebe cuidado no conforto de casa.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⭐</div>
+        <h3>Avaliações reais</h3>
+        <p>Veja a opinião de quem já usou o serviço.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">❤️</div>
+        <h3>Segurança e cuidado</h3>
+        <p>Menos estresse e mais atenção para seu pet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="bg-light">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">SIMPLES E RÁPIDO</span>
+      <h2>Como funciona</h2>
+      <p>Em poucos passos, seu pet recebe atendimento profissional em casa.</p>
+    </div>
+    <div class="grid-4">
+      <div class="step-card">
+        <div class="card-icon">📱</div>
+        <span class="step-num">Passo 1</span>
+        <h3>Solicite atendimento</h3>
+        <p>Preencha o formulário com os dados do seu pet.</p>
+      </div>
+      <div class="step-card">
+        <div class="card-icon">👨‍⚕️</div>
+        <span class="step-num">Passo 2</span>
+        <h3>Veterinário aceita</h3>
+        <p>Um profissional próximo aceita o chamado.</p>
+      </div>
+      <div class="step-card">
+        <div class="card-icon">📍</div>
+        <span class="step-num">Passo 3</span>
+        <h3>Ele vai até você</h3>
+        <p>O veterinário se desloca até a sua casa.</p>
+      </div>
+      <div class="step-card">
+        <div class="card-icon">🩺</div>
+        <span class="step-num">Passo 4</span>
+        <h3>Atendimento profissional</h3>
+        <p>Seu pet recebe cuidado de qualidade em casa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">NOSSOS SERVIÇOS</span>
+      <h2>Tipos de atendimento</h2>
+    </div>
+    <div class="grid-2">
+      <div class="service-card">
+        <div class="card-icon">🩺</div>
+        <div>
+          <h3>Consulta veterinária</h3>
+          <p>Avaliação clínica completa do seu pet em casa.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">💉</div>
+        <div>
+          <h3>Vacinação</h3>
+          <p>Vacinas aplicadas com segurança no conforto do lar.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">💓</div>
+        <div>
+          <h3>Avaliação de saúde</h3>
+          <p>Check-up geral para garantir o bem-estar do pet.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">💬</div>
+        <div>
+          <h3>Orientação profissional</h3>
+          <p>Tire dúvidas e receba orientações especializadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <span>⚠️ Alguns procedimentos mais complexos precisam ser realizados em clínicas especializadas. Nosso veterinário orientará sobre os próximos passos.</span>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">EQUIPE QUALIFICADA</span>
+      <h2>Veterinários da plataforma</h2>
+    </div>
+    <div class="grid-3">
+      <div class="doctor-card">
+        <div class="doctor-avatar">CA</div>
+        <h3>Dra. Camila Andrade</h3>
+        <p style="color:var(--muted); font-size:.88rem">Clínica Geral</p>
+        <div class="stars">★★★★★ <span style="color:var(--muted)">(127)</span></div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">RO</div>
+        <h3>Dr. Rafael Oliveira</h3>
+        <p style="color:var(--muted); font-size:.88rem">Dermatologia Veterinária</p>
+        <div class="stars">★★★★☆ <span style="color:var(--muted)">(98)</span></div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">JC</div>
+        <h3>Dra. Juliana Costa</h3>
+        <p style="color:var(--muted); font-size:.88rem">Cardiologia Veterinária</p>
+        <div class="stars">★★★★★ <span style="color:var(--muted)">(84)</span></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:36px">
+      <div class="quote-card">
+        <p style="font-style:italic">"Plataforma séria, organizada e que realmente valoriza o trabalho do veterinário. Me sinto segura atendendo por aqui."</p>
+        <strong class="text-teal">Dra. Camila Andrade</strong>
+      </div>
+      <div class="quote-card">
+        <p style="font-style:italic">"Uma experiência inovadora que aproxima os profissionais dos tutores de pets de forma segura e prática."</p>
+        <strong class="text-teal">Dr. Rafael Oliveira</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">QUEM JÁ USOU, APROVA</span>
+      <h2>Depoimentos de clientes</h2>
+    </div>
+    <div class="grid-2">
+      <div class="testimonial-card">
+        <div style="color:var(--accent); font-size:1.1rem; margin-bottom:10px">★★★★★</div>
+        <p>"Meu cachorro passou mal de madrugada e o veterinário chegou em 25 minutos. Foi incrível, cuidaram dele com muito carinho. Recomendo demais!"</p>
+        <div class="author">
+          <div class="author-avatar">F</div>
+          <div>
+            <strong>Fernanda S.</strong>
+            <span style="font-size:.82rem; color:var(--muted)">Tutora do Thor</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div style="color:var(--accent); font-size:1.1rem; margin-bottom:10px">★★★★★</div>
+        <p>"Foi a melhor experiência que já tive com atendimento veterinário. Sem estresse de transporte, minha gatinha ficou super tranquila em casa."</p>
+        <div class="author">
+          <div class="author-avatar">L</div>
+          <div>
+            <strong>Lucas M.</strong>
+            <span style="font-size:.82rem; color:var(--muted)">Tutor da Luna</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="diferenciais" class="bg-light">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">POR QUE NOS ESCOLHER</span>
+      <h2>Nossos diferenciais</h2>
+    </div>
+    <div class="grid-2">
+      <div class="diff-card">
+        <div class="card-icon">🏠</div>
+        <div>
+          <h3>Atendimento em casa</h3>
+          <p>Sem deslocamento, sem filas, sem espera.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="card-icon">😊</div>
+        <div>
+          <h3>Menos estresse</h3>
+          <p>Seu pet fica calmo no ambiente familiar.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="card-icon">🛡️</div>
+        <div>
+          <h3>Profissionais verificados</h3>
+          <p>Todos os veterinários são avaliados e credenciados.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="card-icon">⚡</div>
+        <div>
+          <h3>Agilidade</h3>
+          <p>Atendimento rápido com profissionais próximos.</p>
+        </div>
+      </div>
+      <div class="diff-card full-width">
+        <div class="card-icon">💻</div>
+        <div>
+          <h3>Tecnologia moderna</h3>
+          <p>Plataforma inteligente que conecta você ao melhor profissional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-banner">
+      <h2>Seu pet merece atendimento de qualidade sem sair de casa.</h2>
+      <p>Solicite agora e receba um veterinário na sua porta em minutos.</p>
+      <a class="btn btn-orange" href="/login">Entrar →</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <span class="tag">TIRE SUAS DÚVIDAS</span>
+      <h2>Perguntas frequentes</h2>
+      <p>Tudo que você precisa saber sobre o atendimento veterinário domiciliar.</p>
+    </div>
+
+    <details class="faq-item" open>
+      <summary>Como funciona o atendimento veterinário em casa?</summary>
+      <p>O atendimento funciona de forma simples: você solicita pelo site/app informando o endereço e o motivo. Um veterinário credenciado próximo aceita a chamada e vai até a sua residência equipado para realizar a consulta, vacinação ou exame.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Em quanto tempo o veterinário chega?</summary>
+      <p>O tempo médio de chegada é de até 30 minutos em áreas urbanas atendidas, dependendo do trânsito e da disponibilidade dos profissionais na sua região.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Posso escolher o veterinário ou o app escolhe para mim?</summary>
+      <p>A plataforma conecta você ao profissional verificado mais próximo disponível para garantir a maior rapidez. No entanto, você poderá visualizar o perfil, foto e avaliações do veterinário designado.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>O atendimento é imediato ou preciso agendar?</summary>
+      <p>Oferecemos tanto atendimento sob demanda em tempo real para necessidades imediatas quanto opção de agendamento prévio para consultas e vacinações de rotina.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Os veterinários são realmente profissionais formados?</summary>
+      <p>Sim! Todos os veterinários cadastrados passam por uma verificação rigorosa de documentos e diploma antes de realizarem qualquer atendimento.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>O veterinário tem registro no conselho?</summary>
+      <p>Com certeza. Exigimos o registro ativo e regular no Conselho Regional de Medicina Veterinária (CRMV) de todos os profissionais parceiros.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>O app garante a qualidade do profissional?</summary>
+      <p>Sim, além da validação cadastral inicial, monitoramos constantemente as avaliações dadas pelos tutores após cada atendimento para manter um padrão elevado de excelência.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand"><img src="assets/logo-completa.png" alt="Saúde PET" width="290" height="80"></div>
+      <p style="margin-top:14px; max-width:360px">Conectando tutores a veterinários credenciados para atendimento domiciliar, emergências e teleorientação.</p>
+    </div>
+    <div>
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="faq.html">FAQ completo</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Acesso</h5>
+      <ul>
+        <li><a href="https://saudepet.app.br/register">Criar conta</a></li>
+        <li><a href="https://saudepet.app.br/login">Entrar</a></li>
+        <li><a href="https://saudepet.app.br/register?role=vet">Sou Veterinário</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Saúde Pet. Um produto Avila Ops.</span>
+    <span>*Tempo estimado, pode variar por região e disponibilidade de veterinários.</span>
+  </div>
+</footer>
+
+</body>
+</html>

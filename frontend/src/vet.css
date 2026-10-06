@@ -1,0 +1,1028 @@
+/* Os tokens do app do veterinário são os mesmos do resto do produto desde o
+   redesenho: o teal da marca (#159fa3, não o #2fb9b8 mais claro que vivia só
+   aqui) e a tinta #15343a. Alinhar no token faz as dezoito telas do vet
+   acompanharem sem reescrever uma por uma. */
+.vet-app {
+  --vet-teal: #159fa3;
+  --vet-teal-dark: #0d6b6e;
+  --vet-teal-soft: #e8f6f6;
+  --vet-orange: #ff8a38;
+  --vet-purple: #6d28d9;
+  --vet-green: #15a05a;
+  --vet-ink: #15343a;
+  --vet-line: rgba(226,232,240,.8);
+  --vet-muted: #8b95aa;
+  --vet-surface: #fff;
+  /* Margem lateral e respiro entre blocos, em um lugar só. Cada tela do vet
+     tinha escolhido a sua: 1.35rem no corpo, 1.3rem na lista, 1.45rem no
+     cabeçalho e 1.25rem nas abas. Quatro valores a menos de 2px de distância
+     — invisíveis parados, evidentes ao navegar de uma tela para a outra,
+     porque o conteúdo desliza de lado a cada troca. */
+  --vet-gutter: 1.35rem;
+  --vet-gap: .9rem;
+  /* Altura da barra de baixo mais o respiro: o que o corpo reserva para não
+     terminar embaixo dela. */
+  --vet-nav-safe: 6.5rem;
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  min-height: 100dvh;
+  margin: 0 auto;
+  color: var(--vet-ink);
+  background: var(--surface-page);
+  overflow-x: clip;
+}
+
+.vet-app button, .vet-app input, .vet-app textarea { font: inherit; }
+.vet-dark-mode .vet-app { color: #eef6f5; background: #10191b; }
+.vet-dark-mode .vet-card, .vet-dark-mode .vet-bottom-nav, .vet-dark-mode .vet-drawer, .vet-dark-mode .vet-chat__composer, .vet-dark-mode .vet-page-header--compact { color: #eef6f5; background: #182427; border-color: #29383b; }
+.vet-dark-mode .vet-appointment__description, .vet-dark-mode .vet-setting-row__icon, .vet-dark-mode .vet-conversation, .vet-dark-mode .vet-modal, .vet-dark-mode .vet-bank-link, .vet-dark-mode .vet-bank-card__note { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-setting-row strong, .vet-dark-mode .vet-drawer__body strong { color: #eef6f5; }
+.vet-app button:focus-visible, .vet-app a:focus-visible, .vet-app input:focus-visible, .vet-app textarea:focus-visible {
+  outline: 3px solid rgba(21,159,163,.35);
+  outline-offset: 2px;
+}
+/* O `select` era o único controle de fora da regra acima, então quem desenhava o
+   foco dele era o navegador — com o anel preto padrão. Aqui não há contorno: o
+   foco é a própria borda ficando teal, com um halo discreto, para não deixar sem
+   referência nenhuma quem navega pelo teclado. */
+.vet-app select:focus, .vet-app select:focus-visible {
+  outline: none;
+  border-color: var(--vet-teal);
+  box-shadow: 0 0 0 2px rgba(21,159,163,.18);
+}
+.vet-app-main { padding: 1.05rem var(--vet-gutter) var(--vet-nav-safe); }
+/* Borda de um fio no lugar de sombra: mesma superfície do AppKit. */
+.vet-card { background: #fff; border: 1px solid var(--vet-line); border-radius: 1rem; box-shadow: 0 1px 2px rgba(15,52,58,.04); }
+.vet-icon-button { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 0; border-radius: 999px; color: inherit; background: #f2f4f7; cursor: pointer; }
+.vet-icon-button--glass { color: #fff; background: rgba(255,255,255,.18); }
+
+.vet-avatar { display: inline-grid; place-items: center; flex: none; object-fit: cover; border-radius: 999px; border: 2px solid rgba(255,255,255,.85); background: #eafaf8; color: #08787c; font-weight: 800; }
+.vet-avatar--sm { width: 2.45rem; height: 2.45rem; font-size: .75rem; }
+.vet-avatar--md { width: 3.15rem; height: 3.15rem; font-size: .85rem; }
+.vet-avatar--lg { width: 3.55rem; height: 3.55rem; font-size: .9rem; }
+
+/* Cabeçalho em tinta com o brilho discreto do acento — o mesmo tratamento do
+   painel do tutor e do admin. Era um gradiente teal, que nenhuma outra área do
+   produto usava. */
+.vet-home-header { position: relative; overflow: hidden; color: #fff; padding: 1.65rem var(--vet-gutter) 1.6rem; background: var(--vet-ink); }
+.vet-home-header::before, .vet-page-header::before {
+  content: ''; position: absolute; top: -6rem; right: -4rem; width: 14rem; height: 14rem;
+  border-radius: 50%; background: rgba(21,159,163,.22); filter: blur(3rem); pointer-events: none;
+}
+.vet-home-header > *, .vet-page-header > * { position: relative; }
+.vet-home-header__brand { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.4rem; }
+.vet-home-header__brand img { width: 2.2rem; height: 2.2rem; padding: .15rem; object-fit: contain; border-radius: .65rem; background: #fff; }
+.vet-home-header__brand strong { font-size: .85rem; letter-spacing: -.01em; }
+.vet-home-header__brand button { margin-left: auto; }
+.vet-home-profile { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: .8rem; }
+.vet-home-profile p { font-size: .72rem; opacity: .88; }
+.vet-home-profile h1 { margin: .12rem 0; font-size: 1.2rem; line-height: 1.15; font-weight: 800; color: #fff; }
+.vet-home-profile__rating { display: flex; gap: .25rem; align-items: center; font-size: .7rem; }
+.vet-home-profile__rating svg { color: #ffd13d; fill: #ffd13d; }
+.vet-balance { min-width: 5.5rem; padding: .65rem .72rem; border: 1px solid rgba(255,255,255,.45); border-radius: 1rem; text-align: right; background: rgba(255,255,255,.1); }
+.vet-balance span { display: flex; justify-content: flex-end; gap: .2rem; font-size: .66rem; opacity: .9; }
+.vet-balance strong { display: block; margin-top: .12rem; font-size: .85rem; color: #fff; }
+/* Offline era cinza, e cinza dentro de um cabeçalho lê-se como desabilitado —
+   justo no controle que liga o veterinário à fila. Agora é superfície de vidro
+   sobre a tinta: operável, apenas desligada. */
+.vet-availability { width: 100%; min-height: 4rem; margin-top: 1.35rem; border: 1px solid rgba(255,255,255,.18); border-radius: 1rem; color: #fff; background: rgba(255,255,255,.07); cursor: pointer; }
+.vet-availability.is-online { border-color: transparent; background: var(--vet-green); }
+.vet-availability__inside { display: grid; grid-template-columns: 2rem 1fr 1rem; align-items: center; width: min(14rem,88%); margin: auto; }
+.vet-availability strong, .vet-availability small { display: block; }
+.vet-availability strong { font-size: .82rem; }
+.vet-availability small { margin-top: .1rem; font-size: .7rem; font-weight: 500; }
+.vet-availability__dot { width: .75rem; height: .75rem; border-radius: 50%; background: rgba(255,255,255,.45); }
+.vet-online-note { display: flex; align-items: center; gap: .55rem; margin: 1rem 0; color: #087d66; font-size: .78rem; font-weight: 700; }
+.vet-online-note::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: #79dec1; }
+
+.vet-section-card { padding: 1.2rem; }
+.vet-section-card + .vet-section-card { margin-top: var(--vet-gap); }
+.vet-section-card__title { display: flex; align-items: center; gap: .55rem; margin-bottom: .8rem; }
+.vet-section-card__title h2 { font-size: .98rem; font-weight: 800; }
+.vet-section-card__title svg { color: var(--vet-teal-dark); }
+.vet-section-card__title a { margin-left: auto; color: var(--vet-teal-dark); font-size: .75rem; font-weight: 700; }
+.vet-history-mini { display: grid; grid-template-columns: 2.3rem 1fr auto; gap: .65rem; align-items: center; padding: .48rem 0; }
+.vet-history-mini__icon { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: .75rem; color: #7c3aed; background: #f4efff; }
+.vet-history-mini strong { display: block; font-size: .79rem; }
+.vet-history-mini small { color: var(--vet-muted); font-size: .69rem; }
+.vet-history-mini__rating { color: #b98900; font-size: .68rem; font-weight: 700; }
+.vet-club-page { margin-top: 2rem; padding: 2rem var(--vet-gutter); text-align: center; }
+.vet-club-page__icon { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; margin: 0 auto 1rem; border-radius: 1.4rem; color: #fff; background: linear-gradient(135deg,#7c3aed,#5b21b6); }
+.vet-club-page__eyebrow { color: #6d28d9; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.vet-club-page h1 { margin-top: .35rem; font-size: 1.25rem; font-weight: 850; }
+.vet-club-page > p:last-child { margin-top: .7rem; color: #718096; font-size: .75rem; line-height: 1.6; }
+.vet-request { margin-bottom: .8rem; padding: 1rem; border: 1px solid #fed7aa; background: #fffaf4; }
+.vet-request__head { display: flex; gap: .7rem; align-items: center; }
+.vet-request__head strong { display: block; font-size: .86rem; }
+.vet-request__head small { color: var(--vet-muted); }
+.vet-request__actions { display: flex; gap: .55rem; margin-top: .8rem; }
+.vet-request__actions button { flex: 1; padding: .65rem; border-radius: .65rem; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.vet-request__actions button:first-child { border: 1px solid #fda4af; color: #e11d48; background: #fff; }
+.vet-request__actions button:last-child { border: 1px solid var(--vet-teal); color: #fff; background: var(--vet-teal); }
+
+.vet-page-header { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; min-height: 7.4rem; padding: 1.2rem var(--vet-gutter); color: #fff; background: var(--vet-ink); }
+/* A versão compacta era branca com texto escuro: dentro do app do vet, metade
+   das telas abria em tinta e a outra metade em branco. Agora é a mesma tinta,
+   só mais baixa. */
+.vet-page-header--compact { min-height: 4.25rem; color: #fff; background: var(--vet-ink); border-bottom: 0; }
+.vet-page-header .vet-icon-button, .vet-page-header--compact .vet-icon-button { color: rgba(255,255,255,.82); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
+.vet-page-header .vet-icon-button:hover, .vet-page-header--compact .vet-icon-button:hover { background: rgba(255,255,255,.16); }
+.vet-page-header__copy h1 { font-size: 1.1rem; font-weight: 800; color: inherit; }
+.vet-page-header__copy p { margin-top: .35rem; font-size: .7rem; opacity: .9; }
+.vet-page-header__action { margin-left: auto; }
+
+.vet-tabs { display: flex; gap: .5rem; padding: 1rem var(--vet-gutter) .35rem; overflow-x: auto; scrollbar-width: none; }
+.vet-tabs::-webkit-scrollbar { display: none; }
+.vet-tab { flex: 1 0 auto; min-width: 5.9rem; padding: .68rem .8rem; border: 1px solid #dce1e7; border-radius: .85rem; color: #334155; background: #fff; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.vet-tab.is-active { border-color: var(--vet-teal); color: #fff; background: var(--vet-teal); }
+.vet-list { display: grid; gap: var(--vet-gap); padding: .8rem var(--vet-gutter) var(--vet-nav-safe); }
+.vet-empty { display: grid; place-items: center; min-height: 9.7rem; padding: 2rem; color: #a0a8b8; text-align: center; }
+.vet-empty svg { margin-bottom: .7rem; opacity: .55; }
+.vet-empty strong { font-size: .86rem; }
+.vet-empty p { margin-top: .4rem; font-size: .72rem; }
+.vet-appointment { padding: 1rem 1.15rem; }
+.vet-appointment__head { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: .75rem; }
+.vet-service-icon { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: .8rem; color: var(--vet-teal-dark); background: #f4f7f8; }
+.vet-appointment h2 { font-size: .82rem; font-weight: 800; }
+.vet-appointment__pet { margin-top: .16rem; color: var(--vet-muted); font-size: .68rem; }
+.vet-status { padding: .3rem .55rem; border-radius: 999px; font-size: .65rem; white-space: nowrap; background: #f1f3f5; }
+.vet-status--pending { color: #9a6700; background: #fff4c4; }
+.vet-status--confirmed { color: #087d4e; background: #d9fae5; }
+.vet-status--cancelled { color: #ef4444; background: #ffe7e7; }
+.vet-appointment__line { display: flex; gap: .45rem; align-items: center; margin-top: .65rem; font-size: .69rem; }
+.vet-appointment__line svg { flex: none; color: #94a3b8; }
+.vet-appointment__schedule { padding: .55rem .7rem; border-radius: .7rem; color: var(--vet-teal-dark); background: var(--vet-teal-soft); }
+.vet-appointment__description { margin-top: .55rem; padding: .7rem; border-radius: .75rem; background: #f7f8fa; font-size: .68rem; line-height: 1.4; }
+.vet-appointment__value { color: var(--vet-teal-dark); font-weight: 700; }
+.vet-appointment__actions { display: flex; gap: .55rem; margin-top: .8rem; }
+.vet-appointment__actions button { flex: 1; padding: .65rem; border-radius: .7rem; font-size: .72rem; font-weight: 700; cursor: pointer; }
+.vet-button--secondary { border: 1px solid #fecaca; color: #dc2626; background: #fff; }
+.vet-button--primary { border: 1px solid var(--vet-teal); color: #fff; background: var(--vet-teal); }
+
+.vet-bottom-nav { position: fixed; z-index: 35; bottom: 0; left: 50%; display: grid; grid-template-columns: repeat(5,1fr); width: min(100%,32rem); min-height: 5rem; padding: .55rem .45rem max(.55rem,env(safe-area-inset-bottom)); transform: translateX(-50%); border-top: 1px solid #edf0f3; background: rgba(255,255,255,.97); backdrop-filter: blur(12px); }
+.vet-bottom-nav__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem; color: #9aa3b5; font-size: .61rem; text-decoration: none; }
+.vet-bottom-nav__icon { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: .78rem; }
+/* Mesma leitura da barra do tutor: o item ativo é o acento no ícone e no rótulo,
+   sem a pastilha preenchida que só existia aqui. */
+.vet-bottom-nav__item.is-active { color: var(--vet-teal); font-weight: 700; }
+.vet-bottom-nav__item.is-active .vet-bottom-nav__icon { color: var(--vet-teal); background: transparent; }
+
+.vet-drawer-layer { position: fixed; z-index: 80; inset: 0; visibility: hidden; pointer-events: none; }
+.vet-drawer-layer.is-open { visibility: visible; pointer-events: auto; }
+.vet-drawer-backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: rgba(15,23,42,.48); opacity: 0; transition: opacity .2s ease; }
+.vet-drawer-layer.is-open .vet-drawer-backdrop { opacity: 1; }
+.vet-drawer { position: absolute; top: 0; right: 0; width: min(80vw,18rem); height: 100%; overflow-y: auto; background: #fff; transform: translateX(100%); transition: transform .22s ease; box-shadow: -1rem 0 2.5rem rgba(15,23,42,.16); }
+.vet-drawer-layer.is-open .vet-drawer { transform: translateX(0); }
+.vet-drawer__header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .7rem; min-height: 8rem; padding: 1.2rem; color: #fff; background: linear-gradient(135deg,#31b9b7,#269fa0); }
+.vet-drawer__header strong, .vet-drawer__header span { display: block; }
+.vet-drawer__header strong { font-size: .78rem; color: #fff; }
+.vet-drawer__header span { margin-top: .18rem; font-size: .66rem; opacity: .9; }
+.vet-drawer__body { padding: .5rem 1rem 1rem; }
+.vet-drawer__body button { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; width: 100%; min-height: 4.15rem; padding: .65rem 0; border: 0; border-bottom: 1px solid #f0f2f4; text-align: left; background: transparent; cursor: pointer; }
+.vet-drawer__body button.is-featured { margin: .2rem -.3rem; width: calc(100% + .6rem); padding-inline: .3rem; border-radius: .65rem; color: var(--vet-teal-dark); background: #f0fffc; }
+.vet-drawer__body button > svg { color: #c1c8d1; }
+.vet-drawer__item-icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: .75rem; color: #64748b; background: #f2f4f7; }
+.vet-drawer__body strong { display: block; font-size: .74rem; color: inherit; }
+.vet-drawer__body small { display: block; margin-top: .18rem; color: #94a3b8; font-size: .64rem; }
+.vet-drawer__body button.vet-drawer__logout { margin-top: .8rem; color: #ef4444; border-top: 1px solid #edf0f3; border-bottom: 0; }
+.vet-drawer__logout .vet-drawer__item-icon { color: #ef4444; background: #fff0f0; }
+.vet-drawer-open { overflow: hidden; }
+
+.vet-history-list { display: grid; gap: .65rem; padding: 1rem .45rem 2rem; }
+.vet-history-card { padding: 1.2rem; }
+.vet-history-card__head { display: grid; grid-template-columns: auto 1fr auto; gap: .7rem; align-items: center; }
+.vet-history-card h2 { font-size: .82rem; font-weight: 800; }
+.vet-history-card__meta { margin-top: .2rem; color: #718096; font-size: .67rem; }
+.vet-history-card__price { color: var(--vet-teal-dark); font-size: .75rem; font-weight: 800; }
+.vet-prescription-button { display: flex; justify-content: center; align-items: center; gap: .45rem; width: 100%; margin-top: .8rem; padding: .7rem; border: 1.5px dashed #22cfbb; border-radius: .65rem; color: var(--vet-teal-dark); background: #fff; font-size: .72rem; font-weight: 800; cursor: pointer; }
+.vet-review-pending { padding: .7rem 0 .1rem; color: #a0a8b8; text-align: center; font-size: .66rem; }
+.vet-review { margin-top: .7rem; padding: .75rem; border: 1px solid #b7eee5; border-radius: .7rem; color: #21514e; background: #effcf9; font-size: .66rem; }
+.vet-review strong { display: block; margin-bottom: .25rem; }
+/* As estrelas e o "recebido" eram os caracteres ★ ☆ ✓ soltos no JSX: sem
+   controle de tamanho, sem o traço do resto dos ícones e mudos no leitor de
+   tela. Agora são o mesmo VetIcon das outras telas — o preenchido ganha fill. */
+.vet-review__stars { display: inline-flex; align-items: center; gap: .08rem; vertical-align: -.15rem; color: #f5b301; letter-spacing: .06rem; }
+.vet-review__stars svg.is-filled { fill: currentColor; }
+.vet-review strong svg { vertical-align: -.18rem; }
+.vet-review em { display: block; margin-top: .3rem; }
+
+.vet-modal-layer { position: fixed; z-index: 90; inset: 0; display: grid; align-items: end; background: rgba(15,23,42,.55); }
+.vet-modal { width: min(calc(100% - 2rem),30rem); margin: 1rem auto 0; padding: 1.35rem; border-radius: 1.5rem 1.5rem 0 0; background: #fff; max-height: 90dvh; overflow-y: auto; }
+.vet-modal__title { display: flex; align-items: center; gap: .55rem; }
+.vet-modal__title h2 { font-size: .92rem; font-weight: 800; }
+.vet-modal__title button { margin-left: auto; }
+.vet-modal__patient { margin: 1rem 0; padding: .8rem; border-radius: .7rem; background: #f7f8fa; font-size: .72rem; }
+.vet-modal__patient strong, .vet-modal__patient small { display: block; }
+.vet-modal__patient small { margin-top: .2rem; color: #64748b; }
+.vet-signature { display: flex; gap: .6rem; align-items: center; padding: .8rem; border: 1px solid #65ded1; border-radius: .7rem; color: var(--vet-teal-dark); background: #effcf9; font-size: .68rem; }
+.vet-signature strong, .vet-signature small { display: block; }
+.vet-signature small { margin-top: .18rem; }
+.vet-prescription-note { margin-top: .9rem; }
+.vet-prescription-note label { display: block; margin-bottom: .35rem; font-size: .7rem; font-weight: 700; }
+.vet-prescription-note textarea { width: 100%; min-height: 7rem; padding: .8rem; resize: vertical; border: 1px solid #d7dce3; border-radius: .7rem; }
+.vet-modal__submit { width: 100%; margin-top: .9rem; padding: .85rem; border: 0; border-radius: .75rem; color: #fff; background: var(--vet-teal); font-size: .76rem; font-weight: 800; cursor: pointer; }
+.vet-modal__submit:disabled { cursor: not-allowed; opacity: .48; }
+
+.vet-conversations { display: grid; gap: .65rem; padding: 1rem var(--vet-gutter) var(--vet-nav-safe); }
+.vet-conversation { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; width: 100%; padding: .95rem; border: 1px solid #edf0f3; border-radius: 1rem; background: #fff; text-align: left; cursor: pointer; }
+.vet-conversation__avatar { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: .8rem; color: var(--vet-teal-dark); background: #ecfbf8; }
+.vet-conversation strong { display: block; font-size: .76rem; }
+.vet-conversation p { margin-top: .28rem; color: #9aa3b5; font-size: .68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vet-conversation time { color: #a0a8b8; font-size: .62rem; }
+.vet-unread { display: grid; place-items: center; min-width: 1.3rem; height: 1.3rem; margin-top: .25rem; margin-left: auto; padding: 0 .25rem; border-radius: 999px; color: #fff; background: var(--vet-orange); font-size: .58rem; }
+.vet-chat { display: flex; flex-direction: column; height: 100dvh; background: #f7f8fa; }
+.vet-chat__header { display: flex; align-items: center; gap: .7rem; min-height: 6.4rem; padding: 1rem var(--vet-gutter); color: #fff; background: var(--vet-teal); }
+.vet-chat__header div { min-width: 0; }
+.vet-chat__header strong, .vet-chat__header small { display: block; }
+.vet-chat__header strong { font-size: .8rem; }
+.vet-chat__header small { margin-top: .2rem; font-size: .65rem; opacity: .9; }
+.vet-chat__messages { flex: 1; overflow-y: auto; padding: 1rem var(--vet-gutter); }
+.vet-chat__date { margin: .65rem 0; color: #9aa3b5; text-align: center; font-size: .61rem; }
+.vet-bubble-row { display: flex; margin: .55rem 0; }
+.vet-bubble-row.is-mine { justify-content: flex-end; }
+.vet-bubble { max-width: 78%; padding: .65rem .78rem; border-radius: .85rem; background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+.vet-bubble-row.is-mine .vet-bubble { color: #fff; background: var(--vet-teal); }
+.vet-bubble strong { display: block; margin-bottom: .25rem; color: var(--vet-orange); font-size: .63rem; }
+.vet-bubble p { font-size: .75rem; line-height: 1.4; overflow-wrap: anywhere; }
+.vet-bubble time { display: block; margin-top: .25rem; color: #97a0b2; font-size: .58rem; }
+.vet-bubble-row.is-mine time { color: rgba(255,255,255,.75); }
+.vet-chat__composer { display: flex; align-items: center; gap: .45rem; padding: .65rem .85rem max(.65rem,env(safe-area-inset-bottom)); border-top: 1px solid #edf0f3; background: #fff; }
+.vet-chat__action-btn { display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; padding: 0; border: 0; border-radius: .75rem; background: transparent; color: #94a3b8; cursor: pointer; transition: all .15s ease; flex-shrink: 0; }
+.vet-chat__action-btn:hover:not(:disabled) { color: #475569; background: #f1f5f9; }
+.vet-chat__action-btn:disabled { opacity: .4; cursor: not-allowed; }
+.vet-chat__input-box { display: flex; align-items: center; flex: 1; min-width: 0; padding: .2rem .35rem .2rem .85rem; border: 1px solid #dce1e7; border-radius: 1.15rem; background: #f8fafc; transition: all .15s ease; }
+.vet-chat__input-box:focus-within { border-color: var(--vet-teal); background: #fff; box-shadow: 0 0 0 3px rgba(18,126,130,.12); }
+.vet-chat__input-box input { flex: 1; min-width: 0; padding: .45rem .25rem .45rem 0; border: 0; outline: none; background: transparent; font-size: .8rem; color: #1e293b; }
+.vet-chat__send-inline { display: flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border: 0; border-radius: .75rem; background: var(--vet-teal); color: #fff; cursor: pointer; transition: all .15s ease; flex-shrink: 0; }
+.vet-chat__send-inline:disabled { opacity: .4; background: transparent; color: #cbd5e1; cursor: not-allowed; }
+.vet-chat__send { display: grid; place-items: center; width: 2.7rem; border-radius: .85rem; color: #fff; background: var(--vet-teal); }
+.vet-chat__send:disabled { color: #a0a8b8; background: #e9edf1; }
+
+.vet-settings { display: grid; gap: .8rem; padding: 1rem 0 2rem; }
+.vet-settings-group { overflow: hidden; }
+.vet-settings-group h2 { padding: .85rem 1rem .55rem; color: #9aa3b5; font-size: .66rem; text-transform: uppercase; }
+.vet-setting-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .8rem; min-height: 4.25rem; padding: .75rem 1rem; border-top: 1px solid #f0f2f4; }
+.vet-setting-row__icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: .75rem; color: var(--vet-orange); background: #fff5ec; }
+.vet-setting-row strong, .vet-setting-row small { display: block; }
+.vet-setting-row strong { font-size: .75rem; }
+.vet-setting-row small { margin-top: .2rem; color: #9aa3b5; font-size: .65rem; }
+.vet-switch { position: relative; width: 2.65rem; height: 1.55rem; border: 0; border-radius: 999px; background: #e2e5ea; cursor: pointer; }
+.vet-switch::after { content: ''; position: absolute; top: .16rem; left: .16rem; width: 1.23rem; height: 1.23rem; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .18s ease; }
+.vet-switch.is-on { background: var(--vet-orange); }
+.vet-switch.is-on::after { transform: translateX(1.1rem); }
+
+.vet-wallet-summary { padding: 1rem var(--vet-gutter); }
+.vet-policy { padding: .85rem; border: 1px solid #68ded1; border-radius: .85rem; color: #075e59; background: #effcf9; font-size: .7rem; line-height: 1.55; }
+.vet-policy strong { display: block; margin-bottom: .25rem; }
+.vet-balance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin-top: .8rem; }
+.vet-balance-card { padding: 1rem; text-align: center; }
+.vet-balance-card svg { color: var(--vet-teal); }
+.vet-balance-card strong, .vet-balance-card small { display: block; }
+.vet-balance-card strong { margin-top: .3rem; font-size: 1rem; }
+.vet-balance-card small { margin-top: .18rem; color: #9aa3b5; font-size: .62rem; }
+.vet-wallet-tabs { padding-inline: 1.3rem; }
+.vet-transaction { padding: 1rem; }
+.vet-transaction__head { display: flex; justify-content: space-between; gap: .8rem; }
+.vet-transaction h2 { font-size: .82rem; }
+.vet-transaction p { margin-top: .22rem; color: #64748b; font-size: .68rem; }
+.vet-transaction__amounts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .7rem; padding: .75rem; border-radius: .7rem; background: #f7f8fa; }
+.vet-transaction__amounts strong, .vet-transaction__amounts small { display: block; }
+.vet-transaction__amounts strong { font-size: .78rem; }
+.vet-transaction__amounts div:last-child { text-align: right; color: var(--vet-teal-dark); }
+.vet-transaction__amounts small { margin-top: .18rem; color: #9aa3b5; font-size: .61rem; }
+.vet-transfer-button { width: 100%; margin-top: .7rem; padding: .72rem; border: 0; border-radius: .65rem; color: #fff; background: var(--vet-teal); font-size: .72rem; font-weight: 800; cursor: pointer; }
+.vet-transfer-button:disabled { color: #7c8698; background: #e9edf1; cursor: not-allowed; }
+
+.vet-quick-actions { display: grid; grid-template-columns: repeat(3,1fr); gap: .6rem; margin-bottom: .9rem; }
+.vet-quick-actions a { display: grid; justify-items: center; gap: .4rem; padding: .85rem .5rem; border: 1px solid #edf0f3; border-radius: 1rem; background: #fff; color: var(--vet-ink); font-size: .66rem; font-weight: 700; text-align: center; text-decoration: none; box-shadow: 0 1px 3px rgba(15,23,42,.04); }
+.vet-quick-actions a span { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: .78rem; color: var(--vet-teal-dark); background: var(--vet-teal-soft); }
+.vet-dark-mode .vet-quick-actions a { color: #eef6f5; background: #182427; border-color: #29383b; }
+
+.vet-charge { padding: 1rem; }
+.vet-charge__head { display: flex; justify-content: space-between; gap: .8rem; }
+.vet-charge h2 { font-size: .82rem; font-weight: 800; }
+.vet-charge__head p { margin-top: .22rem; color: #64748b; font-size: .67rem; }
+.vet-charge__meta { margin-top: .55rem; color: #7b8495; font-size: .66rem; }
+.vet-charge__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.vet-charge__actions button { flex: 1 1 7rem; padding: .62rem; border-radius: .7rem; font-size: .71rem; font-weight: 700; cursor: pointer; }
+.vet-charge__actions button:disabled { opacity: .55; cursor: not-allowed; }
+.vet-button--ghost { border: 1px solid #cbd5e1; color: #334155; background: #fff; }
+
+.vet-contact-list { display: grid; gap: .55rem; max-height: 22rem; margin-top: .9rem; overflow-y: auto; }
+.vet-contact-list .vet-conversation { grid-template-columns: auto 1fr auto; }
+.vet-contact-empty { padding: 1.4rem .5rem; color: #9aa3b5; text-align: center; font-size: .72rem; }
+
+.vet-bank { display: grid; gap: var(--vet-gap); padding: 1rem var(--vet-gutter) var(--vet-nav-safe); }
+.vet-bank-success { padding: .85rem 1rem; border: 1px solid #86e2c4; color: #08674c; background: #effcf6; font-size: .72rem; }
+.vet-bank-status { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .8rem; padding: 1rem; }
+.vet-bank-status__icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: .8rem; color: #9a6700; background: #fff4c4; }
+.vet-bank-status.is-active .vet-bank-status__icon { color: #087d4e; background: #d9fae5; }
+.vet-bank-status strong { display: block; font-size: .8rem; }
+.vet-bank-status small { display: block; margin-top: .22rem; color: #7b8495; font-size: .68rem; line-height: 1.45; }
+
+.vet-bank-card { padding: 1.1rem; }
+.vet-bank-card h2 { font-size: .85rem; font-weight: 800; }
+.vet-bank-card dl { display: grid; gap: .55rem; margin-top: .8rem; }
+.vet-bank-card dl > div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.vet-bank-card dt { color: #9aa3b5; font-size: .68rem; }
+.vet-bank-card dd { font-size: .74rem; font-weight: 700; text-align: right; overflow-wrap: anywhere; }
+.vet-bank-card dd small { color: #9aa3b5; font-weight: 500; }
+.vet-bank-card__note { margin-top: .85rem; padding: .7rem; border-radius: .7rem; color: #64748b; background: #f7f8fa; font-size: .66rem; line-height: 1.5; }
+.vet-bank-edit { width: 100%; margin-top: .85rem; padding: .72rem; border-radius: .7rem; font-size: .73rem; font-weight: 800; cursor: pointer; }
+
+.vet-bank-form { padding: 1.1rem; }
+.vet-bank-form h2 { font-size: .85rem; font-weight: 800; }
+.vet-bank-form__hint { margin-top: .3rem; color: #7b8495; font-size: .68rem; line-height: 1.5; }
+.vet-bank-form label { display: block; margin-top: .85rem; font-size: .7rem; font-weight: 700; }
+.vet-bank-form label small { color: #9aa3b5; font-weight: 500; }
+.vet-bank-form .input { margin-top: .3rem; font-size: .75rem; }
+.vet-bank-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.vet-bank-form__row label { margin-top: .85rem; }
+.vet-bank-form__resolved { display: block; margin-top: .28rem; color: var(--vet-teal-dark); font-size: .66rem; font-weight: 700; }
+.vet-bank-form__actions { display: flex; gap: .6rem; align-items: center; margin-top: 1rem; }
+.vet-bank-form__actions .vet-button--secondary { flex: 0 0 auto; padding: .8rem 1rem; border-radius: .75rem; font-size: .73rem; font-weight: 800; cursor: pointer; }
+.vet-bank-form__actions .vet-modal__submit { margin-top: 0; }
+
+.vet-bank-link { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .8rem; width: 100%; padding: .85rem 1rem; border: 1px solid #edf0f3; border-radius: 1.15rem; background: #fff; text-align: left; cursor: pointer; }
+.vet-bank-link strong { display: block; font-size: .75rem; }
+.vet-bank-link small { display: block; margin-top: .2rem; color: #9aa3b5; font-size: .65rem; }
+
+.vet-bubble { position: relative; }
+.vet-bubble.is-deleted { opacity: .75; }
+.vet-bubble__deleted { color: #9aa3b5; font-style: italic; }
+/* Anexo cujo binario saiu do R2 pela politica de retencao: os metadados
+   continuam, o arquivo nao. */
+.vet-bubble__removed { display: flex; align-items: center; gap: .35rem; margin-bottom: .35rem; padding: .5rem .6rem; border-radius: .65rem; background: rgba(15,23,42,.06); color: #9aa3b5; font-size: .72rem; font-style: italic; }
+.vet-bubble__image { display: block; margin-bottom: .35rem; border-radius: .7rem; overflow: hidden; }
+.vet-bubble__image img { display: block; width: 100%; max-width: 15rem; max-height: 18rem; object-fit: cover; }
+/* Video do chat: player nativo, sem autoplay e sem thumbnail gerado no servidor
+   (nao ha ffmpeg na imagem). `preload="metadata"` no JSX evita puxar o arquivo
+   inteiro so por abrir a conversa. */
+.vet-bubble__video { margin-bottom: .35rem; border-radius: .7rem; overflow: hidden; background: rgba(15,23,42,.06); }
+.vet-bubble__video video { display: block; width: 100%; max-width: 15rem; max-height: 18rem; background: #000; }
+.vet-bubble__video small { display: block; padding: .35rem .55rem; opacity: .75; font-size: .64rem; overflow-wrap: anywhere; }
+.vet-bubble__file, .vet-bubble__location { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .55rem; margin-bottom: .35rem; padding: .55rem .65rem; border-radius: .65rem; background: rgba(15,23,42,.06); color: inherit; text-decoration: none; }
+.vet-bubble__file strong, .vet-bubble__location strong { display: block; font-size: .72rem; overflow-wrap: anywhere; }
+.vet-bubble__file small, .vet-bubble__location small { display: block; margin-top: .1rem; opacity: .75; font-size: .64rem; }
+.vet-bubble__edited, .vet-bubble__read { opacity: .8; }
+.vet-bubble__actions { position: absolute; top: .25rem; right: .35rem; }
+.vet-bubble__actions > button { padding: 0 .25rem; border: 0; border-radius: .4rem; background: transparent; color: inherit; font-size: .85rem; line-height: 1; opacity: .6; cursor: pointer; }
+.vet-bubble__menu { position: absolute; top: 1.35rem; right: 0; z-index: 4; display: grid; min-width: 7rem; border: 1px solid #e6eaef; border-radius: .6rem; background: #fff; box-shadow: 0 6px 18px rgba(15,23,42,.14); overflow: hidden; }
+.vet-bubble__menu button { padding: .5rem .7rem; border: 0; background: #fff; color: var(--vet-ink); font-size: .7rem; font-weight: 600; text-align: left; cursor: pointer; }
+.vet-bubble__menu button:hover { background: #f4f6f8; }
+/* Envio em curso: 25MB de video demora, e sem o percentual o composer parece
+   travado. `i` e a barra de progresso. */
+.vet-chat__uploading { position: relative; display: flex; justify-content: space-between; align-items: center; gap: .7rem; padding: .55rem 1rem .7rem; border-top: 1px solid #edf0f3; background: #ecf7f6; color: var(--vet-teal-dark); font-size: .68rem; }
+.vet-chat__uploading span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vet-chat__uploading i { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--vet-teal-dark); transition: width .2s ease; }
+.vet-chat__editing { display: flex; justify-content: space-between; align-items: center; gap: .7rem; padding: .55rem 1rem; border-top: 1px solid #edf0f3; background: #fff8e6; color: #7a5b00; font-size: .68rem; }
+.vet-chat__editing button { border: 0; background: transparent; color: var(--vet-teal-dark); font-size: .68rem; font-weight: 800; cursor: pointer; }
+.vet-dark-mode .vet-bubble__menu, .vet-dark-mode .vet-bubble__menu button { color: #eef6f5; background: #1c292c; border-color: #314144; }
+
+.vet-record { display: grid; gap: var(--vet-gap); padding: 1rem var(--vet-gutter) 3rem; }
+.vet-record-patient { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .8rem; padding: 1rem; }
+.vet-record-patient strong { display: block; font-size: .82rem; }
+.vet-record-patient small { display: block; margin-top: .2rem; color: #7b8495; font-size: .67rem; }
+
+.vet-record-done { padding: 1.1rem; border: 1px solid #86e2c4; background: #effcf6; }
+.vet-record-done strong { display: block; color: #08674c; font-size: .82rem; }
+.vet-record-done small { display: block; margin-top: .25rem; color: #14795c; font-size: .68rem; }
+.vet-record-done__links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+.vet-record-done__links a { display: inline-flex; align-items: center; gap: .35rem; padding: .55rem .8rem; border: 1px solid #cbd5e1; border-radius: .7rem; color: var(--vet-teal-dark); background: #fff; font-size: .69rem; font-weight: 700; text-decoration: none; }
+.vet-record-done__back { width: 100%; margin-top: .85rem; padding: .72rem; border-radius: .7rem; font-size: .73rem; font-weight: 800; cursor: pointer; }
+
+.vet-record-view { padding: 1.1rem; }
+.vet-record-view h2 { font-size: .85rem; font-weight: 800; }
+.vet-record-view h3 { margin-top: 1rem; color: var(--vet-teal-dark); font-size: .74rem; font-weight: 800; }
+.vet-record-view dl { display: grid; gap: .7rem; margin-top: .8rem; }
+.vet-record-view dt { color: #9aa3b5; font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.vet-record-view dd { margin-top: .2rem; font-size: .74rem; line-height: 1.5; white-space: pre-wrap; }
+.vet-record-view__legacy { margin-top: .7rem; color: #7b8495; font-size: .7rem; line-height: 1.5; }
+.vet-record-view__legacy span { display: block; margin-top: .35rem; color: var(--vet-ink); font-weight: 700; }
+.vet-record-items { display: grid; gap: .5rem; margin-top: .55rem; }
+.vet-record-items li { padding: .65rem .8rem; border-radius: .7rem; background: #f7f8fa; list-style: none; }
+.vet-record-items strong { display: block; font-size: .73rem; }
+.vet-record-items small { display: block; margin-top: .2rem; color: #7b8495; font-size: .67rem; line-height: 1.45; }
+
+.vet-record-form { padding: 1.1rem; }
+.vet-record-form h2 { font-size: .85rem; font-weight: 800; }
+.vet-record-form h3 { margin-top: 1.2rem; color: var(--vet-teal-dark); font-size: .74rem; font-weight: 800; }
+.vet-record-form label { display: block; margin-top: .9rem; font-size: .7rem; font-weight: 700; }
+.vet-record-form label small { display: block; margin-top: .15rem; color: #9aa3b5; font-weight: 500; font-size: .64rem; }
+.vet-record-form textarea, .vet-record-form .input { width: 100%; margin-top: .3rem; padding: .65rem .75rem; border: 1px solid #dde3ea; border-radius: .7rem; background: #fbfcfd; font-size: .74rem; }
+.vet-record-form textarea { resize: vertical; line-height: 1.5; }
+.vet-record-form__note { margin-top: 1rem; padding: .7rem; border-radius: .7rem; color: #64748b; background: #f7f8fa; font-size: .66rem; line-height: 1.5; }
+
+.vet-record-item { margin-top: .6rem; padding: .8rem; border: 1px solid #e6eaef; border-radius: .85rem; }
+.vet-record-item legend { padding: 0 .35rem; color: #9aa3b5; font-size: .64rem; font-weight: 700; }
+.vet-record-item .input, .vet-record-item textarea { width: 100%; margin-top: .4rem; padding: .6rem .7rem; border: 1px solid #dde3ea; border-radius: .65rem; background: #fbfcfd; font-size: .73rem; }
+.vet-record-item__row { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.vet-record-item__row .vet-button--ghost { margin-top: .4rem; padding: .6rem; border-radius: .65rem; font-size: .69rem; font-weight: 700; cursor: pointer; }
+.vet-record-item > .vet-button--ghost { width: 100%; margin-top: .5rem; padding: .6rem; border-radius: .65rem; font-size: .69rem; font-weight: 700; cursor: pointer; }
+.vet-record-item__field { display: block; color: #9aa3b5; font-size: .62rem; font-weight: 700; }
+.vet-record-item__check { display: flex; align-items: center; gap: .4rem; margin-top: .55rem; font-size: .7rem; font-weight: 700; }
+.vet-record-item__check input { width: 1rem; height: 1rem; accent-color: var(--vet-teal); }
+.vet-record-add { display: inline-flex; align-items: center; gap: .35rem; margin-top: .6rem; padding: .6rem .85rem; border: 1px dashed var(--vet-teal); border-radius: .7rem; color: var(--vet-teal-dark); background: var(--vet-teal-soft); font-size: .7rem; font-weight: 700; cursor: pointer; }
+.vet-record-form .vet-modal__submit { margin-top: 1rem; }
+.vet-record-form__hint { margin-top: .35rem; color: #9aa3b5; font-size: .64rem; line-height: 1.5; }
+
+/* Histórico clínico do pet */
+.vet-clinical { padding: 1.1rem; }
+.vet-clinical__head { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .75rem; }
+.vet-clinical__head strong { display: block; font-size: .8rem; }
+.vet-clinical__head small { display: block; margin-top: .2rem; color: #7b8495; font-size: .66rem; }
+.vet-clinical__empty, .vet-clinical__more, .vet-clinical__error { margin-top: .8rem; color: #7b8495; font-size: .68rem; line-height: 1.5; }
+/* O rodape do historico virou paginacao real: texto + botao Carregar mais. */
+.vet-clinical__more { display: grid; gap: .5rem; justify-items: start; }
+.vet-clinical__more p { margin: 0; }
+.vet-clinical__error { color: #b42318; }
+
+.vet-clinical-alert { margin-top: .85rem; padding: .75rem .85rem; border: 1px solid #fcbca6; border-radius: .8rem; background: #fff5f1; }
+.vet-clinical-alert strong { display: flex; align-items: center; gap: .35rem; color: #9a2c10; font-size: .72rem; }
+.vet-clinical-alert ul { margin-top: .5rem; display: grid; gap: .35rem; }
+.vet-clinical-alert li { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; color: #7c2d12; font-size: .7rem; line-height: 1.45; list-style: none; }
+.vet-clinical-alert__tag { padding: .1rem .4rem; border-radius: .4rem; background: #fde2d5; font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+.vet-clinical-alert__tag--grave { color: #fff; background: #b42318; }
+.vet-clinical-alert__tag--moderada { color: #9a3412; background: #fed7aa; }
+.vet-clinical-alert__tag--leve { color: #854d0e; background: #fef08a; }
+
+.vet-clinical-current { margin-top: .85rem; padding: .75rem .85rem; border: 1px solid #bfdbfe; border-radius: .8rem; background: #f2f8ff; }
+.vet-clinical-current h3 { color: #1d4ed8; font-size: .7rem; font-weight: 800; }
+.vet-clinical-current ul { display: grid; gap: .4rem; margin-top: .5rem; }
+.vet-clinical-current li { list-style: none; }
+.vet-clinical-current strong { display: block; color: #172554; font-size: .72rem; }
+.vet-clinical-current small { display: block; margin-top: .15rem; color: #3b5c8a; font-size: .65rem; line-height: 1.45; }
+
+.vet-clinical-reminders { display: grid; gap: .35rem; margin-top: .7rem; }
+.vet-clinical-reminders li { display: flex; align-items: center; gap: .4rem; padding: .5rem .65rem; border-radius: .65rem; background: var(--vet-teal-soft); color: var(--vet-teal-dark); font-size: .68rem; list-style: none; }
+.vet-clinical-reminders strong { margin-left: auto; font-size: .66rem; }
+
+.vet-clinical-drugs { margin-top: .85rem; }
+.vet-clinical-drugs h3 { color: var(--vet-teal-dark); font-size: .7rem; font-weight: 800; }
+.vet-clinical-drugs__list { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .45rem; }
+.vet-clinical-drugs__list span { padding: .3rem .55rem; border: 1px solid #dde3ea; border-radius: .5rem; background: #f7f8fa; font-size: .65rem; font-weight: 700; }
+
+.vet-clinical-timeline { display: grid; gap: .5rem; margin-top: .85rem; }
+.vet-clinical-entry { border: 1px solid #e6eaef; border-radius: .8rem; list-style: none; overflow: hidden; }
+.vet-clinical-entry.is-open { border-color: var(--vet-teal); }
+.vet-clinical-entry__head { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .2rem .5rem; width: 100%; padding: .7rem .8rem; border: 0; background: none; text-align: left; cursor: pointer; }
+.vet-clinical-entry__date { grid-column: 1; color: #9aa3b5; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.vet-clinical-entry__title { grid-column: 1; font-size: .73rem; font-weight: 700; line-height: 1.4; }
+.vet-clinical-entry__meta { grid-column: 1; color: #7b8495; font-size: .65rem; }
+.vet-clinical-entry__chevron { grid-column: 2; grid-row: 1 / span 3; color: #9aa3b5; transition: transform .18s ease; }
+.vet-clinical-entry.is-open .vet-clinical-entry__chevron { transform: rotate(90deg); }
+.vet-clinical-entry__body { padding: 0 .8rem .8rem; }
+.vet-clinical-entry__body p { margin-top: .45rem; font-size: .7rem; line-height: 1.5; white-space: pre-wrap; }
+.vet-clinical-entry__body em { color: #9aa3b5; font-size: .64rem; font-style: normal; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+.vet-clinical-entry__legacy { color: #7b8495; font-size: .66rem; }
+.vet-clinical-entry__receita { padding: .6rem .7rem; border-radius: .65rem; background: #f7f8fa; }
+
+.vet-dark-mode .vet-record-items li, .vet-dark-mode .vet-record-form__note, .vet-dark-mode .vet-record-item { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-record-form textarea, .vet-dark-mode .vet-record-form .input, .vet-dark-mode .vet-record-item .input, .vet-dark-mode .vet-record-item textarea { color: #eef6f5; background: #162124; border-color: #314144; }
+.vet-dark-mode .vet-clinical-entry { border-color: #314144; }
+.vet-dark-mode .vet-clinical-drugs__list span, .vet-dark-mode .vet-clinical-entry__receita { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-clinical-alert { border-color: #7c2d12; background: #2a1b16; }
+.vet-dark-mode .vet-clinical-current { border-color: #1e3a5f; background: #14202e; }
+.vet-dark-mode .vet-clinical-current strong { color: #dbeafe; }
+.vet-dark-mode .vet-clinical-current small { color: #93b4d8; }
+.vet-dark-mode .vet-clinical-alert strong, .vet-dark-mode .vet-clinical-alert li { color: #fed7aa; }
+
+.vet-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 14rem; gap: .7rem; color: #7b8495; font-size: .75rem; }
+.vet-spinner { width: 2rem; height: 2rem; border: 3px solid #d9f4f1; border-top-color: var(--vet-teal); border-radius: 50%; animation: vet-spin .7s linear infinite; }
+@keyframes vet-spin { to { transform: rotate(360deg); } }
+
+@media (min-width: 33rem) {
+  .vet-app { min-height: calc(100dvh - 2rem); margin-block: 1rem; border-radius: 1.1rem; box-shadow: 0 1rem 3rem rgba(15,23,42,.1); }
+  .vet-home-header, .vet-page-header { border-radius: 1.1rem 1.1rem 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vet-drawer, .vet-drawer-backdrop, .vet-switch::after { transition: none; }
+  .vet-spinner { animation-duration: 1.5s; }
+}
+
+/* ── CRM do veterinário (clientela, agenda, retenção, relatórios) ─────────── */
+.vet-crm-filters { display: flex; flex-direction: column; gap: .55rem; }
+.vet-crm-filters__row { display: flex; align-items: center; gap: .55rem; }
+.vet-crm-filters__row .input { flex: 1; }
+.vet-crm-filters__row .vet-tab { display: inline-flex; align-items: center; gap: .3rem; white-space: nowrap; }
+.vet-crm-janela-label { color: #7b8495; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+
+.vet-crm-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.vet-crm-tags--inline { margin-top: .35rem; }
+.vet-crm-tag { padding: .22rem .55rem; border: 1px solid var(--vet-line); border-radius: 999px; background: var(--vet-surface); color: var(--vet-ink); font-size: .66rem; font-weight: 700; }
+.vet-crm-tag small { margin-left: .2rem; color: #9aa3b5; font-weight: 800; }
+.vet-crm-tag.is-active { border-color: var(--vet-teal); background: var(--vet-teal-soft); color: var(--vet-teal-dark); }
+.vet-crm-tag.is-static { pointer-events: none; background: #f2f4f7; border-color: transparent; color: #5b6474; }
+
+.vet-crm-cliente { display: flex; align-items: center; gap: .7rem; width: 100%; padding: .75rem .8rem; border: none; text-align: left; cursor: pointer; }
+.vet-crm-cliente__info { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: .1rem; }
+.vet-crm-cliente__info strong { display: inline-flex; align-items: center; gap: .3rem; font-size: .82rem; }
+.vet-crm-cliente__info small { color: #7b8495; font-size: .68rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vet-crm-cliente__star { color: var(--vet-orange); }
+.vet-crm-cliente__meta { display: flex; flex-direction: column; align-items: flex-end; gap: .05rem; }
+.vet-crm-cliente__meta strong { font-size: .86rem; }
+.vet-crm-cliente__meta small { color: #9aa3b5; font-size: .62rem; }
+.vet-crm-cliente__meta small.is-alerta { color: #c2410c; font-weight: 800; }
+
+.vet-crm-fav.is-active { color: var(--vet-orange); }
+
+.vet-crm-resumo { display: flex; flex-direction: column; gap: .8rem; padding: .9rem; }
+.vet-crm-resumo__head { display: flex; align-items: center; gap: .7rem; }
+.vet-crm-resumo__head div { display: flex; min-width: 0; flex-direction: column; }
+.vet-crm-resumo__head strong { font-size: .88rem; }
+.vet-crm-resumo__head small { color: #7b8495; font-size: .68rem; overflow: hidden; text-overflow: ellipsis; }
+.vet-crm-resumo__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; text-align: center; }
+.vet-crm-resumo__grid div { display: flex; flex-direction: column; gap: .1rem; padding: .5rem .2rem; border-radius: .7rem; background: #f7f8fa; }
+.vet-crm-resumo__grid strong { font-size: .76rem; }
+.vet-crm-resumo__grid small { color: #7b8495; font-size: .58rem; }
+.vet-crm-resumo__actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.vet-crm-resumo__actions button { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; }
+
+.vet-crm-upgrade { display: flex; flex-direction: column; gap: .6rem; padding: 1rem; border: 1px dashed var(--vet-teal); background: var(--vet-teal-soft); }
+.vet-crm-upgrade__icon { display: inline-flex; width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center; border-radius: .8rem; background: var(--vet-teal); color: #fff; }
+.vet-crm-upgrade strong { font-size: .84rem; }
+.vet-crm-upgrade p { margin-top: .2rem; color: #47606a; font-size: .72rem; line-height: 1.45; }
+.vet-crm-upgrade a { text-align: center; text-decoration: none; }
+
+.vet-crm-dia h2 { margin: .6rem 0 .4rem; color: #7b8495; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+.vet-crm-agendamento { display: flex; flex-direction: column; gap: .45rem; padding: .75rem .8rem; }
+.vet-crm-agendamento__head { display: flex; align-items: center; justify-content: space-between; }
+.vet-crm-agendamento__head strong { font-size: .8rem; }
+.vet-crm-agendamento p { font-size: .74rem; line-height: 1.4; }
+.vet-crm-agendamento p small { display: block; color: #7b8495; font-size: .66rem; }
+.vet-crm-agendamento__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.vet-crm-agendamento__actions button { padding: .4rem .7rem; border: 1px solid var(--vet-line); border-radius: .6rem; background: var(--vet-surface); font-size: .68rem; font-weight: 800; cursor: pointer; }
+.vet-crm-agendamento__actions button.is-danger { border-color: #fecaca; color: #b91c1c; }
+
+.vet-crm-cliente-escolhido { display: flex; align-items: center; justify-content: space-between; padding: .55rem .7rem; border: 1px solid var(--vet-line); border-radius: .7rem; background: #f7f8fa; }
+.vet-crm-cliente-escolhido button { border: none; background: none; color: var(--vet-teal-dark); font-size: .7rem; font-weight: 800; cursor: pointer; }
+.vet-crm-busca-clientes { display: flex; flex-direction: column; gap: .35rem; max-height: 11rem; overflow-y: auto; }
+.vet-crm-busca-clientes button { display: flex; flex-direction: column; align-items: flex-start; padding: .5rem .65rem; border: 1px solid var(--vet-line); border-radius: .7rem; background: var(--vet-surface); text-align: left; cursor: pointer; }
+.vet-crm-busca-clientes strong { font-size: .74rem; }
+.vet-crm-busca-clientes small { color: #7b8495; font-size: .64rem; }
+
+.vet-crm-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+.vet-crm-slots button { padding: .45rem .2rem; border: 1px solid var(--vet-line); border-radius: .6rem; background: var(--vet-surface); font-size: .72rem; font-weight: 800; cursor: pointer; }
+.vet-crm-slots button.is-active { border-color: var(--vet-teal); background: var(--vet-teal); color: #fff; }
+
+.vet-crm-grafico { display: flex; align-items: stretch; gap: .4rem; height: 9rem; }
+.vet-crm-grafico__coluna { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: flex-end; gap: .25rem; }
+.vet-crm-grafico__coluna small { color: #7b8495; font-size: .52rem; }
+.vet-crm-grafico__coluna span { width: 100%; max-width: 2.2rem; border-radius: .4rem .4rem 0 0; background: var(--vet-teal); }
+.vet-crm-grafico__coluna strong { font-size: .6rem; color: #7b8495; }
+
+.vet-crm-media { font-size: 1rem; font-weight: 900; }
+.vet-crm-media small { color: #7b8495; font-size: .68rem; font-weight: 600; }
+.vet-crm-barra { display: grid; grid-template-columns: 6rem 1fr 2.2rem; align-items: center; gap: .5rem; margin-top: .35rem; }
+.vet-crm-barra small { color: #5b6474; font-size: .66rem; font-weight: 700; }
+.vet-crm-barra small:last-child { text-align: right; }
+.vet-crm-barra div { height: .5rem; overflow: hidden; border-radius: 999px; background: #eef1f5; }
+.vet-crm-barra div span { display: block; height: 100%; border-radius: 999px; background: var(--vet-teal); }
+
+.vet-crm-inativo { display: flex; flex-direction: column; gap: .5rem; padding: .65rem .75rem; }
+.vet-crm-inativo.is-selected { border: 1px solid var(--vet-teal); }
+.vet-crm-inativo__check { display: flex; align-items: center; gap: .6rem; cursor: pointer; }
+.vet-crm-inativo__check input { width: 1.1rem; height: 1.1rem; accent-color: var(--vet-teal); }
+.vet-crm-inativo__check span { display: flex; flex-direction: column; }
+.vet-crm-inativo__check strong { font-size: .78rem; }
+.vet-crm-inativo__check small { color: #7b8495; font-size: .66rem; }
+
+.vet-crm-lembrete { display: flex; align-items: center; gap: .6rem; padding: .65rem .75rem; }
+.vet-crm-lembrete > span:nth-child(2) { display: flex; flex: 1; min-width: 0; flex-direction: column; }
+.vet-crm-lembrete strong { font-size: .76rem; }
+.vet-crm-lembrete small { color: #7b8495; font-size: .64rem; }
+
+.vet-dark-mode .vet-crm-tag { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-crm-tag.is-static { color: #9fb3b1; background: #1c292c; }
+.vet-dark-mode .vet-crm-tag.is-active { border-color: var(--vet-teal); background: #123b3d; color: #9be3e5; }
+.vet-dark-mode .vet-crm-resumo__grid div, .vet-dark-mode .vet-crm-cliente-escolhido, .vet-dark-mode .vet-crm-busca-clientes button, .vet-dark-mode .vet-crm-slots button, .vet-dark-mode .vet-crm-agendamento__actions button { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-crm-slots button.is-active { background: var(--vet-teal); border-color: var(--vet-teal); color: #fff; }
+.vet-dark-mode .vet-crm-upgrade { background: #123b3d; border-color: #2a6b6d; }
+.vet-dark-mode .vet-crm-upgrade p { color: #b7d4d3; }
+.vet-dark-mode .vet-crm-barra div { background: #1c292c; }
+
+/* ── Clube Vet: vitrine de planos ─────────────────────────────────────────── */
+.vet-plan { display: flex; flex-direction: column; gap: .65rem; padding: 1.1rem 1.15rem; }
+.vet-plan + .vet-plan { margin-top: .8rem; }
+.vet-plan--destaque { border-color: var(--vet-teal); box-shadow: 0 0 0 1px var(--vet-teal); }
+.vet-plan__eyebrow { align-self: flex-start; padding: .28rem .6rem; border-radius: 999px; color: #08787c; background: var(--vet-teal-soft); font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.vet-plan__head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.vet-plan__head h2 { font-size: .95rem; font-weight: 850; }
+.vet-plan__preco { white-space: nowrap; font-size: 1.05rem; font-weight: 900; color: var(--vet-teal-dark); }
+.vet-plan__preco small { color: var(--vet-muted); font-size: .64rem; font-weight: 600; }
+.vet-plan > p { color: #5b6474; font-size: .73rem; line-height: 1.5; }
+.vet-plan__beneficios { display: flex; flex-direction: column; gap: .4rem; margin: .2rem 0; }
+.vet-plan__beneficios li { display: flex; gap: .5rem; align-items: flex-start; font-size: .72rem; line-height: 1.45; list-style: none; }
+.vet-plan__beneficios svg { flex: none; margin-top: .1rem; color: var(--vet-teal); }
+.vet-plan__cta { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .7rem; border-radius: .75rem; font-size: .76rem; font-weight: 800; cursor: pointer; }
+.vet-plan__cta:disabled { opacity: .6; cursor: default; }
+.vet-plan-atual { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-color: #a7f3d0; background: #ecfdf5; }
+.vet-plan-atual__icon { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: .8rem; color: #fff; background: #15a05a; }
+.vet-plan-atual div { flex: 1; min-width: 0; }
+.vet-plan-atual strong { display: block; font-size: .8rem; }
+.vet-plan-atual small { color: #47606a; font-size: .66rem; }
+.vet-plan-atual button { border: none; background: none; color: #b91c1c; font-size: .68rem; font-weight: 800; cursor: pointer; }
+.vet-dark-mode .vet-plan__eyebrow { color: #9be3e5; background: #123b3d; }
+.vet-dark-mode .vet-plan > p { color: #b7c4c3; }
+.vet-dark-mode .vet-plan-atual { background: #12301f; border-color: #1d5c38; }
+.vet-dark-mode .vet-plan-atual small { color: #b7d4d3; }
+
+/* ── Grade semanal de horários ────────────────────────────────────────────── */
+.vet-grade-dia { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .6rem; padding: .7rem .8rem; }
+.vet-grade-dia.is-off { opacity: .55; }
+.vet-grade-dia__check { display: flex; align-items: center; gap: .55rem; min-width: 7.2rem; cursor: pointer; }
+.vet-grade-dia__check input { width: 1.1rem; height: 1.1rem; accent-color: var(--vet-teal); }
+.vet-grade-dia__check strong { font-size: .76rem; }
+.vet-grade-dia__horas { display: flex; align-items: center; justify-content: flex-end; gap: .4rem; font-size: .7rem; color: var(--vet-muted); }
+.vet-grade-dia__horas input { padding: .4rem .45rem; border: 1px solid var(--vet-line); border-radius: .6rem; background: var(--vet-surface); font: inherit; font-size: .72rem; }
+.vet-dark-mode .vet-grade-dia__horas input { color: #eef6f5; background: #1c292c; border-color: #314144; }
+
+/* ── Perfil do veterinário ────────────────────────────────────────────────── */
+.vet-profile-hero { padding: 0 0 1rem; overflow: hidden; }
+.vet-profile-hero__capa { position: relative; height: 7.5rem; background: linear-gradient(120deg, var(--vet-teal), var(--vet-teal-dark)); }
+.vet-profile-hero__capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vet-profile-hero__trocar { position: absolute; top: .6rem; right: .6rem; display: inline-flex; align-items: center; gap: .3rem; padding: .4rem .65rem; border: 0; border-radius: .6rem; color: #10393c; background: rgba(255,255,255,.88); font-size: .66rem; font-weight: 800; cursor: pointer; }
+.vet-profile-hero__cabecalho { display: flex; align-items: center; gap: .8rem; padding: .9rem 1rem 0; }
+.vet-profile-hero__avatar { position: relative; margin-top: -2.4rem; border: 0; padding: 0; background: none; cursor: pointer; }
+.vet-profile-hero__avatar .vet-avatar { border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.14); }
+.vet-profile-hero__avatar > span { position: absolute; right: -.2rem; bottom: -.2rem; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 2px solid #fff; border-radius: 50%; color: #fff; background: var(--vet-teal); }
+.vet-profile-hero__cabecalho div { display: grid; gap: .12rem; min-width: 0; }
+.vet-profile-hero__cabecalho strong { font-size: .92rem; }
+.vet-profile-hero__cabecalho small { color: var(--vet-muted); font-size: .68rem; }
+.vet-dark-mode .vet-profile-hero__avatar .vet-avatar { border-color: #16232a; }
+
+/* Distância do chamado até o veterinário — o despacho agora é por proximidade. */
+.vet-request__distancia { display: inline-flex; align-items: center; gap: .25rem; margin-top: .15rem; color: var(--vet-teal-dark); font-weight: 700; }
+.vet-dark-mode .vet-request__distancia { color: #7fdfd8; }
+
+/* Corrigir e remover um item da ficha clínica (alergia, vacina, medicação).
+   Os botões ficam na própria linha, discretos: são a saída para o dado errado
+   que antes só saía com acesso ao banco. */
+.vet-clinical-item__actions { display: inline-flex; align-items: center; gap: .35rem; margin-left: auto; }
+.vet-clinical-item__actions button { border: 1px solid #d7dce3; border-radius: .5rem; padding: .16rem .45rem; color: var(--vet-muted); background: transparent; font-size: .62rem; font-weight: 700; cursor: pointer; }
+.vet-clinical-item__actions button:hover { color: var(--vet-teal-dark); border-color: var(--vet-teal); }
+.vet-clinical-item__fixed { padding: .1rem .35rem; border-radius: .35rem; color: #475467; background: #eef1f5; font-size: .58rem; font-style: normal; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.vet-clinical-current li, .vet-clinical-drugs .vet-record-items li { display: flex; flex-wrap: wrap; align-items: center; }
+.vet-clinical-current li strong, .vet-clinical-current li small,
+.vet-clinical-drugs .vet-record-items li strong, .vet-clinical-drugs .vet-record-items li small { flex-basis: 100%; }
+.vet-clinical-current li .vet-clinical-item__actions,
+.vet-clinical-drugs .vet-record-items li .vet-clinical-item__actions { flex-basis: auto; margin-top: .3rem; }
+.vet-dark-mode .vet-clinical-item__actions button { border-color: #314144; color: #b7c4c6; }
+.vet-dark-mode .vet-clinical-item__fixed { color: #cfd9db; background: #263438; }
+
+/* Onboarding do veterinário. A animação de troca de passo vinha de uma tag
+   <style> com @keyframes injetada no JSX a cada render — folha de estilo nova
+   a cada clique. Aqui ela é CSS como o resto da área. */
+.vet-onboarding { display: grid; align-content: center; gap: 1rem; min-height: 72dvh; padding: 1.4rem var(--vet-gutter) 2.5rem; }
+.vet-onboarding__card { overflow: hidden; }
+.vet-onboarding__hero { display: grid; place-items: center; min-height: 8.5rem; color: #fff; background: var(--vet-ink); }
+.vet-onboarding__hero span { display: grid; place-items: center; width: 4.4rem; height: 4.4rem; border: 1px solid rgba(255,255,255,.18); border-radius: 1.4rem; background: rgba(255,255,255,.12); }
+.vet-onboarding__body { padding: 1.5rem var(--vet-gutter) 1.4rem; text-align: center; }
+.vet-onboarding__body h2 { font-size: 1.1rem; font-weight: 800; }
+.vet-onboarding__body p { margin-top: .6rem; color: #64748b; font-size: .78rem; line-height: 1.6; }
+.vet-onboarding__dots { display: flex; justify-content: center; gap: .35rem; margin: 1.35rem 0; }
+.vet-onboarding__dots span { width: .5rem; height: .5rem; border-radius: 999px; background: #d7dce3; transition: width .3s ease, background .3s ease; }
+.vet-onboarding__dots span.is-active { width: 1.6rem; background: var(--vet-teal); }
+.vet-onboarding__actions { display: flex; gap: .6rem; }
+.vet-onboarding__actions button { flex: 1; padding: .8rem; border-radius: .75rem; font-size: .76rem; font-weight: 800; cursor: pointer; }
+.vet-onboarding__next { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; }
+.vet-fade-in { animation: vet-fade-in .3s ease-in; }
+.vet-fade-out { animation: vet-fade-out .2s ease-out; }
+@keyframes vet-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes vet-fade-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+.vet-dark-mode .vet-onboarding__body p { color: #b7c4c6; }
+
+/* Confirmação destrutiva (apagar mensagem, cancelar cobrança). Era
+   window.confirm — caixa do navegador no meio de uma área que já tem modal. */
+.vet-confirm__actions { display: flex; gap: .6rem; margin-top: 1rem; }
+.vet-confirm__actions button { flex: 1; padding: .8rem; border-radius: .75rem; font-size: .74rem; font-weight: 800; cursor: pointer; }
+.vet-confirm__actions button:disabled { cursor: not-allowed; opacity: .55; }
+
+/* Atendimento em andamento. A tela era um híbrido: VetPageHeader dentro de
+   `container-app`, com `.card`/`.btn-primary` do CSS legado e treze emojis no
+   lugar dos ícones. Aqui ela usa as mesmas superfícies do prontuário. */
+.vet-live__tutor { font-size: .82rem; font-weight: 700; }
+.vet-live__link { display: flex; align-items: center; justify-content: center; gap: .45rem; width: 100%; margin-top: .75rem; padding: .72rem; border: 1px solid #dce1e7; border-radius: .7rem; color: var(--vet-ink); background: #fff; font-size: .74rem; font-weight: 700; text-decoration: none; }
+.vet-live__report { width: 100%; margin-top: .55rem; padding: .45rem; border: 0; background: transparent; color: #9aa3b5; font-size: .66rem; font-weight: 700; cursor: pointer; }
+.vet-live__report:hover { color: #ef4444; }
+.vet-live__type { display: flex; align-items: center; gap: .4rem; color: #475467; font-size: .78rem; }
+.vet-live__actions { display: grid; gap: .6rem; }
+.vet-live__actions button { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; width: 100%; padding: .82rem; border-radius: .75rem; font-size: .76rem; font-weight: 800; cursor: pointer; }
+.vet-live__finish { border: 1px solid var(--vet-green); color: #fff; background: var(--vet-green); }
+.vet-live__emergency { border: 1px solid #fecdd3; color: #dc2626; background: #fff5f5; }
+.vet-live__emergency:hover { background: #ffecec; }
+.vet-dark-mode .vet-live__link { color: #eef6f5; background: #1c292c; border-color: #314144; }
+
+.vet-forms-answer { margin-top: .8rem; padding: .85rem; border: 1px solid #e6eaef; border-radius: .85rem; }
+.vet-forms-answer > p { font-size: .76rem; font-weight: 800; }
+.vet-forms-answer__date { display: block; margin-top: .15rem; color: #9aa3b5; font-size: .62rem; }
+.vet-forms-answer dl { display: grid; gap: .5rem; margin-top: .55rem; }
+.vet-forms-answer dt { color: #7b8495; font-size: .64rem; font-weight: 800; }
+.vet-forms-answer dd { margin-top: .1rem; font-size: .72rem; line-height: 1.45; }
+.vet-dark-mode .vet-forms-answer { border-color: #314144; background: #1c292c; }
+
+.vet-policy--alerta { border-color: #fecdd3; color: #9f1239; background: #fff5f6; }
+.vet-modal__submit--danger { background: #dc2626; }
+
+/* Erro na lista de clientes: era só o texto, sem a saída que o resto da área
+   oferece. */
+.vet-request__retry { margin-top: .7rem; padding: .55rem .9rem; border-radius: .65rem; font-size: .72rem; font-weight: 800; cursor: pointer; }
+.vet-card.vet-request > strong { display: block; font-size: .76rem; }
+.vet-confirm__text { margin-top: 1rem; color: #475467; font-size: .74rem; line-height: 1.55; }
+.vet-dark-mode .vet-confirm__text { color: #b7c4c6; }
+.vet-bubble__actions > button svg { display: block; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Anexos do tutor na fila de chamados.
+
+   Até agora o veterinário aceitava às cegas: o único caminho para arquivo era
+   o chat, que só abre DEPOIS do aceite. As miniaturas aqui existem para uma
+   decisão — dá para ver a ferida antes de dizer sim.
+   ───────────────────────────────────────────────────────────────────────── */
+.vet-request__midias {
+  margin-top: .55rem;
+}
+
+.vet-request__midias > small {
+  display: block;
+  font-size: .68rem;
+  color: var(--vet-muted, #64748b);
+}
+
+.vet-request__midias ul {
+  display: flex;
+  gap: .4rem;
+  margin-top: .35rem;
+  padding: 0;
+  list-style: none;
+}
+
+.vet-request__midias img {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: .6rem;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+
+.vet-request__midia-arquivo {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  height: 3.4rem;
+  padding: 0 .55rem;
+  border-radius: .6rem;
+  border: 1px solid var(--vet-line, #e2e8f0);
+  font-size: .68rem;
+  text-decoration: none;
+  color: var(--vet-muted, #64748b);
+}
+
+/* Reputação do tutor na fila: a confiança que o produto promete vale nos dois
+   sentidos, e até agora só o tutor era avaliado. */
+.vet-request__reputacao {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: .68rem;
+  color: var(--vet-muted, #64748b);
+}
+
+/* Avaliação do tutor pelo veterinário, no histórico. */
+.vet-avaliar-tutor {
+  margin-top: .6rem;
+  padding: .75rem;
+  border: 1px dashed var(--vet-line, #e2e8f0);
+  border-radius: .8rem;
+}
+
+.vet-avaliar-tutor strong { display: block; font-size: .82rem; }
+
+.vet-avaliar-tutor small {
+  display: block;
+  margin-top: .2rem;
+  font-size: .68rem;
+  line-height: 1.45;
+  color: var(--vet-muted, #64748b);
+}
+
+.vet-avaliar-tutor__estrelas {
+  display: flex;
+  gap: .2rem;
+  margin: .5rem 0;
+}
+
+.vet-avaliar-tutor__estrelas button {
+  background: none;
+  border: 0;
+  padding: .15rem;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.vet-avaliar-tutor textarea {
+  width: 100%;
+  padding: .5rem .65rem;
+  border: 1px solid var(--vet-line, #e2e8f0);
+  border-radius: .6rem;
+  font: inherit;
+  font-size: .78rem;
+  resize: vertical;
+}
+
+.vet-avaliar-tutor .vet-button--primary { margin-top: .5rem; }
+
+/* O que falta para entrar de plantão. Cada item leva para onde resolver — um
+   "não pode" sem caminho é meio aviso. */
+.vet-pendencias {
+  margin: .55rem 0 0;
+  padding-left: 1.1rem;
+  font-size: .74rem;
+  line-height: 1.6;
+}
+
+.vet-pendencias a {
+  color: var(--vet-primary, #0f766e);
+  font-weight: 600;
+}
+
+/* Campos de formulário dentro de um cartão de configurações. */
+.vet-campo {
+  display: block;
+  margin-top: .8rem;
+}
+
+.vet-campo > span {
+  display: block;
+  font-size: .76rem;
+  font-weight: 600;
+  margin-bottom: .3rem;
+}
+
+.vet-campo input {
+  width: 100%;
+  padding: .6rem .7rem;
+  border: 1px solid var(--vet-line, #e2e8f0);
+  border-radius: .6rem;
+  font: inherit;
+  font-size: .82rem;
+}
+
+.vet-campo small {
+  display: block;
+  margin-top: .25rem;
+  font-size: .68rem;
+  line-height: 1.5;
+  color: var(--vet-muted, #64748b);
+}
+
+.vet-settings-group .vet-button--primary { margin-top: .9rem; }
+
+/* O que saiu da ficha, e o caminho de volta. Fechado por padrão: quem abre a
+   ficha quer ver o que vale hoje, e o removido é consulta. */
+.vet-removidos__cabecalho {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--vet-muted, #64748b);
+  cursor: pointer;
+  text-align: left;
+}
+
+.vet-removidos__cabecalho > span { flex: 1; }
+.vet-removidos__cabecalho .is-aberto { transform: rotate(90deg); }
+
+.vet-removidos__lista {
+  margin-top: .7rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.vet-removidos__item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .6rem .7rem;
+  border: 1px dashed var(--vet-line, #e2e8f0);
+  border-radius: .7rem;
+}
+
+.vet-removidos__item > div { flex: 1; min-width: 0; }
+.vet-removidos__item strong { display: block; font-size: .8rem; }
+
+.vet-removidos__item small {
+  display: block;
+  margin-top: .15rem;
+  font-size: .68rem;
+  line-height: 1.45;
+  color: var(--vet-muted, #64748b);
+}
+
+.vet-removidos__item button {
+  flex-shrink: 0;
+  padding: .4rem .8rem;
+  border: 1px solid var(--vet-primary, #0f766e);
+  border-radius: .6rem;
+  background: none;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--vet-primary, #0f766e);
+  cursor: pointer;
+}
+
+/* Horários e valores — catálogo comercial do profissional. A composição usa
+   uma superfície única por grupo e linhas compactas, em vez de um cartão para
+   cada preço; no celular isso reduz rolagem sem sacrificar toque ou leitura. */
+.vet-catalog-page { display: grid; gap: 1rem; padding-bottom: 8.5rem; }
+.vet-catalog-hero { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .8rem; align-items: start; overflow: hidden; padding: 1.1rem; border-radius: 1.15rem; color: #fff; background: linear-gradient(135deg, #08787c 0%, #159fa3 58%, #28b8b4 100%); box-shadow: 0 14px 34px rgba(8,120,124,.2); }
+.vet-catalog-hero::after { content: ''; position: absolute; right: -2.5rem; bottom: -3.7rem; width: 8rem; height: 8rem; border: 1.6rem solid rgba(255,255,255,.08); border-radius: 50%; }
+.vet-catalog-hero__icon { display: grid; place-items: center; width: 2.7rem; height: 2.7rem; border-radius: .85rem; color: var(--vet-orange); background: #fff; }
+.vet-catalog-hero > div > span { color: #bff7f1; font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.vet-catalog-hero h1 { max-width: 19rem; margin-top: .25rem; font-size: 1.02rem; line-height: 1.2; }
+.vet-catalog-hero p { max-width: 24rem; margin-top: .45rem; color: rgba(255,255,255,.8); font-size: .7rem; line-height: 1.5; }
+.vet-catalog-hero > strong { z-index: 1; min-width: 3.4rem; text-align: center; font-size: 1.55rem; line-height: 1; }
+.vet-catalog-hero > strong small { display: block; margin-top: .25rem; color: rgba(255,255,255,.7); font-size: .55rem; line-height: 1.2; }
+.vet-catalog-groups { display: grid; gap: 1rem; }
+.vet-catalog-section { overflow: hidden; }
+.vet-catalog-section__title { display: flex; gap: .7rem; align-items: center; padding: .95rem 1rem; }
+.vet-catalog-section__title > div { flex: 1; min-width: 0; }
+.vet-catalog-section__title h2 { color: var(--vet-ink); font-size: .86rem; }
+.vet-catalog-section__title p { margin-top: .15rem; color: var(--vet-muted); font-size: .65rem; line-height: 1.4; }
+.vet-catalog-items { border-top: 1px solid var(--vet-line); }
+.vet-catalog-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .7rem; align-items: center; padding: .85rem 1rem; border-bottom: 1px solid var(--vet-line); transition: background .18s ease; }
+.vet-catalog-item:last-child { border-bottom: 0; }
+.vet-catalog-item.is-active { background: rgba(21,159,163,.035); }
+.vet-catalog-item > label { min-width: 0; cursor: pointer; }
+.vet-catalog-item > label strong { display: block; color: var(--vet-ink); font-size: .76rem; }
+.vet-catalog-item > label small { display: block; max-width: 24rem; margin-top: .18rem; color: var(--vet-muted); font-size: .61rem; line-height: 1.38; }
+.vet-catalog-price { display: flex; align-items: center; overflow: hidden; border: 1px solid var(--vet-line); border-radius: .65rem; background: var(--vet-surface); }
+.vet-catalog-price:focus-within { border-color: var(--vet-teal); box-shadow: 0 0 0 3px rgba(21,159,163,.12); }
+.vet-catalog-price span { padding-left: .55rem; color: var(--vet-muted); font-size: .66rem; font-weight: 800; }
+.vet-catalog-price input { width: 5.2rem; min-height: 2.5rem; padding: .45rem .5rem .45rem .25rem; border: 0; outline: 0; color: var(--vet-ink); background: transparent; font: inherit; font-size: .82rem; font-weight: 800; }
+.vet-catalog-feedback { padding: .75rem .9rem; border: 1px solid; border-radius: .8rem; font-size: .7rem; font-weight: 700; line-height: 1.45; }
+.vet-catalog-feedback.is-error { color: #9f1239; border-color: #fecdd3; background: #fff5f6; }
+.vet-catalog-feedback.is-success { color: #12623d; border-color: #bbf7d0; background: #f0fdf4; }
+.vet-catalog-schedule { border-top: 1px solid var(--vet-line); }
+.vet-catalog-day { display: grid; grid-template-columns: 6.7rem minmax(0, 1fr); gap: .7rem; align-items: center; min-height: 3.7rem; padding: .6rem 1rem; border-bottom: 1px solid var(--vet-line); }
+.vet-catalog-day.is-off { color: #98a1af; }
+.vet-catalog-day__name { display: flex; gap: .55rem; align-items: center; }
+.vet-catalog-day__name strong { font-size: .74rem; text-transform: capitalize; }
+.vet-catalog-day__hours { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: .4rem; align-items: center; }
+.vet-catalog-day__hours span, .vet-catalog-day__unavailable { color: var(--vet-muted); font-size: .64rem; text-align: center; }
+.vet-catalog-day__hours input { width: 100%; min-height: 2.45rem; padding: .42rem; border: 1px solid var(--vet-line); border-radius: .65rem; color: var(--vet-ink); background: var(--vet-surface); font: inherit; font-size: .74rem; }
+.vet-catalog-save-secondary { width: calc(100% - 2rem); margin: .85rem 1rem 1rem; padding: .72rem; border: 1px solid var(--vet-teal); border-radius: .7rem; color: var(--vet-teal); background: transparent; font-size: .7rem; font-weight: 900; cursor: pointer; }
+.vet-catalog-save-secondary:disabled { cursor: not-allowed; opacity: .5; }
+.vet-catalog-publish { position: sticky; z-index: 10; bottom: 1rem; display: flex; gap: .8rem; align-items: center; padding: .8rem; border: 1px solid rgba(21,159,163,.22); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 14px 36px rgba(15,52,58,.16); backdrop-filter: blur(12px); }
+.vet-catalog-publish > span { flex: 1; min-width: 0; }
+.vet-catalog-publish strong, .vet-catalog-publish small { display: block; }
+.vet-catalog-publish strong { color: var(--vet-ink); font-size: .72rem; }
+.vet-catalog-publish small { margin-top: .1rem; color: var(--vet-muted); font-size: .58rem; }
+.vet-catalog-publish button { min-height: 2.8rem; padding: 0 1rem; border: 0; border-radius: .75rem; color: #fff; background: var(--vet-teal); font-size: .7rem; font-weight: 900; cursor: pointer; }
+.vet-catalog-publish button:disabled { cursor: not-allowed; opacity: .52; }
+.vet-dark-mode .vet-catalog-section__title h2, .vet-dark-mode .vet-catalog-item > label strong, .vet-dark-mode .vet-catalog-publish strong { color: #eef6f5; }
+.vet-dark-mode .vet-catalog-item.is-active { background: rgba(21,159,163,.08); }
+.vet-dark-mode .vet-catalog-price, .vet-dark-mode .vet-catalog-day__hours input { color: #eef6f5; background: #1c292c; border-color: #314144; }
+.vet-dark-mode .vet-catalog-price input { color: #eef6f5; }
+.vet-dark-mode .vet-catalog-publish { border-color: #314144; background: rgba(24,36,39,.96); }
+
+@media (max-width: 520px) {
+  .vet-catalog-hero { grid-template-columns: auto minmax(0, 1fr); }
+  .vet-catalog-hero > strong { grid-column: 2; justify-self: start; display: flex; gap: .35rem; align-items: baseline; font-size: 1.1rem; }
+  .vet-catalog-hero > strong small { display: inline; }
+  .vet-catalog-item { grid-template-columns: auto minmax(0, 1fr); }
+  .vet-catalog-price { grid-column: 2; justify-self: start; }
+  .vet-catalog-day { grid-template-columns: 5.7rem minmax(0, 1fr); padding-inline: .8rem; }
+  .vet-catalog-day__hours { gap: .25rem; }
+  .vet-catalog-day__hours input { padding-inline: .25rem; font-size: .68rem; }
+  .vet-catalog-publish { bottom: .65rem; }
+}
+
+/* Ditar o prontuário. O fim do atendimento é o pior momento para digitar: o
+   veterinário está na casa do tutor, em pé, com o animal por perto. */
+.vet-ditado-abrir { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem; }
+.vet-ditado { display: grid; gap: .85rem; margin-bottom: 1.15rem; padding: 1rem; }
+.vet-ditado__topo { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; }
+.vet-ditado__topo strong { display: block; font-size: .92rem; }
+.vet-ditado__topo small { display: block; margin-top: .2rem; color: #6b7a8c; font-size: .72rem; line-height: 1.5; }
+.vet-ditado__microfone { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .8rem 1rem; border: 1px solid var(--vet-line); border-radius: .9rem; background: #fff; font-weight: 700; font-size: .85rem; transition: .2s; }
+.vet-ditado__microfone:hover:not(:disabled) { background: #f4f8f9; }
+/* Vermelho e pulsando: gravação em curso precisa ser impossível de ignorar,
+   senão alguém sai da casa do tutor com o microfone ainda aberto. */
+.vet-ditado__microfone.is-ouvindo { border-color: #d94a4a; color: #d94a4a; animation: vet-ditado-pulso 1.4s ease-in-out infinite; }
+@keyframes vet-ditado-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(217,74,74,.28) } 50% { box-shadow: 0 0 0 .55rem rgba(217,74,74,0) } }
+@media (prefers-reduced-motion: reduce) { .vet-ditado__microfone.is-ouvindo { animation: none } }
+.vet-ditado__texto { min-height: 8.5rem; resize: vertical; line-height: 1.6; }
+.vet-ditado__aviso { color: #6b7a8c; font-size: .72rem; line-height: 1.5; }
+.vet-ditado__erro { color: #b3261e; font-size: .76rem; line-height: 1.5; }
+.vet-ditado__acoes { display: grid; gap: .45rem; }
+.vet-ditado__acoes small { color: #9aa3b5; font-size: .68rem; line-height: 1.5; }

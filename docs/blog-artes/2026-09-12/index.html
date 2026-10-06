@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>Saúde Pet — Coleção editorial, setembro de 2026</title>
+  <style>
+    :root{--ink:#15343a;--teal:#159fa3;--orange:#f58235;--paper:#fbf8f1;--line:#dce5de;--muted:#587076}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+    a{color:inherit;text-underline-offset:4px}
+    a:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
+    .wrap{width:min(1240px,calc(100% - 64px));margin:auto}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:32px 0;border-bottom:1px solid var(--line)}
+    .brand{display:block;width:172px;height:auto}
+    .date{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right}
+    header{padding:72px 0 52px;max-width:1000px}
+    .eyebrow{margin:0 0 18px;color:#08787c;font-size:.75rem;letter-spacing:.14em;font-weight:700;text-transform:uppercase}
+    h1{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(2.8rem,6.5vw,5.8rem);line-height:1.02;letter-spacing:-.045em;margin:0;max-width:950px}
+    h1 em{font-style:normal;color:var(--teal)}
+    .intro{font-size:clamp(1.05rem,1.6vw,1.3rem);max-width:720px;margin:26px 0 0;color:var(--muted);line-height:1.7}
+    .collection-note{padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:52px}
+    .collection-note p{margin:0;font-size:.87rem;max-width:620px}
+    .collection-note nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;font-weight:700;white-space:nowrap}
+    .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:54px 32px;align-items:start;padding-bottom:70px}
+    figure{margin:0;min-width:0}
+    .art-link{display:block;background:#eeeae1;text-decoration:none;overflow:hidden;border-radius:5px}
+    .art-link img{display:block;width:100%;height:auto}
+    .art-link:hover{outline:2px solid var(--teal);outline-offset:5px}
+    figcaption{padding-top:20px}
+    .details{display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:.68rem;letter-spacing:.095em;text-transform:uppercase}
+    .serial{color:#08787c;font-weight:700}
+    h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.4rem,2.4vw,2rem);font-weight:400;line-height:1.18;letter-spacing:-.018em;margin:12px 0 10px}
+    .style{font-size:.9rem;margin:0;color:var(--muted)}
+    .style::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);margin:0 8px 1px 0}
+    .closing{border-top:1px solid var(--line);padding:40px 0 64px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+    .closing h2{margin:0;font-size:2rem;max-width:420px}
+    .closing p{margin:0 0 15px;color:var(--muted);font-size:.9rem}
+    .closing p:last-child{margin-bottom:0}
+    .small{font-size:.76rem!important}
+    @media(min-width:1050px){.gallery figure:nth-child(4n+2){margin-top:72px}}
+    @media(max-width:700px){.wrap{width:calc(100% - 36px)}.topbar{padding:22px 0}.brand{width:145px}.date{font-size:.62rem;max-width:145px}header{padding:48px 0 35px}.collection-note{align-items:flex-start;flex-direction:column;gap:14px;margin-bottom:32px}.gallery{grid-template-columns:1fr;gap:38px;padding-bottom:45px}.closing{grid-template-columns:1fr;gap:22px;padding:30px 0 40px}.details{font-size:.64rem}}
+    @media(prefers-reduced-motion:no-preference){.art-link{transition:outline-color .15s ease}}
+    @media print{body{background:white}.wrap{width:100%}.topbar{padding:0 0 20px}header{padding:30px 0}.gallery{gap:28px}.gallery figure{break-inside:avoid;margin-top:0!important}.collection-note nav{display:none}.closing{padding-bottom:0}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <img class="brand" src="../../../frontend/public/brand/logo-completa.png" alt="Saúde Pet" width="1160" height="320">
+      <span class="date">Coleção editorial · 12 setembro 2026</span>
+    </div>
+    <header>
+      <p class="eyebrow">Primeira coleção · 12 artes produzidas</p>
+      <h1>Cada tema,<br>uma <em>nova imagem.</em></h1>
+      <p class="intro">Humor para falar de hábitos, delicadeza para temas difíceis e cenários que convidam a olhar mais de perto. Diferentes linguagens, com a presença do Saúde Pet em cada uma.</p>
+    </header>
+    <div class="collection-note">
+      <p>Galeria local da coleção inicial. As imagens aparecem inteiras, em suas proporções naturais. Clique em uma arte para abrir o PNG original.</p>
+      <nav aria-label="Arquivos da coleção">
+        <a href="README.md">Sobre a coleção</a>
+        <a href="prompts.json">Prompts</a>
+        <a href="entregas.json">Entregas</a>
+      </nav>
+    </div>
+    <main class="gallery" aria-label="Artes da coleção editorial">
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png" aria-label="Abrir arte: Quanto custa ter um cachorro por mês">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png" alt="Colagem com cachorro caramelo, tigela de ração, guia, calendário e cofrinho; assinatura Saúde Pet em turquesa e laranja." width="1536" height="1024" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">01 · anc-001</span><span>1536 × 1024 px · 3:2</span></div><h2>Quanto custa ter um cachorro por mês, a conta real</h2><p class="style">Colagem editorial com fotografia e recortes</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/gato-amassa-paozinho-meme-v1.png" aria-label="Abrir arte: Por que gato amassa pãozinho">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/gato-amassa-paozinho-meme-v1.png" alt="Gato laranja amassa uma manta turquesa sob a frase Padaria aberta; etiqueta laranja com o nome Saúde Pet." width="1254" height="1254" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">02 · per-053</span><span>1254 × 1254 px · 1:1</span></div><h2>Por que gato amassa pãozinho</h2><p class="style">Meme fotográfico original</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png" aria-label="Abrir arte: Enriquecimento ambiental em apartamento">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png" alt="Ilustração de apartamento em corte com gato em prateleiras turquesa junto à janela telada e cachorro brincando no tapete de farejar laranja." width="1122" height="1402" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">03 · anc-029</span><span>1122 × 1402 px · 4:5</span></div><h2>Enriquecimento ambiental em apartamento: brincar não é luxo</h2><p class="style">Quadrinhos com cenário em corte</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png" aria-label="Abrir arte: Água para cães e gatos">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png" alt="Gato e cachorro modelados em argila junto de tigelas de água; a tigela turquesa traz o nome Saúde Pet." width="1672" height="941" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">04 · anc-007</span><span>1672 × 941 px · 16:9</span></div><h2>Quanta água o seu cão e o seu gato precisam beber por dia</h2><p class="style">Miniatura artesanal em argila</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png" aria-label="Abrir arte: Microchip e identificação">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png" alt="Cachorro de papel com coleira e identificação segue um caminho laranja até uma casa turquesa com o nome Saúde Pet." width="1254" height="1254" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">05 · anc-017</span><span>1254 × 1254 px · 1:1</span></div><h2>Microchip e identificação: o que fazer hoje para não perder o seu pet</h2><p class="style">Recorte de papel em camadas</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png" aria-label="Abrir arte: Observar a pele do pet">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png" alt="Mãos afastam suavemente os pelos de um cachorro deitado sobre manta turquesa para observar sua pele." width="1536" height="1024" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">06 · anc-035</span><span>1536 × 1024 px · 3:2</span></div><h2>Pele do pet: coceira, queda de pelo e o que cada uma indica</h2><p class="style">Fotografia editorial macro</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png" aria-label="Abrir arte: Um veterinário de confiança">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png" alt="Veterinária de roupa turquesa conversa com uma tutora em casa, acompanhadas de um cachorro preto e branco." width="1672" height="941" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">07 · anc-038</span><span>1672 × 941 px · 16:9</span></div><h2>Dia do Veterinário: como escolher um profissional de confiança</h2><p class="style">Fotografia com narrativa cinematográfica</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png" aria-label="Abrir arte: Artrose e dor crônica">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png" alt="Aquarela de tutora junto de cachorro idoso descansando na caminha, ao lado de sofá turquesa, manta laranja e rampa." width="1122" height="1402" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">08 · anc-046</span><span>1122 × 1402 px · 4:5</span></div><h2>Ele parou de subir no sofá: artrose e dor crônica</h2><p class="style">Aquarela narrativa</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png" aria-label="Abrir arte: Viajar com o pet">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png" alt="Pôster vertical com a frase Boa viagem, gato na caixa de transporte turquesa, mala laranja e paisagem brasileira ao fundo." width="940" height="1673" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">09 · anc-050</span><span>940 × 1673 px · 9:16</span></div><h2>Viajar com o pet: transporte, documento e o que levar</h2><p class="style">Pôster de viagem ilustrado</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/cachorro-enxerga-cores-pixel-v1.png" aria-label="Abrir arte: As cores no mundo dos cachorros">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/cachorro-enxerga-cores-pixel-v1.png" alt="Cachorro desenhado em pixels observa bolas amarela e azul num jardim; a frase Um mundo de cores aparece acima." width="1254" height="1254" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">10 · mit-002</span><span>1254 × 1254 px · 1:1</span></div><h2>Cachorro enxerga em preto e branco</h2><p class="style">Arte em pixels com metáfora visual</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png" aria-label="Abrir arte: Escovar os dentes do pet">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png" alt="Cachorro de pelo longo observa uma pequena escova de dentes turquesa sobre toalha laranja com etiqueta Saúde Pet." width="1536" height="1024" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">11 · anc-018</span><span>1536 × 1024 px · 3:2</span></div><h2>Escovar os dentes do pet: como começar sem virar briga</h2><p class="style">Desenho editorial com humor gentil</p></figcaption>
+      </figure>
+      <figure>
+        <a class="art-link" href="../../../frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png" aria-label="Abrir arte: Qualidade de vida e vínculo">
+          <img src="../../../frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png" alt="Pintura em pastel de cachorro idoso descansando sobre manta turquesa, com a mão do tutor junto de sua pata." width="1536" height="1024" loading="lazy" decoding="async">
+        </a>
+        <figcaption><div class="details"><span class="serial">12 · anc-051</span><span>1536 × 1024 px · 3:2</span></div><h2>Qualidade de vida: como conversar sobre eutanásia com o veterinário</h2><p class="style">Pintura em pastel e cenário íntimo</p></figcaption>
+      </figure>
+    </main>
+    <footer class="closing">
+      <h2>A mesma marca.<br>Muitas formas de contar.</h2>
+      <div>
+        <p>O laranja e o turquesa, o nome ou a logo oficial conectam as peças ao Saúde Pet. A técnica acompanha o assunto: cada imagem parte de uma intenção própria.</p>
+        <p>Esta coleção é um primeiro conjunto de artes estáticas. O calendário completo permanece como direção para produções futuras; esta galeria não comprova publicação no blog ou nas redes.</p>
+        <p class="small">As dimensões indicadas foram conferidas nos arquivos originais. O inventário da entrega está em <a href="entregas.json">entregas.json</a>. Leia também a <a href="../../BLOG_DIRECAO_VISUAL.md">direção visual do ano</a>.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

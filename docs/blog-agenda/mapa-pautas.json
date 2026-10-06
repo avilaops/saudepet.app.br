@@ -1,0 +1,651 @@
+{
+  "captured_at": "2026-09-13T01:21:26.851Z",
+  "timezone": "America/Sao_Paulo",
+  "status": "Conferência local. Início do ciclo anual ainda não definido; nenhuma publicação alterada.",
+  "inicio_ciclo_anual": null,
+  "resumo": {
+    "posts_no_banco": 42,
+    "visiveis": 24,
+    "agendamentos_futuros": 4,
+    "rascunhos_sem_data": 14,
+    "ancoras_com_arte": 52,
+    "ancoras_com_post_identificado": 4,
+    "ancoras_ja_visiveis": 1
+  },
+  "agendamentos_futuros": [
+    {
+      "id": "82667d01-41e9-4c97-8814-251cbbb89de1",
+      "slug": "plantas-toxicas-para-caes-e-gatos",
+      "title": "Plantas tóxicas para cães e gatos: quais tirar de casa hoje",
+      "status": "agendado",
+      "published_at": null,
+      "scheduled_for": "2026-09-15T12:00:00.000Z"
+    },
+    {
+      "id": "238348b5-8342-4257-a713-d7a95e1bd4d1",
+      "slug": "chocolate-faz-mal-para-cachorro-entenda-o-risco",
+      "title": "Chocolate faz mal para cachorro? Entenda o risco",
+      "status": "agendado",
+      "published_at": null,
+      "scheduled_for": "2026-09-18T12:00:00.000Z"
+    },
+    {
+      "id": "06a06276-6524-4828-823f-eb5b6375ec96",
+      "slug": "como-proteger-caes-e-gatos-do-calor-excessivo",
+      "title": "Como proteger cães e gatos do calor excessivo",
+      "status": "agendado",
+      "published_at": null,
+      "scheduled_for": "2026-10-15T12:00:00.000Z"
+    },
+    {
+      "id": "aa88c361-61c7-405b-b63f-79213006f1eb",
+      "slug": "fogos-de-artificio-como-reduzir-o-medo-e-a-ansiedade-do-pet",
+      "title": "Fogos de artifício: como reduzir o medo e a ansiedade do pet",
+      "status": "agendado",
+      "published_at": null,
+      "scheduled_for": "2026-12-01T15:00:00.000Z"
+    }
+  ],
+  "pautas": [
+    {
+      "id": "ANC-001",
+      "mes": 1,
+      "mes_nome": "Janeiro",
+      "titulo": "Quanto custa ter um cachorro por mês, a conta real",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/quanto-custa-ter-um-cachorro-por-mes-v1.png",
+      "correspondencia": "titulo_normalizado_exato",
+      "post_existente": {
+        "id": "598fc789-776e-4589-bd72-03d8e88e7a01",
+        "slug": "quanto-custa-ter-um-cachorro-por-mes-a-conta-real",
+        "title": "Quanto custa ter um cachorro por mês: a conta real",
+        "status": "rascunho",
+        "published_at": null,
+        "scheduled_for": null
+      },
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-002",
+      "mes": 1,
+      "mes_nome": "Janeiro",
+      "titulo": "Calor forte: como saber se o seu pet está sofrendo com a temperatura",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/calor-forte-como-saber-se-o-seu-pet-esta-sofrendo-com-a-temperatura.png",
+      "correspondencia": "titulo_normalizado_exato",
+      "post_existente": {
+        "id": "e6f6dff4-08ad-429c-b7df-961e0d1fac17",
+        "slug": "calor-forte-como-saber-se-o-seu-pet-esta-sofrendo-com-a-temperatura",
+        "title": "Calor forte: como saber se o seu pet está sofrendo com a temperatura",
+        "status": "rascunho",
+        "published_at": null,
+        "scheduled_for": null
+      },
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-003",
+      "mes": 1,
+      "mes_nome": "Janeiro",
+      "titulo": "Passeio no asfalto quente: o teste dos sete segundos",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/passeio-no-asfalto-quente-o-teste-dos-sete-segundos.png",
+      "correspondencia": "slug_exato",
+      "post_existente": {
+        "id": "0aeac770-ffc7-461e-9237-40f4b070ab31",
+        "slug": "passeio-no-asfalto-quente-o-teste-dos-sete-segundos",
+        "title": "Passeio no Asfalto Quente: O Teste dos Sete Segundos para Proteger Seu Pet",
+        "status": "rascunho",
+        "published_at": null,
+        "scheduled_for": null
+      },
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-004",
+      "mes": 1,
+      "mes_nome": "Janeiro",
+      "titulo": "O enxoval do pet: o que ter em casa antes de ele chegar",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/o-enxoval-do-pet-o-que-ter-em-casa-antes-de-ele-chegar.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-005",
+      "mes": 2,
+      "mes_nome": "Fevereiro",
+      "titulo": "Carnaval: como preparar o pet para barulho, gente e viagem",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/carnaval-como-preparar-o-pet-para-barulho-gente-e-viagem.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-006",
+      "mes": 2,
+      "mes_nome": "Fevereiro",
+      "titulo": "Pet sozinho em casa: quanto tempo é tempo demais",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/pet-sozinho-em-casa-quanto-tempo-e-tempo-demais.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-007",
+      "mes": 2,
+      "mes_nome": "Fevereiro",
+      "titulo": "Quanta água o seu cão e o seu gato precisam beber por dia",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/agua-caes-gatos-miniatura-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-008",
+      "mes": 2,
+      "mes_nome": "Fevereiro",
+      "titulo": "Como ler o rótulo da ração e entender o que você está comprando",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/como-ler-o-rotulo-da-racao-e-entender-o-que-voce-esta-comprando.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-009",
+      "mes": 3,
+      "mes_nome": "Março",
+      "titulo": "Ração seca, úmida ou natural: o que muda na prática",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/racao-seca-umida-ou-natural-o-que-muda-na-pratica.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-010",
+      "mes": 3,
+      "mes_nome": "Março",
+      "titulo": "Quanto de ração dar por dia, por porte e por idade",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/quanto-de-racao-dar-por-dia-por-porte-e-por-idade.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-011",
+      "mes": 3,
+      "mes_nome": "Março",
+      "titulo": "Petisco: quanto cabe sem desequilibrar a dieta",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/petisco-quanto-cabe-sem-desequilibrar-a-dieta.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-012",
+      "mes": 3,
+      "mes_nome": "Março",
+      "titulo": "Alimentos da nossa casa que fazem mal ao pet",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/alimentos-da-nossa-casa-que-fazem-mal-ao-pet.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-013",
+      "mes": 3,
+      "mes_nome": "Março",
+      "titulo": "Como trocar a ração sem causar diarreia: o passo a passo de sete dias",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/como-trocar-a-racao-sem-causar-diarreia-o-passo-a-passo-de-sete-dias.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-014",
+      "mes": 4,
+      "mes_nome": "Abril",
+      "titulo": "Vermifugação: com que frequência e por quê",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/vermifugacao-com-que-frequencia-e-por-que.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-015",
+      "mes": 4,
+      "mes_nome": "Abril",
+      "titulo": "Abril Laranja: como reconhecer e como denunciar maus tratos",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/abril-laranja-como-reconhecer-e-como-denunciar-maus-tratos.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-016",
+      "mes": 4,
+      "mes_nome": "Abril",
+      "titulo": "Castração: o que ela previne e o que ela não previne",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/castracao-o-que-ela-previne-e-o-que-ela-nao-previne.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-017",
+      "mes": 4,
+      "mes_nome": "Abril",
+      "titulo": "Microchip e identificação: o que fazer hoje para não perder o seu pet",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/microchip-identificacao-papel-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-018",
+      "mes": 5,
+      "mes_nome": "Maio",
+      "titulo": "Escovar os dentes do pet: como começar sem virar briga",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/escovar-dentes-pet-desenho-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-019",
+      "mes": 5,
+      "mes_nome": "Maio",
+      "titulo": "Banho e tosa: frequência certa por tipo de pelagem",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/banho-e-tosa-frequencia-certa-por-tipo-de-pelagem.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-020",
+      "mes": 5,
+      "mes_nome": "Maio",
+      "titulo": "Unhas, ouvidos e almofadinhas: a rotina de dez minutos",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/unhas-ouvidos-e-almofadinhas-a-rotina-de-dez-minutos.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-021",
+      "mes": 5,
+      "mes_nome": "Maio",
+      "titulo": "O cuidado semanal do pet em quinze minutos: o checklist",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/o-cuidado-semanal-do-pet-em-quinze-minutos-o-checklist.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-022",
+      "mes": 6,
+      "mes_nome": "Junho",
+      "titulo": "Frio em Curitiba: quais pets sofrem mais e como proteger",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/frio-em-curitiba-quais-pets-sofrem-mais-e-como-proteger.png",
+      "correspondencia": "titulo_normalizado_exato",
+      "post_existente": {
+        "id": "26a25eef-8bc5-4909-94cc-abea2eef144d",
+        "slug": "frio-em-curitiba-quais-pets-sofrem-mais",
+        "title": "Frio em Curitiba: quais pets sofrem mais e como proteger",
+        "status": "publicado",
+        "published_at": "2026-09-01T02:43:08.466Z",
+        "scheduled_for": null
+      },
+      "visivel_no_snapshot": true,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-023",
+      "mes": 6,
+      "mes_nome": "Junho",
+      "titulo": "Tosse no inverno: tosse dos canis, gripe felina e o que é urgência",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-no-inverno-tosse-dos-canis-gripe-felina-e-o-que-e-urgencia.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-024",
+      "mes": 6,
+      "mes_nome": "Junho",
+      "titulo": "Festa junina e fogos: o plano para atravessar a noite",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/festa-junina-e-fogos-o-plano-para-atravessar-a-noite.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-025",
+      "mes": 6,
+      "mes_nome": "Junho",
+      "titulo": "Cama, casinha e roupinha: o que aquece de verdade e o que é enfeite",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/cama-casinha-e-roupinha-o-que-aquece-de-verdade-e-o-que-e-enfeite.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-026",
+      "mes": 7,
+      "mes_nome": "Julho",
+      "titulo": "Ansiedade de separação: como identificar e o que realmente ajuda",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/ansiedade-de-separacao-como-identificar-e-o-que-realmente-ajuda.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-027",
+      "mes": 7,
+      "mes_nome": "Julho",
+      "titulo": "Por que o cachorro late demais, e o que fazer sem gritar",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/por-que-o-cachorro-late-demais-e-o-que-fazer-sem-gritar.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-028",
+      "mes": 7,
+      "mes_nome": "Julho",
+      "titulo": "Gato fazendo xixi fora da caixa quase nunca é birra",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-fazendo-xixi-fora-da-caixa-quase-nunca-e-birra.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-029",
+      "mes": 7,
+      "mes_nome": "Julho",
+      "titulo": "Enriquecimento ambiental em apartamento: brincar não é luxo",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/enriquecimento-ambiental-apartamento-quadrinhos-v2.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-030",
+      "mes": 8,
+      "mes_nome": "Agosto",
+      "titulo": "O que todo tutor de gato faz errado sem perceber",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/o-que-todo-tutor-de-gato-faz-errado-sem-perceber.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-031",
+      "mes": 8,
+      "mes_nome": "Agosto",
+      "titulo": "Raiva: por que a vacina continua obrigatória todo ano",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/raiva-por-que-a-vacina-continua-obrigatoria-todo-ano.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-032",
+      "mes": 8,
+      "mes_nome": "Agosto",
+      "titulo": "Gato de apartamento: telamento, janela e plantas tóxicas",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/gato-de-apartamento-telamento-janela-e-plantas-toxicas.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-033",
+      "mes": 8,
+      "mes_nome": "Agosto",
+      "titulo": "FIV e FeLV: o exame que todo gato deveria fazer uma vez",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/fiv-e-felv-o-exame-que-todo-gato-deveria-fazer-uma-vez.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-034",
+      "mes": 8,
+      "mes_nome": "Agosto",
+      "titulo": "Leptospirose: o risco que aparece junto com a chuva",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/leptospirose-o-risco-que-aparece-junto-com-a-chuva.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-035",
+      "mes": 9,
+      "mes_nome": "Setembro",
+      "titulo": "Pele do pet: coceira, queda de pelo e o que cada uma indica",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/pele-pet-observacao-macro-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-036",
+      "mes": 9,
+      "mes_nome": "Setembro",
+      "titulo": "Como medir em casa a respiração e os batimentos do seu pet",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/como-medir-em-casa-a-respiracao-e-os-batimentos-do-seu-pet.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-037",
+      "mes": 9,
+      "mes_nome": "Setembro",
+      "titulo": "Olhos: secreção, olho vermelho e o que não pode esperar",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/olhos-secrecao-olho-vermelho-e-o-que-nao-pode-esperar.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-038",
+      "mes": 9,
+      "mes_nome": "Setembro",
+      "titulo": "Dia do Veterinário: como escolher um profissional de confiança",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/veterinario-confianca-cinema-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-039",
+      "mes": 10,
+      "mes_nome": "Outubro",
+      "titulo": "Outubro Rosa pet: nódulo na mama da cadela, o que fazer",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/outubro-rosa-pet-nodulo-na-mama-da-cadela-o-que-fazer.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-040",
+      "mes": 10,
+      "mes_nome": "Outubro",
+      "titulo": "Doença renal crônica em gatos: o inimigo silencioso",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/doenca-renal-cronica-em-gatos-o-inimigo-silencioso.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-041",
+      "mes": 10,
+      "mes_nome": "Outubro",
+      "titulo": "Diabetes em cães e gatos: os sinais que vêm antes do diagnóstico",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/diabetes-em-caes-e-gatos-os-sinais-que-vem-antes-do-diagnostico.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-042",
+      "mes": 10,
+      "mes_nome": "Outubro",
+      "titulo": "Tosse à noite não é normal: quando o coração é a causa",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/tosse-a-noite-nao-e-normal-quando-o-coracao-e-a-causa.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-043",
+      "mes": 10,
+      "mes_nome": "Outubro",
+      "titulo": "Dia dos Animais: o que avaliar antes de adotar",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/dia-dos-animais-o-que-avaliar-antes-de-adotar.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-044",
+      "mes": 11,
+      "mes_nome": "Novembro",
+      "titulo": "Exames de rotina depois dos sete anos: quais e de quanto em quanto tempo",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/exames-de-rotina-depois-dos-sete-anos-quais-e-de-quanto-em-quanto-tempo.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-045",
+      "mes": 11,
+      "mes_nome": "Novembro",
+      "titulo": "Novembro Azul pet: próstata em cães machos",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/novembro-azul-pet-prostata-em-caes-machos.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-046",
+      "mes": 11,
+      "mes_nome": "Novembro",
+      "titulo": "Ele parou de subir no sofá: artrose e dor crônica",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/pet-idoso-sofa-aquarela-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-047",
+      "mes": 11,
+      "mes_nome": "Novembro",
+      "titulo": "Rotina de um pet com doença crônica sem virar um segundo emprego",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/rotina-de-um-pet-com-doenca-cronica-sem-virar-um-segundo-emprego.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-048",
+      "mes": 12,
+      "mes_nome": "Dezembro",
+      "titulo": "Ceia de Natal: os alimentos que mandam pet para a emergência",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/ceia-de-natal-os-alimentos-que-mandam-pet-para-a-emergencia.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-049",
+      "mes": 12,
+      "mes_nome": "Dezembro",
+      "titulo": "Réveillon e fogos: o plano completo, hora a hora",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/reveillon-e-fogos-o-plano-completo-hora-a-hora.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-050",
+      "mes": 12,
+      "mes_nome": "Dezembro",
+      "titulo": "Viajar com o pet: transporte, documento e o que levar",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/viajar-com-pet-poster-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-051",
+      "mes": 12,
+      "mes_nome": "Dezembro",
+      "titulo": "Qualidade de vida: como conversar sobre eutanásia com o veterinário",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12/qualidade-vida-vinculo-pastel-v1.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    },
+    {
+      "id": "ANC-052",
+      "mes": 12,
+      "mes_nome": "Dezembro",
+      "titulo": "A revisão anual do seu pet: o retrospecto de doze meses",
+      "arte": "frontend/public/blog-media/editorial/2026-09-12-ancoras/a-revisao-anual-do-seu-pet-o-retrospecto-de-doze-meses.png",
+      "correspondencia": null,
+      "post_existente": null,
+      "visivel_no_snapshot": false,
+      "data_planejada_anual": null
+    }
+  ]
+}

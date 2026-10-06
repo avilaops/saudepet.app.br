@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --brand-orange: #f58235;
+  --brand-orange-dark: #d96620;
+  /* Laranja dos botões de ação: o mesmo no "Entrar" do cabeçalho e no
+     "Criar conta grátis" do herói, que antes usavam tons diferentes. */
+  --brand-orange-action: #fb923c;
+  --brand-teal: #159fa3;
+  --brand-teal-dark: #08787c;
+  --brand-ink: #15343a;
+  --brand-muted: #587076;
+  --brand-soft: #eff9f8;
+  --brand-line: #d7e7e5;
+  --brand-white: #ffffff;
+  /* Superfícies do app — ver tailwind.config.js (surface.*) */
+  --surface-page: #f6f9f9;
+  --surface-card: #ffffff;
+  --surface-muted: #eef3f3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  color: var(--brand-ink);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tokens do app (tutor): mesmos traços do AppKit — cantos 2xl, bordas
+   slate suaves, teal como única cor de ação. As páginas legadas herdam o
+   visual novo sem serem reescritas. */
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-teal-700 text-white text-sm font-bold py-3.5 px-6 rounded-2xl shadow-sm transition-all duration-200 active:scale-[.98];
+  }
+
+  .btn-secondary {
+    @apply border border-slate-200 bg-white hover:bg-slate-50 text-ink text-sm font-semibold py-3.5 px-6 rounded-2xl transition-all duration-200 active:scale-[.98];
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white text-sm font-bold py-3.5 px-6 rounded-2xl transition-all duration-200 active:scale-[.98];
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 mb-4;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary;
+  }
+
+  .container-app {
+    @apply max-w-md mx-auto min-h-screen bg-surface-page;
+  }
+}
+
+/* Animação para mensagens de erro */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Zoom automático ao digitar (iOS)
+
+   O Safari do iPhone aproxima a tela sozinho sempre que o campo focado tem
+   fonte menor que 16px — e os campos do app usam 12,8px. Quem está digitando
+   vê a tela "pular", fica com o layout deslocado e, sem saber dar dois toques
+   para voltar, se perde no formulário.
+
+   A correção é o tamanho da fonte, não travar o viewport: manter os campos em
+   16px elimina o zoom automático E preserva o pinch-zoom, que quem enxerga
+   pouco usa de propósito. `user-scalable=no` resolveria o sintoma tirando
+   justamente essa possibilidade.
+
+   `!important` é necessário: as telas definem o tamanho por classe utilitária,
+   que vence um seletor de elemento.
+   ───────────────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 820px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
