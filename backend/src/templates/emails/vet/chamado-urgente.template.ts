@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const chamadoUrgenteVetTemplate = function ({
   nomeVet,
@@ -44,7 +45,7 @@ const chamadoUrgenteVetTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${aceitarUrl || 'https://saudepet.app.br/app/vet/chamados'}" class="btn-orange" target="_blank">
+        <a href="${aceitarUrl || urlDoSite('/veterinario/home')}" class="btn-orange" target="_blank">
           Visualizar e Aceitar Chamado no App →
         </a>
       </div>

@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const veterinarioACaminhoTemplate = function ({
   nomeTutor,
@@ -39,7 +40,7 @@ const veterinarioACaminhoTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${chatUrl || 'https://saudepet.app.br/app/chat'}" class="btn-primary" target="_blank">
+        <a href="${chatUrl || urlDoSite('/tutor/mensagens')}" class="btn-primary" target="_blank">
           Abrir Chat / Falar com o Vet →
         </a>
       </div>

@@ -13,8 +13,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 // O Saúde Pet opera exclusivamente com o Mercado Pago — a tela não oferece
 // escolha de gateway de propósito.

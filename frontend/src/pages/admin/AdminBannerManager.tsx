@@ -5,8 +5,7 @@ import {
   Trash2, ShieldCheck, CheckCircle2, PauseCircle, Archive, AlertTriangle, 
   ArrowUp, ArrowDown, Calendar, Link as LinkIcon, Monitor, Smartphone, X, Sparkles
 } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function AdminBannerManager() {
   const [banners, setBanners] = useState<ApiPayload[]>([]);
@@ -665,7 +664,7 @@ export default function AdminBannerManager() {
                     type="url"
                     value={formData.targetUrl}
                     onChange={(e) => setFormData({ ...formData, targetUrl: e.target.value })}
-                    placeholder="https://saudepet.app.br/vacinas"
+                    placeholder="https://saudepet.app.br/tutor/solicitar"
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none"
                   />
                 </div>

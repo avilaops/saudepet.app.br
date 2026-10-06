@@ -6,3 +6,11 @@
 **/uploads
 **/coverage
 *.tgz
+
+# Artes de rascunho da agenda editorial (cerca de 155 MB em PNG). Só a
+# documentação e a galeria local apontam para elas; o site publica a capa
+# convertida em /blog-media/<slug>.webp. Dentro da imagem elas iam duas vezes
+# para o servidor (web e backend copiam o frontend/dist), e em 05/10/2026 o
+# deploy do web falhou com "no space left on device" extraindo justamente
+# uma delas.
+frontend/public/blog-media/editorial

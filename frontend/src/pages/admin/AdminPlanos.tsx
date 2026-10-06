@@ -12,8 +12,7 @@ import {
   Users,
   XCircle,
 } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 function authHeaders() {
   return {

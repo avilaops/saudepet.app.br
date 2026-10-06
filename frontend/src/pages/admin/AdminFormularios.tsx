@@ -13,8 +13,7 @@ import {
   Trash2,
   XCircle,
 } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 const TIPOS: Record<string, string> = {
   pre_consulta: 'Pré-consulta',

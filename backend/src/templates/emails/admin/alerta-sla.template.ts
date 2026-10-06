@@ -1,11 +1,12 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const alertaSlaAdminTemplate = function ({
   protocolo,
   bairroCidade,
   tempoDecorrido = '12 minutos',
-  adminUrl = 'https://saudepet.app.br/admin/chamados'
+  adminUrl = urlDoSite('/admin/operacoes')
 }: DadosDoEmail) {
   const content = `
     <div>

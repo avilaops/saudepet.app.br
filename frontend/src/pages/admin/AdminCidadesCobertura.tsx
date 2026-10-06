@@ -2,8 +2,7 @@ import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { MapPin, DollarSign, Plus, Save, RefreshCw, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function AdminCidadesCobertura() {
   const navigate = useNavigate();

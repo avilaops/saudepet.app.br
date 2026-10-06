@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const alertaNpsRuimAdminTemplate = function ({
   protocolo,
@@ -7,7 +8,7 @@ const alertaNpsRuimAdminTemplate = function ({
   comentario,
   nomeTutor,
   nomeVet,
-  adminUrl = 'https://saudepet.app.br/admin/nps'
+  adminUrl = urlDoSite('/admin/atendimentos')
 }: DadosDoEmail) {
   const content = `
     <div>

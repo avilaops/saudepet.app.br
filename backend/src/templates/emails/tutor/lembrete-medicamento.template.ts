@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const lembreteMedicamentoTemplate = function ({
   nomeTutor,
@@ -32,7 +33,7 @@ const lembreteMedicamentoTemplate = function ({
       </div>` : ''}
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${recompraUrl || 'https://saudepet.app.br/app/medicamentos'}" class="btn-primary" target="_blank">
+        <a href="${recompraUrl || urlDoSite('/tutor/mercado')}" class="btn-primary" target="_blank">
           Solicitar Nova Receita / Comprar Remedio →
         </a>
       </div>

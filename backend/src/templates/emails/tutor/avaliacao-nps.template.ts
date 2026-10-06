@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const avaliacaoNpsTemplate = function ({
   nomeTutor,
@@ -30,7 +31,7 @@ const avaliacaoNpsTemplate = function ({
         </div>
       </div>
 
-      <a href="${avaliacaoUrl || 'https://saudepet.app.br/app/avaliar'}" class="btn-orange" target="_blank">
+      <a href="${avaliacaoUrl || urlDoSite('/tutor/historico')}" class="btn-orange" target="_blank">
         Avaliar Atendimento Agora →
       </a>
     </div>

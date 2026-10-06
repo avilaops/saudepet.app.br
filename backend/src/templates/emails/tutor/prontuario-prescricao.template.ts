@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const prontuarioPrescricaoTemplate = function ({
   nomeTutor,
@@ -31,7 +32,7 @@ const prontuarioPrescricaoTemplate = function ({
       </div>` : ''}
 
       <div style="text-align: center; margin: 32px 0 20px;">
-        <a href="${pdfUrl || 'https://saudepet.app.br/app/prontuario'}" class="btn-primary" target="_blank" style="margin-right: 8px;">
+        <a href="${pdfUrl || urlDoSite('/tutor/historico')}" class="btn-primary" target="_blank" style="margin-right: 8px;">
           📥 Baixar Prontuário & Receita em PDF
         </a>
       </div>

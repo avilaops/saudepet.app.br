@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const lembreteRetornoTemplate = function ({
   nomeTutor,
@@ -31,7 +32,7 @@ const lembreteRetornoTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${agendarUrl || 'https://saudepet.app.br/app/agendar'}" class="btn-primary" target="_blank">
+        <a href="${agendarUrl || urlDoSite('/tutor/marcar-consulta')}" class="btn-primary" target="_blank">
           Agendar Consulta de Retorno Domiciliar →
         </a>
       </div>

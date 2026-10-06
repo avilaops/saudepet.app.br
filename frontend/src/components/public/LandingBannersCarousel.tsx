@@ -1,8 +1,7 @@
 import type { ApiPayload } from '../../types/api'
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function LandingBannersCarousel() {
   const [banners, setBanners] = useState<ApiPayload[]>([]);

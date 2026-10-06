@@ -1,9 +1,10 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const cadastroAprovadoVetTemplate = function ({
   nomeVet,
-  loginUrl = 'https://saudepet.app.br/login'
+  loginUrl = urlDoSite('/login')
 }: DadosDoEmail) {
   const content = `
     <div style="text-align: center;">

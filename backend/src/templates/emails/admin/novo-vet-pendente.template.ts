@@ -1,12 +1,13 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const novoVetPendenteAdminTemplate = function ({
   nomeVet,
   crmvVet,
   ufCrmv,
   emailVet,
-  adminUrl = 'https://saudepet.app.br/admin/vets'
+  adminUrl = urlDoSite('/admin/veterinarios')
 }: DadosDoEmail) {
   const content = `
     <div>

@@ -2,8 +2,7 @@ import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Search, Filter, Download, Calendar, User, FileText, CheckCircle2, Clock, AlertTriangle, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 // A tela lia `total` e mostrava só a primeira página: "1.842 registros
 // encontrados" acima de 50 linhas, sem dizer que existiam mais. O backend

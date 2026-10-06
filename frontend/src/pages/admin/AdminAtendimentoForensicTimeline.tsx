@@ -2,8 +2,7 @@ import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ShieldCheck, ArrowLeft, Clock } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function AdminAtendimentoForensicTimeline() {
   const { id } = useParams();

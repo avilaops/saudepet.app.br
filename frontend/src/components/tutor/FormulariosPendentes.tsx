@@ -42,7 +42,7 @@ export default function FormulariosPendentes({ atendimentoId, petId }: ApiPayloa
       {pendentes.map((form) => (
         <button
           key={form.id}
-          onClick={() => navigate(`/formularios/${form.id}/responder?atendimento=${atendimentoId}${petId ? `&pet=${petId}` : ''}`)}
+          onClick={() => navigate(`/f/${form.id}?atendimento=${atendimentoId}${petId ? `&pet=${petId}` : ''}`)}
           className="flex w-full items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-left transition hover:bg-amber-100"
         >
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-amber-600 shadow-sm">

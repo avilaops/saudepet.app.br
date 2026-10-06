@@ -9,8 +9,7 @@ import {
   Users,
   XCircle,
 } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 const STATUS: Record<string, { label: string; cls: string }> = {
   ativo: { label: 'Ativo', cls: 'bg-emerald-100 text-emerald-700' },

@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 /**
  * E-mails de agendamento para o VETERINÁRIO: o que o tutor fez com a consulta.
@@ -59,7 +60,7 @@ const agendamentoConsultaVetTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="https://saudepet.app.br/veterinario/crm/agenda" class="btn-primary" target="_blank">
+        <a href="${urlDoSite('/veterinario/crm/agenda')}" class="btn-primary" target="_blank">
           Abrir minha agenda →
         </a>
       </div>

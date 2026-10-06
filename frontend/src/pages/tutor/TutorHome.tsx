@@ -281,7 +281,7 @@ export default function TutorHome() {
                 <button
                   key={pet.id}
                   type="button"
-                  onClick={() => navigate(`/tutor/pets/${pet.id}/carteira`)}
+                  onClick={() => navigate(`/tutor/pet/${pet.id}/carteira`)}
                   className="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white p-3 text-left shadow-sm transition hover:border-primary/50 hover:bg-slate-50/80"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary/10 text-base font-bold text-primary">
