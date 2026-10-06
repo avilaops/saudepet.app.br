@@ -5,8 +5,7 @@ import {
   Trash2, ShieldCheck, CheckCircle2, PauseCircle, Archive, AlertTriangle, 
   ArrowUp, ArrowDown, Calendar, Link as LinkIcon, Monitor, Smartphone, X, Sparkles
 } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function AdminBannerManager() {
   const [banners, setBanners] = useState<ApiPayload[]>([]);

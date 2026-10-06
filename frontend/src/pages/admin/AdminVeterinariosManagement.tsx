@@ -1,8 +1,7 @@
 import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, FileText, CheckCircle2, XCircle, AlertTriangle, Eye, RotateCcw, Ban, Search, ExternalLink, Sparkles, RefreshCw, Minus } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 // O enum do banco não é texto de tela: "REQUIRES_RESUBMISSION" aparecia cru
 // dentro do badge de status.

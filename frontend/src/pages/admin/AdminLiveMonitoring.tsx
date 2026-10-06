@@ -2,8 +2,7 @@ import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { RefreshCw, Ban, UserCog, Clock, X } from 'lucide-react';
 import api from '../../services/api';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 // Rótulo humano para o status. A tabela mostrava a chave crua do banco
 // ('procurando_veterinario'), que é o vocabulário do código, não o de quem

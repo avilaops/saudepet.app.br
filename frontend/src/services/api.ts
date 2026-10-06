@@ -1,7 +1,18 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios'
 import type { Usuario } from '../types/api'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+/**
+ * Endereço da API, num lugar só.
+ *
+ * Em produção a API mora no mesmo domínio do site (o nginx repassa `/api` ao
+ * backend), então o padrão é `/api`. Até 06/10/2026 o padrão era
+ * `http://localhost:3000/api` em qualquer ambiente: enquanto a imagem era
+ * construída no servidor, com um `.env` definindo VITE_API_URL, ninguém via;
+ * quando o build passou para o GitHub Actions sem esse `.env`, o site publicado
+ * passou a chamar o localhost de quem abria a página, e ninguém conseguia
+ * entrar — nem por e-mail, nem pelo Google. `localhost` fica só no `vite dev`.
+ */
+export const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3000/api' : '/api')
 
 const api = axios.create({
   baseURL: API_URL,

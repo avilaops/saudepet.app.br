@@ -2,8 +2,7 @@ import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, ShieldCheck, LogOut, ArrowLeft, Search, RefreshCw, KeyRound, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 // A tela pedia a rota sem `page` e mostrava a primeira página como se fosse a
 // plataforma inteira. O backend limita a 100 por página.

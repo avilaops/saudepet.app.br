@@ -1,8 +1,7 @@
 import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { DollarSign, ShieldCheck, RefreshCw, Search, Filter, RotateCcw, Activity, ArrowUpRight, CheckCircle2, XCircle, Clock } from 'lucide-react';
-
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+import { API_URL } from '../../services/api'
 
 export default function AdminFinanceiroAudit() {
   const [activeTab, setActiveTab] = useState('payments'); // 'payments' | 'webhooks'

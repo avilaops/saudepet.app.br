@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+import { API_URL } from '../services/api'
 
 /**
  * Entrada pelo Google. É o mesmo endpoint no login e no cadastro: o backend
