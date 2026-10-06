@@ -1,10 +1,11 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const cadastroAjusteVetTemplate = function ({
   nomeVet,
   motivo,
-  reenvioUrl = 'https://saudepet.app.br/app/vet/documentos'
+  reenvioUrl = urlDoSite('/veterinario/documentacao')
 }: DadosDoEmail) {
   const content = `
     <div>

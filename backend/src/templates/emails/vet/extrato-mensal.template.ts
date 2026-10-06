@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const extratoMensalVetTemplate = function ({
   nomeVet,
@@ -40,7 +41,7 @@ const extratoMensalVetTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${extratoUrl || 'https://saudepet.app.br/app/vet/financeiro'}" class="btn-primary" target="_blank">
+        <a href="${extratoUrl || urlDoSite('/veterinario/repasses')}" class="btn-primary" target="_blank">
           Ver Extrato Detalhado no App →
         </a>
       </div>

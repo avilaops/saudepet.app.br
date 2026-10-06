@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const alertaVacinaTemplate = function ({
   nomeTutor,
@@ -35,7 +36,7 @@ const alertaVacinaTemplate = function ({
       </p>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${solicitarVacinaUrl || 'https://saudepet.app.br/app/vacinas'}" class="btn-orange" target="_blank">
+        <a href="${solicitarVacinaUrl || urlDoSite('/tutor/solicitar')}" class="btn-orange" target="_blank">
           Solicitar Aplicação de Vacina em Casa →
         </a>
       </div>

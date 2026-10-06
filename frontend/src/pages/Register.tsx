@@ -162,7 +162,7 @@ export default function Register() {
               <button onClick={() => navigate('/login')} className="btn-primary w-full py-3 font-bold">
                 Fazer login com este e-mail
               </button>
-              <Link to="/forgot-password" className="text-primary text-sm font-semibold">
+              <Link to="/esqueci-senha" className="text-primary text-sm font-semibold">
                 Esqueci minha senha
               </Link>
               <button onClick={() => setStep('form')} className="btn-outline w-full py-2.5 text-sm">

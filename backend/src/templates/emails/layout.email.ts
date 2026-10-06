@@ -1,6 +1,7 @@
 /**
  * Layout base responsivo para todos os e-mails do ecossistema Saúde PET
  */
+import { baseDoSite, urlDoSite } from '../../config/site';
 /** O que o layout precisa para montar o corpo do e-mail. */
 interface Envelope {
   title: string;
@@ -9,8 +10,8 @@ interface Envelope {
 }
 
 const baseEmailLayout = function ({ title, content, previewText = '' }: Envelope) {
-  const logoUrl = 'https://saudepet.app.br/brand/logo-completa.png';
-  const siteUrl = 'https://saudepet.app.br';
+  const logoUrl = urlDoSite('/brand/logo-completa.png');
+  const siteUrl = baseDoSite();
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">

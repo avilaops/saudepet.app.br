@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const alertaSenhaAlteradaTemplate = function ({ nomeUsuario, dataHora, suporteUrl }: DadosDoEmail) {
   const content = `
@@ -31,7 +32,7 @@ const alertaSenhaAlteradaTemplate = function ({ nomeUsuario, dataHora, suporteUr
         <p style="margin: 6px 0 16px; color: #881337; font-size: 13px; line-height: 1.5;">
           Se você não fez essa mudança, sua conta pode ter sido acessada sem permissão. Recomendamos redefinir sua senha imediatamente e contatar nosso suporte.
         </p>
-        <a href="${suporteUrl || 'https://saudepet.app.br/suporte'}" style="color: #e11d48; font-weight: 700; font-size: 13px; text-decoration: underline;">
+        <a href="${suporteUrl || urlDoSite('/contato')}" style="color: #e11d48; font-weight: 700; font-size: 13px; text-decoration: underline;">
           Falar com o Suporte do Saúde PET →
         </a>
       </div>

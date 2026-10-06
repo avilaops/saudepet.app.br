@@ -164,6 +164,10 @@ function App() {
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/privacidade" element={<PrivacyPage />} />
                 <Route path="/tag/:id" element={<PublicPetIdentityTag />} />
+                {/* O QR code da carteira digital sempre gerou `/pet-tag/:id`, e há
+                    etiquetas impressas com esse endereço: ele precisa abrir a
+                    mesma página para sempre. */}
+                <Route path="/pet-tag/:id" element={<PublicPetIdentityTag />} />
                 {/* Vitrine pública do mercado. `/mercado/loja/*` (painel do lojista,
                     abaixo) vence estas rotas porque o roteador prefere o caminho
                     estático — e o slug `loja` é reservado no servidor. */}
@@ -179,6 +183,12 @@ function App() {
                 <Route path="/verificar-email" element={<VerifyEmail />} />
                 <Route path="/esqueci-senha" element={<ForgotPassword />} />
                 <Route path="/redefinir-senha" element={<ResetPassword />} />
+                {/* Os e-mails já enviados e os links antigos usam os nomes em inglês.
+                    Sem estas três, o catch-all abaixo jogava a pessoa em /app e o
+                    token do e-mail se perdia no caminho. */}
+                <Route path="/verify-email" element={<VerifyEmail />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/dev" element={<PrivateRoute allowedTypes={['super_admin']}><DevRoleSelect /></PrivateRoute>} />
                 <Route path="/dev/selecionar-papel" element={<PrivateRoute allowedTypes={['super_admin']}><DevRoleSelect /></PrivateRoute>} />
                 <Route path="/f/:id" element={<ResponderFormulario />} />

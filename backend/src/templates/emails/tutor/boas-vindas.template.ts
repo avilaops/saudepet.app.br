@@ -1,7 +1,8 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
-const boasVindasTutorTemplate = function ({ nomeTutor, appUrl = 'https://saudepet.app.br/app' }: DadosDoEmail) {
+const boasVindasTutorTemplate = function ({ nomeTutor, appUrl = urlDoSite('/app') }: DadosDoEmail) {
   const content = `
     <div style="text-align: center;">
       <span class="badge badge-teal">🐾 Boas-Vindas ao Saúde PET</span>

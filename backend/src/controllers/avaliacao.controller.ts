@@ -11,6 +11,7 @@ import {
 import { destinatariosAdmin } from '../services/notificacao-admin.service';
 import emailService from '../services/email.service';
 import type { createAvaliacaoSchema } from '../schemas/avaliacao.schema';
+import { urlDoSite } from '../config/site';
 
 // O corpo já passou pelo `validate(...)` da rota: é o que o Zod devolveu.
 type CriarAvaliacaoBody = z.infer<typeof createAvaliacaoSchema>;
@@ -220,7 +221,7 @@ async function avisarQualidade({ avaliacao, atendimento, nota, comentario, tenan
       comentario: comentario || null,
       nomeTutor: tutor?.nome || 'Tutor',
       nomeVet: veterinario?.usuario?.nome || 'Veterinário',
-      adminUrl: `https://saudepet.app.br/admin/atendimentos/${atendimento.id}/auditoria`
+      adminUrl: urlDoSite(`/admin/atendimentos/${atendimento.id}/auditoria`)
     });
   } catch (erro) {
     const mensagem = erro instanceof Error ? erro.message : String(erro);

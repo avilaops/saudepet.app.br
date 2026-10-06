@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "build": "vite build",
     "preview": "vite preview",
-    "prebuild": "node ../scripts/verificar-dados-falsos.mjs",
+    "prebuild": "node ../scripts/verificar-dados-falsos.mjs && node ../scripts/verificar-rotas.mjs",
     "postbuild": "node scripts/gerar-html-por-area.mjs"
   },
   "dependencies": {

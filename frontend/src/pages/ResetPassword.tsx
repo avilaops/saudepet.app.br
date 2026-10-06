@@ -61,7 +61,7 @@ export default function ResetPassword() {
             ) : !token ? (
               <div className="text-center py-4">
                 <p className="text-slate-700 mb-6">Este link é inválido ou expirou.</p>
-                <Link to="/forgot-password" className="text-primary font-semibold">
+                <Link to="/esqueci-senha" className="text-primary font-semibold">
                   Solicitar novo link
                 </Link>
               </div>

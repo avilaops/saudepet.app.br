@@ -1,6 +1,7 @@
 import type { StatusAtendimento, TipoAtendimento } from '@prisma/client';
 import prisma from '../config/database';
 import { destinatariosAdmin } from './notificacao-admin.service';
+import { urlDoSite } from '../config/site';
 
 const emailService = require('./email.service');
 
@@ -88,7 +89,7 @@ async function verificarSla(): Promise<ResultadoDoCiclo> {
           protocolo: String(solicitacao.id).slice(0, 8).toUpperCase(),
           bairroCidade: solicitacao.localizacao_cliente || solicitacao.tutor?.cidade || 'localização não informada',
           tempoDecorrido: rotuloDeEspera(espera),
-          adminUrl: 'https://saudepet.app.br/admin/operacoes'
+          adminUrl: urlDoSite('/admin/operacoes')
         });
       }
 

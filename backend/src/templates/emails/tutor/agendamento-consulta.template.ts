@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 /**
  * E-mails de agendamento para o TUTOR, num template só.
@@ -73,7 +74,7 @@ const agendamentoConsultaTutorTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="https://saudepet.app.br/tutor/agendamentos" class="btn-primary" target="_blank">
+        <a href="${urlDoSite('/tutor/agenda')}" class="btn-primary" target="_blank">
           Ver meus agendamentos →
         </a>
       </div>

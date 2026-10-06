@@ -20,6 +20,7 @@ import { buscarVinculoProfissional } from '../services/vinculo-atendimento.servi
 import type { createUserSchema, updateProfileSchema } from '../schemas/user.schema';
 
 import bcrypt from 'bcryptjs';
+import { urlDoSite } from '../config/site';
 
 // Corpos já validados pelo `validate(schema)` da rota.
 type CriarUsuarioBody = z.infer<typeof createUserSchema>;
@@ -280,7 +281,7 @@ class UserController {
       await TokenService.revokeUserRefreshTokens(userId);
       const token = await TokenService.createEmailVerificationToken(String(email), String(req.tenantId));
       try {
-        const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
+        const verifyUrl = urlDoSite(`/verificar-email?token=${token}`);
         await emailService.enviarEmailVerificacao(String(email), usuario.nome, verifyUrl);
       } catch (error) {
         console.warn('[USER] Não foi possível enviar a verificação do novo email');

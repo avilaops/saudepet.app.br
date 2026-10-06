@@ -12,9 +12,10 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
-    "build": "npm run verificar:dados-falsos && cd frontend && npm run build",
+    "build": "npm run verificar:dados-falsos && npm run verificar:rotas && cd frontend && npm run build",
     "start": "cd backend && npm start",
-    "verificar:dados-falsos": "node scripts/verificar-dados-falsos.mjs"
+    "verificar:dados-falsos": "node scripts/verificar-dados-falsos.mjs",
+    "verificar:rotas": "node scripts/verificar-rotas.mjs"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

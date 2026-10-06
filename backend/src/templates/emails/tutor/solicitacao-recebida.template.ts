@@ -1,5 +1,6 @@
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
+import { urlDoSite } from '../../../config/site';
 
 const solicitacaoRecebidaTemplate = function ({
   nomeTutor,
@@ -42,7 +43,7 @@ const solicitacaoRecebidaTemplate = function ({
       </div>
 
       <div style="text-align: center; margin-top: 28px;">
-        <a href="${trackingUrl || 'https://saudepet.app.br/app/chamados'}" class="btn-orange" target="_blank">
+        <a href="${trackingUrl || urlDoSite('/tutor/historico')}" class="btn-orange" target="_blank">
           Acompanhar Status em Tempo Real →
         </a>
       </div>

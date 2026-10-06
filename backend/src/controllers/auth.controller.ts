@@ -30,6 +30,7 @@ import type {
 } from '../schemas/auth-advanced.schema';
 
 import bcrypt from 'bcryptjs';
+import { urlDoSite } from '../config/site';
 
 // Corpos já validados pelo `validate(schema)` da rota.
 type RegisterBody = z.infer<typeof registerSchema>;
@@ -228,7 +229,7 @@ class AuthController {
 
     // Enviar email de verificação
     try {
-      const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
+      const verifyUrl = urlDoSite(`/verificar-email?token=${verificationToken}`);
       await emailService.enviarEmailVerificacao(email, nome, verifyUrl);
     } catch (emailError) {
       console.error('⚠️  Falha ao enviar email de verificação');
@@ -539,7 +540,7 @@ class AuthController {
 
     // Enviar email com token
     try {
-      const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+      const resetUrl = urlDoSite(`/redefinir-senha?token=${token}`);
 
       await emailService.enviarEmailResetSenha(email, usuario.nome, resetUrl);
       console.log('📧 [AUTH] Email de reset solicitado');
@@ -752,7 +753,7 @@ class AuthController {
 
     // Enviar email
     try {
-      const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
+      const verifyUrl = urlDoSite(`/verificar-email?token=${token}`);
 
       await emailService.enviarEmailVerificacao(email, usuario.nome, verifyUrl);
       console.log('📧 [AUTH] Email de verificação solicitado');

@@ -92,7 +92,7 @@ export default function Login() {
   useEffect(() => {
     const instalado = window.matchMedia?.('(display-mode: standalone)').matches
       || (window.navigator as any).standalone === true
-    if (instalado && !onboardingJaVisto()) navigate('/comecar', { replace: true })
+    if (instalado && !onboardingJaVisto()) navigate('/onboarding/tutor', { replace: true })
   }, [navigate])
 
   useEffect(() => {
@@ -229,7 +229,7 @@ export default function Login() {
               </Link>
             </div>
             <div className="mt-2 text-center">
-              <Link to="/forgot-password" className="text-slate-500 text-sm hover:text-primary">
+              <Link to="/esqueci-senha" className="text-slate-500 text-sm hover:text-primary">
                 Esqueci minha senha
               </Link>
             </div>
