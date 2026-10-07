@@ -2,6 +2,29 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-07 - Página de login
+
+### 🔧 Corrigido
+
+- **Quem já estava logado via o formulário de login de novo.** Abrir `/login` pelo atalho do
+  app, por um link antigo ou pelo "voltar" do navegador mostrava o formulário com a sessão
+  aberta, e a pessoa digitava a senha à toa. A tela passa a levar direto para a área da conta
+  (`/tutor`, `/veterinario`, `/admin`, `/dev`, ou o `?next=` quando houver), e todo
+  redirecionamento pós-login usa `replace`: o "voltar" não devolve mais o formulário.
+- **Campos de login sem nome e sem autofill.** Os rótulos não estavam ligados aos campos
+  (`htmlFor`/`id`) e faltava `autoComplete`: leitor de tela lia um campo sem nome e o
+  gerenciador de senhas do celular não reconhecia o formulário. Agora `email` e
+  `current-password`, com teclado de e-mail e sem autocorreção.
+- **Senha sem "mostrar/ocultar".** Botão com `aria-label` e `aria-pressed` ao lado do campo.
+- **Erro com `role="alert"`**, e o temporizador que o apaga é cancelado ao sair da tela.
+- **Tipos**: `handleSubmit` e o redirecionamento deixam de usar `any`.
+
+Pendência fora do código, confirmada no GitHub Actions: os quatro deploys desde a abertura
+deste repositório falharam em `failed to push ghcr.io/avilaops/saudepet.app.br-*: denied:
+permission_denied: read_package`. Os pacotes no GHCR existem de antes (repositório privado
+anterior) e este repositório não tem permissão de escrita neles, então a correção do login
+de 06/10 (`API_URL` em `/api`) ainda não chegou à produção por este caminho.
+
 ## [Não versionado] - 2026-09-11 - Auditoria, loja de demonstração fora do ar, nginx sem 502
 
 Auditoria completa de Roadmap, Todoist e produção em `docs/AUDITORIA_2026-09-11.md`, seguida
