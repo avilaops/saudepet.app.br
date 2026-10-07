@@ -178,7 +178,7 @@ Números do levantamento: **19 telas de admin, 8 públicas/auth, 14 do tutor,
 ### Demais telas de admin
 | Tela | Situação |
 | --- | --- |
-| `/admin/banners` | **OK**, a publicação sem senha pela rota de status foi fechada. Falta botão para `POST /:id/restore` |
+| `/admin/banners` | **OK**, a publicação sem senha pela rota de status foi fechada; desde 07/10 o botão "Desfazer" chama `POST /:id/restore` quando há versão anterior na auditoria |
 | `/admin/blog` | **CORRIGIDO**, a capa pode ser enviada como arquivo (o editor só aceitava URL de texto) |
 | `/admin/leads` | **OK**, com export CSV; **nada notifica a equipe** quando um lead entra |
 | `/admin/analytics` | **OK**, só leitura; `comparison` vem do backend e não é usado |

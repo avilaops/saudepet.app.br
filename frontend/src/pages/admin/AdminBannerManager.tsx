@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { 
   Plus, Edit3, Eye, Lock, RefreshCw, Upload, Image as ImageIcon, 
   Trash2, ShieldCheck, CheckCircle2, PauseCircle, Archive, AlertTriangle, 
-  ArrowUp, ArrowDown, Calendar, Link as LinkIcon, Monitor, Smartphone, X, Sparkles
+  ArrowUp, ArrowDown, Calendar, Link as LinkIcon, Monitor, Smartphone, X, Sparkles, RotateCcw
 } from 'lucide-react';
 import { API_URL } from '../../services/api'
 
@@ -271,9 +271,45 @@ export default function AdminBannerManager() {
       if (data.success) {
         setSuccessMessage(`Status do banner alterado para ${status}`);
         fetchAdminBanners();
+      } else {
+        setErrorMessage(data.message || 'Não foi possível alterar o status do banner.');
       }
     } catch (err: any) {
       console.error('Erro ao alterar status:', err);
+      setErrorMessage(err.message || 'Não foi possível alterar o status do banner.');
+    }
+  };
+
+  // Só faz sentido desfazer quando há uma versão anterior guardada: a listagem
+  // traz os últimos registros de auditoria, e é neles que o backend busca o
+  // estado a restaurar (`POST /:id/restore` responde 400 sem histórico).
+  const temVersaoAnterior = (banner: ApiPayload) =>
+    Array.isArray(banner.auditLogs) && banner.auditLogs.some((log: ApiPayload) => Boolean(log.previousVersion));
+
+  const handleRollback = async (banner: ApiPayload) => {
+    const confirmado = window.confirm(
+      `Desfazer a última alteração de "${banner.title}"?\n\nO banner volta ao estado anterior à última publicação ou edição registrada. A ação fica na auditoria e pode ser desfeita de novo.`
+    );
+    if (!confirmado) return;
+
+    setErrorMessage('');
+    setSuccessMessage('');
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/v1/admin/landing-banners/${banner.id}/restore`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await lerResposta(res);
+      if (data.success) {
+        setSuccessMessage(data.message || 'Versão anterior do banner restaurada.');
+        fetchAdminBanners();
+      } else {
+        setErrorMessage(data.message || 'Não foi possível restaurar a versão anterior.');
+      }
+    } catch (err: any) {
+      console.error('Erro ao restaurar banner:', err);
+      setErrorMessage(err.message || 'Não foi possível restaurar a versão anterior.');
     }
   };
 
@@ -525,6 +561,21 @@ export default function AdminBannerManager() {
                     >
                       <PauseCircle size={14} />
                       <span>Pausar</span>
+                    </button>
+                  )}
+
+                  {/* Desfazer: volta à versão guardada na auditoria. A rota
+                      existia desde a construção da tela e nenhum botão a
+                      chamava — restaurar só era possível pela API. */}
+                  {temVersaoAnterior(banner) && (
+                    <button
+                      onClick={() => handleRollback(banner)}
+                      className="px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-1 cursor-pointer"
+                      title="Restaurar a versão anterior deste banner"
+                      aria-label={`Desfazer última alteração do banner ${banner.title}`}
+                    >
+                      <RotateCcw size={14} />
+                      <span>Desfazer</span>
                     </button>
                   )}
 
