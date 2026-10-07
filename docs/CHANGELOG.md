@@ -2,6 +2,20 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-07 - Cadastro honesto sobre o e-mail de confirmação
+
+### 🔧 Corrigido
+
+- **O cadastro afirmava que o e-mail de confirmação tinha sido enviado mesmo quando o SMTP
+  recusava.** O controller engolia a falha e respondia "verifique seu email"; a tela do
+  veterinário mandava procurar na caixa de entrada um e-mail que nunca saiu. A conta continua
+  sendo criada (o link pode ser pedido de novo), mas `POST /auth/register` passa a devolver
+  `email_verificacao_enviado` e uma mensagem condizente, e `/register` mostra "Conta criada,
+  mas o e-mail não saiu" com o botão de pedir novo link em destaque. Três casos em
+  `tests/unit/controllers/cadastro-email-honesto.test.ts`.
+- **`docs/TELAS.md`** estava atrás do código em `/verify-email` (o formulário de pedir novo link
+  já existia) e em `/register`; as duas linhas foram atualizadas.
+
 ## [Não versionado] - 2026-09-11 - Auditoria, loja de demonstração fora do ar, nginx sem 502
 
 Auditoria completa de Roadmap, Todoist e produção em `docs/AUDITORIA_2026-09-11.md`, seguida
