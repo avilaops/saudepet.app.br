@@ -53,6 +53,10 @@ export default function Register() {
   const [step, setStep] = useState('form') // 'form' | 'confirmacao' | 'ja_cadastrado'
   const [reenviando, setReenviando] = useState(false)
   const [reenvio, setReenvio] = useState<ApiPayload | null>(null) // { ok: boolean, texto: string }
+  // O backend diz se o e-mail de confirmação saiu de fato. Quando o SMTP
+  // falha, a conta existe mas a caixa de entrada fica vazia — e a tela
+  // afirmava "enviamos um link" assim mesmo.
+  const [emailEnviado, setEmailEnviado] = useState(true)
   const navigate = useNavigate()
   const { loginWithToken } = useAuth()
 
@@ -115,6 +119,7 @@ export default function Register() {
         return
       }
 
+      setEmailEnviado(data?.email_verificacao_enviado !== false)
       setStep('confirmacao')
     } catch (err: any) {
       const status = err.response?.status
@@ -140,7 +145,9 @@ export default function Register() {
         email: form.email.trim().toLowerCase(),
         tenant_slug: 'saudepet'
       })
-      setReenvio({ ok: true, texto: 'Novo e-mail de confirmação enviado com sucesso!' })
+      // A rota de reenvio responde de forma neutra de propósito (não revela
+      // se o e-mail existe), então a mensagem aqui também é.
+      setReenvio({ ok: true, texto: 'Pedido recebido. Se o e-mail estiver certo, o link chega em instantes.' })
     } catch (err: any) {
       setReenvio({ ok: false, texto: err.response?.data?.error || 'Não foi possível reenviar agora. Tente novamente em instantes.' })
     } finally {
@@ -181,21 +188,32 @@ export default function Register() {
         <div className="flex flex-col items-center justify-center min-h-screen p-6 py-10">
           <div className="w-full max-w-md card text-center p-6">
             <BrandLogo className="mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2 text-slate-800">Confirme seu e-mail</h2>
+            <h2 className="text-2xl font-bold mb-2 text-slate-800">
+              {emailEnviado ? 'Confirme seu e-mail' : 'Conta criada, mas o e-mail não saiu'}
+            </h2>
             {perfil === 'veterinario' && (
               <p className="bg-amber-50 border border-amber-200 text-amber-800 text-xs rounded-xl px-3 py-2 mb-4">
                 Sua conta profissional está <strong>pendente</strong>: depois de confirmar o e-mail, a equipe confere o CRMV
                 e avisa quando a área do veterinário for liberada.
               </p>
             )}
-            <p className="text-slate-600 text-sm mb-4">Enviamos um link de confirmação para:</p>
+            {emailEnviado ? (
+              <p className="text-slate-600 text-sm mb-4">Enviamos um link de confirmação para:</p>
+            ) : (
+              <p className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-3 py-2 mb-4" role="alert">
+                Não conseguimos enviar o link de confirmação agora. Sua conta está guardada; peça um novo link
+                em alguns instantes, pelo botão abaixo.
+              </p>
+            )}
             <div className="bg-teal-50 border border-teal-200 text-teal-800 font-semibold py-2 px-4 rounded-xl text-sm mb-6 inline-block">
               {form.email}
             </div>
-            <p className="text-slate-500 text-xs mb-6">
-              Verifique sua caixa de entrada (ou a pasta de spam) e clique no link para ativar a conta.
-              Depois é só entrar com o e-mail e a senha que você escolheu.
-            </p>
+            {emailEnviado && (
+              <p className="text-slate-500 text-xs mb-6">
+                Verifique sua caixa de entrada (ou a pasta de spam) e clique no link para ativar a conta.
+                Depois é só entrar com o e-mail e a senha que você escolheu.
+              </p>
+            )}
             {reenvio && (
               <div
                 className={`text-xs p-3 rounded-xl mb-4 font-semibold border ${reenvio.ok ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}`}
@@ -205,10 +223,17 @@ export default function Register() {
               </div>
             )}
             <div className="flex flex-col gap-3">
-              <button onClick={handleReenviar} disabled={reenviando} className="btn-outline w-full py-2.5 text-sm">
-                {reenviando ? 'Reenviando…' : 'Reenviar e-mail de confirmação'}
+              <button
+                onClick={handleReenviar}
+                disabled={reenviando}
+                className={emailEnviado ? 'btn-outline w-full py-2.5 text-sm' : 'btn-primary w-full py-3'}
+              >
+                {reenviando ? 'Enviando…' : emailEnviado ? 'Reenviar e-mail de confirmação' : 'Pedir novo link de confirmação'}
               </button>
-              <button onClick={() => navigate('/login')} className="btn-primary w-full py-3">
+              <button
+                onClick={() => navigate('/login')}
+                className={emailEnviado ? 'btn-primary w-full py-3' : 'btn-outline w-full py-2.5 text-sm'}
+              >
                 Ir para o login
               </button>
             </div>

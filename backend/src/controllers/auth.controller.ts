@@ -227,10 +227,16 @@ class AuthController {
     // Criar token de verificação de email
     const verificationToken = await TokenService.createEmailVerificationToken(email, tenant_id);
 
-    // Enviar email de verificação
+    // Enviar email de verificação. A falha não desfaz o cadastro (a conta
+    // existe e o link pode ser pedido de novo), mas também não pode ser
+    // escondida: a resposta dizia "verifique seu email" mesmo quando o SMTP
+    // tinha recusado, e a tela mandava a pessoa procurar na caixa de entrada
+    // um e-mail que nunca saiu. `email_verificacao_enviado` diz a verdade.
+    let emailVerificacaoEnviado = false;
     try {
       const verifyUrl = urlDoSite(`/verificar-email?token=${verificationToken}`);
-      await emailService.enviarEmailVerificacao(email, nome, verifyUrl);
+      const envio = await emailService.enviarEmailVerificacao(email, nome, verifyUrl);
+      emailVerificacaoEnviado = envio.success === true;
     } catch (emailError) {
       console.error('⚠️  Falha ao enviar email de verificação');
     }
@@ -242,10 +248,14 @@ class AuthController {
       email, phone: telefone, ip, userAgent
     }, { content_name: tipo_usuario }).catch(() => {});
 
+    const mensagemDoEmail = emailVerificacaoEnviado
+      ? 'Verifique seu email para ativar sua conta.'
+      : 'Não conseguimos enviar o email de confirmação agora; peça um novo link em instantes.';
+
     return res.status(201).json({
       message: tipo_usuario === 'veterinario'
-        ? 'Cadastro realizado! Aguarde aprovação do administrador. Verifique seu email para ativar sua conta.'
-        : 'Cadastro realizado com sucesso! Verifique seu email para ativar sua conta.',
+        ? `Cadastro realizado! Aguarde aprovação do administrador. ${mensagemDoEmail}`
+        : `Cadastro realizado com sucesso! ${mensagemDoEmail}`,
       usuario: {
         id: usuario.id,
         nome: usuario.nome,
@@ -254,6 +264,7 @@ class AuthController {
         cidade: usuario.cidade,
         email_verificado: false
       },
+      email_verificacao_enviado: emailVerificacaoEnviado,
       access_token,
       refresh_token
     });
