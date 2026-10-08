@@ -59,6 +59,7 @@ deste repositório falharam em `failed to push ghcr.io/avilaops/saudepet.app.br-
 permission_denied: read_package`. Os pacotes no GHCR existem de antes (repositório privado
 anterior) e este repositório não tem permissão de escrita neles, então a correção do login
 de 06/10 (`API_URL` em `/api`) ainda não chegou à produção por este caminho.
+
 ## [Não versionado] - 2026-10-07 - Cadastro honesto sobre o e-mail de confirmação
 
 ### 🔧 Corrigido
