@@ -103,6 +103,12 @@ O contêiner roda em UTC e o público é brasileiro. Nada de `toLocaleDateString
 Data sem hora é gravada como meia-noite em UTC. Tratada como instante no fuso do Brasil,
 recua um dia.
 
+Regra de negócio com hora também fala do relógio do Brasil, não do servidor: grade de
+atendimento, "hoje", "este mês", "às 9h do dia 2". Nada de `getHours()`, `getDay()`,
+`setHours(0, 0, 0, 0)` ou `new Date(ano, mes, 1)` em regra de negócio no backend; use
+`relogioDeParede()`, `instanteDoRelogio()`, `diaPedido()`, `inicioDoDiaBr()` e
+`inicioDoMesBr()`. Em teste, escreva o horário com fuso (`'2026-09-02T09:00:00-03:00'`).
+
 ### Módulos que exportam com `module.exports`
 
 Vários serviços e controllers terminam com `module.exports = X` e também `export default X`.

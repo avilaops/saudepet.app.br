@@ -1,3 +1,4 @@
+import { inicioDoMesBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import prisma from '../config/database';
 import { ValidationError } from '../middleware/error.middleware';
@@ -148,9 +149,7 @@ export async function pedidos(req: RequestAutenticada, res: Response) {
  * porque só o primeiro, sozinho, dá a impressão errada de receita.
  */
 export async function resumoFinanceiro(req: RequestAutenticada, res: Response) {
-  const inicioDoMes = new Date();
-  inicioDoMes.setDate(1);
-  inicioDoMes.setHours(0, 0, 0, 0);
+  const inicioDoMes = inicioDoMesBr(); // dia 1, meia-noite de Brasília
 
   // O que virou dinheiro de verdade: pedido pago que não foi cancelado nem
   // devolvido. `aguardando_pagamento` não entra — cobrança gerada não é receita.

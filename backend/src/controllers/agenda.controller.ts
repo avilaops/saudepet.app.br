@@ -1,3 +1,4 @@
+import { diaPedido } from '../utils/datas';
 import type { Request } from 'express';
 import type { Agendamento, StatusAgendamento } from '@prisma/client';
 import prisma from '../config/database';
@@ -158,8 +159,8 @@ class AgendaController {
   getHorariosDisponiveis = asyncHandler(async (req, res) => {
     const dataConsulta = req.query.dataConsulta as string | undefined;
 
-    const dataObj = dataConsulta ? new Date(dataConsulta) : new Date();
-    const diaSemana = dataObj.getDay();
+    // Dia da semana no calendário do Brasil, não no relógio do servidor.
+    const diaSemana = diaPedido(dataConsulta || new Date()).diaDaSemana;
 
     const agendas = await prisma.agendaDisponivel.findMany({
       where: {

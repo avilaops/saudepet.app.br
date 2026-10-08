@@ -1,3 +1,4 @@
+import { hojeComoDiaDeCalendario } from '../utils/datas';
 import type { z } from 'zod';
 import prisma from '../config/database';
 import { NotFoundError, asyncHandler } from '../middleware/error.middleware';
@@ -40,8 +41,10 @@ class LembreteController {
 
     // O corte é por dia, não por hora: um lembrete marcado para hoje de manhã não
     // vira "atrasado" à tarde.
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
+    // `data_lembrete` é dia de calendário (meia-noite UTC): "hoje" precisa ser
+    // o dia que o Brasil está vivendo, na mesma régua. Com o relógio do
+    // servidor, depois das 21h o lembrete de hoje já contava como atrasado.
+    const hoje = hojeComoDiaDeCalendario();
 
     const pendentes = lembretes.filter((item) => !item.concluido);
 

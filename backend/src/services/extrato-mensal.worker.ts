@@ -1,3 +1,4 @@
+import { inicioDoMesBr, relogioDeParede } from '../utils/datas';
 import prisma from '../config/database';
 
 /**
@@ -38,14 +39,17 @@ const emReais = (valor: number) =>
   valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export function ehJanelaDeEnvio(agora = new Date()): boolean {
-  return agora.getDate() === DIA_DO_ENVIO && agora.getHours() === HORA_DO_ENVIO;
+  // Dia e hora do relógio do Brasil: o servidor roda em UTC.
+  const relogio = relogioDeParede(agora);
+  return relogio.dia === DIA_DO_ENVIO && Math.floor(relogio.minutos / 60) === HORA_DO_ENVIO;
 }
 
 /** Primeiro e último instante do mês anterior ao de referência. */
 export function mesAnterior(referencia = new Date()) {
-  const inicio = new Date(referencia.getFullYear(), referencia.getMonth() - 1, 1, 0, 0, 0, 0);
-  const fim = new Date(referencia.getFullYear(), referencia.getMonth(), 1, 0, 0, 0, 0);
-  return { inicio, fim, rotulo: `${MESES[inicio.getMonth()]}/${inicio.getFullYear()}` };
+  const inicio = inicioDoMesBr(referencia, -1);
+  const fim = inicioDoMesBr(referencia);
+  const mes = relogioDeParede(inicio);
+  return { inicio, fim, rotulo: `${MESES[mes.mes - 1]}/${mes.ano}` };
 }
 
 export type ResultadoDoExtrato = { veterinarios: number; enviados: number };

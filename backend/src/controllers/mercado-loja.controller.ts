@@ -1,3 +1,4 @@
+import { inicioDoMesBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import prisma from '../config/database';
 import { ForbiddenError, ValidationError } from '../middleware/error.middleware';
@@ -340,9 +341,7 @@ export async function cancelar(req: RequestAutenticada, res: Response) {
 /** O que a loja precisa ver ao abrir o painel: fila, faturamento e pendência. */
 export async function painel(req: RequestAutenticada, res: Response) {
   const loja = await lojaDoResponsavel(tenantDe(req), usuarioDe(req));
-  const inicioDoMes = new Date();
-  inicioDoMes.setDate(1);
-  inicioDoMes.setHours(0, 0, 0, 0);
+  const inicioDoMes = inicioDoMesBr(); // dia 1, meia-noite de Brasília
 
   const [aSeparar, prontos, doMes, produtosAtivos, produtosSemPreco] = await Promise.all([
     prisma.pedidoMercado.count({ where: { loja_id: loja.id, status: { in: ['pago', 'em_separacao'] } } }),

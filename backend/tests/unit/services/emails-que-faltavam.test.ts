@@ -153,13 +153,19 @@ describe('Extrato mensal', () => {
 
   it('a janela é o dia 2 pela manhã, não o dia 1', async () => {
     // Dia 1 é cedo: o fechamento do último dia ainda está liquidando.
-    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-01T09:00:00'))).toBe(false);
-    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-02T09:00:00'))).toBe(true);
-    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-02T15:00:00'))).toBe(false);
+    // Horas de Brasília, escritas com o fuso: o servidor roda em UTC.
+    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-01T09:00:00-03:00'))).toBe(false);
+    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-02T09:00:00-03:00'))).toBe(true);
+    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-02T15:00:00-03:00'))).toBe(false);
+    // 09:00 em UTC são 06:00 em Brasília: ainda não é a janela.
+    expect(extrato.ehJanelaDeEnvio(new Date('2026-09-02T09:00:00Z'))).toBe(false);
   });
 
   it('o mês de referência é o anterior, com a virada do ano certa', () => {
-    const janeiro = extrato.mesAnterior(new Date('2027-01-02T09:00:00'));
+    const janeiro = extrato.mesAnterior(new Date('2027-01-02T09:00:00-03:00'));
     expect(janeiro.rotulo).toBe('Dezembro/2026');
+    // O mês vai da meia-noite de Brasília do dia 1 à do dia 1 seguinte.
+    expect(janeiro.inicio.toISOString()).toBe('2026-12-01T03:00:00.000Z');
+    expect(janeiro.fim.toISOString()).toBe('2027-01-01T03:00:00.000Z');
   });
 });

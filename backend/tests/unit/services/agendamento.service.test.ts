@@ -6,13 +6,16 @@ const VET = 'vet-1';
 const TUTOR = 'tutor-1';
 const PET = 'pet-1';
 
-// Uma data futura estável para os testes não dependerem de "hoje".
+const { instanteDoRelogio, relogioDeParede } = require('../../../src/utils/datas');
+
+// Uma data futura estável para os testes não dependerem de "hoje". As horas
+// são do relógio do Brasil, que é o da grade do veterinário — não o da máquina
+// que roda o teste (ver `agendamento-fuso.test.ts`).
 function amanhaAs(hora, minuto = 0) {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  d.setHours(hora, minuto, 0, 0);
-  return d;
+  const hoje = relogioDeParede(new Date());
+  return instanteDoRelogio(hoje.ano, hoje.mes, hoje.dia + 1, hora * 60 + minuto);
 }
+const diaDaSemanaDe = (instante) => relogioDeParede(instante).diaDaSemana;
 
 describe('Agendamento de consulta', () => {
   beforeEach(() => {
@@ -171,7 +174,7 @@ describe('Agendamento de consulta', () => {
     it('recusa horário fora da faixa declarada', async () => {
       const alvo = amanhaAs(20);
       prisma.agendaDisponivel.findMany.mockResolvedValue([
-        { dia_semana: alvo.getDay(), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
+        { dia_semana: diaDaSemanaDe(alvo), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
       ]);
 
       await expect(
@@ -190,7 +193,7 @@ describe('Agendamento de consulta', () => {
     it('aceita horário que cabe inteiro dentro da faixa', async () => {
       const alvo = amanhaAs(9);
       prisma.agendaDisponivel.findMany.mockResolvedValue([
-        { dia_semana: alvo.getDay(), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
+        { dia_semana: diaDaSemanaDe(alvo), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
       ]);
 
       await expect(
@@ -210,7 +213,7 @@ describe('Agendamento de consulta', () => {
     it('recusa consulta que começa dentro da faixa mas termina depois dela', async () => {
       const alvo = amanhaAs(17, 30);
       prisma.agendaDisponivel.findMany.mockResolvedValue([
-        { dia_semana: alvo.getDay(), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
+        { dia_semana: diaDaSemanaDe(alvo), hora_inicio: '08:00', hora_fim: '18:00', ativo: true }
       ]);
 
       await expect(
@@ -232,7 +235,7 @@ describe('Agendamento de consulta', () => {
     it('não oferece slot que colide com agendamento existente', async () => {
       const dia = amanhaAs(0);
       prisma.agendaDisponivel.findMany.mockResolvedValue([
-        { dia_semana: dia.getDay(), hora_inicio: '08:00', hora_fim: '11:00', ativo: true }
+        { dia_semana: diaDaSemanaDe(dia), hora_inicio: '08:00', hora_fim: '11:00', ativo: true }
       ]);
       prisma.agendamento.findMany.mockResolvedValue([
         { inicio: amanhaAs(9), fim: amanhaAs(10) }
@@ -245,7 +248,7 @@ describe('Agendamento de consulta', () => {
         duracaoMinutos: 60
       });
 
-      const horas = livres.map((s) => new Date(s.inicio).getHours());
+      const horas = livres.map((s) => Math.floor(relogioDeParede(s.inicio).minutos / 60));
       expect(horas).toContain(8);
       expect(horas).not.toContain(9); // ocupado
       expect(horas).toContain(10);

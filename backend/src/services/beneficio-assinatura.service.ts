@@ -1,3 +1,4 @@
+import { inicioDoMesBr } from '../utils/datas';
 import type { StatusAtendimento } from '@prisma/client';
 import prisma from '../config/database';
 
@@ -32,7 +33,8 @@ const COBRANCA_QUE_CONSOME = ['PAID', 'CREATED', 'PENDING', 'PROCESSING', 'AUTHO
 
 /** Início do mês corrente, que é a janela do benefício. */
 export function inicioDoMes(referencia = new Date()): Date {
-  return new Date(referencia.getFullYear(), referencia.getMonth(), 1);
+  // Dia 1, meia-noite de Brasília: a consulta das 22h do dia 31 ainda é do mês que termina.
+  return inicioDoMesBr(referencia);
 }
 
 /**

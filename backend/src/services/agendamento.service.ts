@@ -1,3 +1,4 @@
+import { diaPedido, instanteDoRelogio, relogioDeParede } from '../utils/datas';
 import type { StatusAgendamento } from '@prisma/client';
 import prisma from '../config/database';
 import { ValidationError, NotFoundError } from '../middleware/error.middleware';
@@ -75,20 +76,25 @@ export async function dentroDaGrade(
   { tenantId, veterinarioId, inicio, fim }: Intervalo & { tenantId: string; veterinarioId: string },
   tx: Transacao = prisma
 ): Promise<boolean> {
+  // A grade é o relógio do veterinário ("09:00" de Brasília), não o do
+  // servidor, que roda em UTC.
+  const comeca = relogioDeParede(inicio);
+  const termina = relogioDeParede(fim);
+
   const grade = await tx.agendaDisponivel.findMany({
     where: {
       tenant_id: tenantId,
       veterinario_id: veterinarioId,
-      dia_semana: inicio.getDay(),
+      dia_semana: comeca.diaDaSemana,
       ativo: true
     }
   });
 
   if (grade.length === 0) return true;
 
-  const doRelogio = (data: Date) => data.getHours() * 60 + data.getMinutes();
-  const minutosInicio = doRelogio(inicio);
-  const minutosFim = doRelogio(fim);
+  const minutosInicio = comeca.minutos;
+  // Consulta que atravessa a meia-noite termina "depois" do fim de qualquer faixa.
+  const minutosFim = termina.dia === comeca.dia ? termina.minutos : termina.minutos + 24 * 60;
 
   return grade.some(
     (faixa: { hora_inicio: string; hora_fim: string }) =>
@@ -392,20 +398,23 @@ export async function horariosLivres({ tenantId, veterinarioId, data, duracaoMin
   data: string | Date;
   duracaoMinutos?: number;
 }): Promise<Array<{ inicio: string; fim: string }>> {
-  const dia = new Date(data);
-  if (Number.isNaN(dia.getTime())) {
+  if (Number.isNaN(new Date(data).getTime())) {
     throw new ValidationError('Data inválida.');
   }
+  // O dia pedido é um dia do calendário do Brasil, e as faixas da grade são
+  // horas do relógio do Brasil. Até 08/10/2026 as duas coisas eram lidas no
+  // relógio do servidor (UTC): a grade "09:00–17:00" era oferecida ao tutor
+  // das 06:00 às 14:00.
+  const dia = diaPedido(data);
 
   const grade = await prisma.agendaDisponivel.findMany({
-    where: { tenant_id: tenantId, veterinario_id: veterinarioId, dia_semana: dia.getDay(), ativo: true },
+    where: { tenant_id: tenantId, veterinario_id: veterinarioId, dia_semana: dia.diaDaSemana, ativo: true },
     orderBy: { hora_inicio: 'asc' }
   });
 
   if (grade.length === 0) return [];
 
-  const inicioDoDia = new Date(dia);
-  inicioDoDia.setHours(0, 0, 0, 0);
+  const inicioDoDia = instanteDoRelogio(dia.ano, dia.mes, dia.dia);
   const fimDoDia = new Date(inicioDoDia.getTime() + DIA_EM_MS);
 
   const ocupados = await prisma.agendamento.findMany({
@@ -423,10 +432,8 @@ export async function horariosLivres({ tenantId, veterinarioId, data, duracaoMin
   const livres: Array<{ inicio: string; fim: string }> = [];
 
   for (const faixa of grade as Array<{ hora_inicio: string; hora_fim: string }>) {
-    const cursor = new Date(inicioDoDia);
-    cursor.setMinutes(emMinutos(faixa.hora_inicio), 0, 0);
-    const limite = new Date(inicioDoDia);
-    limite.setMinutes(emMinutos(faixa.hora_fim), 0, 0);
+    const cursor = instanteDoRelogio(dia.ano, dia.mes, dia.dia, emMinutos(faixa.hora_inicio));
+    const limite = instanteDoRelogio(dia.ano, dia.mes, dia.dia, emMinutos(faixa.hora_fim));
 
     while (cursor.getTime() + duracao * MINUTO_EM_MS <= limite.getTime()) {
       const slotInicio = new Date(cursor);

@@ -1,3 +1,4 @@
+import { inicioDoDiaBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import type { Prisma } from '@prisma/client';
 import type { z } from 'zod';
@@ -51,7 +52,7 @@ function periodFromQuery(query: DashboardQuery) {
   const now = query.to ? new Date(query.to) : new Date();
   let from: Date;
   if (query.range === 'custom') from = new Date(String(query.from));
-  else if (query.range === 'today') from = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  else if (query.range === 'today') from = inicioDoDiaBr(now);
   else from = new Date(now.getTime() - (query.range === '7d' ? 7 : 30) * 86400000);
   if (from >= now) throw new ValidationError('Período inválido');
   const previousFrom = new Date(from.getTime() - (now.getTime() - from.getTime()));

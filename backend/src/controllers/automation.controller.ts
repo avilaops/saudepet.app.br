@@ -1,3 +1,4 @@
+import { inicioDoDiaBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import prisma from '../config/database';
 
@@ -74,8 +75,7 @@ export async function registrarRastreio(req: Request, res: Response) {
 }
 
 export async function operacaoCuritiba(_req: Request, res: Response) {
-  const inicio = new Date();
-  inicio.setHours(0, 0, 0, 0);
+  const inicio = inicioDoDiaBr();
   const [veterinariosPr, tutoresCuritiba, solicitacoes, pagamentos, avaliacoes] = await Promise.all([
     prisma.veterinario.groupBy({ by: ['status_credenciamento'], where: { crmv_uf: 'PR' }, _count: { _all: true } }),
     prisma.usuario.count({ where: { tipo_usuario: 'tutor', cidade: { contains: 'Curitiba', mode: 'insensitive' } } }),

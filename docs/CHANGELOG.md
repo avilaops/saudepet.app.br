@@ -2,6 +2,22 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Agenda no relógio do Brasil
+
+### 🔧 Corrigido
+
+- **A grade do veterinário era lida em UTC.** Quem cadastrava atendimento das 09:00 às 17:00
+  era oferecido ao tutor das 06:00 às 14:00 (horário de Brasília): o cálculo dos horários
+  livres e a conferência "cabe na grade?" usavam o relógio do servidor. Achado ao exercitar a
+  agenda em produção com as contas de teste. `backend/src/utils/datas.ts` ganhou o relógio de
+  parede do Brasil (`relogioDeParede`, `instanteDoRelogio`, `diaPedido`).
+- **"Hoje" e "este mês" começavam às 21h do dia anterior.** O contador de solicitações de hoje
+  do painel, o faturamento do mês do Mercado (admin e loja), os relatórios mensais e o extrato
+  mensal do veterinário, a janela mensal do benefício de assinatura e os lembretes "atrasados"
+  passam a virar à meia-noite de Brasília. O extrato mensal saía às 06:00 em vez das 09:00.
+- Os testes de agenda montavam horários no fuso da máquina; agora usam o relógio do Brasil e
+  passam com a máquina em qualquer fuso.
+
 ## [Não versionado] - 2026-10-08 - Retificação de receita e horários escritos pelo servidor
 
 ### 🔧 Corrigido

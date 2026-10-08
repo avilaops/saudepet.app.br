@@ -1,3 +1,4 @@
+import { inicioDoMesBr, relogioDeParede } from '../utils/datas';
 import prisma from '../config/database';
 
 /**
@@ -38,12 +39,15 @@ export interface FaturamentoDoMes {
   atendimentos: number;
 }
 
+// Mês do calendário do Brasil: o servidor roda em UTC, e o repasse das 22h do
+// dia 31 é do mês que termina, não do seguinte.
 function inicioDoMes(data: Date = new Date()): Date {
-  return new Date(data.getFullYear(), data.getMonth(), 1);
+  return inicioDoMesBr(data);
 }
 
 function chaveDoMes(data: Date): string {
-  return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}`;
+  const relogio = relogioDeParede(data);
+  return `${relogio.ano}-${String(relogio.mes).padStart(2, '0')}`;
 }
 
 /**
@@ -99,7 +103,7 @@ export async function faturamentoPorMes({
 }): Promise<FaturamentoDoMes[]> {
   const quantidade = Math.min(Math.max(Number(meses) || 6, 1), 24);
   const hoje = new Date();
-  const inicio = new Date(hoje.getFullYear(), hoje.getMonth() - (quantidade - 1), 1);
+  const inicio = inicioDoMesBr(hoje, -(quantidade - 1));
 
   const splits = await prisma.paymentSplit.findMany({
     where: {
@@ -113,10 +117,10 @@ export async function faturamentoPorMes({
 
   const balde = new Map<string, FaturamentoDoMes>();
   for (let i = 0; i < quantidade; i += 1) {
-    const mes = new Date(hoje.getFullYear(), hoje.getMonth() - (quantidade - 1) + i, 1);
+    const mes = inicioDoMesBr(hoje, -(quantidade - 1) + i);
     balde.set(chaveDoMes(mes), {
       mes: chaveDoMes(mes),
-      rotulo: `${String(mes.getMonth() + 1).padStart(2, '0')}/${String(mes.getFullYear()).slice(2)}`,
+      rotulo: `${chaveDoMes(mes).slice(5)}/${chaveDoMes(mes).slice(2, 4)}`,
       valor: 0,
       atendimentos: 0
     });

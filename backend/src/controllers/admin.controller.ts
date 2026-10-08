@@ -1,3 +1,4 @@
+import { inicioDoDiaBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import type { Prisma, StatusAtendimento, TipoUsuario } from '@prisma/client';
 import prisma from '../config/database';
@@ -107,7 +108,7 @@ class AdminController {
       prisma.solicitacao.count({
         where: tenant({
           criado_em: {
-            gte: new Date(new Date().setHours(0, 0, 0, 0))
+            gte: inicioDoDiaBr() // meia-noite de Brasília, não de UTC
           }
         })
       }),
