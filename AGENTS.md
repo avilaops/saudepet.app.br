@@ -91,6 +91,24 @@ backend, testes, scripts, seeds e configurações são `.ts` (`.mts` nos scripts
   com `ts-node`, que o projeto não usa), `frontend/index.html` (entrada do Vite), os `.ps1`
   de Windows e os `.sh`/`.py` de operação.
 
+### Datas
+
+O contêiner roda em UTC e o público é brasileiro. Nada de `toLocaleDateString()` solto:
+
+- **Backend** (`backend/src/utils/datas.ts`): `dataBr()` e `dataHoraBr()` para instante,
+  `diaDeCalendarioBr()` para data sem hora (vacina, próxima dose, retorno, lembrete).
+- **Frontend** (`frontend/src/lib/datas.ts`): `dataDeCalendario()` e `dataLocal()` para data
+  sem hora; `formatDate` do `VetUI` já passa por eles.
+
+Data sem hora é gravada como meia-noite em UTC. Tratada como instante no fuso do Brasil,
+recua um dia.
+
+### Módulos que exportam com `module.exports`
+
+Vários serviços e controllers terminam com `module.exports = X` e também `export default X`.
+Neles `require('...').default` é `undefined`, e o TypeScript não avisa. Use `import X from`
+ou `require('...')` direto; `tests/unit/importacao-por-default.test.ts` reprova o resto.
+
 ### Páginas públicas: um `.tsx` só, desenhado também no servidor
 
 Toda página é `.tsx` em `frontend/src/pages`. Não existe HTML de página escrito à mão: a

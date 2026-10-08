@@ -1,3 +1,5 @@
+import { dataBr, diaDeCalendarioBr } from '../utils/datas';
+import AuditService from '../services/audit.service';
 import type { PdfService } from '../services/pdf.service';
 import { logoParaDocumento } from '../services/logo-veterinario.service';
 import type { Request, Response } from 'express';
@@ -872,7 +874,7 @@ class SolicitacaoController {
       nomeVet: vetUser?.nome,
       crmvVet: veterinario.crmv,
       ufCrmv: veterinario.crmv_uf || 'SP',
-      dataAtendimento: new Date().toLocaleDateString('pt-BR'),
+      dataAtendimento: dataBr(),
       // Logo do consultório no cabeçalho, quando o veterinário enviou um.
       logoVet: await logoParaDocumento(veterinario)
     };
@@ -919,8 +921,9 @@ class SolicitacaoController {
         alergias: alergiasDoPet,
         vacinas: vacinasAplicadas.map((item) => ({
           ...item,
-          data_aplicacao: (item.data_aplicacao || agora).toLocaleDateString('pt-BR'),
-          proxima_dose: item.proxima_dose ? item.proxima_dose.toLocaleDateString('pt-BR') : null
+          // Dia de calendário quando o veterinário informou; sem data, é "agora".
+          data_aplicacao: item.data_aplicacao ? diaDeCalendarioBr(item.data_aplicacao) : dataBr(agora),
+          proxima_dose: item.proxima_dose ? diaDeCalendarioBr(item.proxima_dose) : null
         })),
         // O documento registra que existem fotos e o que cada uma mostra; a
         // imagem fica no aplicativo. Falhar aqui não pode impedir o fechamento.
@@ -932,7 +935,7 @@ class SolicitacaoController {
           })
           .catch(() => []),
         retornoSugerido: registro.retorno_sugerido_em
-          ? new Date(registro.retorno_sugerido_em).toLocaleDateString('pt-BR')
+          ? diaDeCalendarioBr(registro.retorno_sugerido_em)
           : null
       });
       prontuario_pdf_url = resultadoProntuario.cdnUrl;
@@ -1517,7 +1520,12 @@ class SolicitacaoController {
       receitaTexto: receita
     });
 
-    (require('../services/audit.service') as typeof import('../services/audit.service')).default.logForensicEvent({
+    // Mesmo erro do gerador de PDF (08/10/2026): esta linha lia o serviço por
+    // `require(...).default`, que não existe num módulo que exporta com
+    // `module.exports`. A retificação era gravada, o tutor era avisado e o
+    // veterinário recebia erro 500 — sem trilha de auditoria e com o convite
+    // a tentar de novo, gerando outra versão do documento.
+    AuditService.logForensicEvent({
       req,
       entityType: 'Solicitacao',
       entityId: id,

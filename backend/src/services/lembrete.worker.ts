@@ -1,3 +1,4 @@
+import { diaDeCalendarioBr } from '../utils/datas';
 import type { Prisma } from '@prisma/client';
 import prisma from '../config/database';
 import * as pushService from './push.service';
@@ -43,7 +44,8 @@ interface ResultadoDoCiclo {
 }
 
 function formatarData(data: Date | string | number): string {
-  return new Date(data).toLocaleDateString('pt-BR');
+  // `data_lembrete` é dia de calendário: o dia é o que está escrito.
+  return diaDeCalendarioBr(data);
 }
 
 async function enviarAviso(lembrete: LembreteComDestinatario): Promise<boolean> {

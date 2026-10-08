@@ -1,3 +1,4 @@
+import { dataHoraBr } from '../../../utils/datas';
 import baseLayout from '../layout.email';
 import type { DadosDoEmail } from '../tipos';
 import { urlDoSite } from '../../../config/site';
@@ -13,7 +14,7 @@ const alertaSenhaAlteradaTemplate = function ({ nomeUsuario, dataHora, suporteUr
       </div>
 
       <p style="color: #475569; font-size: 16px; line-height: 1.6;">
-        Olá, <strong>${nomeUsuario}</strong>! Confirmamos que a senha da sua conta no <strong>Saúde PET</strong> foi alterada em <strong>${dataHora || new Date().toLocaleString('pt-BR')}</strong>.
+        Olá, <strong>${nomeUsuario}</strong>! Confirmamos que a senha da sua conta no <strong>Saúde PET</strong> foi alterada em <strong>${dataHora || dataHoraBr()}</strong>.
       </p>
 
       <div class="card-info" style="border-left: 4px solid #10b981;">

@@ -2,6 +2,22 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Retificação de receita e horários escritos pelo servidor
+
+### 🔧 Corrigido
+
+- **Retificar a receita respondia erro 500 depois de já ter gravado a correção.** A linha de
+  auditoria lia o serviço por `require(...).default`, o mesmo erro que impedia o PDF no
+  fechamento: o documento novo era emitido, o tutor era avisado, o veterinário via erro e a
+  trilha de auditoria não era escrita. Reproduzido em produção com o atendimento de teste. A
+  suíte de jornada ganhou o passo da retificação (não havia teste nenhum pela rota), e um teste
+  novo reprova qualquer `require(...).default` de módulo que exporta com `module.exports`.
+- **Datas e horas escritas pelo servidor saíam em UTC.** O contêiner roda em UTC e 14 pontos
+  formatavam sem fuso: a receita emitida depois das 21h saía datada do dia seguinte, e o aviso
+  de "senha alterada em…", o prazo de reserva do pedido do Mercado e a suspensão de conta
+  mostravam três horas a mais. `backend/src/utils/datas.ts` separa instante (fuso do Brasil) de
+  dia de calendário (vacina, retorno, lembrete: o dia que está escrito).
+
 ## [Não versionado] - 2026-10-08 - Datas de vacina e lembrete no dia certo
 
 ### 🔧 Corrigido

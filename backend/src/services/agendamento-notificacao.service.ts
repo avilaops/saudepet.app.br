@@ -1,3 +1,4 @@
+import { fusoDeExibicao } from '../utils/datas';
 import type { Prisma, TipoAtendimento } from '@prisma/client';
 import prisma from '../config/database';
 import * as pushService from './push.service';
@@ -19,7 +20,7 @@ const emailService = require('./email.service');
 
 const formatarDataHora = (data: Date | string | number): string =>
   new Date(data).toLocaleString('pt-BR', {
-    timeZone: process.env.TZ_EXIBICAO || 'America/Sao_Paulo',
+    timeZone: fusoDeExibicao(),
     weekday: 'long',
     day: '2-digit',
     month: 'long',

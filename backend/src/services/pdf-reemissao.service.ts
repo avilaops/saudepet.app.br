@@ -1,3 +1,4 @@
+import { dataBr, diaDeCalendarioBr } from '../utils/datas';
 import { logoParaDocumento } from './logo-veterinario.service';
 import type { Prisma, StatusAtendimento } from '@prisma/client';
 import prisma from '../config/database';
@@ -54,7 +55,7 @@ function dadosDoPaciente(atendimento: AtendimentoParaReemissao): DadosDoPaciente
     nomeVet: vet?.usuario?.nome,
     crmvVet: vet?.crmv,
     ufCrmv: vet?.crmv_uf || 'SP',
-    dataAtendimento: (atendimento.finalizado_em || atendimento.criado_em).toLocaleDateString('pt-BR')
+    dataAtendimento: dataBr(atendimento.finalizado_em || atendimento.criado_em)
   };
 }
 
@@ -117,7 +118,7 @@ async function reemitirDocumentos(atendimento: AtendimentoParaReemissao): Promis
       conduta: [atendimento.receita, registro.orientacoes_tutor].filter(Boolean).join('\n\n') || null,
       exames: registro.examesSolicitados || [],
       retornoSugerido: registro.retorno_sugerido_em
-        ? new Date(registro.retorno_sugerido_em).toLocaleDateString('pt-BR')
+        ? diaDeCalendarioBr(registro.retorno_sugerido_em)
         : null
     });
     dados.prontuario_pdf_url = resultado.cdnUrl;

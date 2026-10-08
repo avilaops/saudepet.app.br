@@ -1102,6 +1102,48 @@ describe('🎯 FLUXO COMPLETO - Jornada Integrada do Usuário', () => {
     });
   });
 
+  // Corrigir a receita depois do fechamento não tinha teste pela rota — só um
+  // que procurava o nome da ação no código-fonte. Em produção a correção era
+  // gravada e a rota respondia erro 500, porque a linha de auditoria lia o
+  // serviço por `.default` (08/10/2026).
+  describe('📝 FASE 5B: Retificação da receita', () => {
+    it('5B.1 veterinário retifica a receita e a correção fica na trilha de auditoria', async () => {
+      const response = await request(app)
+        .put(`/api/v1/solicitacoes/${context.solicitacao.id}/prescricao`)
+        .set('Authorization', `Bearer ${context.veterinario.token}`)
+        .send({
+          motivo: 'Dose do antibiótico ajustada após conferência do peso.',
+          prescricoes: [
+            { medicamento: 'AMOXICILINA', concentracao: '250mg', forma_farmaceutica: 'comprimido', posologia: '1 comprimido a cada 12h', duracao_dias: 7 }
+          ]
+        });
+
+      expect(response.status).toBe(200);
+      expect(response.body.receita_versao).toBe(2);
+      expect(response.body.receita).toContain('250mg');
+      expect(response.body.receita_pdf_url).toContain('receitas/');
+
+      // A auditoria é gravada sem bloquear a resposta: dá um instante a ela.
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      const trilha = await prisma.auditLog.findFirst({
+        where: { acao: 'prescricao.retificada_apos_finalizacao', entity_id: context.solicitacao.id }
+      });
+      expect(trilha).not.toBeNull();
+      expect(JSON.stringify(trilha)).toContain(context.solicitacao.id);
+    });
+
+    it('5B.2 retificação sem motivo é recusada e não gera versão nova', async () => {
+      const response = await request(app)
+        .put(`/api/v1/solicitacoes/${context.solicitacao.id}/prescricao`)
+        .set('Authorization', `Bearer ${context.veterinario.token}`)
+        .send({ motivo: 'curto', receita: 'Outra coisa' });
+
+      expect(response.status).toBe(400);
+      const atual = await prisma.solicitacao.findUnique({ where: { id: context.solicitacao.id }, select: { receita_versao: true } });
+      expect(atual.receita_versao).toBe(2);
+    });
+  });
+
   /**
    * ═══════════════════════════════════════════════════════
    * FASE 6: AVALIAÇÃO E FEEDBACK

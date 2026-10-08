@@ -1,3 +1,4 @@
+import { dataHoraBr } from '../utils/datas';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -666,7 +667,7 @@ class AuthController {
     emailService.enviarEmailConfirmacaoMudancaSenha(
       usuario.email,
       usuario.nome,
-      new Date().toLocaleString('pt-BR')
+      dataHoraBr()
     ).catch((erro: unknown) => console.error('⚠️  Aviso de senha alterada não saiu (ignorado):', detalheDoErro(erro)));
 
     return res.json({

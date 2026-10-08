@@ -1,3 +1,4 @@
+import { dataBr } from '../utils/datas';
 import { logoParaDocumento } from './logo-veterinario.service';
 import prisma from '../config/database';
 import { NotFoundError, ConflictError, ValidationError } from '../middleware/error.middleware';
@@ -108,7 +109,7 @@ async function retificarReceita({ atendimentoId, tenantId, veterinario, motivo, 
       posologia: [item.posologia, item.duracao_dias ? `Por ${item.duracao_dias} dia(s).` : null].filter(Boolean).join(' ')
     })),
     orientacoes: itensNovos?.length ? null : novoTexto,
-    dataAtendimento: new Date().toLocaleDateString('pt-BR'),
+    dataAtendimento: dataBr(),
     logoVet: await logoParaDocumento(veterinario),
     versao: proximaVersao,
     motivoRetificacao: motivo.trim()

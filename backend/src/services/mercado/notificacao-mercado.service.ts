@@ -1,3 +1,4 @@
+import { dataHoraBr } from '../../utils/datas';
 import prisma from '../../config/database';
 
 const pushService = require('../push.service');
@@ -277,7 +278,7 @@ export async function avisarCicloDaAssinatura(pedidoId: string) {
   });
 
   const prazo = pedido.expira_em
-    ? `<p>O pedido fica reservado até <strong>${new Date(pedido.expira_em).toLocaleString('pt-BR')}</strong>. Depois disso o estoque volta para a loja e o próximo aviso vem no ciclo seguinte.</p>`
+    ? `<p>O pedido fica reservado até <strong>${dataHoraBr(pedido.expira_em)}</strong>. Depois disso o estoque volta para a loja e o próximo aviso vem no ciclo seguinte.</p>`
     : '';
   await email(
     pedido.tutor.email,

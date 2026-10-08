@@ -1,3 +1,4 @@
+import { dataHoraBr } from '../utils/datas';
 import axios from 'axios';
 
 // `nodemailer` não traz tipos e `@types/nodemailer` não está instalado; o
@@ -399,7 +400,7 @@ class EmailService {
   // quem testava o SMTP recebia um comunicado de "cadastro profissional
   // aprovado". Teste de servidor precisa parecer teste de servidor.
   async enviarEmailTeste(destinatario: string): Promise<ResultadoDoEnvio> {
-    const quando = new Date().toLocaleString('pt-BR');
+    const quando = dataHoraBr();
     return this.sendMail({
       to: destinatario,
       subject: 'Teste de envio — Saúde PET',

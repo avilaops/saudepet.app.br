@@ -1,3 +1,4 @@
+import { dataBr } from '../utils/datas';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import prisma from '../config/database';
@@ -102,7 +103,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction): 
       } else {
         res.status(403).json({
           error: usuario.bloqueado_ate
-            ? `Conta suspensa até ${new Date(usuario.bloqueado_ate).toLocaleDateString('pt-BR')}.`
+            ? `Conta suspensa até ${dataBr(usuario.bloqueado_ate)}.`
             : 'Conta suspensa permanentemente.',
           motivo: usuario.bloqueio_motivo || undefined,
           bloqueado: true

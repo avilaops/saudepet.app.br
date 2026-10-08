@@ -1,3 +1,4 @@
+import { dataBr } from '../utils/datas';
 import { uploadBuffer } from '../config/r2';
 
 // `pdfkit` não traz tipos e `@types/pdfkit` não está instalado; o contrato
@@ -218,7 +219,7 @@ class PdfService {
         doc.fillColor('#334155').fontSize(10).font('Helvetica')
            .text(`Pet: ${nomePet || 'Pet'} (${especiePet || 'Canina'} / ${racaPet || 'SRD'} • ${pesoPet || 'N/I'} kg)`, 55, topoPaciente + 30)
            .text(`Tutor(a): ${nomeTutor || 'Tutor'} ${cpfTutor ? `(CPF: ${cpfTutor})` : ''}`, 55, topoPaciente + 47)
-           .text(`Data da Emissão: ${dataAtendimento || new Date().toLocaleDateString('pt-BR')}`, 55, topoPaciente + 64);
+           .text(`Data da Emissão: ${dataAtendimento || dataBr()}`, 55, topoPaciente + 64);
 
         // 💊 LISTA DE MEDICAMENTOS (POSOLOGIA)
         let currentY = topoPaciente + 100;
@@ -331,7 +332,7 @@ class PdfService {
         doc.fillColor('#0f766e').fontSize(11).font('Helvetica-Bold').text('IDENTIFICAÇÃO DO PACIENTE', 50, 95);
         doc.fillColor('#334155').fontSize(10).font('Helvetica')
            .text(`Pet: ${nomePet} (${especiePet} / ${racaPet}) | Idade: ${idadePet || 'N/I'} | Peso: ${pesoPet || 'N/I'} kg`, 50, 113)
-           .text(`Tutor: ${nomeTutor} | Data: ${dataAtendimento || new Date().toLocaleDateString('pt-BR')}`, 50, 130);
+           .text(`Tutor: ${nomeTutor} | Data: ${dataAtendimento || dataBr()}`, 50, 130);
 
         // O texto clínico tem tamanho imprevisível, então cada bloco mede a própria
         // altura antes de avançar. Com incrementos fixos, um diagnóstico mais longo

@@ -1,3 +1,4 @@
+import { dataBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import type { Partner, Pet, Prisma, ReferralStatus } from '@prisma/client';
 import crypto from 'crypto';
@@ -120,7 +121,7 @@ async function avisarParceiroDaIndicacao({ referral, pet, partner, unit }: {
     const destinatarios = [unit?.email, partner?.email].filter((email): email is string => Boolean(email));
     if (destinatarios.length === 0) return;
 
-    const validade = new Date(referral.expiresAt).toLocaleDateString('pt-BR');
+    const validade = dataBr(referral.expiresAt);
     const linha = (rotulo: string, valor: unknown) =>
       valor ? `<tr><td style="padding:4px 12px 4px 0;color:#64748b;font-size:13px">${rotulo}</td><td style="padding:4px 0;font-weight:600;font-size:13px">${valor}</td></tr>` : '';
 
