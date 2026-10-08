@@ -100,6 +100,7 @@ Números do levantamento: **19 telas de admin, 8 públicas/auth, 14 do tutor,
 | 10 | Atendimento, encerrar por desistência | **CORRIGIDO**, "Não vou conseguir atender" em `PUT /solicitacoes/:id/desistir`, com motivo obrigatório e aviso ao tutor | **OK** |
 | 11 | Atendimento, "a caminho" | **CORRIGIDO**, `watchPosition` enquanto o status é `a_caminho`, com envio a cada 15 s | **OK** |
 | 12 | Agenda, remarcar | **CORRIGIDO** (08/10), botão "Remarcar" em `/veterinario/crm/agenda` com os horários livres do dia; mudar status e remarcar passaram a exigir que o agendamento seja do veterinário logado | **OK** |
+| 13 | `VetProfile` - logo nos documentos | **NOVO** (08/10), envio, troca e remoção do logo do consultório; sai no cabeçalho da receita e do prontuário emitidos a partir do envio | **OK** |
 
 ---
 

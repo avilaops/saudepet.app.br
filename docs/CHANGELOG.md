@@ -2,6 +2,22 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Logo do veterinário na receita e no prontuário
+
+### ✨ Novo
+
+- **O veterinário pode imprimir o logo do consultório nos documentos.** Em `/veterinario/perfil`,
+  a seção "Logo nos documentos" envia, troca e remove a imagem (PNG, JPG ou WebP até 5 MB); ela é
+  convertida para PNG no tamanho do cabeçalho e aparece na receita e no prontuário emitidos dali
+  em diante, inclusive em retificação e reemissão. A marca Saúde PET e o rodapé de assinatura
+  continuam nos documentos.
+- É um recurso de plano novo (`documentos_logo`). Hoje a trava de plano está em modo livre e ele
+  fica aberto a todos, como os demais; quando a trava voltar, quem perder o recurso mantém o logo
+  guardado e ele só deixa de ser impresso.
+- Nada no caminho do logo impede a emissão: arquivo fora do ar, corrompido ou de outro
+  veterinário faz o documento sair sem logo.
+- Migração aditiva: coluna opcional `veterinarios.logo_documentos_url`.
+
 ## [Não versionado] - 2026-10-08 - TypeScript em tudo
 
 ### ♻️ Mudado

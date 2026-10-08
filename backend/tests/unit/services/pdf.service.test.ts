@@ -74,6 +74,44 @@ describe('pdf.service', () => {
     expect(resultado.cdnUrl).toContain('receitas/receita_ABC12345.pdf');
     expect(ehPdf(enviados[0].buffer)).toBe(true);
   });
+
+  // Logo do consultório no cabeçalho (08/10/2026). O PDF passa a carregar uma
+  // imagem; sem logo, ou com arquivo que o pdfkit não lê, o documento sai igual.
+  describe('logo do veterinário', () => {
+    const sharp = require('sharp');
+    const temImagem = (buffer) => buffer.toString('latin1').includes('/Subtype /Image');
+    let logo;
+
+    beforeAll(async () => {
+      logo = await sharp({ create: { width: 300, height: 100, channels: 4, background: { r: 21, g: 159, b: 163, alpha: 1 } } }).png().toBuffer();
+    });
+
+    it('a receita e o prontuário saem com o logo quando ele é informado', async () => {
+      await pdfService.gerarReceitaPdf({ ...paciente, medicamentos: [], logoVet: logo });
+      await pdfService.gerarProntuarioPdf({ ...paciente, anamnese: 'Tosse.', logoVet: logo });
+
+      expect(enviados).toHaveLength(2);
+      expect(temImagem(enviados[0].buffer)).toBe(true);
+      expect(temImagem(enviados[1].buffer)).toBe(true);
+    });
+
+    it('sem logo, o documento não carrega imagem nenhuma', async () => {
+      await pdfService.gerarReceitaPdf({ ...paciente, medicamentos: [] });
+
+      expect(ehPdf(enviados[0].buffer)).toBe(true);
+      expect(temImagem(enviados[0].buffer)).toBe(false);
+    });
+
+    it('logo corrompido não impede a emissão', async () => {
+      jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+      const resultado = await pdfService.gerarReceitaPdf({ ...paciente, medicamentos: [], logoVet: Buffer.from('isto não é um PNG') });
+
+      expect(resultado.cdnUrl).toContain('receitas/receita_ABC12345.pdf');
+      expect(ehPdf(enviados[0].buffer)).toBe(true);
+      jest.restoreAllMocks();
+    });
+  });
 });
 
 export {};

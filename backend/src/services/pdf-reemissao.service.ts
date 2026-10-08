@@ -1,3 +1,4 @@
+import { logoParaDocumento } from './logo-veterinario.service';
 import type { Prisma, StatusAtendimento } from '@prisma/client';
 import prisma from '../config/database';
 import type { PdfService, DadosDoPaciente } from './pdf.service';
@@ -84,7 +85,7 @@ async function pendentesDeReemissao({ limite = 20 }: { limite?: number } = {}): 
 async function reemitirDocumentos(atendimento: AtendimentoParaReemissao): Promise<{ receita: boolean; prontuario: boolean }> {
   const pdfService: PdfService = require('./pdf.service');
   const registro = atendimento.prontuario;
-  const base = dadosDoPaciente(atendimento);
+  const base = { ...dadosDoPaciente(atendimento), logoVet: await logoParaDocumento(atendimento.veterinario) };
   const dados: { receita_pdf_url?: string; prontuario_pdf_url?: string } = {};
 
   if (!atendimento.receita_pdf_url) {

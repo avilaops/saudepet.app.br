@@ -5,6 +5,7 @@ const { authMiddleware, isVeterinario, requireApprovedVeterinarian } = require('
 const { tenantContext, requireActiveTenant } = require('../middleware/tenant.middleware');
 const validate = require('../middleware/validate.middleware');
 const upload = require('../middleware/upload.middleware');
+const { RECURSOS, requerRecurso } = require('../middleware/plano-vet.middleware');
 const { updateVeterinarioSchema, updateOnlineStatusSchema } = require('../schemas/veterinario.schema');
 
 // Rotas públicas (para tutores verem veterinários disponíveis)
@@ -23,6 +24,9 @@ router.put('/status-online', isVeterinario, requireApprovedVeterinarian, validat
 router.get('/estatisticas', isVeterinario, requireApprovedVeterinarian, veterinarioController.estatisticas);
 router.put('/perfil', isVeterinario, validate(updateVeterinarioSchema), veterinarioController.atualizar);
 router.post('/documento', isVeterinario, upload.uploadDocumento.single('documento'), veterinarioController.uploadDocumento);
+// Logo do consultório na receita e no prontuário: recurso de plano.
+router.post('/logo-documentos', isVeterinario, requerRecurso(RECURSOS.LOGO_DOCUMENTOS), upload.single('logo'), veterinarioController.enviarLogoDocumentos);
+router.delete('/logo-documentos', isVeterinario, veterinarioController.removerLogoDocumentos);
 router.post('/prontuario-ia-parse', isVeterinario, veterinarioController.parseProntuarioPorVoz);
 
 // Rota com parâmetro dinâmico DEVE vir por último

@@ -1030,3 +1030,7 @@
 /* O histórico clínico dentro do painel do admin (`AdminFichaDoPet`): o mesmo
    componente, sem a moldura de celular que o app do veterinário desenha. */
 .vet-app.vet-app--embutido { max-width: none; min-height: 0; margin: 0; background: transparent; border-radius: 0; box-shadow: none; overflow-x: visible; }
+
+/* Prévia do logo do consultório (perfil do veterinário): sobre branco, como no papel. */
+.vet-logo-documentos { display: grid; place-items: center; padding: .9rem; border: 1px dashed var(--vet-line); border-radius: .8rem; background: #fff; }
+.vet-logo-documentos img { max-width: 100%; max-height: 5rem; object-fit: contain; }

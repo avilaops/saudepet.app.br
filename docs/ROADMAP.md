@@ -823,7 +823,11 @@ anúncio e Meta Verified.
   para quinta-feira não é recurso, é mal-entendido, e a tela diz onde pedir atendimento imediato.
   O pet é conferido contra quem marca, senão um id adivinhado marcaria consulta para o animal de
   outra pessoa. 9 testes.
-- **Logo do veterinário nos documentos**, em stand-by desde 15/08. Receita e prontuário
+- ~~Logo do veterinário nos documentos~~ - **feito em 08/10** (`Veterinario.logo_documentos_url`, envio em
+  `/veterinario/perfil`, cabeçalho da receita e do prontuário; recurso de plano `documentos_logo`, hoje
+  aberto a todos como os demais). O rodapé "Documento assinado digitalmente através da plataforma Saúde
+  PET" foi mantido: a marca do veterinário entra ao lado, não no lugar. Texto original do item:
+  em stand-by desde 15/08. Receita e prontuário
   continuam com a marca Saúde Pet; a personalização fica como diferencial dos planos seniores.
   Quando priorizado: campo `Veterinario.logo_url`, upload pelo perfil reaproveitando o caminho
   do R2, e `doc.image()` no cabeçalho dos dois PDFs (`pdf.service.js` hoje não desenha imagem

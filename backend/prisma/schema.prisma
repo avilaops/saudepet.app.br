@@ -323,6 +323,9 @@ model Veterinario {
   crmv_uf               String?              @db.VarChar(2)
   especialidade         String
   sobre                 String?
+  /// Logo do consultório impresso no cabeçalho da receita e do prontuário
+  /// (PNG já redimensionado, no R2). A marca Saúde PET continua no documento.
+  logo_documentos_url   String?
   aprovado_admin        Boolean              @default(false)
   status_credenciamento StatusCredenciamento @default(PENDING_REVIEW)
   motivo_decisao        String?

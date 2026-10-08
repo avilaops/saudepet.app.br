@@ -20,6 +20,7 @@ export default function VetProfile() {
   const [form, setForm] = useState<ApiPayload>({ nome: '', cidade: '', especialidade: '', crmv: '', crmv_uf: '', sobre: '' })
   const inputPerfil = useRef<HTMLInputElement | null>(null)
   const inputCapa = useRef<HTMLInputElement | null>(null)
+  const inputLogo = useRef<HTMLInputElement | null>(null)
 
   const carregar = useCallback(async () => {
     setLoading(true)
@@ -90,6 +91,45 @@ export default function VetProfile() {
       setSucesso(tipo === 'perfil' ? 'Foto de perfil atualizada.' : 'Foto de capa atualizada.')
     } catch (requestError: any) {
       setErro(requestError.response?.data?.error || 'Não foi possível atualizar a foto.')
+    } finally {
+      setUploading(null)
+    }
+  }
+
+  // Logo do consultório impresso na receita e no prontuário. A marca Saúde PET
+  // continua nos documentos: é a plataforma que os assina e guarda.
+  const enviarLogo = async (event: any) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    setErro('')
+    setSucesso('')
+    if (!file.type.startsWith('image/')) return setErro('Por favor, selecione uma imagem válida.')
+    if (file.size > 5 * 1024 * 1024) return setErro('A imagem deve ter no máximo 5MB.')
+    setUploading('logo')
+    try {
+      const formData = new FormData()
+      formData.append('logo', file)
+      const { data } = await api.post('/veterinarios/logo-documentos', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      setVeterinario((atual: ApiPayload) => atual ? { ...atual, logo_documentos_url: data.logo_documentos_url } : atual)
+      setSucesso('Logo salvo. Ele aparece nas próximas receitas e prontuários.')
+    } catch (requestError: any) {
+      setErro(requestError.response?.data?.error || 'Não foi possível salvar o logo.')
+    } finally {
+      setUploading(null)
+    }
+  }
+
+  const removerLogo = async () => {
+    setErro('')
+    setSucesso('')
+    setUploading('logo')
+    try {
+      await api.delete('/veterinarios/logo-documentos')
+      setVeterinario((atual: ApiPayload) => atual ? { ...atual, logo_documentos_url: null } : atual)
+      setSucesso('Logo removido. Os próximos documentos saem só com a marca Saúde PET.')
+    } catch (requestError: any) {
+      setErro(requestError.response?.data?.error || 'Não foi possível remover o logo.')
     } finally {
       setUploading(null)
     }
@@ -189,6 +229,24 @@ export default function VetProfile() {
           </div>
           <button className="vet-modal__submit" type="submit" disabled={salvando}>{salvando ? 'Salvando…' : 'Salvar alterações'}</button>
         </form>
+
+        <section className="vet-card vet-section-card" aria-labelledby="logo-documentos-title">
+          <div className="vet-section-card__title"><VetIcon name="document" size={18} /><h2 id="logo-documentos-title">Logo nos documentos</h2></div>
+          <div className="vet-prescription-note">
+            <p>O logo do seu consultório vai no cabeçalho da receita e do prontuário, ao lado da marca Saúde PET. Vale para os documentos emitidos a partir de agora; os já emitidos não mudam.</p>
+            {veterinario.logo_documentos_url
+              ? <div className="vet-logo-documentos"><img src={veterinario.logo_documentos_url} alt="Logo usado nos seus documentos" /></div>
+              : <p className="vet-review-pending">Nenhum logo enviado: seus documentos saem só com a marca Saúde PET.</p>}
+            <p className="vet-review-pending">PNG, JPG ou WebP, até 5 MB. Prefira fundo branco ou transparente; a imagem é ajustada ao espaço do cabeçalho.</p>
+          </div>
+          <div className="vet-crm-agendamento__actions">
+            <button type="button" onClick={() => inputLogo.current?.click()} disabled={uploading === 'logo'}>
+              {uploading === 'logo' ? 'Enviando…' : veterinario.logo_documentos_url ? 'Trocar logo' : 'Enviar logo'}
+            </button>
+            {veterinario.logo_documentos_url && <button type="button" className="is-danger" onClick={removerLogo} disabled={uploading === 'logo'}>Remover</button>}
+          </div>
+          <input ref={inputLogo} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={enviarLogo} />
+        </section>
       </div>
       <VetBottomNav />
     </main>

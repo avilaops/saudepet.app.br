@@ -11,6 +11,7 @@ import {
   asyncHandler
 } from '../middleware/error.middleware';
 import { uploadBuffer } from '../config/r2';
+import { removerLogo, salvarLogo } from '../services/logo-veterinario.service';
 import { analisarDocumento } from '../services/documento-veterinario.service';
 import * as vetAnalytics from '../services/vet-analytics.service';
 import AuditService from '../services/audit.service';
@@ -305,6 +306,50 @@ class VeterinarioController {
       message: 'Pedido enviado. A equipe confere o CRMV e avisa por e-mail — sua conta continua funcionando normalmente enquanto isso.',
       credenciamento: veterinario
     });
+  });
+
+  /**
+   * Logo do consultório na receita e no prontuário.
+   * POST /veterinarios/logo-documentos (multipart, campo `logo`)
+   */
+  enviarLogoDocumentos = asyncHandler(async (req: Request, res: Response) => {
+    if (!req.file) throw new ValidationError('Nenhum arquivo enviado');
+    const veterinario = await prisma.veterinario.findUnique({
+      where: { usuario_id: usuarioDe(req), tenant_id: tenantDe(req) }
+    });
+    if (!veterinario) throw new NotFoundError('Veterinário não encontrado');
+
+    const url = await salvarLogo(veterinario, req.file.buffer);
+
+    // A marca vai impressa em documento clínico: a troca fica registrada.
+    await AuditService.logForensicEvent({
+      req,
+      entityType: 'veterinario',
+      entityId: veterinario.id,
+      action: 'logo_documentos_enviado',
+      motivo: 'Logo do consultório para receita e prontuário'
+    }).catch(() => {});
+
+    return res.json({ success: true, logo_documentos_url: url });
+  });
+
+  /** DELETE /veterinarios/logo-documentos */
+  removerLogoDocumentos = asyncHandler(async (req: Request, res: Response) => {
+    const veterinario = await prisma.veterinario.findUnique({
+      where: { usuario_id: usuarioDe(req), tenant_id: tenantDe(req) }
+    });
+    if (!veterinario) throw new NotFoundError('Veterinário não encontrado');
+
+    await removerLogo(veterinario);
+    await AuditService.logForensicEvent({
+      req,
+      entityType: 'veterinario',
+      entityId: veterinario.id,
+      action: 'logo_documentos_removido',
+      motivo: 'Documentos voltam a sair só com a marca Saúde PET'
+    }).catch(() => {});
+
+    return res.json({ success: true, logo_documentos_url: null });
   });
 
   obterDados = asyncHandler(async (req: Request, res: Response) => {

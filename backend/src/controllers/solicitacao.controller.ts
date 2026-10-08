@@ -1,3 +1,4 @@
+import { logoParaDocumento } from '../services/logo-veterinario.service';
 import type { Request, Response } from 'express';
 import type { Prisma, StatusAtendimento } from '@prisma/client';
 import type { z } from 'zod';
@@ -870,7 +871,9 @@ class SolicitacaoController {
       nomeVet: vetUser?.nome,
       crmvVet: veterinario.crmv,
       ufCrmv: veterinario.crmv_uf || 'SP',
-      dataAtendimento: new Date().toLocaleDateString('pt-BR')
+      dataAtendimento: new Date().toLocaleDateString('pt-BR'),
+      // Logo do consultório no cabeçalho, quando o veterinário enviou um.
+      logoVet: await logoParaDocumento(veterinario)
     };
 
     let receita_pdf_url = null;

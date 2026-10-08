@@ -1,3 +1,4 @@
+import { logoParaDocumento } from './logo-veterinario.service';
 import prisma from '../config/database';
 import { NotFoundError, ConflictError, ValidationError } from '../middleware/error.middleware';
 import type { PdfService } from './pdf.service';
@@ -33,6 +34,10 @@ export interface VeterinarioAutor {
   crmv?: string | null;
   crmv_uf?: string | null;
   usuario?: { nome?: string | null } | null;
+  /** Para o logo do consultório no cabeçalho da receita retificada. */
+  tenant_id?: string;
+  usuario_id?: string;
+  logo_documentos_url?: string | null;
 }
 
 export interface PedidoDeRetificacao {
@@ -104,6 +109,7 @@ async function retificarReceita({ atendimentoId, tenantId, veterinario, motivo, 
     })),
     orientacoes: itensNovos?.length ? null : novoTexto,
     dataAtendimento: new Date().toLocaleDateString('pt-BR'),
+    logoVet: await logoParaDocumento(veterinario),
     versao: proximaVersao,
     motivoRetificacao: motivo.trim()
   });

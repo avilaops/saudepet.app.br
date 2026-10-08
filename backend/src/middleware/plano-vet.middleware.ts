@@ -13,7 +13,9 @@ const RECURSOS = {
   CLIENTES_NOTAS: 'crm_notas_privadas',
   RETENCAO: 'crm_retencao',
   RELATORIOS: 'crm_relatorios',
-  AGENDA: 'crm_agenda'
+  AGENDA: 'crm_agenda',
+  /** Logo do consultório na receita e no prontuário. */
+  LOGO_DOCUMENTOS: 'documentos_logo'
 } as const;
 
 type Recurso = (typeof RECURSOS)[keyof typeof RECURSOS];

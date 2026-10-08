@@ -17,6 +17,7 @@ interface DocumentoPdf {
   roundedRect(x: number, y: number, largura: number, altura: number, raio: number): this;
   fillAndStroke(preenchimento: string, contorno: string): this;
   text(texto: string, x?: number, y?: number, opcoes?: { align?: string; width?: number }): this;
+  image(origem: Buffer, x: number, y: number, opcoes?: { fit?: [number, number]; align?: string; valign?: string }): this;
   heightOfString(texto: string, opcoes?: { width?: number }): number;
   addPage(): this;
   end(): void;
@@ -46,6 +47,24 @@ export interface DadosDoPaciente {
   crmvVet?: Texto;
   ufCrmv?: Texto;
   dataAtendimento?: Texto;
+  /** Logo do consultório, em PNG (`logoParaDocumento`). Sem ele, só a marca Saúde PET. */
+  logoVet?: Buffer | null;
+}
+
+/**
+ * Desenha o logo do veterinário no canto direito do cabeçalho.
+ *
+ * Arquivo corrompido não pode impedir a emissão: o `pdfkit` lança ao ler um
+ * PNG que não entende, e a receita sai sem o logo.
+ */
+function desenharLogoDoVeterinario(doc: DocumentoPdf, logo: Buffer | null | undefined, y: number, altura: number): void {
+  if (!logo) return;
+  const LARGURA = 135;
+  try {
+    doc.image(logo, 555 - LARGURA, y, { fit: [LARGURA, altura], align: 'right', valign: 'center' });
+  } catch (erro) {
+    console.warn('[PDF] Logo do veterinário ignorado:', (erro as Error).message);
+  }
 }
 
 export interface DadosDaReceita extends DadosDoPaciente {
@@ -121,6 +140,7 @@ class PdfService {
     medicamentos = [],
     orientacoes = '',
     dataAtendimento,
+    logoVet = null,
     // Retificação: receita corrigida depois de emitida. O documento novo
     // precisa dizer que substitui o anterior — trocar o arquivo em silêncio
     // deixaria duas receitas válidas circulando com conteúdos diferentes.
@@ -155,6 +175,8 @@ class PdfService {
            .fontSize(10)
            .font('Helvetica')
            .text('Cuidado veterinário domiciliar • Atendimento credenciado CFMV', 40, 66);
+
+        desenharLogoDoVeterinario(doc, logoVet, 34, 44);
 
         doc.strokeColor('#e2e8f0')
            .lineWidth(1)
@@ -278,7 +300,8 @@ class PdfService {
     nomeVet,
     crmvVet,
     ufCrmv,
-    dataAtendimento
+    dataAtendimento,
+    logoVet = null
   }: DadosDoProntuario): Promise<DocumentoGerado> {
     return new Promise<DocumentoGerado>((resolve, reject) => {
       try {
@@ -300,6 +323,7 @@ class PdfService {
 
         // Cabeçalho
         doc.fillColor('#0d9488').fontSize(20).font('Helvetica-Bold').text('SAÚDE PET — PRONTUÁRIO CLÍNICO', 40, 40);
+        desenharLogoDoVeterinario(doc, logoVet, 30, 34);
         doc.strokeColor('#e2e8f0').lineWidth(1).moveTo(40, 70).lineTo(555, 70).stroke();
 
         // Dados Clínicos
