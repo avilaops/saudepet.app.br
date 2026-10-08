@@ -24,9 +24,31 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 const mensagemDaApi = (error: unknown, fallback: string) =>
   axios.isAxiosError<{ error?: string }>(error) ? error.response?.data?.error || fallback : fallback
 
+/**
+ * A sessão guardada no navegador, lida na hora de montar.
+ *
+ * Antes o provedor nascia com `loading: true` e só num efeito lia o
+ * `localStorage` e mudava o estado. Essa mudança, logo depois de montar,
+ * chegava nas páginas desenhadas pelo servidor enquanto o React ainda as
+ * assumia: ele desistia de aproveitar o HTML (erro 421) e redesenhava a página
+ * inteira — em cerca de 1 a cada 60 aberturas, medido em produção em
+ * 08/10/2026. Lendo aqui, o estado já nasce certo e nada muda depois.
+ */
+function sessaoGuardada(): Usuario | null {
+  if (typeof localStorage === 'undefined') return null
+  try {
+    const guardado = localStorage.getItem('user')
+    return localStorage.getItem('token') && guardado ? (JSON.parse(guardado) as Usuario) : null
+  } catch {
+    return null
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<Usuario | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<Usuario | null>(sessaoGuardada)
+  // A sessão é lida de forma síncrona: não há o que esperar. O campo continua
+  // no contexto porque as rotas privadas o consultam.
+  const loading = false
   // `viewAs` (o "ver como tutor/veterinário") foi removido: era um interruptor
   // de papel guardado no navegador, sem nada por trás, que sobrevivia à queda da
   // sessão e prendia o super_admin numa área onde ele não tem cadastro. No lugar
@@ -35,23 +57,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => { localStorage.removeItem('viewAs') }, [])
 
   useEffect(() => {
-    const loadUser = async () => {
-      const token = localStorage.getItem('token')
-      const storedUser = localStorage.getItem('user')
-
-      if (token && storedUser) {
-        api.defaults.headers.Authorization = `Bearer ${token}`
-        setUser(JSON.parse(storedUser))
-        // A sessão anterior pode ter terminado sem passar pelo "Sair" — aba
-        // fechada, token expirado. Nesse caminho a inscrição deste navegador
-        // ficou apontando para a conta antiga; a volta é o momento de corrigir.
-        void sincronizarInscricao()
-      }
-
-      setLoading(false)
+    // O usuário já veio de `sessaoGuardada`; aqui ficam só os efeitos.
+    const token = localStorage.getItem('token')
+    if (token && sessaoGuardada()) {
+      api.defaults.headers.Authorization = `Bearer ${token}`
+      // A sessão anterior pode ter terminado sem passar pelo "Sair" — aba
+      // fechada, token expirado. Nesse caminho a inscrição deste navegador
+      // ficou apontando para a conta antiga; a volta é o momento de corrigir.
+      void sincronizarInscricao()
     }
-
-    loadUser()
   }, [])
 
 

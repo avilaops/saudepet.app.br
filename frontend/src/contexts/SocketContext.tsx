@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, startTransition, useContext, useEffect, useState, type ReactNode } from 'react'
 import { io, type Socket } from 'socket.io-client'
 import { useAuth } from './AuthContext'
 import type { Mensagem, Solicitacao } from '../types/api'
@@ -43,7 +43,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
       newSocket.on('connect', () => {
         console.log('Socket conectado')
-        setConnected(true)
+        startTransition(() => setConnected(true))
 
         // A identidade vem do token validado pelo servidor. O cliente apenas
         // solicita a alteracao de presenca da propria conta autenticada.
@@ -63,7 +63,9 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         setConnected(false)
       })
 
-      setSocket(newSocket)
+      // Em transição: quem está logado e abre uma página desenhada pelo servidor
+      // não pode ter a hidratação atropelada pela conexão subindo (erro 421).
+      startTransition(() => setSocket(newSocket))
 
       return () => {
         newSocket.close()

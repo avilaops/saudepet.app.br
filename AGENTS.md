@@ -115,6 +115,9 @@ para a prévia de link:
   puro a hidratação suspende, qualquer atualização que chegue antes (a sessão) dá o erro 421
   do React e a página é redesenhada do zero. O `verificar-ssr.ts` reprova se essa lista e a
   do `entry-server.tsx` divergirem.
+- Provedor que fica acima das rotas (`AuthProvider`, `SocketProvider`) não muda de estado ao
+  montar: o que dá para saber de forma síncrona entra no estado inicial, e o que chega depois
+  vai em `startTransition`. Mudança de contexto durante a hidratação é o mesmo erro 421.
 - Página pública nova: rota no `App.tsx` (com `paginaDoServidor`), no `entry-server.tsx` e no `nginx.saudepet.conf`
   (`proxy_pass` para `/api/public/render/...`), dados no controller e caso no
   `verificar-ssr.ts`. Nada de `window`, `document` ou `localStorage` fora de `useEffect` e

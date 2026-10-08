@@ -86,6 +86,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
   versão (publicada de manhã) o carregamento sob demanda suspendia no meio da hidratação; em
   rede lenta a sessão atualizava antes, o React registrava o erro 421 e redesenhava a página
   do zero, com o indicador de carregamento no meio.
+- **A sessão nasce resolvida.** O `AuthProvider` começava com `loading: true` e só num efeito lia
+  o `localStorage`; essa mudança logo depois de montar ainda atropelava a hidratação em cerca de
+  1 a cada 60 aberturas (erro 421, medido em produção). Agora a sessão é lida ao montar e o
+  estado do socket muda em transição.
 - O build reprova se alguma página pública não sair desenhada no servidor
   (`frontend/scripts/verificar-ssr.mjs`). Detalhes no `AGENTS.md`.
 
