@@ -2,6 +2,27 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Páginas públicas em um `.tsx` só
+
+### 🔧 Corrigido
+
+- **As 142 páginas públicas pediam três arquivos JavaScript que davam 404.** O backend montava
+  o HTML inicial com uma cópia do `index.html` guardada na própria imagem; o `web` foi
+  publicado sozinho e a cópia ficou apontando para arquivos que não existiam mais. O backend
+  passa a ler o `index.html` do contêiner `web`, com a cópia como reserva.
+
+### ♻️ Mudado
+
+- **Toda página pública é desenhada pelo próprio `.tsx`, também no servidor.** Saíram o HTML
+  resumido que o backend escrevia à mão (`renderBlogHtml`, `renderStaticPageHtml`,
+  `mercado-render.service`) e a pasta `landing-page/`. O Google e a prévia de link recebem a
+  página de verdade, com o título e os dados estruturados que ela declara no `<Seo>`; no
+  navegador o React assume o HTML sem redesenhar e sem buscar de novo os dados.
+- **`/blog?page=2` e `/mercado/:loja?pagina=2` têm endereço próprio**, e a paginação virou link:
+  artigos e produtos fora da primeira página passam a ter caminho de entrada.
+- O build reprova se alguma página pública não sair desenhada no servidor
+  (`frontend/scripts/verificar-ssr.mjs`). Detalhes no `AGENTS.md`.
+
 ## [Não versionado] - 2026-10-07 - Banners: botão "Desfazer"
 
 ### ✨ Novo

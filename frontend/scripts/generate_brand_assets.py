@@ -101,7 +101,6 @@ def main():
     root = Path(__file__).resolve().parents[1]
     public = root / "public"
     brand = public / "brand"
-    landing = root.parent / "landing-page" / "assets"
     source = Image.open(sys.argv[1])
     transparent = remove_connected_white(source)
     bbox = transparent.getbbox()
@@ -139,10 +138,6 @@ def main():
     draw.text((516, 431), "CUIDADO QUE CHEGA", fill="#FFFFFF", font=font(24, True))
     save_png(og, public / "og-default.png")
 
-    landing.mkdir(parents=True, exist_ok=True)
-    save_png(wordmark(symbol, INK), landing / "logo-completa.png")
-    save_png(symbol, landing / "logo-symbol.png")
-    save_png(og, landing / "og-default.png")
     print(f"Assets gerados em {public}")
 
 

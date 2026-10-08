@@ -11,6 +11,8 @@ import {
   type Loja,
   type Produto
 } from '../../services/mercado'
+import { chaveDoDado, useDadosIniciais } from '../../ssr/dadosIniciais'
+import { baseDoSite } from '../../ssr/site'
 
 /**
  * A vitrine pública de UMA loja.
@@ -31,19 +33,37 @@ export default function PublicMercadoLoja() {
   const { slug = '' } = useParams()
   const [params, setParams] = useSearchParams()
 
-  const [loja, setLoja] = useState<Loja | null>(null)
-  const [categorias, setCategorias] = useState<Categoria[]>([])
-  const [produtos, setProdutos] = useState<Produto[]>([])
-  const [total, setTotal] = useState(0)
-  const [paginas, setPaginas] = useState(1)
-  const [carregando, setCarregando] = useState(true)
-  const [naoEncontrada, setNaoEncontrada] = useState(false)
-  const [busca, setBusca] = useState(params.get('busca') || '')
-
   const categoria = params.get('categoria') || ''
   const especie = params.get('especie') || ''
   const buscaAplicada = params.get('busca') || ''
   const pagina = Number(params.get('pagina') || 1)
+
+  // A loja e a página de produtos pedida chegam do servidor com o HTML.
+  type ProdutosDaLoja = { produtos: Produto[]; total: number; paginas: number }
+  const dadoInicial = useDadosIniciais()
+  const lojaPronta = dadoInicial<{ loja: Loja; categorias: Categoria[] }>(`/public/mercado/lojas/${slug}`)
+  const produtosProntos = dadoInicial<ProdutosDaLoja>(
+    chaveDoDado(`/public/mercado/lojas/${slug}/produtos`, { busca: buscaAplicada, categoria, especie, pagina, limite: 24 })
+  )
+
+  const [loja, setLoja] = useState<Loja | null>(lojaPronta.dado?.loja ?? null)
+  const [categorias, setCategorias] = useState<Categoria[]>(lojaPronta.dado?.categorias || [])
+  const [produtos, setProdutos] = useState<Produto[]>(produtosProntos.dado?.produtos || [])
+  const [total, setTotal] = useState(produtosProntos.dado?.total ?? 0)
+  const [paginas, setPaginas] = useState(produtosProntos.dado?.paginas ?? 1)
+  const [carregando, setCarregando] = useState(!produtosProntos.veioPronto)
+  const [naoEncontrada, setNaoEncontrada] = useState(lojaPronta.naoEncontrado)
+  const [busca, setBusca] = useState(params.get('busca') || '')
+
+  // Endereço próprio por página (`?pagina=2`), para o Google alcançar todos os
+  // produtos da loja e não só os 24 primeiros.
+  const enderecoDaPagina = (numero: number) => {
+    const novos = new URLSearchParams(params)
+    if (numero > 1) novos.set('pagina', String(numero))
+    else novos.delete('pagina')
+    const texto = novos.toString()
+    return texto ? `/mercado/${slug}?${texto}` : `/mercado/${slug}`
+  }
 
   const trocar = (chave: string, valor: string) => {
     const novos = new URLSearchParams(params)
@@ -54,7 +74,7 @@ export default function PublicMercadoLoja() {
   }
 
   useEffect(() => {
-    if (!slug) return
+    if (!slug || lojaPronta.veioPronto) return
     mercadoPublico
       .loja(slug)
       .then((dados) => {
@@ -66,6 +86,13 @@ export default function PublicMercadoLoja() {
 
   useEffect(() => {
     if (!slug) return
+    if (produtosProntos.dado) {
+      setProdutos(produtosProntos.dado.produtos)
+      setTotal(produtosProntos.dado.total)
+      setPaginas(produtosProntos.dado.paginas)
+      setCarregando(false)
+      return
+    }
     setCarregando(true)
     mercadoPublico
       .produtos(slug, {
@@ -117,14 +144,22 @@ export default function PublicMercadoLoja() {
             '@context': 'https://schema.org',
             '@type': 'PetStore',
             name: loja.nome_fantasia,
+            description: loja.descricao || undefined,
+            url: `${baseDoSite()}/mercado/${loja.slug}`,
             telephone: loja.telefone,
+            image: loja.logo_url || undefined,
             address: {
               '@type': 'PostalAddress',
               streetAddress: [loja.endereco, loja.complemento].filter(Boolean).join(', '),
               addressLocality: loja.cidade,
               addressRegion: loja.estado,
               addressCountry: 'BR'
-            }
+            },
+            // É o que faz "petshop perto de mim" achar a loja.
+            geo:
+              loja.latitude != null && loja.longitude != null
+                ? { '@type': 'GeoCoordinates', latitude: loja.latitude, longitude: loja.longitude }
+                : undefined
           }}
         />
       )}
@@ -273,15 +308,19 @@ export default function PublicMercadoLoja() {
 
               {paginas > 1 && (
                 <nav className="pagination" aria-label="Paginação">
-                  <button disabled={pagina <= 1} onClick={() => trocar('pagina', String(pagina - 1))}>
-                    Anterior
-                  </button>
+                  {pagina <= 1 ? (
+                    <span className="pagination-link is-disabled" aria-disabled="true">Anterior</span>
+                  ) : (
+                    <Link className="pagination-link" to={enderecoDaPagina(pagina - 1)} rel="prev">Anterior</Link>
+                  )}
                   <span>
                     Página {pagina} de {paginas}
                   </span>
-                  <button disabled={pagina >= paginas} onClick={() => trocar('pagina', String(pagina + 1))}>
-                    Próxima
-                  </button>
+                  {pagina >= paginas ? (
+                    <span className="pagination-link is-disabled" aria-disabled="true">Próxima</span>
+                  ) : (
+                    <Link className="pagination-link" to={enderecoDaPagina(pagina + 1)} rel="next">Próxima</Link>
+                  )}
                 </nav>
               )}
             </>

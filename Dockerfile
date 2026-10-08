@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-cert
 COPY --from=production_deps /app/node_modules ./node_modules
 COPY --from=build /app/backend/dist ./dist
 COPY --from=build /app/frontend/dist /usr/share/nginx/html
+# Os `.tsx` das páginas públicas compilados para o backend desenhar o HTML inicial.
+COPY --from=build /app/frontend/dist-ssr ./ssr
 COPY --from=build /app/backend/prisma ./prisma
 COPY --from=build /app/backend/scripts ./scripts
 COPY --from=build /app/backend/package.json ./package.json

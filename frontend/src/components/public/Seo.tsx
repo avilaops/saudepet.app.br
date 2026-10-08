@@ -1,5 +1,7 @@
 import type { ApiPayload } from '../../types/api'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { ColetorDeSeo } from '../../ssr/seo'
+import { baseDoSite } from '../../ssr/site'
 
 const ensureMeta = (selector: string, attrs: Record<string, any>) => {
   let element: Element | null = document.head.querySelector(selector)
@@ -17,8 +19,13 @@ const ensureMeta = (selector: string, attrs: Record<string, any>) => {
 }
 
 export default function Seo({ title, description, path = '/', image = '/og-default.png', imageWidth = '1200', imageHeight = '630', imageType, type = 'website', jsonLd, noindex = false }: ApiPayload) {
+  // No servidor não há `document`: a página só anota o que quer no `<head>`
+  // e quem a desenhou (`entry-server.tsx`) escreve as tags no HTML.
+  const coletor = useContext(ColetorDeSeo)
+  if (coletor) coletor.seo = { title, description, path, image, imageWidth, imageHeight, imageType, type, jsonLd, noindex }
+
   useEffect(() => {
-    const base = (import.meta.env.VITE_PUBLIC_SITE_URL || window.location.origin).replace(/\/$/, '')
+    const base = baseDoSite()
     const canonical = `${base}${path}`
     document.title = title
     ensureMeta('meta[name="description"]', { name: 'description', content: description })

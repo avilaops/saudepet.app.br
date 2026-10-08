@@ -2,17 +2,21 @@ import type { ApiPayload } from '../../types/api'
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { API_URL } from '../../services/api'
+import { useDadosIniciais } from '../../ssr/dadosIniciais'
 
 export default function LandingBannersCarousel() {
-  const [banners, setBanners] = useState<ApiPayload[]>([]);
+  // A home já chega do servidor com os banners: o carrossel aparece na
+  // primeira pintura em vez de empurrar a página quando a API responde.
+  const prontos = useDadosIniciais()<{ banners?: ApiPayload[] }>('/v1/public/banners');
+  const [banners, setBanners] = useState<ApiPayload[]>(prontos.dado?.banners || []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!prontos.veioPronto);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
   useEffect(() => {
-    fetchBanners();
+    if (!prontos.veioPronto) fetchBanners();
   }, []);
 
   const fetchBanners = async () => {

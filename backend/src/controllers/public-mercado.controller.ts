@@ -1,13 +1,14 @@
 import type { Request, Response } from 'express';
 import { baseDoSite, feedCsv, feedXml, montarFeed } from '../services/mercado/feed.service';
-import { renderizarIndice, renderizarLoja, renderizarProduto } from '../services/mercado/mercado-render.service';
+import { chaveDoDado, montarPaginaPublica, NAO_ENCONTRADO } from '../services/pagina-publica.service';
+import type { DadosIniciais } from '../services/pagina-publica.service';
 import { lojaPublica, lojasPublicas, produtoPublico, produtosPublicos } from '../services/mercado/vitrine-publica.service';
 
 const { asyncHandler } = require('../middleware/error.middleware');
 const { resolvePublicTenant } = require('../services/public-tenant.service');
 
 /**
- * O mercado sem sessão: vitrine pública, feed de produtos e HTML para robôs.
+ * O mercado sem sessão: vitrine pública, feed de produtos e HTML inicial.
  *
  * Tudo aqui lê o tenant PÚBLICO — o mesmo do blog e da landing — e só devolve
  * loja aprovada com produto disponível. Não há escrita nenhuma neste arquivo.
@@ -73,30 +74,59 @@ export const feedEmCsv = asyncHandler(async (req: Request, res: Response) => {
   return res.type('text/csv; charset=utf-8').send(feedCsv(itens));
 });
 
-// ── HTML inicial para robôs e prévias de link ────────────────────────────────
+// ── HTML inicial das páginas públicas do mercado ─────────────────────────────
+//
+// O nginx manda `/mercado`, `/mercado/:slug` e `/mercado/:slug/:produto` para
+// cá. O HTML é o do `.tsx` de cada página, desenhado no servidor
+// (`pagina-publica.service`); aqui só se juntam os dados que a página pediria
+// à API — pelas mesmas funções que a API usa.
+
+/** Produtos por página na vitrine; o `PublicMercadoLoja.tsx` pede o mesmo número. */
+const PRODUTOS_POR_PAGINA = 24;
+
+const enviarPagina = (res: Response, html: string, encontrado: boolean) => {
+  if (!encontrado) return res.status(404).type('html').send(html);
+  res.set('Cache-Control', CACHE_CURTO);
+  return res.type('html').send(html);
+};
 
 export const renderIndice = asyncHandler(async (_req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
-  const { status, html } = await renderizarIndice(tenant.id, baseDoSite());
-  res.set('Cache-Control', CACHE_CURTO);
-  return res.status(status).type('html').send(html);
+  const dados: DadosIniciais = { '/public/mercado/lojas': { lojas: await lojasPublicas(tenant.id) } };
+  return enviarPagina(res, await montarPaginaPublica({ url: '/mercado', dados, baseDoSite: baseDoSite() }), true);
 });
 
 export const renderLoja = asyncHandler(async (req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
-  const { status, html } = await renderizarLoja(tenant.id, String(req.params.slug), baseDoSite());
-  res.set('Cache-Control', CACHE_CURTO);
-  return res.status(status).type('html').send(html);
+  const slug = String(req.params.slug);
+  const pagina = Math.max(1, Math.floor(Number(req.query.pagina)) || 1);
+  const dados: DadosIniciais = {};
+  let encontrada = true;
+  try {
+    dados[`/public/mercado/lojas/${slug}`] = await lojaPublica(tenant.id, slug);
+    dados[chaveDoDado(`/public/mercado/lojas/${slug}/produtos`, { pagina, limite: PRODUTOS_POR_PAGINA })] =
+      await produtosPublicos({ tenantId: tenant.id, lojaSlug: slug, pagina, limite: PRODUTOS_POR_PAGINA });
+  } catch {
+    encontrada = false;
+    dados[`/public/mercado/lojas/${slug}`] = NAO_ENCONTRADO;
+  }
+  const url = pagina > 1 ? `/mercado/${slug}?pagina=${pagina}` : `/mercado/${slug}`;
+  return enviarPagina(res, await montarPaginaPublica({ url, dados, baseDoSite: baseDoSite() }), encontrada);
 });
 
 export const renderProduto = asyncHandler(async (req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
-  const { status, html } = await renderizarProduto(
-    tenant.id,
-    String(req.params.slug),
-    String(req.params.produto),
-    baseDoSite()
-  );
-  res.set('Cache-Control', CACHE_CURTO);
-  return res.status(status).type('html').send(html);
+  const slug = String(req.params.slug);
+  const produtoSlug = String(req.params.produto);
+  const chave = `/public/mercado/lojas/${slug}/produtos/${produtoSlug}`;
+  const dados: DadosIniciais = {};
+  let encontrado = true;
+  try {
+    dados[chave] = { produto: await produtoPublico(tenant.id, slug, produtoSlug) };
+  } catch {
+    encontrado = false;
+    dados[chave] = NAO_ENCONTRADO;
+  }
+  const html = await montarPaginaPublica({ url: `/mercado/${slug}/${produtoSlug}`, dados, baseDoSite: baseDoSite() });
+  return enviarPagina(res, html, encontrado);
 });

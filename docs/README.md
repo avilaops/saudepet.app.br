@@ -92,8 +92,6 @@ saude-pet/
 │   │   ├── services/              # Serviços (API)
 │   │   └── App.jsx                # Componente principal / rotas
 │   └── package.json
-│
-├── landing-page/                 # Landing estática auxiliar
 └── README.md
 ```
 

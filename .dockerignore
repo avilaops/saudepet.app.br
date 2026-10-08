@@ -3,6 +3,7 @@
 **/node_modules
 **/.env*
 **/dist
+**/dist-ssr
 **/uploads
 **/coverage
 *.tgz

@@ -1,8 +1,6 @@
 import type { Request, Response } from 'express';
 import type { Prisma } from '@prisma/client';
 import type { z } from 'zod';
-import fs from 'fs/promises';
-import path from 'path';
 import prisma from '../config/database';
 import { avisarNovoLead } from '../services/notificacao-admin.service';
 import { asyncHandler, NotFoundError } from '../middleware/error.middleware';
@@ -15,14 +13,14 @@ import bannerController from './banner.controller';
 import { urlsDoMercadoParaSitemap } from '../services/mercado/feed.service';
 import {
   absoluteUrl,
+  caminhosDasPaginasEstaticas,
+  escapeHtml,
   escapeXml,
-  renderBlogHtml,
-  renderNotFoundHtml,
   renderPostMarkdown,
-  renderStaticPageHtml,
-  staticPages
+  responsiveCoverImages
 } from '../services/blog-render.service';
-import type { OpcoesDaPaginaEstatica } from '../services/blog-render.service';
+import { chaveDoDado, montarPaginaPublica, NAO_ENCONTRADO } from '../services/pagina-publica.service';
+import type { DadosIniciais } from '../services/pagina-publica.service';
 import type { leadSchema, pageViewSchema, paginationQuerySchema } from '../schemas/content.schema';
 
 type LeadInput = z.infer<typeof leadSchema>;
@@ -214,10 +212,16 @@ export const trackPageView = asyncHandler(async (req: Request, res: Response) =>
   res.status(202).json({ success: true });
 });
 
-export const listPosts = asyncHandler(async (req: Request, res: Response) => {
-  const tenant = await resolvePublicTenant();
-  const { page, limit, search, category } = queryValidada<PaginationQuery>(req);
-  const where = publicPostWhere(tenant.id);
+/**
+ * As funções `dados...` abaixo montam o corpo que a API devolve. O HTML
+ * inicial das páginas públicas usa as MESMAS, para o `.tsx` receber no
+ * servidor exatamente o que receberia do navegador.
+ */
+async function dadosDaListagem(
+  tenantId: string,
+  { page, limit, search, category }: { page: number; limit: number; search?: string | null; category?: string | null }
+) {
+  const where = publicPostWhere(tenantId);
   // No celular muita gente digita "racao" e "caes", sem acento, e o `contains`
   // do Postgres não casa com "ração" nem "cães". O slug já é o título sem
   // acento, então a busca também passa por ele.
@@ -236,98 +240,144 @@ export const listPosts = asyncHandler(async (req: Request, res: Response) => {
     prisma.blogPost.count({ where })
   ]);
   const posts = rawPosts.map(({ content, ...post }) => ({ ...post, reading_time_minutes: readingTime(content) }));
-  res.json({ posts, pagination: { page, limit, total, pages: Math.ceil(total / limit) } });
+  return { posts, pagination: { page, limit, total, pages: Math.ceil(total / limit) } };
+}
+
+export const listPosts = asyncHandler(async (req: Request, res: Response) => {
+  const tenant = await resolvePublicTenant();
+  res.json(await dadosDaListagem(tenant.id, queryValidada<PaginationQuery>(req)));
 });
 
-export const getPost = asyncHandler(async (req: Request, res: Response) => {
-  const tenant = await resolvePublicTenant();
-  const post = await prisma.blogPost.findFirst({ where: { ...publicPostWhere(tenant.id), slug: String(req.params.slug) }, select: postSelect });
-  if (!post) throw new NotFoundError('Artigo não encontrado');
+async function dadosDoPost(tenantId: string, slug: string) {
+  const post = await prisma.blogPost.findFirst({ where: { ...publicPostWhere(tenantId), slug }, select: postSelect });
+  if (!post) return null;
   const related = await prisma.blogPost.findMany({
-    where: { ...publicPostWhere(tenant.id), id: { not: post.id }, ...(post.category?.id ? { category_id: post.category.id } : {}) },
+    where: { ...publicPostWhere(tenantId), id: { not: post.id }, ...(post.category?.id ? { category_id: post.category.id } : {}) },
     select: { slug: true, title: true, excerpt: true, cover_image: true, published_at: true }, take: 3,
     orderBy: { published_at: 'desc' }
   });
-  res.json({ post, related });
+  return { post, related };
+}
+
+async function dadosDasCategorias(tenantId: string) {
+  const categories = await prisma.blogCategory.findMany({
+    where: { tenant_id: tenantId, posts: { some: publicPostWhere(tenantId) } },
+    select: { id: true, slug: true, name: true, description: true, _count: { select: { posts: true } } },
+    orderBy: { name: 'asc' }
+  });
+  return { categories };
+}
+
+/** O mesmo corpo de `GET /v1/public/banners`, que o carrossel da home lê. */
+async function dadosDosBanners(tenantId: string) {
+  const now = new Date();
+  const banners = await prisma.landingBanner.findMany({
+    where: {
+      tenantId,
+      status: 'PUBLISHED',
+      AND: [
+        { OR: [{ startsAt: null }, { startsAt: { lte: now } }] },
+        { OR: [{ endsAt: null }, { endsAt: { gte: now } }] }
+      ]
+    },
+    orderBy: { position: 'asc' }
+  });
+  return { success: true, count: banners.length, banners };
+}
+
+export const getPost = asyncHandler(async (req: Request, res: Response) => {
+  const tenant = await resolvePublicTenant();
+  const dados = await dadosDoPost(tenant.id, String(req.params.slug));
+  if (!dados) throw new NotFoundError('Artigo não encontrado');
+  res.json(dados);
 });
 
-async function readFrontendTemplate(): Promise<string> {
-  const candidates = [
-    process.env.FRONTEND_INDEX_PATH,
-    '/usr/share/nginx/html/index.html',
-    path.resolve(__dirname, '../../../frontend/dist/index.html')
-  ].filter((candidate): candidate is string => Boolean(candidate));
-  let lastError: unknown;
-  for (const candidate of candidates) {
-    try {
-      return await fs.readFile(candidate, 'utf8');
-    } catch (error) {
-      lastError = error;
-    }
-  }
-  throw lastError;
-}
+// ── HTML inicial das páginas públicas ────────────────────────────────────────
+//
+// O nginx manda `/`, `/faq`, `/contato`, `/privacidade`, `/blog` e
+// `/blog/:slug` para cá. O HTML é o do `.tsx` de cada página, desenhado no
+// servidor (`pagina-publica.service`); este arquivo só junta os dados que a
+// página pediria à API.
+
+const CACHE_DE_PAGINA = 'public, max-age=300, stale-while-revalidate=3600';
+const siteUrl = (): string => process.env.PUBLIC_SITE_URL || 'https://saudepet.app.br';
+
+const CAMINHO_DA_PAGINA: Record<string, string> = {
+  home: '/',
+  faq: '/faq',
+  blog: '/blog',
+  contato: '/contato',
+  privacidade: '/privacidade'
+};
+
+/** Artigos por página na listagem; o `BlogPage.tsx` pede o mesmo número. */
+const ARTIGOS_POR_PAGINA = 9;
 
 export const renderPost = asyncHandler(async (req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
-  const post = await prisma.blogPost.findFirst({
-    where: { ...publicPostWhere(tenant.id), slug: String(req.params.slug) },
-    select: postSelect
-  });
-  const template = await readFrontendTemplate();
-  const siteUrl = process.env.PUBLIC_SITE_URL || 'https://saudepet.app.br';
-  if (!post) {
-    return res.status(404).type('html').send(renderNotFoundHtml(template, siteUrl));
+  const slug = String(req.params.slug);
+  const base = siteUrl().replace(/\/$/, '');
+  const dadosDoArtigo = await dadosDoPost(tenant.id, slug);
+  const dados: DadosIniciais = { [`/public/blog/${slug}`]: dadosDoArtigo ?? NAO_ENCONTRADO };
+
+  // A capa é a maior imagem da página: o navegador começa a baixá-la antes de
+  // chegar ao `<img>`.
+  const dicasDoHead: string[] = [];
+  if (dadosDoArtigo?.post.cover_image) {
+    const capa = responsiveCoverImages(base, dadosDoArtigo.post.cover_image);
+    dicasDoHead.push(`<link rel="preload" as="image" href="${escapeHtml(capa.original)}" imagesrcset="${escapeHtml(capa.srcset)}" imagesizes="(max-width: 620px) calc(100vw - 28px), 840px" fetchpriority="high" />`);
   }
-  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=3600');
-  return res.type('html').send(renderBlogHtml(template, post, siteUrl));
+
+  const html = await montarPaginaPublica({ url: `/blog/${slug}`, dados, dicasDoHead, baseDoSite: base });
+  if (!dadosDoArtigo) return res.status(404).type('html').send(html);
+  res.set('Cache-Control', CACHE_DE_PAGINA);
+  return res.type('html').send(html);
 });
 
 export const renderPage = asyncHandler(async (req: Request, res: Response) => {
-  const template = await readFrontendTemplate();
-  const siteUrl = process.env.PUBLIC_SITE_URL || 'https://saudepet.app.br';
-  const page = String(req.params.page);
-  let options: OpcoesDaPaginaEstatica = {};
-  if (page === 'home') {
+  const pagina = String(req.params.page);
+  const caminho = CAMINHO_DA_PAGINA[pagina];
+  if (!caminho) return res.status(404).type('text/plain; charset=utf-8').send('Página não encontrada.');
+
+  const dados: DadosIniciais = {};
+  const dicasDoHead: string[] = [];
+  let url = caminho;
+
+  if (pagina === 'home') {
     const tenant = await resolvePublicTenant();
-    const now = new Date();
-    const banner = await prisma.landingBanner.findFirst({
-      where: {
-        tenantId: tenant.id,
-        status: 'PUBLISHED',
-        AND: [
-          { OR: [{ startsAt: null }, { startsAt: { lte: now } }] },
-          { OR: [{ endsAt: null }, { endsAt: { gte: now } }] }
-        ]
-      },
-      orderBy: { position: 'asc' },
-      select: { desktopImageUrl: true, mobileImageUrl: true }
-    });
-    if (banner) options = { bannerImages: { desktop: banner.desktopImageUrl, mobile: banner.mobileImageUrl || banner.desktopImageUrl } };
+    const banners = await dadosDosBanners(tenant.id);
+    dados['/v1/public/banners'] = banners;
+    // O primeiro banner é a maior imagem da home.
+    const primeiro = banners.banners[0];
+    if (primeiro) {
+      const desktop = /^https?:\/\//i.test(primeiro.desktopImageUrl || '') ? primeiro.desktopImageUrl : null;
+      const mobile = /^https?:\/\//i.test(primeiro.mobileImageUrl || '') ? primeiro.mobileImageUrl : desktop;
+      const origem = mobile || desktop ? new URL(mobile || desktop || '').origin : null;
+      if (origem) dicasDoHead.push(`<link rel="preconnect" href="${escapeHtml(origem)}" />`);
+      if (mobile) dicasDoHead.push(`<link rel="preload" as="image" href="${escapeHtml(mobile)}" media="(max-width: 768px)" fetchpriority="high" />`);
+      if (desktop) dicasDoHead.push(`<link rel="preload" as="image" href="${escapeHtml(desktop)}" media="(min-width: 769px)" fetchpriority="high" />`);
+    }
   }
 
-  // A home e a listagem passam a sair do servidor JÁ COM os artigos.
-  // Antes, o `/blog` renderizava um título, uma frase e um link para ele
-  // mesmo: nenhum artigo tinha caminho de entrada a partir de uma página
-  // indexada, e o Google os conhecia só pelo sitemap. Em 01/09/2026, 22 dos
-  // 26 endereços estavam em "descoberto, no momento não indexado", que é o
-  // que acontece com página órfã.
-  if (page === 'blog' || page === 'home') {
+  // A listagem sai do servidor JÁ COM os artigos, e cada página dela tem
+  // endereço próprio (`/blog?page=2`). Em 01/09/2026, 22 dos 26 artigos
+  // estavam em "descoberto, no momento não indexado": nenhum tinha caminho de
+  // entrada a partir de uma página indexada, que é o que acontece com página
+  // órfã.
+  if (pagina === 'blog') {
     const tenant = await resolvePublicTenant();
-    const posts = await prisma.blogPost.findMany({
-      where: publicPostWhere(tenant.id),
-      orderBy: { published_at: 'desc' },
-      // A home leva os mais recentes; a listagem leva tudo, com teto para o
-      // HTML inicial não crescer sem limite conforme o blog crescer.
-      take: page === 'home' ? 6 : 60,
-      select: { slug: true, title: true, excerpt: true }
-    });
-    options = { ...options, posts };
+    const numero = Math.max(1, Math.floor(Number(req.query.page)) || 1);
+    const [listagem, categorias] = await Promise.all([
+      dadosDaListagem(tenant.id, { page: numero, limit: ARTIGOS_POR_PAGINA }),
+      dadosDasCategorias(tenant.id)
+    ]);
+    dados[chaveDoDado('/public/blog', { page: numero, limit: ARTIGOS_POR_PAGINA })] = listagem;
+    dados['/public/blog/categories'] = categorias;
+    if (numero > 1) url = `/blog?page=${numero}`;
   }
 
-  const html = renderStaticPageHtml(template, page, siteUrl, options);
-  if (!html) return res.status(404).type('html').send(renderNotFoundHtml(template, siteUrl));
-  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=3600');
+  const html = await montarPaginaPublica({ url, dados, dicasDoHead, baseDoSite: siteUrl() });
+  res.set('Cache-Control', CACHE_DE_PAGINA);
   return res.type('html').send(html);
 });
 
@@ -345,12 +395,7 @@ export const postMarkdown = asyncHandler(async (req: Request, res: Response) => 
 
 export const listCategories = asyncHandler(async (_req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
-  const categories = await prisma.blogCategory.findMany({
-    where: { tenant_id: tenant.id, posts: { some: publicPostWhere(tenant.id) } },
-    select: { id: true, slug: true, name: true, description: true, _count: { select: { posts: true } } },
-    orderBy: { name: 'asc' }
-  });
-  res.json({ categories });
+  res.json(await dadosDasCategorias(tenant.id));
 });
 
 export const sitemap = asyncHandler(async (_req: Request, res: Response) => {
@@ -358,7 +403,7 @@ export const sitemap = asyncHandler(async (_req: Request, res: Response) => {
   const posts = await prisma.blogPost.findMany({ where: publicPostWhere(tenant.id), select: { slug: true, updated_at: true } });
   const base = (process.env.PUBLIC_SITE_URL || 'https://saudepet.app.br').replace(/\/$/, '');
   const staticLastModified = process.env.STATIC_CONTENT_LASTMOD || '2026-08-19';
-  const urls = Object.values(staticPages).map((page) => `<url><loc>${escapeXml(base + page.path)}</loc><lastmod>${staticLastModified}</lastmod></url>`)
+  const urls = caminhosDasPaginasEstaticas.map((caminho) => `<url><loc>${escapeXml(base + caminho)}</loc><lastmod>${staticLastModified}</lastmod></url>`)
     .concat(posts.map((post) => `<url><loc>${escapeXml(`${base}/blog/${post.slug}`)}</loc><lastmod>${post.updated_at.toISOString()}</lastmod></url>`))
     // Lojas e produtos do mercado, quando houver loja aprovada.
     .concat(await urlsDoMercadoParaSitemap(tenant.id, base));

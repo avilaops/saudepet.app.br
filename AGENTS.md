@@ -45,6 +45,12 @@ Depois de limpar:
 
 Prioridade: pendências do Saúde Pet vêm antes de manutenção de Docker.
 
+### Git
+
+Toda alteração é commitada e enviada para a `main` na mesma tarefa (regra do servidor,
+`~/AGENTS.md` seção 4): `git pull --rebase origin main`, teste, `git push origin main`. Sem
+branch nem PR parado. Nunca `push --force` na `main` e nunca commitar segredo.
+
 ### Deploy
 
 O GitHub Actions compila o codigo e publica imagens no GHCR. O servidor recebe
@@ -60,6 +66,35 @@ rodado da máquina de desenvolvimento: o build acontece no `apps-noclient` (sem 
 nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e volta automática.
 Em 08/10 só o `web` foi publicado por esse caminho; o do `backend`, que aplica migração,
 ainda não foi exercitado. Antes de publicar o backend, fazer dump do banco.
+
+### Páginas públicas: um `.tsx` só, desenhado também no servidor
+
+Toda página é `.tsx` em `frontend/src/pages`. Não existe HTML de página escrito à mão: a
+pasta `landing-page/` e os resumos que o backend montava (`renderBlogHtml`,
+`renderStaticPageHtml`, `mercado-render.service`) saíram em 08/10/2026.
+
+As públicas (`/`, `/faq`, `/contato`, `/privacidade`, `/blog`, `/blog/:slug`, `/mercado`,
+`/mercado/:slug`, `/mercado/:slug/:produto`) chegam prontas no HTML inicial, para o Google e
+para a prévia de link:
+
+- `frontend/src/entry-server.tsx` reúne essas rotas; `npm run build` gera
+  `frontend/dist-ssr/entry-server.cjs` e roda `frontend/scripts/verificar-ssr.mjs`, que
+  reprova o build se alguma página não sair desenhada ou perder o `<Seo>`.
+- O backend carrega esse arquivo (`/app/ssr` na imagem) em
+  `backend/src/services/pagina-publica.service.ts`: junta as respostas da API que a página
+  pediria, recebe o HTML e o `<Seo>` da página, escreve o `<head>` e manda os dados num
+  `<script id="dados-iniciais">`. No navegador o `main.tsx` hidrata (`data-ssr="1"`).
+- A página lê o dado pronto com `useDadosIniciais()` (`frontend/src/ssr/dadosIniciais.tsx`).
+  A chave é o endereço da API (`chaveDoDado`), montada igual nos dois lados.
+- Página pública nova: rota no `App.tsx`, no `entry-server.tsx` e no `nginx.saudepet.conf`
+  (`proxy_pass` para `/api/public/render/...`), dados no controller e caso no
+  `verificar-ssr.mjs`. Nada de `window`, `document` ou `localStorage` fora de `useEffect` e
+  de manipulador de evento.
+- O `index.html` que o backend usa vem do contêiner `web` (`http://web/index.html`, com a
+  cópia da imagem como reserva; `FRONTEND_TEMPLATE_URL=off` desliga). Antes ele usava só a
+  cópia da própria imagem, e publicar o `web` sem o `backend` deixava as páginas públicas
+  pedindo JavaScript que não existia mais (08/10/2026, 142 páginas).
+- Web e backend saem do mesmo commit: mudou página pública, publique os dois.
 
 - Mudança em `schema.prisma` exige `docker compose up -d --build backend`.
 - Mudança em `frontend/nginx.saudepet.conf` exige `docker compose up -d --force-recreate web`

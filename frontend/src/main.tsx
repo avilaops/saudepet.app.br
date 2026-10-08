@@ -59,8 +59,14 @@ iniciarTemaVet()
 const raiz = document.getElementById('root')
 if (!raiz) throw new Error('Elemento #root não encontrado no documento.')
 
-ReactDOM.createRoot(raiz).render(
+const app = (
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 )
+
+// As páginas públicas chegam desenhadas pelo servidor com os mesmos `.tsx`
+// (`entry-server.tsx`). Nelas o React assume o HTML que já está na tela em vez
+// de apagar e desenhar de novo — sem piscar. Nas demais a raiz vem vazia.
+if (raiz.dataset.ssr === '1') ReactDOM.hydrateRoot(raiz, app)
+else ReactDOM.createRoot(raiz).render(app)

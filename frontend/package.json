@@ -7,6 +7,7 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "vite build",
+    "build:ssr": "vite build --ssr src/entry-server.tsx && node scripts/verificar-ssr.mjs",
     "preview": "vite preview",
     "prebuild": "node ../scripts/verificar-dados-falsos.mjs && node ../scripts/verificar-rotas.mjs",
     "postbuild": "node scripts/gerar-html-por-area.mjs"

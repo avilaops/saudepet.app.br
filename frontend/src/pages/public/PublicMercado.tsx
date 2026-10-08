@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
 import Seo from '../../components/public/Seo'
 import { mercadoPublico, quilometros, type Loja } from '../../services/mercado'
+import { useDadosIniciais } from '../../ssr/dadosIniciais'
+import { baseDoSite } from '../../ssr/site'
 
 /**
  * A porta pública do Saúde Pet Mercado.
@@ -15,11 +17,13 @@ import { mercadoPublico, quilometros, type Loja } from '../../services/mercado'
  */
 
 export default function PublicMercado() {
-  const [lojas, setLojas] = useState<Loja[]>([])
-  const [carregando, setCarregando] = useState(true)
+  const pronto = useDadosIniciais()<{ lojas: Loja[] }>('/public/mercado/lojas')
+  const [lojas, setLojas] = useState<Loja[]>(pronto.dado?.lojas || [])
+  const [carregando, setCarregando] = useState(!pronto.veioPronto)
   const [erro, setErro] = useState(false)
 
   useEffect(() => {
+    if (pronto.veioPronto) return
     mercadoPublico
       .lojas()
       .then(({ lojas: lista }) => setLojas(lista))
@@ -33,6 +37,21 @@ export default function PublicMercado() {
         title="Mercado Saúde PET — ração, remédios e acessórios de lojas perto de você"
         description="Lojas pet da sua cidade com retirada no balcão e entrega, pagando por Pix ou cartão no Saúde PET."
         path="/mercado"
+        jsonLd={
+          lojas.length
+            ? {
+                '@context': 'https://schema.org',
+                '@type': 'ItemList',
+                name: 'Lojas do Mercado Saúde PET',
+                itemListElement: lojas.map((loja, indice) => ({
+                  '@type': 'ListItem',
+                  position: indice + 1,
+                  url: `${baseDoSite()}/mercado/${loja.slug}`,
+                  name: loja.nome_fantasia
+                }))
+              }
+            : undefined
+        }
       />
 
       <section className="page-hero">

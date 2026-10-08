@@ -52,7 +52,6 @@ uploads/
 !frontend/public/blog-media/social/emergencia-veterinaria-em-curitiba-o-plano-antes-de-precisar.jpg
 !frontend/public/blog-media/social/passeio-no-inverno-de-curitiba-o-que-muda.jpg
 !frontend/public/blog-media/social/casa-fechada-no-inverno-pele-e-respiracao-do-pet.jpg
-!landing-page/assets/*.png
 
 # Test coverage
 coverage/
@@ -77,3 +76,5 @@ output/screenshots/
 .vs/
 output/
 *.code-workspace
+dist-ssr/
+.work/

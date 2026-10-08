@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
 import Seo from '../../components/public/Seo'
 import { emReais, escreverUnidade, mercadoPublico, quilometros, type Loja, type Produto } from '../../services/mercado'
+import { useDadosIniciais } from '../../ssr/dadosIniciais'
+import { baseDoSite } from '../../ssr/site'
 
 /**
  * Um produto, para quem chegou pelo Google ou pelo WhatsApp.
@@ -17,13 +19,18 @@ type ProdutoPublico = Produto & { loja: Loja; disponivel: boolean; imagens?: str
 export default function PublicMercadoProduto() {
   const { slug = '', produto: produtoSlug = '' } = useParams()
 
-  const [produto, setProduto] = useState<ProdutoPublico | null>(null)
-  const [fotoAberta, setFotoAberta] = useState<string | null>(null)
-  const [carregando, setCarregando] = useState(true)
-  const [naoEncontrado, setNaoEncontrado] = useState(false)
+  // O produto chega do servidor junto com o HTML: é a página que o feed do
+  // Google e do WhatsApp aponta, e a prévia do link precisa dele pronto.
+  const pronto = useDadosIniciais()<{ produto: ProdutoPublico }>(`/public/mercado/lojas/${slug}/produtos/${produtoSlug}`)
+  const inicial = pronto.dado?.produto ?? null
+
+  const [produto, setProduto] = useState<ProdutoPublico | null>(inicial)
+  const [fotoAberta, setFotoAberta] = useState<string | null>(inicial?.imagem_url || inicial?.imagens?.[0] || null)
+  const [carregando, setCarregando] = useState(!pronto.veioPronto)
+  const [naoEncontrado, setNaoEncontrado] = useState(pronto.naoEncontrado)
 
   useEffect(() => {
-    if (!slug || !produtoSlug) return
+    if (!slug || !produtoSlug || pronto.veioPronto) return
     mercadoPublico
       .produto(slug, produtoSlug)
       .then(({ produto: encontrado }) => {
@@ -91,10 +98,12 @@ export default function PublicMercadoProduto() {
           description: produto.descricao || undefined,
           image: fotos.length ? fotos : undefined,
           sku: produto.id,
+          gtin: produto.ean || undefined,
           brand: produto.marca ? { '@type': 'Brand', name: produto.marca } : undefined,
+          category: produto.categoria?.nome || undefined,
           offers: {
             '@type': 'Offer',
-            url: `${(import.meta.env.VITE_PUBLIC_SITE_URL || window.location.origin).replace(/\/$/, '')}${caminho}`,
+            url: `${baseDoSite()}${caminho}`,
             priceCurrency: 'BRL',
             price: produto.preco_vigente.toFixed(2),
             availability: produto.disponivel ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',

@@ -5,17 +5,30 @@ import api from '../../services/api'
 import PublicLayout from '../../components/public/PublicLayout'
 import Seo from '../../components/public/Seo'
 import { responsiveBlogImageSet } from '../../utils/blogImages'
+import { chaveDoDado, useDadosIniciais } from '../../ssr/dadosIniciais'
 
 export default function BlogPage() {
   const [params, setParams] = useSearchParams()
-  const [data, setData] = useState<ApiPayload>({ posts: [], pagination: {} })
-  const [categories, setCategories] = useState<ApiPayload[]>([])
-  const [loading, setLoading] = useState(true)
-  const [erro, setErro] = useState('')
   const search = params.get('search') || ''
   const category = params.get('category') || ''
   const page = Number(params.get('page') || 1)
+  // A listagem chega do servidor já com os artigos da página pedida: é o que o
+  // Google lê e o que aparece antes do JavaScript. Filtro e busca continuam
+  // indo à API.
+  const dadoInicial = useDadosIniciais()
+  const pronto = dadoInicial<ApiPayload>(chaveDoDado('/public/blog', { search, category, page, limit: 9 }))
+  const categoriasProntas = dadoInicial<ApiPayload>('/public/blog/categories')
+  const [data, setData] = useState<ApiPayload>(pronto.dado ?? { posts: [], pagination: {} })
+  const [categories, setCategories] = useState<ApiPayload[]>(categoriasProntas.dado?.categories || [])
+  const [loading, setLoading] = useState(!pronto.veioPronto)
+  const [erro, setErro] = useState('')
   useEffect(() => {
+    if (pronto.dado) {
+      setData(pronto.dado)
+      setErro('')
+      setLoading(false)
+      return
+    }
     setLoading(true)
     setErro('')
     // Resposta de uma busca antiga não pode pisar na mais nova.
@@ -39,17 +52,22 @@ export default function BlogPage() {
     return () => { vigente = false; clearTimeout(espera) }
   }, [search, category, page])
   useEffect(() => {
+    if (categoriasProntas.veioPronto) return
     api.get('/public/blog/categories')
       .then((cats) => setCategories(cats.data?.categories || []))
       .catch(() => {})
   }, [])
+  // Paginação com endereço próprio (`/blog?page=2`): botão sem `href` o Google
+  // não segue, e os artigos da segunda página em diante ficavam sem caminho de
+  // entrada a partir de uma página indexada.
+  const enderecoDaPagina = (numero: number) => { const next = new URLSearchParams(params); numero > 1 ? next.set('page', String(numero)) : next.delete('page'); const texto = next.toString(); return texto ? `/blog?${texto}` : '/blog' }
   const update = (key: ApiPayload, value: ApiPayload) => { const next = new URLSearchParams(params); value ? next.set(key, value) : next.delete(key); if (key !== 'page') next.delete('page'); setParams(next) }
   return (
     <PublicLayout>
       <Seo title="Blog de saúde e cuidados com pets | Saúde PET" description="Conteúdos do Saúde PET sobre cuidado, prevenção e rotina de animais de estimação." path="/blog" />
       <section className="page-hero"><div className="public-wrap"><span className="eyebrow">Conteúdo para tutores</span><h1>Blog Saúde PET</h1><p>Informação clara para apoiar decisões mais conscientes sobre o cuidado do seu pet.</p><div className="blog-filters"><label><span>Buscar artigos</span><input type="search" value={search} onChange={(e) => update('search', e.target.value)} placeholder="Digite um tema" /></label><label><span>Categoria</span><select value={category} onChange={(e) => update('category', e.target.value)}><option value="">Todas</option>{categories.map((item) => <option key={item.id} value={item.slug}>{item.name}</option>)}</select></label></div></div></section>
       <section className="public-section"><div className="public-wrap">{erro && <p className="lv-warning-box" role="alert">{erro}</p>}
-        {loading ? <div className="blog-loading" role="status"><span className="loading-line" /><span className="loading-line" /><span className="loading-line" /><span className="sr-only">Carregando artigos…</span></div> : data.posts.length ? <><div className="post-grid">{data.posts.map((post: ApiPayload, index: number) => <article className={index === 0 && page === 1 ? 'post-card featured' : 'post-card'} key={post.id}>{post.cover_image ? <img src={post.cover_image} srcSet={responsiveBlogImageSet(post.cover_image)} sizes={index === 0 && page === 1 ? '(min-width: 901px) 40vw, (min-width: 621px) 50vw, calc(100vw - 28px)' : '(min-width: 901px) 30vw, (min-width: 621px) 50vw, calc(100vw - 28px)'} alt={post.cover_image_alt || ''} width="1280" height="853" loading={index === 0 && page === 1 ? 'eager' : 'lazy'} fetchPriority={index === 0 && page === 1 ? 'high' : 'auto'} decoding="async" /> : <div className="post-placeholder" aria-hidden="true"><img src="/brand/logo-symbol.png" alt="" /></div>}<div><span className="post-category">{post.category?.name || 'Saúde PET'}</span><h2><Link to={`/blog/${post.slug}`}>{post.title}</Link></h2><p>{post.excerpt}</p><small>{post.author_name} · {post.reading_time_minutes || 1} min de leitura</small></div></article>)}</div>{data.pagination.pages > 1 && <nav className="pagination" aria-label="Paginação"><button disabled={page <= 1} onClick={() => update('page', page - 1)}>Anterior</button><span>Página {page} de {data.pagination.pages}</span><button disabled={page >= data.pagination.pages} onClick={() => update('page', page + 1)}>Próxima</button></nav>}</> : erro ? null : <div className="empty-state"><h2>Nenhum artigo publicado</h2><p>Novos conteúdos aparecerão aqui assim que forem revisados e publicados.</p></div>}</div></section>
+        {loading ? <div className="blog-loading" role="status"><span className="loading-line" /><span className="loading-line" /><span className="loading-line" /><span className="sr-only">Carregando artigos…</span></div> : data.posts.length ? <><div className="post-grid">{data.posts.map((post: ApiPayload, index: number) => <article className={index === 0 && page === 1 ? 'post-card featured' : 'post-card'} key={post.id}>{post.cover_image ? <img src={post.cover_image} srcSet={responsiveBlogImageSet(post.cover_image)} sizes={index === 0 && page === 1 ? '(min-width: 901px) 40vw, (min-width: 621px) 50vw, calc(100vw - 28px)' : '(min-width: 901px) 30vw, (min-width: 621px) 50vw, calc(100vw - 28px)'} alt={post.cover_image_alt || ''} width="1280" height="853" loading={index === 0 && page === 1 ? 'eager' : 'lazy'} fetchPriority={index === 0 && page === 1 ? 'high' : 'auto'} decoding="async" /> : <div className="post-placeholder" aria-hidden="true"><img src="/brand/logo-symbol.png" alt="" /></div>}<div><span className="post-category">{post.category?.name || 'Saúde PET'}</span><h2><Link to={`/blog/${post.slug}`}>{post.title}</Link></h2><p>{post.excerpt}</p><small>{post.author_name} · {post.reading_time_minutes || 1} min de leitura</small></div></article>)}</div>{data.pagination.pages > 1 && <nav className="pagination" aria-label="Paginação">{page <= 1 ? <span className="pagination-link is-disabled" aria-disabled="true">Anterior</span> : <Link className="pagination-link" to={enderecoDaPagina(page - 1)} rel="prev">Anterior</Link>}<span>Página {page} de {data.pagination.pages}</span>{page >= data.pagination.pages ? <span className="pagination-link is-disabled" aria-disabled="true">Próxima</span> : <Link className="pagination-link" to={enderecoDaPagina(page + 1)} rel="next">Próxima</Link>}</nav>}</> : erro ? null : <div className="empty-state"><h2>Nenhum artigo publicado</h2><p>Novos conteúdos aparecerão aqui assim que forem revisados e publicados.</p></div>}</div></section>
     </PublicLayout>
   )
 }

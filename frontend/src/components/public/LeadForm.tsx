@@ -1,6 +1,6 @@
 import type { ApiPayload } from '../../types/api'
 import { Link } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import api from '../../services/api'
 import { getAnalyticsSessionId } from './AnalyticsTracker'
 
@@ -16,10 +16,10 @@ const maskPhone = (value: ApiPayload) => {
 export default function LeadForm({ compact = false }) {
   const [form, setForm] = useState(initial)
   const [state, setState] = useState<ApiPayload>({ loading: false, error: '', success: '' })
-  const params = useMemo(() => new URLSearchParams(window.location.search), [])
   const change = (event: any) => setForm((current) => ({ ...current, [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value }))
   const submit = async (event: any) => {
     event.preventDefault(); setState({ loading: true, error: '', success: '' })
+    const params = new URLSearchParams(window.location.search)
     try {
       const response = await api.post('/public/leads', {
         ...form, phone: form.phone.replace(/\D/g, ''), state: form.state.toUpperCase(),

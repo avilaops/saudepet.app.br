@@ -1,3 +1,5 @@
+import { baseDoSite } from '../ssr/site'
+
 export function responsiveBlogImageSet(url?: string | null): string | undefined {
   if (!url?.endsWith('.webp')) return undefined
   const base = url.slice(0, -5)
@@ -9,6 +11,6 @@ export function absoluteSiteUrl(url: null): null
 export function absoluteSiteUrl(url: undefined): undefined
 export function absoluteSiteUrl(url?: string | null): string | null | undefined {
   if (!url || url.startsWith('http')) return url
-  const base = (import.meta.env.VITE_PUBLIC_SITE_URL || window.location.origin).replace(/\/$/, '')
+  const base = baseDoSite()
   return `${base}${url.startsWith('/') ? url : `/${url}`}`
 }

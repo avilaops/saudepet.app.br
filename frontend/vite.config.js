@@ -2,10 +2,27 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
+// `vite build --ssr src/entry-server.tsx` gera o arquivo que o backend carrega
+// para desenhar as páginas públicas com os mesmos `.tsx`. Sai em CommonJS e
+// com as dependências dentro (`noExternal`), porque o backend é CommonJS e não
+// tem `react` nas próprias dependências.
+export default defineConfig(({ isSsrBuild }) => ({
+  ...(isSsrBuild
+    ? {
+        ssr: { noExternal: true },
+        build: {
+          outDir: 'dist-ssr',
+          emptyOutDir: true,
+          // Sem a pasta `public` (imagens do blog, ícones): só o `.cjs` interessa.
+          copyPublicDir: false,
+          rollupOptions: { output: { format: 'cjs', entryFileNames: 'entry-server.cjs' } }
+        }
+      }
+    : {}),
   plugins: [
     react(),
-    VitePWA({
+    // O service worker e o manifesto são do navegador; no build do servidor não entram.
+    !isSsrBuild && VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'notification-icon.png', 'og-default.png'],
       manifest: {
@@ -74,4 +91,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))

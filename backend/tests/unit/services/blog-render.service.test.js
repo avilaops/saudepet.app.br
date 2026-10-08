@@ -1,9 +1,7 @@
 const {
-  renderBlogHtml,
-  renderMarkdownHtml,
-  renderNotFoundHtml,
+  injectPageMetadata,
   renderPostMarkdown,
-  renderStaticPageHtml
+  responsiveCoverImages
 } = require('../../../src/services/blog-render.service');
 
 const template = `<!doctype html><html><head>
@@ -38,50 +36,32 @@ const post = {
   updated_at: new Date('2026-08-19T12:00:00.000Z')
 };
 
+// O HTML das páginas é desenhado pelos `.tsx` do app (ver
+// `pagina-publica.service.test.ts` e `frontend/scripts/verificar-ssr.mjs`).
+// Aqui ficam o `<head>` e os formatos de texto do blog.
 describe('blog-render.service', () => {
-  test('injeta metadata absoluta, canonical e Article JSON-LD', () => {
-    const html = renderBlogHtml(template, post, 'https://saudepet.app.br/');
-    expect(html).toContain('<title>Primeira consulta do filhote | Saúde PET</title>');
+  test('injeta metadata, canonical e JSON-LD escapados', () => {
+    const html = injectPageMetadata(template, {
+      title: 'Consulta do <filhote> | Saúde PET',
+      description: 'Descrição do artigo',
+      canonical: 'https://saudepet.app.br/blog/consulta-do-filhote',
+      type: 'article',
+      image: 'https://saudepet.app.br/blog-media/social/consulta-do-filhote.jpg',
+      jsonLd: { '@type': 'Article', headline: post.title }
+    });
+    expect(html).toContain('<title>Consulta do &lt;filhote&gt; | Saúde PET</title>');
     expect(html).toContain('property="og:type" content="article"');
     expect(html).toContain('https://saudepet.app.br/blog-media/social/consulta-do-filhote.jpg');
     expect(html).toContain('<link rel="canonical" href="https://saudepet.app.br/blog/consulta-do-filhote"');
     expect(html).toContain('"@type":"Article"');
-    expect(html).toContain('data-server-content="article"');
-    expect(html).toContain('<h2>Antes da consulta</h2>');
-    expect(html).toContain('carteira de vacinação');
-    expect(html).toContain('Filhote sendo examinado por uma veterinária');
     expect(html).not.toContain('Consulta do <filhote>');
   });
 
-  test('renderiza Markdown permitido e escapa HTML ou links perigosos', () => {
-    const html = renderMarkdownHtml('## Cuidados\n\n<script>alert(1)</script>\n\n[ruim](javascript:alert(1))');
-    expect(html).toContain('<h2>Cuidados</h2>');
-    expect(html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
-    expect(html).not.toContain('<script>alert(1)</script>');
-    expect(html).not.toContain('href="javascript:');
-  });
-
-  test('gera página institucional com canonical e metadata no servidor', () => {
-    const html = renderStaticPageHtml(template, 'faq', 'https://saudepet.app.br');
-    expect(html).toContain('<title>Perguntas frequentes sobre atendimento veterinário | Saúde PET</title>');
-    expect(html).toContain('rel="canonical" href="https://saudepet.app.br/faq"');
-    // WebPage de propósito: FAQPage sem mainEntity é rich result inválido — o
-    // FAQPage completo (com as perguntas) é emitido pelo cliente.
-    expect(html).toContain('"@type":"WebPage"');
-    expect(html).not.toContain('"@type":"FAQPage"');
-    expect(html).toContain('<h1>Perguntas frequentes</h1>');
-  });
-
-  test('antecipa a imagem responsiva do primeiro banner na home', () => {
-    const html = renderStaticPageHtml(template, 'home', 'https://saudepet.app.br', {
-      bannerImages: {
-        mobile: 'https://cdn.example.com/banner-mobile.webp',
-        desktop: 'https://cdn.example.com/banner-desktop.webp'
-      }
-    });
-    expect(html).toContain('rel="preconnect" href="https://cdn.example.com"');
-    expect(html).toContain('href="https://cdn.example.com/banner-mobile.webp" media="(max-width: 768px)"');
-    expect(html).toContain('href="https://cdn.example.com/banner-desktop.webp" media="(min-width: 769px)"');
+  test('monta as larguras da capa para o preload', () => {
+    const capa = responsiveCoverImages('https://saudepet.app.br', post.cover_image);
+    expect(capa.original).toBe('https://saudepet.app.br/blog-media/consulta-do-filhote.webp');
+    expect(capa.srcset).toContain('consulta-do-filhote-640.webp 640w');
+    expect(capa.srcset).toContain('consulta-do-filhote.webp 1280w');
   });
 
   test('gera versão Markdown canônica do artigo', () => {
@@ -89,11 +69,5 @@ describe('blog-render.service', () => {
     expect(markdown).toContain('# Consulta do <filhote>');
     expect(markdown).toContain('URL canônica: https://saudepet.app.br/blog/consulta-do-filhote');
     expect(markdown).toContain('## Antes da consulta');
-  });
-
-  test('marca páginas indisponíveis como noindex', () => {
-    const html = renderNotFoundHtml(template, 'https://saudepet.app.br');
-    expect(html).toContain('Artigo não encontrado | Saúde PET');
-    expect(html).toContain('name="robots" content="noindex,nofollow"');
   });
 });
