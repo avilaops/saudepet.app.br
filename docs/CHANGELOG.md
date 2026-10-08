@@ -42,6 +42,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
   navegador o React assume o HTML sem redesenhar e sem buscar de novo os dados.
 - **`/blog?page=2` e `/mercado/:loja?pagina=2` têm endereço próprio**, e a paginação virou link:
   artigos e produtos fora da primeira página passam a ter caminho de entrada.
+- **O código da página é carregado antes de o React assumir o HTML do servidor.** Na primeira
+  versão (publicada de manhã) o carregamento sob demanda suspendia no meio da hidratação; em
+  rede lenta a sessão atualizava antes, o React registrava o erro 421 e redesenhava a página
+  do zero, com o indicador de carregamento no meio.
 - O build reprova se alguma página pública não sair desenhada no servidor
   (`frontend/scripts/verificar-ssr.mjs`). Detalhes no `AGENTS.md`.
 

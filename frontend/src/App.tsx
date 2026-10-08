@@ -1,10 +1,28 @@
-import { lazy, Suspense, type ReactNode } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { lazy, Suspense, type ComponentType, type ReactNode } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, matchPath } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { SocketProvider } from './contexts/SocketContext'
 import FaixaDeSuporte from './components/FaixaDeSuporte'
 import AppErrorBoundary from './components/AppErrorBoundary'
 import type { PapelUsuario } from './types/api'
+
+/**
+ * Página que chega desenhada pelo servidor (ver `entry-server.tsx`).
+ *
+ * Continua sendo carregada sob demanda, mas pode ser carregada ANTES de o
+ * React assumir a tela (`preCarregarPaginaDoServidor`, chamado pelo
+ * `main.tsx`). Sem isso o `lazy` suspendia no meio da hidratação; a sessão
+ * (`AuthProvider`) atualizava antes de o código da página chegar e o React
+ * desistia de aproveitar o HTML — erro 421, tela trocada pelo indicador de
+ * carregamento e redesenhada do zero.
+ */
+function paginaDoServidor(importar: () => Promise<{ default: ComponentType }>) {
+  const SobDemanda = lazy(importar)
+  let Carregada: ComponentType | null = null
+  const Pagina = () => (Carregada ? <Carregada /> : <SobDemanda />)
+  Pagina.preCarregar = () => importar().then((modulo) => { Carregada = modulo.default })
+  return Pagina
+}
 
 const Login = lazy(() => import('./pages/Login'))
 const OnboardingTutor = lazy(() => import('./pages/OnboardingTutor'))
@@ -90,27 +108,47 @@ const AdminMercado = lazy(() => import('./pages/admin/AdminMercado'))
 const LojaFeed = lazy(() => import('./pages/mercado/LojaFeed'))
 // Vitrine pública do mercado: abre sem login, é o que o Google, o WhatsApp e
 // o Google Business Profile apontam.
-const PublicMercado = lazy(() => import('./pages/public/PublicMercado'))
-const PublicMercadoLoja = lazy(() => import('./pages/public/PublicMercadoLoja'))
-const PublicMercadoProduto = lazy(() => import('./pages/public/PublicMercadoProduto'))
+const PublicMercado = paginaDoServidor(() => import('./pages/public/PublicMercado'))
+const PublicMercadoLoja = paginaDoServidor(() => import('./pages/public/PublicMercadoLoja'))
+const PublicMercadoProduto = paginaDoServidor(() => import('./pages/public/PublicMercadoProduto'))
 const TutorPaymentCheckout = lazy(() => import('./pages/tutor/TutorPaymentCheckout'))
 const VetAgendaGrade = lazy(() => import('./pages/veterinario/VetAgendaGrade'))
 const TutorPetCarteiraDigital = lazy(() => import('./pages/tutor/TutorPetCarteiraDigital'))
 const TutorLembretes = lazy(() => import('./pages/tutor/TutorLembretes'))
 const TutorAgenda = lazy(() => import('./pages/tutor/TutorAgenda'))
 const TutorPlanosAssinatura = lazy(() => import('./pages/tutor/TutorPlanosAssinatura'))
-const PublicHome = lazy(() => import('./pages/public/PublicHome'))
-const FaqPage = lazy(() => import('./pages/public/FaqPage'))
-const ContatoPage = lazy(() => import('./pages/public/ContatoPage'))
-const BlogPage = lazy(() => import('./pages/public/BlogPage'))
-const BlogPostPage = lazy(() => import('./pages/public/BlogPostPage'))
-const PrivacyPage = lazy(() => import('./pages/public/PrivacyPage'))
+const PublicHome = paginaDoServidor(() => import('./pages/public/PublicHome'))
+const FaqPage = paginaDoServidor(() => import('./pages/public/FaqPage'))
+const ContatoPage = paginaDoServidor(() => import('./pages/public/ContatoPage'))
+const BlogPage = paginaDoServidor(() => import('./pages/public/BlogPage'))
+const BlogPostPage = paginaDoServidor(() => import('./pages/public/BlogPostPage'))
+const PrivacyPage = paginaDoServidor(() => import('./pages/public/PrivacyPage'))
 const PublicPetIdentityTag = lazy(() => import('./pages/public/PublicPetIdentityTag'))
 const NotificacoesCentral = lazy(() => import('./pages/notifications/NotificacoesCentral'))
 const MeusDispositivos = lazy(() => import('./pages/notifications/MeusDispositivos'))
 const ParceiroPainel = lazy(() => import('./pages/parceiro/ParceiroPainel'))
 const ParceiroFinanceiro = lazy(() => import('./pages/parceiro/ParceiroFinanceiro'))
 const ParceiroPerfil = lazy(() => import('./pages/parceiro/ParceiroPerfil'))
+
+// As mesmas rotas de `ROTAS_DO_SERVIDOR`, em `entry-server.tsx`.
+const PAGINAS_DO_SERVIDOR: [string, { preCarregar: () => Promise<void> }][] = [
+  ['/', PublicHome],
+  ['/faq', FaqPage],
+  ['/contato', ContatoPage],
+  ['/blog', BlogPage],
+  ['/blog/:slug', BlogPostPage],
+  ['/privacidade', PrivacyPage],
+  ['/mercado', PublicMercado],
+  ['/mercado/:slug', PublicMercadoLoja],
+  ['/mercado/:slug/:produto', PublicMercadoProduto]
+]
+
+/** Carrega o código da página que o servidor desenhou, antes da hidratação. */
+export async function preCarregarPaginaDoServidor(caminho: string): Promise<void> {
+  const achada = PAGINAS_DO_SERVIDOR.find(([padrao]) => matchPath({ path: padrao, end: true }, caminho))
+  // Falhou (rede)? A hidratação segue e o `lazy` tenta de novo.
+  await achada?.[1].preCarregar().catch(() => {})
+}
 
 // Onde cada tipo de usuário mora.
 const AREA_DO_TIPO: Record<PapelUsuario, string> = {

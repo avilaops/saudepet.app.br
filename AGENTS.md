@@ -87,7 +87,12 @@ para a prévia de link:
   `<script id="dados-iniciais">`. No navegador o `main.tsx` hidrata (`data-ssr="1"`).
 - A página lê o dado pronto com `useDadosIniciais()` (`frontend/src/ssr/dadosIniciais.tsx`).
   A chave é o endereço da API (`chaveDoDado`), montada igual nos dois lados.
-- Página pública nova: rota no `App.tsx`, no `entry-server.tsx` e no `nginx.saudepet.conf`
+- No `App.tsx` essas páginas são declaradas com `paginaDoServidor(...)` e listadas em
+  `PAGINAS_DO_SERVIDOR`: o `main.tsx` carrega o código da página antes de hidratar. Com `lazy`
+  puro a hidratação suspende, qualquer atualização que chegue antes (a sessão) dá o erro 421
+  do React e a página é redesenhada do zero. O `verificar-ssr.mjs` reprova se essa lista e a
+  do `entry-server.tsx` divergirem.
+- Página pública nova: rota no `App.tsx` (com `paginaDoServidor`), no `entry-server.tsx` e no `nginx.saudepet.conf`
   (`proxy_pass` para `/api/public/render/...`), dados no controller e caso no
   `verificar-ssr.mjs`. Nada de `window`, `document` ou `localStorage` fora de `useEffect` e
   de manipulador de evento.

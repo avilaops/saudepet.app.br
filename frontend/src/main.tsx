@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { registerSW } from 'virtual:pwa-register'
 import { iniciarTamanhoDaLetra } from './lib/acessibilidade'
 import { iniciarTemaVet } from './lib/temaVet'
-import App from './App'
+import App, { preCarregarPaginaDoServidor } from './App'
 import './index.css'
 import './public.css'
 import './vet.css'
@@ -68,5 +68,12 @@ const app = (
 // As páginas públicas chegam desenhadas pelo servidor com os mesmos `.tsx`
 // (`entry-server.tsx`). Nelas o React assume o HTML que já está na tela em vez
 // de apagar e desenhar de novo — sem piscar. Nas demais a raiz vem vazia.
-if (raiz.dataset.ssr === '1') ReactDOM.hydrateRoot(raiz, app)
-else ReactDOM.createRoot(raiz).render(app)
+//
+// Antes de assumir, o código da página já tem de estar carregado: se o `lazy`
+// suspender no meio da hidratação, qualquer atualização que chegue antes (a
+// sessão, por exemplo) faz o React descartar o HTML e redesenhar tudo.
+if (raiz.dataset.ssr === '1') {
+  preCarregarPaginaDoServidor(window.location.pathname).then(() => ReactDOM.hydrateRoot(raiz, app))
+} else {
+  ReactDOM.createRoot(raiz).render(app)
+}

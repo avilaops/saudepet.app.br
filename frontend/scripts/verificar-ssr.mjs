@@ -14,6 +14,7 @@
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import fs from 'node:fs'
 
 // Como no backend em produção: o React de produção, sem os avisos de desenvolvimento.
 process.env.NODE_ENV ||= 'production'
@@ -117,6 +118,16 @@ for (const caso of casos) {
 // Toda rota declarada no servidor tem pelo menos um caso aqui.
 const cobre = (rota) => casos.some((caso) => new RegExp(`^${rota.replace(/:[^/]+/g, '[^/]+')}$`).test(caso.url))
 for (const rota of ROTAS_DO_SERVIDOR) conferir(cobre(rota), `${rota}: rota do servidor sem caso de verificação`)
+
+// O `App.tsx` carrega o código destas páginas antes de hidratar; a lista de lá
+// tem de ser a mesma daqui, senão a página volta a piscar ao abrir.
+const appTsx = fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../src/App.tsx'), 'utf8')
+const blocoDoApp = appTsx.slice(appTsx.indexOf('const PAGINAS_DO_SERVIDOR'), appTsx.indexOf('export async function preCarregarPaginaDoServidor'))
+const rotasDoApp = [...blocoDoApp.matchAll(/\['([^']+)',/g)].map((achado) => achado[1])
+conferir(
+  JSON.stringify([...rotasDoApp].sort()) === JSON.stringify([...ROTAS_DO_SERVIDOR].sort()),
+  `PAGINAS_DO_SERVIDOR (App.tsx) e ROTAS_DO_SERVIDOR (entry-server.tsx) divergem: ${rotasDoApp.join(' ')} × ${ROTAS_DO_SERVIDOR.join(' ')}`
+)
 
 if (falhas.length) {
   console.error(`\n✖ Páginas públicas no servidor: ${falhas.length} problema(s)\n`)
