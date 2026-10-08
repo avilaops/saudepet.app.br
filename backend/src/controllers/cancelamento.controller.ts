@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { politicaDeCancelamento } from '../services/cancelamento.service';
 
-const prisma = require('../config/database');
+import prisma from '../config/database';
 
 /**
  * O que vai acontecer com o dinheiro se eu cancelar agora.

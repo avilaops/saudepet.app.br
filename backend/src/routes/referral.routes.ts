@@ -2,7 +2,7 @@ import { Router } from 'express';
 const router = Router();
 const referralController = require('../controllers/referral.controller');
 const { authMiddleware, isTutor, requirePartnerAccess } = require('../middleware/auth.middleware');
-const prisma = require('../config/database');
+import prisma from '../config/database';
 import type { NextFunction, Request, Response } from 'express';
 
 // 🐶 Rotas do Tutor

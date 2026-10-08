@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Marcar consulta volta a funcionar
+
+### 🔧 Corrigido
+
+- **Marcar consulta respondia erro 500 para todo tutor.** A consulta ao banco pedia o preço de
+  catálogo (`catalogo_itens`) ao pet, que não tem esse campo; o campo é do veterinário. O
+  compilador não acusava porque o arquivo carregava o banco sem tipos, e o teste unitário
+  simulava o banco. Achado ao exercitar a agenda em produção com as contas de teste.
+- Os cinco arquivos que carregavam o Prisma sem tipos (`const prisma = require(...)`) passaram
+  a importá-lo tipado; não havia outra consulta inválida escondida.
+- A suíte de jornada ganhou marcar, confirmar, remarcar e cancelar consulta pelas rotas reais.
+
 ## [Não versionado] - 2026-10-08 - Agenda no relógio do Brasil
 
 ### 🔧 Corrigido

@@ -80,6 +80,8 @@ describe('🎯 FLUXO COMPLETO - Jornada Integrada do Usuário', () => {
     app.use('/api/v1/solicitacoes', solicitacaoRoutes);
     app.use('/api/v1/mensagens', mensagemRoutes);
     app.use('/api/v1/avaliacoes', avaliacaoRoutes);
+    app.use('/api/v1/agenda', require('../../../src/routes/agenda.routes'));
+    app.use('/api/v1/veterinario/crm', require('../../../src/routes/crm-veterinario.routes'));
     app.use(errorHandler);
 
     prisma = new PrismaClient();
@@ -1141,6 +1143,83 @@ describe('🎯 FLUXO COMPLETO - Jornada Integrada do Usuário', () => {
       expect(response.status).toBe(400);
       const atual = await prisma.solicitacao.findUnique({ where: { id: context.solicitacao.id }, select: { receita_versao: true } });
       expect(atual.receita_versao).toBe(2);
+    });
+  });
+
+  // Marcar consulta respondia erro 500 em produção para todo tutor: a consulta
+  // ao banco pedia um campo que o pet não tem, e o teste unitário simulava o
+  // banco. Aqui é pela rota, com Postgres de verdade (08/10/2026).
+  describe('📅 FASE 5C: Consulta marcada', () => {
+    const emDoisDias = (hora) => {
+      const { instanteDoRelogio, relogioDeParede } = require('../../../src/utils/datas');
+      const hoje = relogioDeParede(new Date());
+      return instanteDoRelogio(hoje.ano, hoje.mes, hoje.dia + 2, hora * 60);
+    };
+    let agendamentoId;
+
+    it('5C.1 tutor marca consulta com o veterinário e ela nasce pendente', async () => {
+      // Só profissional com conta para receber aparece para marcação.
+      await prisma.veterinario.update({
+        where: { id: context.veterinario.veterinarioId },
+        data: { dados_bancarios: JSON.stringify({ teste: true }) }
+      });
+
+      const response = await request(app)
+        .post('/api/v1/agenda/marcar')
+        .set('Authorization', `Bearer ${context.tutor.token}`)
+        .send({
+          veterinario_id: context.veterinario.veterinarioId,
+          pet_id: context.pet.id,
+          tipo_atendimento: 'consulta_rotina',
+          inicio: emDoisDias(10).toISOString()
+        });
+
+      expect(response.status).toBe(201);
+      const agendamento = response.body.agendamento || response.body;
+      expect(agendamento.status).toBe('pendente');
+      agendamentoId = agendamento.id;
+    });
+
+    it('5C.2 emergência não se agenda', async () => {
+      const response = await request(app)
+        .post('/api/v1/agenda/marcar')
+        .set('Authorization', `Bearer ${context.tutor.token}`)
+        .send({ veterinario_id: context.veterinario.veterinarioId, pet_id: context.pet.id, tipo_atendimento: 'emergencia', inicio: emDoisDias(11).toISOString() });
+
+      expect(response.status).toBe(400);
+    });
+
+    it('5C.3 veterinário confirma e remarca; o tutor vê o novo horário', async () => {
+      const confirma = await request(app)
+        .put(`/api/v1/veterinario/crm/agendamentos/${agendamentoId}/status`)
+        .set('Authorization', `Bearer ${context.veterinario.token}`)
+        .send({ status: 'confirmado' });
+      expect(confirma.status).toBe(200);
+
+      const remarca = await request(app)
+        .put(`/api/v1/veterinario/crm/agendamentos/${agendamentoId}/remarcar`)
+        .set('Authorization', `Bearer ${context.veterinario.token}`)
+        .send({ inicio: emDoisDias(15).toISOString() });
+      expect(remarca.status).toBe(200);
+
+      const doTutor = await request(app)
+        .get('/api/v1/agenda/meus-agendamentos')
+        .set('Authorization', `Bearer ${context.tutor.token}`);
+      expect(doTutor.status).toBe(200);
+      const lista = doTutor.body.agendamentos || doTutor.body;
+      const meu = lista.find((item) => item.id === agendamentoId);
+      expect(new Date(meu.inicio).toISOString()).toBe(emDoisDias(15).toISOString());
+    });
+
+    it('5C.4 tutor cancela e o horário deixa de ocupar a agenda', async () => {
+      const response = await request(app)
+        .put(`/api/v1/agenda/agendamentos/${agendamentoId}/cancelar`)
+        .set('Authorization', `Bearer ${context.tutor.token}`)
+        .send({ motivo: 'Imprevisto.' });
+
+      expect(response.status).toBe(200);
+      const salvo = await prisma.agendamento.findUnique({ where: { id: agendamentoId }, select: { status: true } });
+      expect(salvo.status).toBe('cancelado');
     });
   });
 

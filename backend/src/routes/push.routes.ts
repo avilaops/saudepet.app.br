@@ -1,3 +1,4 @@
+import prisma from '../config/database';
 import { Router } from 'express';
 const router = Router();
 const { authMiddleware } = require('../middleware/auth.middleware');
@@ -29,7 +30,6 @@ router.get('/inscricao', asyncHandler(async (req: Request, res: Response) => {
   const endpoint = String(req.query.endpoint || '');
   if (!endpoint) return res.json({ inscrito: false });
 
-  const prisma = require('../config/database');
   const inscricao = await prisma.pushSubscription.findFirst({
     where: { endpoint, usuario_id: req.userId },
     select: { id: true }

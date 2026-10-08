@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import { permiteEscolha } from '../services/escolha-de-veterinario.service';
 
 import * as agendamentoService from '../services/agendamento.service';
-const prisma = require('../config/database');
+import prisma from '../config/database';
 const { ForbiddenError, NotFoundError, ValidationError } = require('../middleware/error.middleware');
 
 /**
@@ -62,14 +62,7 @@ export async function marcar(req: RequestAutenticada, res: Response) {
   // adivinhado marcaria consulta para o animal de outra pessoa.
   const pet = await prisma.pet.findFirst({
     where: { id: String(petId), tutor_id: String(req.userId), tenant_id: String(req.tenantId) },
-    select: {
-      id: true,
-      catalogo_itens: {
-        where: { tipo_atendimento: tipoAtendimento, ativo: true },
-        select: { codigo: true, preco: true },
-        take: 1
-      }
-    }
+    select: { id: true }
   });
   if (!pet) throw new NotFoundError('Pet não encontrado');
 
@@ -80,7 +73,18 @@ export async function marcar(req: RequestAutenticada, res: Response) {
       aprovado_admin: true,
       dados_bancarios: { not: null }
     },
-    select: { id: true }
+    // O preço de catálogo é do PROFISSIONAL. Este `select` estava na consulta
+    // do pet, que não tem `catalogo_itens`: o Prisma recusava a consulta e
+    // marcar consulta respondia erro 500 para todo tutor (achado em 08/10/2026
+    // ao exercitar a agenda em produção; o teste unitário simulava o banco).
+    select: {
+      id: true,
+      catalogo_itens: {
+        where: { tipo_atendimento: tipoAtendimento, ativo: true },
+        select: { codigo: true, preco: true },
+        take: 1
+      }
+    }
   });
   if (!veterinario) {
     throw new ForbiddenError('Este profissional não está disponível para novos atendimentos.');

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { podeAbrirChamada, servidoresDeConexao } from '../services/videochamada.service';
 
-const prisma = require('../config/database');
+import prisma from '../config/database';
 
 /**
  * O que o navegador precisa saber para abrir a chamada: os servidores que
