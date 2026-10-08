@@ -52,6 +52,15 @@ imagens por digest via SSH, preservando os volumes de dados. O deploy deve ser
 verificado pelo nginx e por `bash scripts/verificar-deploy.sh`, com `REPO` apontando
 para o checkout do commit publicado.
 
+Desde 06/10/2026 esse pipeline está parado: o repositório foi recriado e perdeu as chaves
+de deploy, a variável `DEPLOY_ENABLED` e o acesso aos pacotes do GHCR; além disso ele é
+público e o `avilaops/infra`, de onde vêm os workflows, é privado. Enquanto isso não for
+refeito, o deploy é `bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
+rodado da máquina de desenvolvimento: o build acontece no `apps-noclient` (sem cliente
+nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e volta automática.
+Em 08/10 só o `web` foi publicado por esse caminho; o do `backend`, que aplica migração,
+ainda não foi exercitado. Antes de publicar o backend, fazer dump do banco.
+
 - Mudança em `schema.prisma` exige `docker compose up -d --build backend`.
 - Mudança em `frontend/nginx.saudepet.conf` exige `docker compose up -d --force-recreate web`
   uma vez: a conf é bind mount de arquivo único e o `git reset` troca o inode.
