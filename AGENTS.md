@@ -59,9 +59,17 @@ verificado pelo nginx e por `bash scripts/verificar-deploy.sh`, com `REPO` apont
 para o checkout do commit publicado.
 
 Desde 06/10/2026 esse pipeline está parado: o repositório foi recriado e perdeu as chaves
-de deploy, a variável `DEPLOY_ENABLED` e o acesso aos pacotes do GHCR; além disso ele é
-público e o `avilaops/infra`, de onde vêm os workflows, é privado. Enquanto isso não for
-refeito, o deploy é `bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
+de deploy, a variável `DEPLOY_ENABLED` e o acesso aos pacotes do GHCR. Em 08/10 (`fe6f492`)
+saiu a falha de inicialização: o repositório é público e chamava os workflows reutilizáveis
+do `avilaops/infra`, que é privado; `container.yml` e `deploy-ssh.yml` agora são cópias
+locais em `.github/workflows/` (mudou no `infra`, traga para cá). O `verify` e o build das
+três imagens passam; **falta o envio ao GHCR**, que responde `permission_denied`: os pacotes
+`saudepet.app.br-backend`, `-web` e `-transcricao` ficaram privados e sem repositório
+vinculado. Para destravar, em cada pacote (github.com/users/avilaops/packages/container/…,
+Package settings › Manage Actions access), adicionar este repositório com papel `Write`.
+Depois disso ainda faltam os segredos `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS`,
+`DEPLOY_BACKEND_SSH_KEY`, `DEPLOY_WEB_SSH_KEY` e `DEPLOY_TRANSCRICAO_SSH_KEY` e a variável
+`DEPLOY_ENABLED=true`. Enquanto isso não for refeito, o deploy é `bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
 rodado da máquina de desenvolvimento: o build acontece no `apps-noclient` (sem cliente
 nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e volta automática.
 Desde 08/10 backend e web saem por esse caminho (o `prisma migrate deploy` roda antes da
