@@ -2,7 +2,7 @@
  * Loja de demonstração nunca é pública, contra o Postgres real.
  *
  * O caso que este teste impede de voltar: em 01/09/2026 a loja do
- * `seed-demo-mercado.js` (BioVet) foi aprovada no painel e apareceu na
+ * `seed-demo-mercado.ts` (BioVet) foi aprovada no painel e apareceu na
  * vitrine, no sitemap e no feed do Google. O portão é o campo `demonstracao`
  * lido por `LOJA_PUBLICA` (services/mercado/comum.ts), e aqui ele é provado
  * pelos mesmos endpoints que as telas usam:
@@ -32,7 +32,7 @@ jest.mock('../../../src/services/geocoding.service', () => ({
 }));
 
 process.env.DATABASE_URL = process.env.DATABASE_URL
-  // Com os mesmos tempos do tests/setup.js: o padrão de 5 s para conectar cai
+  // Com os mesmos tempos do tests/setup.ts: o padrão de 5 s para conectar cai
   // em máquina carregada, e o Prisma reporta como se o banco estivesse fora.
   || 'postgresql://postgres:postgres@localhost:5445/saudepet_test?connection_limit=5&pool_timeout=30&connect_timeout=30';
 // A vitrine sem sessão lê o tenant público; aqui ele é o da rodada.

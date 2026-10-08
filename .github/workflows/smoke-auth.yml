@@ -65,4 +65,4 @@ jobs:
           fi
           # Sem token, força modo não interativo (stdin não é TTY) e o script
           # falha no passo 06 com mensagem clara, em vez de esperar entrada.
-          node scripts/smoke-auth.mjs < /dev/null
+          npx tsx scripts/smoke-auth.mts < /dev/null

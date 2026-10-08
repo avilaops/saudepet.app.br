@@ -328,7 +328,7 @@ Execute o seed para criar dados demo:
 
 ```bash
 cd backend
-node scripts/seed-tenant.js
+npx tsx scripts/seed-tenant.ts
 ```
 
 ### Credenciais de Teste

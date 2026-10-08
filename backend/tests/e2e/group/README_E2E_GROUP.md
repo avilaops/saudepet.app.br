@@ -14,7 +14,7 @@ integrando TODAS as 10 features principais do grupo.
 
 ```
 tests/e2e/group/
-└── group_saudepet_complete_flow.test.js  ✅ Criado
+└── group_saudepet_complete_flow.test.ts  ✅ Criado
 ```
 
 ---
@@ -79,7 +79,7 @@ tests/e2e/group/
 
 **Total de Testes E2E:** 32 testes  
 **Status:** ✅ Estrutura criada  
-**Arquivo:** `tests/e2e/group/group_saudepet_complete_flow.test.js`
+**Arquivo:** `tests/e2e/group/group_saudepet_complete_flow.test.ts`
 
 ---
 
@@ -212,4 +212,4 @@ Mas os **testes unitários** já validam TODAS as features individualmente! ✅
 ---
 
 _Teste E2E criado em: 03/05/2026_  
-_Localização: `tests/e2e/group/group_saudepet_complete_flow.test.js`_
+_Localização: `tests/e2e/group/group_saudepet_complete_flow.test.ts`_

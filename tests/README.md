@@ -68,13 +68,13 @@ npx playwright --version
 ```
 tests/
 ├── e2e/                          # Testes End-to-End
-│   ├── auth.spec.js             # Testes de autenticação
-│   ├── tutor.spec.js            # Testes do fluxo do tutor
-│   ├── veterinario.spec.js      # Testes do fluxo do veterinário
-│   ├── admin.spec.js            # Testes do painel admin
-│   ├── api.spec.js              # Testes de API
-│   └── security.spec.js         # Testes de segurança
-├── playwright.config.js          # Configuração do Playwright
+│   ├── auth.spec.ts             # Testes de autenticação
+│   ├── tutor.spec.ts            # Testes do fluxo do tutor
+│   ├── veterinario.spec.ts      # Testes do fluxo do veterinário
+│   ├── admin.spec.ts            # Testes do painel admin
+│   ├── api.spec.ts              # Testes de API
+│   └── security.spec.ts         # Testes de segurança
+├── playwright.config.ts          # Configuração do Playwright
 ├── package.json                  # Dependências e scripts
 ├── docker-compose.test.yml       # Docker para testes
 ├── Dockerfile.playwright         # Container de testes
@@ -491,7 +491,7 @@ cd frontend && npm run dev
 
 **Solução:**
 ```javascript
-// Aumentar timeout no playwright.config.js
+// Aumentar timeout no playwright.config.ts
 timeout: 60 * 1000, // 60 segundos
 ```
 

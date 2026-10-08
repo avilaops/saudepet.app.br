@@ -7,10 +7,10 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "vite build",
-    "build:ssr": "vite build --ssr src/entry-server.tsx && node scripts/verificar-ssr.mjs",
+    "build:ssr": "vite build --ssr src/entry-server.tsx && tsx scripts/verificar-ssr.ts",
     "preview": "vite preview",
-    "prebuild": "node ../scripts/verificar-dados-falsos.mjs && node ../scripts/verificar-rotas.mjs",
-    "postbuild": "node scripts/gerar-html-por-area.mjs"
+    "prebuild": "tsx ../scripts/verificar-dados-falsos.mts && tsx ../scripts/verificar-rotas.mts",
+    "postbuild": "tsx scripts/gerar-html-por-area.ts"
   },
   "dependencies": {
     "axios": "^1.6.7",

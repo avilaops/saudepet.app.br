@@ -30,7 +30,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Dados falsos em tela
-        run: node scripts/verificar-dados-falsos.mjs
+        run: npx tsx scripts/verificar-dados-falsos.mts
       - name: Tipos do frontend
         run: npx tsc --noEmit
         working-directory: frontend

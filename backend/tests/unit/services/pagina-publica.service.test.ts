@@ -5,7 +5,7 @@
  * serviço escreve o `<head>` com o que a página declarou no `<Seo>`, manda os
  * dados junto e marca a raiz para o React aproveitar o HTML. O desenho das
  * páginas de verdade é conferido no build do frontend
- * (`frontend/scripts/verificar-ssr.mjs`).
+ * (`frontend/scripts/verificar-ssr.ts`).
  */
 import fs from 'fs';
 import os from 'os';
@@ -31,7 +31,7 @@ beforeEach(() => {
   fs.writeFileSync(arquivoDoTemplate, TEMPLATE);
   process.env.FRONTEND_INDEX_PATH = arquivoDoTemplate;
   process.env.FRONTEND_TEMPLATE_URL = 'off';
-  process.env.SSR_BUNDLE_PATH = path.resolve(__dirname, '../../fixtures/entry-server-de-teste.cjs');
+  process.env.SSR_BUNDLE_PATH = path.resolve(__dirname, '../../fixtures/entry-server-de-teste.ts');
   esquecerCaches();
   jest.spyOn(console, 'error').mockImplementation(() => {});
 });

@@ -66,12 +66,12 @@ $comando = "npx playwright test"
 # Aplicar filtros de tipo de teste
 switch ($Tipo) {
     "e2e" { }
-    "api" { $comando += " api.spec.js" }
-    "security" { $comando += " security.spec.js" }
-    "auth" { $comando += " auth.spec.js" }
-    "tutor" { $comando += " tutor.spec.js" }
-    "vet" { $comando += " veterinario.spec.js" }
-    "admin" { $comando += " admin.spec.js" }
+    "api" { $comando += " api.spec.ts" }
+    "security" { $comando += " security.spec.ts" }
+    "auth" { $comando += " auth.spec.ts" }
+    "tutor" { $comando += " tutor.spec.ts" }
+    "vet" { $comando += " veterinario.spec.ts" }
+    "admin" { $comando += " admin.spec.ts" }
     "ui" { 
         Write-Host "🎭 Abrindo UI do Playwright..." -ForegroundColor Green
         npx playwright test --ui

@@ -1,7 +1,7 @@
 /**
  * Seed mínimo da v1.0 (multi-tenant).
  *
- * `seed.js` é anterior ao multi-tenant e não roda mais: faz `upsert` por
+ * `seed.ts` é anterior ao multi-tenant e não roda mais: faz `upsert` por
  * `email`, que deixou de ser único (a unicidade é `tenant_id + email`). Este
  * cria o tenant "saudepet" com configuração e três contas de exemplo —
  * idempotente, pode rodar quantas vezes quiser.

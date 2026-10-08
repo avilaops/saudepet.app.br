@@ -9,9 +9,9 @@
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "seed:blog": "node prisma/seed-blog.js",
-    "content:assign-blog-images": "node scripts/assign-blog-images.js",
-    "content:optimize-banners": "node scripts/optimize-published-banners.js",
+    "seed:blog": "tsx prisma/seed-blog.ts",
+    "content:assign-blog-images": "tsx scripts/assign-blog-images.ts",
+    "content:optimize-banners": "tsx scripts/optimize-published-banners.ts",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "cross-env NODE_ENV=test jest --testPathIgnorePatterns=/node_modules/ /coverage/ /dist/ /tests/e2e/ --coverage",
     "test:integration": "cross-env NODE_ENV=test jest tests/integration --runInBand",
@@ -23,8 +23,8 @@
     "test:controllers": "cross-env NODE_ENV=test jest tests/unit/controllers",
     "test:services": "cross-env NODE_ENV=test jest tests/unit/services",
     "test:ci": "cross-env NODE_ENV=test CI=true jest --ci --coverage --maxWorkers=2",
-    "security:secrets": "node scripts/check-secrets.js",
-    "prebuild": "node ../scripts/verificar-dados-falsos.mjs"
+    "security:secrets": "tsx scripts/check-secrets.ts",
+    "prebuild": "tsx ../scripts/verificar-dados-falsos.mts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1095.0",

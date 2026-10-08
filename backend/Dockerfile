@@ -10,7 +10,7 @@ COPY tsconfig.json ./
 # (`allowJs`): o compilador escreve `src` inteiro em `dist`, que é o que roda.
 #
 # `npx tsc` direto, e NÃO `npm run build`: o `prebuild` do backend chama
-# `../scripts/verificar-dados-falsos.mjs`, que está fora do contexto desta
+# `../scripts/verificar-dados-falsos.mts`, que está fora do contexto desta
 # imagem (o contexto é `./backend`). Trocando por `npm run build` sem copiar
 # aquela pasta, a imagem para de assar com "cannot find module".
 RUN npx tsc

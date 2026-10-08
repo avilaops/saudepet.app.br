@@ -69,7 +69,7 @@ temp/
 # Retratos das telas (scripts/snapshots.ts) — imagens não versionadas
 snapshots/
 
-# Visual QA (scripts/screenshots-telas.mjs)
+# Visual QA (scripts/screenshots-telas.mts)
 output/screenshots/
 
 # IDE / logs locais

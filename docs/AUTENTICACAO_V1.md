@@ -15,7 +15,7 @@ A v1.0 fechou as lacunas listadas em [O que mudou na v1.0](#o-que-mudou-na-v10).
 | --- | --- | --- | --- |
 | **Tutor** | `POST /api/v1/auth/register` (`tipo_usuario: tutor`) ou Google | Conta criada (e-mail confirmado se `REQUIRE_EMAIL_VERIFICATION=true`) | Só os próprios pets, ficha de saúde e atendimentos |
 | **Veterinário** | `POST /api/v1/auth/register` (`tipo_usuario: veterinario`, com CRMV + UF + especialidade + telefone) ou pedido de credenciamento de dentro de uma conta de tutor (`POST /api/v1/veterinarios/credenciamento`) | **E-mail confirmado E aprovação do administrador** — sempre, em qualquer porta (senha, refresh, Google) | Só pets/atendimentos atribuídos a ele (solicitação ou agendamento) |
-| **Administrador** | Seed (`prisma/seed.js`) ou promoção por outro admin (`POST /api/v1/admin/usuarios-gestao/:id/role`) | Login normal | Acesso operacional completo do tenant |
+| **Administrador** | Seed (`prisma/seed.ts`) ou promoção por outro admin (`POST /api/v1/admin/usuarios-gestao/:id/role`) | Login normal | Acesso operacional completo do tenant |
 
 O **pet não tem login**: é um registro (`pets`) ligado a `tutor_id` e ao `tenant_id` do tutor.
 
@@ -137,7 +137,7 @@ npx prisma generate
 
 # 5. Seed (tenant "saudepet" + admin + tutor + vet aprovado)
 npx tsx prisma/seed-v1.ts     # admin@saudepet.com / admin123 — só desenvolvimento
-# (prisma/seed.js é anterior ao multi-tenant e não roda mais)
+# (prisma/seed.ts é anterior ao multi-tenant e não roda mais)
 
 # 6. Subir tudo (backend :3000 + frontend :5173)
 cd .. && npm run dev
@@ -145,12 +145,12 @@ cd .. && npm run dev
 
 ### Smoke automatizado (depois do deploy, antes da tag)
 
-[`scripts/smoke-auth.mjs`](../scripts/smoke-auth.mjs) percorre o ciclo inteiro por HTTP contra o ambiente publicado —
+[`scripts/smoke-auth.mts`](../scripts/smoke-auth.mts) percorre o ciclo inteiro por HTTP contra o ambiente publicado —
 cadastro → 403 sem e-mail → 403 sem aprovação → aprovar → 200 → suspender → refresh/login 403 e token antigo 401 →
 reativar → 200 — e apaga a conta de teste no final (19 verificações):
 
 ```bash
-API_URL=https://api.saudepet.app.br/api/v1 ADMIN_EMAIL=... ADMIN_SENHA=... SMOKE_DOMINIO=seu-dominio-que-recebe-email.com node scripts/smoke-auth.mjs
+API_URL=https://api.saudepet.app.br/api/v1 ADMIN_EMAIL=... ADMIN_SENHA=... SMOKE_DOMINIO=seu-dominio-que-recebe-email.com npx tsx scripts/smoke-auth.mts
 # o passo 3 pede o token do e-mail de verificação; ou passe VERIFY_TOKEN=... / VERIFY_TOKEN_CMD="psql ..."
 ```
 
@@ -190,9 +190,9 @@ Testes da v1.0:
 | `tests/security/ficha-clinica-escopo-vet.test.ts` | Veterinário só altera ficha de pet que atendeu; admin passa |
 | `tests/unit/controllers/pet-ficha-tutor.test.ts` | Ficha do pet pelo tutor: isolamento (404), validação, remoção lógica |
 | `tests/unit/controllers/admin-veterinario-reativar.test.ts` | Reativação com auditoria; recusa estados inválidos; outro tenant → 404 |
-| `tests/security/auth-state.test.ts`, `authorization.test.js`, `tenant-isolation.test.js`, `tests/routes/auth.test.js` | Já existentes — continuam passando |
+| `tests/security/auth-state.test.ts`, `authorization.test.ts`, `tenant-isolation.test.ts`, `tests/routes/auth.test.ts` | Já existentes — continuam passando |
 
-A suíte usa um mock do Prisma (`tests/mocks/prisma.mock.js`); só as E2E em `tests/e2e` precisam do banco em `localhost:5445/saudepet_test`.
+A suíte usa um mock do Prisma (`tests/mocks/prisma.mock.ts`); só as E2E em `tests/e2e` precisam do banco em `localhost:5445/saudepet_test`.
 
 ---
 

@@ -91,7 +91,7 @@ Administrativas, com JWT e autorização de `admin` ou `super_admin` no servidor
 cd backend
 npx prisma validate
 npx prisma generate
-npx jest tests/unit/schemas/content.schema.test.js tests/unit/routes/content-admin.routes.test.js --runInBand
+npx jest tests/unit/schemas/content.schema.test.ts tests/unit/routes/content-admin.routes.test.ts --runInBand
 
 cd ../frontend
 npm run build

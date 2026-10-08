@@ -77,6 +77,20 @@ nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e vol
 Publique o backend primeiro e o web depois, do mesmo commit, e
 faça dump do banco antes quando houver migração.
 
+### TypeScript em tudo
+
+Desde 08/10/2026 não há JavaScript no repositório: páginas e componentes são `.tsx`, e
+backend, testes, scripts, seeds e configurações são `.ts` (`.mts` nos scripts da raiz que usam
+`await` no topo). Arquivo novo nasce assim, sem exceção.
+
+- Script roda com `tsx` (`tsx scripts/verificar-rotas.mts`, `npx tsx backend/scripts/create-admin.ts`),
+  não com `node`.
+- Testes, scripts e seeds foram renomeados sem tipagem: o Jest roda com `diagnostics: false` e
+  o `tsc` do backend só confere `src`. Quem mexer num deles tipa o que tocar.
+- O que não é TypeScript e por quê: `backend/jest.config.js` (o Jest só lê configuração `.ts`
+  com `ts-node`, que o projeto não usa), `frontend/index.html` (entrada do Vite), os `.ps1`
+  de Windows e os `.sh`/`.py` de operação.
+
 ### Páginas públicas: um `.tsx` só, desenhado também no servidor
 
 Toda página é `.tsx` em `frontend/src/pages`. Não existe HTML de página escrito à mão: a
@@ -88,7 +102,7 @@ As públicas (`/`, `/faq`, `/contato`, `/privacidade`, `/blog`, `/blog/:slug`, `
 para a prévia de link:
 
 - `frontend/src/entry-server.tsx` reúne essas rotas; `npm run build` gera
-  `frontend/dist-ssr/entry-server.cjs` e roda `frontend/scripts/verificar-ssr.mjs`, que
+  `frontend/dist-ssr/entry-server.cjs` e roda `frontend/scripts/verificar-ssr.ts`, que
   reprova o build se alguma página não sair desenhada ou perder o `<Seo>`.
 - O backend carrega esse arquivo (`/app/ssr` na imagem) em
   `backend/src/services/pagina-publica.service.ts`: junta as respostas da API que a página
@@ -99,11 +113,11 @@ para a prévia de link:
 - No `App.tsx` essas páginas são declaradas com `paginaDoServidor(...)` e listadas em
   `PAGINAS_DO_SERVIDOR`: o `main.tsx` carrega o código da página antes de hidratar. Com `lazy`
   puro a hidratação suspende, qualquer atualização que chegue antes (a sessão) dá o erro 421
-  do React e a página é redesenhada do zero. O `verificar-ssr.mjs` reprova se essa lista e a
+  do React e a página é redesenhada do zero. O `verificar-ssr.ts` reprova se essa lista e a
   do `entry-server.tsx` divergirem.
 - Página pública nova: rota no `App.tsx` (com `paginaDoServidor`), no `entry-server.tsx` e no `nginx.saudepet.conf`
   (`proxy_pass` para `/api/public/render/...`), dados no controller e caso no
-  `verificar-ssr.mjs`. Nada de `window`, `document` ou `localStorage` fora de `useEffect` e
+  `verificar-ssr.ts`. Nada de `window`, `document` ou `localStorage` fora de `useEffect` e
   de manipulador de evento.
 - O `index.html` que o backend usa vem do contêiner `web` (`http://web/index.html`, com a
   cópia da imagem como reserva; `FRONTEND_TEMPLATE_URL=off` desliga). Antes ele usava só a

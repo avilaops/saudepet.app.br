@@ -143,7 +143,7 @@ docker exec -it avilaops-postgres psql -U avilaops_admin -d saude_pet -c "SELECT
 ```bash
 cd backend
 npx prisma migrate reset
-node prisma/seed.js
+npx tsx prisma/seed.ts
 ```
 
 ### Criar Nova Migration

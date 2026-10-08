@@ -137,7 +137,7 @@ npx prisma generate
 ### 3. Primeiro Administrador
 
 ```bash
-node scripts/create-admin.js
+npx tsx scripts/create-admin.ts
 ```
 
 ### 4. Frontend

@@ -99,7 +99,7 @@ mostrar tela preta, honesto, mas a chamada não acontecia.
 Agora há um **coturn no próprio servidor**: porta 3478 UDP/TCP, relay em 49160-49200, config em
 `/etc/turnserver.conf`, credencial de longa duração gerada no servidor.
 
-Provado de fora com `scripts/prova-turn.js`, que fala STUN/TURN cru: **401 sem credencial** e
+Provado de fora com `scripts/prova-turn.ts`, que fala STUN/TURN cru: **401 sem credencial** e
 **relay alocado com credencial**. As duas metades importam, um TURN que aloca sem credencial é
 proxy aberto para o mundo usar de graça, e é assim que servidor de vídeo vira custo de banda de
 outra pessoa. A config também recusa relay para as faixas privadas (`denied-peer-ip`), senão um
@@ -322,7 +322,7 @@ Da borda de dentro para fora, porque cada camada tipada dá tipo à seguinte:
 
    E o mock de e-mail dos testes tinha 10 dos 25 métodos do serviço. Quem chamava um dos 15 que
    faltavam caía no `catch` de best-effort: **a suíte passava verde sem nunca exercitar o
-   envio**. O mock virou um só, em `tests/mocks/email-service.mock.js`, com a lista completa.
+   envio**. O mock virou um só, em `tests/mocks/email-service.mock.ts`, com a lista completa.
 6. ~~**`src/routes/`**~~ - **feito em 01/09.** As 44 rotas em `.ts`, com `tsc --noEmit`
    limpo e 985 testes verdes. A conversão é mecânica de propósito: a rota monta um Router,
    pendura middleware e handler, e exporta. **`export =` e não `export default`**, porque
@@ -384,7 +384,7 @@ Da borda de dentro para fora, porque cada camada tipada dá tipo à seguinte:
 
 ### 1.4 ~~Higiene que a migração deve corrigir no caminho~~: **feito/revisado em 25/08**
 
-- ~~`tests/unit/controllers/solicitacao.controller.test.js` não testa o controller~~ - **a
+- ~~`tests/unit/controllers/solicitacao.controller.test.ts` não testa o controller~~ - **a
   entrada estava errada.** O arquivo foi reescrito em algum momento e hoje exercita o controller
   de verdade, com mock do Prisma: prontuário, encaminhamento, histórico paginado e recusa. A
   anotação vinha de uma auditoria anterior à reescrita.
@@ -751,7 +751,7 @@ porque o padrão se repete e vale reconhecer da próxima vez.
 | `getStats` de usuários com `inactive = 0` fixo | Tinha um `// TODO` ao lado desde sempre, e ninguém olha o painel de usuários com frequência. |
 | Stack de observabilidade inteira (compose + 2 middlewares) apontando para arquivos que nunca existiram | Nada a importava, então nada quebrava. Mesma armadilha do ioredis. |
 | `.env.example` sem 30 variáveis lidas e com 5 que ninguém lê | Ambiente novo subia "funcionando" e sem push, sem login social e sem TURN. |
-| `test-email.js`, `test-reset.js`, `list-users.js` dentro de `src/` | Compilavam para `dist` e viajavam na imagem de produção. |
+| `test-email.ts`, `test-reset.js`, `list-users.ts` dentro de `src/` | Compilavam para `dist` e viajavam na imagem de produção. |
 
 O fio comum: **o caminho de falha era silencioso e o de sucesso era falso**. Onde
 faltava credencial, o código inventava uma resposta plausível em vez de reclamar.

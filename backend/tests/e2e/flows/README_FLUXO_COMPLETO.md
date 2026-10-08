@@ -72,7 +72,7 @@ Este documento descreve o **fluxo completo end-to-end** que integra TODAS as fea
 
 ## 🧪 TESTE E2E - VALIDAÇÃO COMPLETA
 
-Arquivo: `backend/tests/e2e/flows/complete-user-journey.test.js`
+Arquivo: `backend/tests/e2e/flows/complete-user-journey.test.ts`
 
 ### Estrutura do Teste
 
@@ -409,5 +409,5 @@ O **fluxo completo** integra com sucesso **TODAS as 10 features principais** do 
 ---
 
 _Fluxo implementado em: 03/05/2026_  
-_Arquivo de teste: `backend/tests/e2e/flows/complete-user-journey.test.js`_  
+_Arquivo de teste: `backend/tests/e2e/flows/complete-user-journey.test.ts`_  
 _Total de testes: 30 testes E2E integrados_

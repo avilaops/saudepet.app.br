@@ -6,7 +6,7 @@
  * mão — e metade dos botões de e-mail apontava para rotas que nunca existiram
  * (`/app/vet/chamados`, `/app/vacinas`, `/admin/vets`, `/suporte`...), que o
  * nginx responde com 404. Quem monta link para uma tela do app usa `urlDoSite`;
- * `scripts/verificar-rotas.mjs` reprova o build quando o caminho passado aqui
+ * `scripts/verificar-rotas.mts` reprova o build quando o caminho passado aqui
  * não é uma rota do React.
  */
 const PADRAO = 'https://saudepet.app.br';

@@ -47,7 +47,7 @@ prontos. Os identificadores são permanentes e não devem mudar quando a ordem d
 
 ## Identidade que permite variedade
 
-Paleta conferida em `frontend/src/index.css` e `frontend/tailwind.config.js`:
+Paleta conferida em `frontend/src/index.css` e `frontend/tailwind.config.ts`:
 
 | Referência | Cor real | Uso criativo |
 |---|---|---|

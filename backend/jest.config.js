@@ -9,11 +9,10 @@ module.exports = {
     '!**/node_modules/**',
     '!**/tests/**'
   ],
-  // TypeScript é o padrão da casa; o `.js` continua aceito enquanto a migração
-  // da Fase 1 do roadmap não termina. Teste novo nasce `.ts`.
+  // Todo teste é `.ts` desde 08/10/2026 (os 78 `.js` que restavam foram
+  // renomeados). Este arquivo é o único `.js` do backend: o Jest só lê
+  // configuração em TypeScript com `ts-node`, que o projeto não usa.
   testMatch: [
-    '**/tests/**/*.test.js',
-    '**/tests/**/*.spec.js',
     '**/tests/**/*.test.ts',
     '**/tests/**/*.spec.ts'
   ],
@@ -58,7 +57,7 @@ module.exports = {
   ],
   verbose: true,
   testTimeout: 10000,
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@tests/(.*)$': '<rootDir>/tests/$1'

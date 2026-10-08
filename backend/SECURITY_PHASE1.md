@@ -106,14 +106,14 @@ Tests:       116 passed, 75 failed, 191 total
 
 Falhas concentradas em:
 
-- `tests/e2e/flows/complete-user-journey.test.js`
-- `tests/e2e/group/group_saudepet_complete_flow.test.js`
+- `tests/e2e/flows/complete-user-journey.test.ts`
+- `tests/e2e/group/group_saudepet_complete_flow.test.ts`
 - `tests/e2e/flows/atendimento.flow.test.js`
-- `tests/routes/billing.test.js`
-- `tests/integration/routes/moderacao.test.js`
-- `tests/routes/formulario.test.js`
+- `tests/routes/billing.test.ts`
+- `tests/integration/routes/moderacao.test.ts`
+- `tests/routes/formulario.test.ts`
 
-O fluxo `complete-user-journey` tenta conectar ao PostgreSQL local `saudepet_test`, que não existe. Outras suítes misturam o mock global de Prisma de `tests/setup.js` com expectativas de persistência ou emitem JWTs sem criar o usuário/tenant vivo agora exigido pelo middleware, causando 401 em cascata. A correção recomendada é provisionar PostgreSQL de teste isolado com transações por teste ou usar um repositório fake realista; os controles de produção não foram enfraquecidos para acomodar o harness antigo.
+O fluxo `complete-user-journey` tenta conectar ao PostgreSQL local `saudepet_test`, que não existe. Outras suítes misturam o mock global de Prisma de `tests/setup.ts` com expectativas de persistência ou emitem JWTs sem criar o usuário/tenant vivo agora exigido pelo middleware, causando 401 em cascata. A correção recomendada é provisionar PostgreSQL de teste isolado com transações por teste ou usar um repositório fake realista; os controles de produção não foram enfraquecidos para acomodar o harness antigo.
 
 ## Outras validações
 
@@ -158,7 +158,7 @@ Passos obrigatórios antes de qualquer publicação:
 
 ```powershell
 cd 'D:\Projetos\Saude Pet\backend'
-npm test -- --runInBand tests/routes/auth.test.js tests/security/auth-state.test.js tests/security/authorization.test.js tests/security/tenant-isolation.test.js tests/security/socket-security.test.js tests/security/payment-security.test.js
+npm test -- --runInBand tests/routes/auth.test.ts tests/security/auth-state.test.ts tests/security/authorization.test.ts tests/security/tenant-isolation.test.ts tests/security/socket-security.test.ts tests/security/payment-security.test.ts
 npx prisma validate
 npm run security:secrets
 npm audit --omit=dev

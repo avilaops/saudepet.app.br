@@ -2,6 +2,22 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - TypeScript em tudo
+
+### ♻️ Mudado
+
+- **Os 121 arquivos JavaScript que restavam viraram TypeScript.** O `frontend/src` já era todo
+  `.tsx`/`.ts`; faltavam 78 testes do backend, 16 scripts e 2 seeds do backend, o
+  `seed-production`, 9 scripts da raiz e do frontend (entre eles os verificadores que rodam no
+  build), 6 testes e a configuração do Playwright, e as configurações do Vite e do Tailwind. O
+  `postcss.config.cjs` saiu: o PostCSS passou para dentro do `vite.config.ts` (o CSS gerado é
+  byte a byte o mesmo). Scripts rodam com `tsx`.
+- Ficaram de fora, com motivo no `AGENTS.md`: `backend/jest.config.js`, `frontend/index.html`
+  e os scripts `.ps1`, `.sh` e `.py`.
+- A renomeação não tipou testes e scripts (o Jest roda sem checagem de tipo e o `tsc` do
+  backend só confere `src`): mesmas 111 suítes e 953 testes unitários passando, e as 16 suítes
+  que dependem de banco com o mesmo resultado de antes.
+
 ## [Não versionado] - 2026-10-08 - Home: últimos artigos do blog
 
 ### ✨ Novo

@@ -4,22 +4,22 @@
 
 ```
 tests/
-├── setup.js                    # Configuração global de testes
+├── setup.ts                    # Configuração global de testes
 ├── helpers/
-│   ├── fixtures.js            # Dados de teste reutilizáveis
-│   └── utils.js               # Utilidades e helpers
+│   ├── fixtures.ts            # Dados de teste reutilizáveis
+│   └── utils.ts               # Utilidades e helpers
 ├── mocks/
-│   └── prisma.mock.js         # Mock completo do Prisma
+│   └── prisma.mock.ts         # Mock completo do Prisma
 ├── unit/                       # Testes unitários
 │   ├── controllers/           # Testes de controllers
 │   ├── services/              # Testes de services
 │   └── middleware/            # Testes de middlewares
 ├── integration/                # Testes de integração
 │   └── routes/                # Testes de rotas
-│       ├── auth.test.js
-│       ├── formulario.test.js
-│       ├── billing.test.js
-│       ├── moderacao.test.js
+│       ├── auth.test.ts
+│       ├── formulario.test.ts
+│       ├── billing.test.ts
+│       ├── moderacao.test.ts
 │       └── ...
 └── e2e/                        # Testes end-to-end
     └── flows/                  # Fluxos completos
@@ -222,7 +222,7 @@ describe('TokenService', () => {
 
 ### Executar teste específico
 ```bash
-npm test -- auth.test.js
+npm test -- auth.test.ts
 ```
 
 ### Executar com descrição
