@@ -5,6 +5,7 @@ import LeadForm from '../../components/public/LeadForm'
 import PublicLayout from '../../components/public/PublicLayout'
 import Seo from '../../components/public/Seo'
 import LandingBannersCarousel from '../../components/public/LandingBannersCarousel'
+import UltimosArtigos from '../../components/public/UltimosArtigos'
 import { faqCategories } from '../../data/faq'
 
 // Ícones SVG reutilizáveis
@@ -302,6 +303,9 @@ export default function PublicHome() {
           </div>
         </div>
       </section>
+
+      {/* 7B. ÚLTIMOS ARTIGOS DO BLOG */}
+      <UltimosArtigos />
 
       {/* 8. BANNER CTA */}
       <section className="lv-cta-banner-section">

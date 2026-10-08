@@ -312,6 +312,8 @@ const CAMINHO_DA_PAGINA: Record<string, string> = {
 
 /** Artigos por página na listagem; o `BlogPage.tsx` pede o mesmo número. */
 const ARTIGOS_POR_PAGINA = 9;
+/** Artigos recentes na home; `UltimosArtigos.tsx` pede o mesmo número. */
+const ARTIGOS_NA_HOME = 3;
 
 export const renderPost = asyncHandler(async (req: Request, res: Response) => {
   const tenant = await resolvePublicTenant();
@@ -345,8 +347,14 @@ export const renderPage = asyncHandler(async (req: Request, res: Response) => {
 
   if (pagina === 'home') {
     const tenant = await resolvePublicTenant();
-    const banners = await dadosDosBanners(tenant.id);
+    const [banners, recentes] = await Promise.all([
+      dadosDosBanners(tenant.id),
+      dadosDaListagem(tenant.id, { page: 1, limit: ARTIGOS_NA_HOME })
+    ]);
     dados['/v1/public/banners'] = banners;
+    // A home aponta para os artigos mais recentes: é o caminho de entrada
+    // deles a partir da página mais visitada do site.
+    dados[chaveDoDado('/public/blog', { page: 1, limit: ARTIGOS_NA_HOME })] = recentes;
     // O primeiro banner é a maior imagem da home.
     const primeiro = banners.banners[0];
     if (primeiro) {

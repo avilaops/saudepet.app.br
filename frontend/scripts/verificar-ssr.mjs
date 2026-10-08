@@ -45,7 +45,15 @@ const produto = {
 }
 
 const casos = [
-  { url: '/', dados: { '/v1/public/banners': { success: true, count: 0, banners: [] } }, contem: ['<h1', 'href="/blog"', 'href="/register"'] },
+  {
+    url: '/',
+    dados: {
+      '/v1/public/banners': { success: true, count: 0, banners: [] },
+      '/public/blog?limit=3&page=1': { posts: [artigo], pagination: { page: 1, limit: 3, total: 1, pages: 1 } }
+    },
+    // A home aponta para os artigos mais recentes.
+    contem: ['<h1', 'href="/blog"', 'href="/register"', 'href="/blog/gato-parou-de-comer"']
+  },
   { url: '/faq', dados: {}, contem: ['<h1'], jsonLd: 'FAQPage' },
   { url: '/contato', dados: {}, contem: ['<h1', '<form'] },
   { url: '/privacidade', dados: {}, contem: ['Política de Privacidade'] },

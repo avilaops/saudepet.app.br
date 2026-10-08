@@ -2,6 +2,15 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Home: últimos artigos do blog
+
+### ✨ Novo
+
+- **A página inicial mostra os três artigos mais recentes do blog**, com link para a listagem.
+  O resumo que o backend escrevia à mão listava artigos só para o Google; ao passar a desenhar a
+  home pelo `.tsx` essa lista tinha saído. Agora ela existe para o visitante também, chega pronta
+  no HTML inicial e some sozinha se o blog estiver vazio.
+
 ## [Não versionado] - 2026-10-08 - Ficha clínica do pet no painel do admin
 
 ### ✨ Novo
