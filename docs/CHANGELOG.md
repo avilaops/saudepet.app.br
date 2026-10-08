@@ -2,6 +2,16 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-07 - Banners: botão "Desfazer"
+
+### ✨ Novo
+
+- **`/admin/banners` ganha o botão "Desfazer".** A rota `POST /admin/landing-banners/:id/restore`
+  existia desde a construção da tela e nenhum botão a chamava: voltar um banner à versão
+  anterior só era possível pela API. O botão aparece apenas quando a auditoria guarda uma
+  versão anterior (é nela que o backend busca o estado), pede confirmação e mostra o resultado.
+  Falha ao mudar status, que antes só ia ao console, passa a aparecer para o admin.
+
 ## [Não versionado] - 2026-09-11 - Auditoria, loja de demonstração fora do ar, nginx sem 502
 
 Auditoria completa de Roadmap, Todoist e produção em `docs/AUDITORIA_2026-09-11.md`, seguida
