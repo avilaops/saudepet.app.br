@@ -1,3 +1,4 @@
+import { dataDeCalendario } from '../../lib/datas'
 import { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { Eyebrow } from '../ui/AppKit'
@@ -17,7 +18,7 @@ const CAMPO = 'mt-1 w-full rounded-xl border border-slate-200/80 bg-[#fafbfb] px
 const BOTAO_ADD = 'rounded-xl bg-primary/10 px-3 py-2 text-[0.75rem] font-semibold text-primary transition hover:bg-primary/15 disabled:opacity-50'
 const BOTAO_REMOVER = 'text-[0.7rem] font-semibold text-red-500 hover:underline'
 
-const dataBr = (valor?: string | null) => (valor ? new Date(valor).toLocaleDateString('pt-BR') : null)
+const dataBr = (valor?: string | null) => (valor ? dataDeCalendario(valor) : null)
 
 const mensagemDoErro = (erro: any, padrao: string) =>
   erro?.response?.data?.details?.[0]?.message || erro?.response?.data?.error || padrao

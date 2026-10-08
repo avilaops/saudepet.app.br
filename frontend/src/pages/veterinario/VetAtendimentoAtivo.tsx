@@ -182,10 +182,24 @@ export default function VetAtendimentoAtivo() {
     )
   }
 
+  // A tela servia só o atendimento vivo, mas é a mesma que o histórico e a
+  // agenda abrem: um atendimento já finalizado aparecia como "em andamento",
+  // com o mapa de como chegar e sem nenhum caminho para o prontuário.
+  const EM_CURSO = ['aceito', 'veterinario_encontrado', 'a_caminho', 'chegou', 'atendimento_em_andamento']
+  const emCurso = EM_CURSO.includes(atendimento.status)
+  const TITULOS: Record<string, string> = {
+    aceito: 'Atendimento aceito',
+    veterinario_encontrado: 'Atendimento aceito',
+    a_caminho: 'A caminho do atendimento',
+    chegou: 'Você chegou',
+    atendimento_em_andamento: 'Atendimento em andamento',
+    finalizado: 'Atendimento finalizado'
+  }
+
   return (
     <main className="vet-app">
       <VetPageHeader
-        title="Atendimento em andamento"
+        title={TITULOS[atendimento.status] || (emCurso ? 'Atendimento' : 'Atendimento encerrado')}
         subtitle={atendimento.pet?.nome}
         onBack={() => navigate('/veterinario')}
       />
@@ -208,12 +222,23 @@ export default function VetAtendimentoAtivo() {
         {/* O endereço não aparecia em lugar nenhum desta tela: o veterinário
             aceitava o chamado e ficava sem saber onde era, tendo que voltar
             para a lista ou perguntar no chat. */}
-        <MapaDoDestino
-          destino={{ latitude: atendimento.latitude, longitude: atendimento.longitude }}
-          endereco={atendimento.localizacao_cliente}
-        />
+        {emCurso ? (
+          <MapaDoDestino
+            destino={{ latitude: atendimento.latitude, longitude: atendimento.longitude }}
+            endereco={atendimento.localizacao_cliente}
+          />
+        ) : (
+          <section className="vet-card vet-empty">
+            <strong>{atendimento.status === 'finalizado' ? 'Este atendimento já foi finalizado.' : 'Este atendimento foi encerrado.'}</strong>
+            {atendimento.status === 'finalizado' && (
+              <button className="vet-button--primary" type="button" onClick={() => navigate(`/veterinario/atendimento/${atendimento.id}/prontuario`)}>
+                Ver o prontuário
+              </button>
+            )}
+          </section>
+        )}
 
-        <Videochamada atendimentoId={id || ''} papel="veterinario" />
+        {emCurso && <Videochamada atendimentoId={id || ''} papel="veterinario" />}
 
         {/* O que o tutor mandou ao pedir socorro e o que o profissional
             registra na consulta, no mesmo lugar. Entra no prontuário — antes a

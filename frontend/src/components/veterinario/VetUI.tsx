@@ -1,3 +1,4 @@
+import { dataLocal } from '../../lib/datas'
 import { useEffect, type ReactNode } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import type { Usuario, Veterinario } from '../../types/api'
@@ -191,7 +192,8 @@ export function VetLoading({ label = 'Carregando' }: { label?: string }) {
 export const formatMoney = (value: number | string | null | undefined) => Number(value || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 export const formatDate = (value: string | number | Date | null | undefined, withTime = false) => {
   if (!value) return 'Data não informada'
-  const date = new Date(value)
+  // Dia de calendário (vacina, retorno) não recua um dia no fuso do Brasil.
+  const date = withTime ? new Date(value) : dataLocal(value)
   if (Number.isNaN(date.getTime())) return 'Data não informada'
   return new Intl.DateTimeFormat('pt-BR', withTime ? { dateStyle: 'short', timeStyle: 'short' } : { dateStyle: 'short' }).format(date)
 }

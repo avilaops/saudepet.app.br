@@ -1,3 +1,4 @@
+import { dataDeCalendario, dataLocal } from '../../lib/datas'
 import type { ApiPayload } from '../../types/api'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -22,7 +23,7 @@ const TIPOS = [
 ]
 
 const iconeDoTipo = (tipo: string) => TIPOS.find((item) => item.valor === tipo)?.icone || 'bell'
-const formatarData = (valor: string) => new Date(valor).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })
+const formatarData = (valor: string) => dataDeCalendario(valor, { day: '2-digit', month: 'short' })
 
 const hojeSemHora = () => {
   const data = new Date()
@@ -89,12 +90,12 @@ export default function TutorLembretes() {
   }
 
   const hoje = hojeSemHora()
-  const atrasados = lembretes.filter((item) => !item.concluido && new Date(item.data_lembrete) < hoje)
-  const proximos = lembretes.filter((item) => !item.concluido && new Date(item.data_lembrete) >= hoje)
+  const atrasados = lembretes.filter((item) => !item.concluido && dataLocal(item.data_lembrete) < hoje)
+  const proximos = lembretes.filter((item) => !item.concluido && dataLocal(item.data_lembrete) >= hoje)
   const concluidos = lembretes.filter((item) => item.concluido)
 
   const cartao = (item: ApiPayload) => {
-    const atrasado = !item.concluido && new Date(item.data_lembrete) < hoje
+    const atrasado = !item.concluido && dataLocal(item.data_lembrete) < hoje
     return (
       <div key={item.id} className="flex items-center gap-3 px-4 py-3.5">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${

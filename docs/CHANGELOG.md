@@ -2,6 +2,20 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Datas de vacina e lembrete no dia certo
+
+### 🔧 Corrigido
+
+- **Vacina, próxima dose, retorno e lembrete apareciam um dia antes.** São datas sem hora,
+  gravadas como meia-noite em UTC; mostradas no fuso do Brasil, a vacina de 08/10 virava 07/10
+  na carteira do tutor, na tag pública do pet e na ficha que o veterinário e o admin consultam,
+  e o lembrete do dia já nascia "atrasado". `frontend/src/lib/datas.ts` passa a tratar dia de
+  calendário como dia de calendário.
+- **Atendimento finalizado aparecia para o veterinário como "em andamento"**, com o mapa de
+  como chegar e a videochamada. A tela mostra o estado real e leva ao prontuário.
+
+Os dois foram achados no teste de ponta a ponta em produção com contas de teste.
+
 ## [Não versionado] - 2026-10-08 - Receita e prontuário saem no fechamento
 
 ### 🔧 Corrigido

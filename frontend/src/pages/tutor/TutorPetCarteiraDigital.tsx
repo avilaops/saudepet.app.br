@@ -1,3 +1,4 @@
+import { dataDeCalendario } from '../../lib/datas'
 import type { ApiPayload } from '../../types/api'
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -187,7 +188,7 @@ export default function TutorPetCarteiraDigital() {
                       </div>
                     </div>
                     <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-[0.65rem] font-semibold text-primary">
-                      Aplicada em {new Date(v.data_aplicacao).toLocaleDateString('pt-BR')}
+                      Aplicada em {dataDeCalendario(v.data_aplicacao)}
                     </span>
                   </div>
                 ))}

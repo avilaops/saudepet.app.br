@@ -1,3 +1,4 @@
+import { dataDeCalendario } from '../../lib/datas'
 import type { ApiPayload } from '../../types/api'
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -465,7 +466,7 @@ export default function TutorHome() {
                       <div className="min-w-0">
                         <strong className="truncate text-xs font-bold text-ink">{lembrete.titulo}</strong>
                         <span className="block text-[11px] text-slate-400">
-                          {lembrete.data_lembrete ? `Para ${new Date(lembrete.data_lembrete).toLocaleDateString('pt-BR')}` : 'Sem data'} {lembrete.pet?.nome ? `• ${lembrete.pet.nome}` : ''}
+                          {lembrete.data_lembrete ? `Para ${dataDeCalendario(lembrete.data_lembrete)}` : 'Sem data'} {lembrete.pet?.nome ? `• ${lembrete.pet.nome}` : ''}
                         </span>
                       </div>
                     </div>

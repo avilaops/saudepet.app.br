@@ -1,3 +1,4 @@
+import { dataDeCalendario } from '../../lib/datas'
 import type { ApiPayload } from '../../types/api'
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -234,7 +235,7 @@ export default function PublicPetIdentityTag() {
                   <div key={i} className="p-3 bg-slate-800 rounded-xl border border-slate-700/60 flex justify-between items-center text-xs">
                     <span className="font-bold text-white">{v.nome_vacina}</span>
                     <span className="text-[11px] text-emerald-400 font-mono flex items-center gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> {new Date(v.data_aplicacao).toLocaleDateString('pt-BR')}
+                      <CheckCircle2 className="w-3.5 h-3.5" /> {dataDeCalendario(v.data_aplicacao)}
                     </span>
                   </div>
                 ))}
