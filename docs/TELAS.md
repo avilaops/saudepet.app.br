@@ -190,6 +190,7 @@ Números do levantamento: **19 telas de admin, 8 públicas/auth, 14 do tutor,
 | `/admin/repasses` | **NOVO**, fila de transferências dos veterinários: dados bancários decifrados, confirmar repasse (com comprovante) ou recusar devolvendo o saldo, tudo com trilha forense |
 | `/admin/sistema` | **CORRIGIDO**, os interruptores passam a valer no aviso de novo veterinário (e-mail + popup); os de SMS saíram, porque não existe uma linha de envio de SMS no produto |
 | `/admin/atendimentos/:id/auditoria` | **OK**, o "solicitou undefined" foi corrigido |
+| `/admin/atendimentos/:id/ficha-do-pet` | **NOVO** (08/10), ficha clínica do pet do atendimento: corrigir, remover e restaurar alergia, vacina e medicamento, com motivo; mesmo componente da tela do veterinário |
 
 ---
 

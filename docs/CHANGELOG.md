@@ -2,6 +2,21 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Ficha clínica do pet no painel do admin
+
+### ✨ Novo
+
+- **`/admin/atendimentos` ganha o botão "Ficha do pet".** A API sempre deixou o admin corrigir,
+  remover e restaurar alergia, vacina e medicamento em uso (ele responde pela ficha quando o
+  veterinário que registrou saiu da plataforma), mas a única tela que fazia isso era a do
+  veterinário, dentro de um atendimento dele. A tela nova, `/admin/atendimentos/:id/ficha-do-pet`,
+  usa o mesmo componente e as mesmas regras: motivo obrigatório e registros removidos consultáveis.
+
+### 🔧 Corrigido
+
+- **O `super_admin` podia corrigir a ficha clínica e não podia lê-la.** A leitura do histórico
+  do pet deixava passar só o `admin` do tenant.
+
 ## [Não versionado] - 2026-10-08 - Agenda do veterinário: remarcar
 
 ### ✨ Novo

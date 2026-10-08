@@ -1266,7 +1266,9 @@ class SolicitacaoController {
 
     const isParticipant = solicitacao.tutor_id === usuarioDe(req) ||
       solicitacao.veterinario?.usuario_id === usuarioDe(req);
-    const isTenantAdmin = req.userType === 'admin';
+    // `super_admin` junto: ele já pode corrigir a ficha (`ficha-clinica.routes`),
+    // e corrigir sem conseguir ler deixava a tela do admin em branco para ele.
+    const isTenantAdmin = req.userType === 'admin' || req.userType === 'super_admin';
     if (!isParticipant && !isTenantAdmin) {
       throw new NotFoundError('Solicitação não encontrada');
     }

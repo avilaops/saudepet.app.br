@@ -691,7 +691,9 @@ lista, escrita a partir de uma auditoria mais antiga, não sabia.*
   **A tela saiu em 25/08**, no mesmo dia: `RegistrosRemovidos.tsx`, dentro da ficha do pet, fechada
   por padrão, quem abre a ficha quer ver o que vale hoje, e o removido é consulta. Restaurar exige
   motivo escrito, pela mesma razão que remover exige.
-- **O admin tem permissão na API e não tem tela.** A ficha só é editável pela tela do veterinário.
+- ~~O admin tem permissão na API e não tem tela~~ - **feito em 08/10.** `/admin/atendimentos/:id/ficha-do-pet`,
+  aberta pelo botão "Ficha do pet" de cada atendimento: o mesmo componente da tela do veterinário,
+  com as mesmas regras (motivo para corrigir, remover e restaurar).
 
 ### CRM do veterinário
 

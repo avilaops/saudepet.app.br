@@ -102,6 +102,12 @@ export default function AdminAtendimentos() {
                   <div className="flex shrink-0 items-center gap-2">
                     <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider ${st.cls}`}>{st.texto}</span>
                     <button
+                      onClick={() => navigate(`/admin/atendimentos/${atendimento.id}/ficha-do-pet`)}
+                      className="rounded-xl bg-slate-100 px-3 py-1.5 text-[11px] font-bold text-slate-600 transition hover:bg-slate-200"
+                    >
+                      Ficha do pet
+                    </button>
+                    <button
                       onClick={() => navigate(`/admin/atendimentos/${atendimento.id}/auditoria`)}
                       className="rounded-xl bg-slate-100 px-3 py-1.5 text-[11px] font-bold text-slate-600 transition hover:bg-slate-200"
                     >

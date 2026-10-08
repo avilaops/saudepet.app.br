@@ -90,6 +90,7 @@ const AdminTenants = lazy(() => import('./pages/admin/AdminTenants'))
 const AdminSistema = lazy(() => import('./pages/admin/AdminSistema'))
 const AdminAuditoriaCentral = lazy(() => import('./pages/admin/AdminAuditoriaCentral'))
 const AdminAtendimentoForensicTimeline = lazy(() => import('./pages/admin/AdminAtendimentoForensicTimeline'))
+const AdminFichaDoPet = lazy(() => import('./pages/admin/AdminFichaDoPet'))
 const AdminCidadesCobertura = lazy(() => import('./pages/admin/AdminCidadesCobertura'))
 const AdminBannerManager = lazy(() => import('./pages/admin/AdminBannerManager'))
 
@@ -636,6 +637,7 @@ function App() {
                 <Route path="/admin/tenants" element={<PrivateRoute allowedTypes={['super_admin']}><AdminShell><AdminTenants /></AdminShell></PrivateRoute>} />
                 <Route path="/admin/sistema" element={<PrivateRoute allowedTypes={['super_admin']}><AdminShell><AdminSistema /></AdminShell></PrivateRoute>} />
                 <Route path="/admin/auditoria" element={<PrivateRoute allowedTypes={['admin', 'super_admin']}><AdminShell><AdminAuditoriaCentral /></AdminShell></PrivateRoute>} />
+                <Route path="/admin/atendimentos/:id/ficha-do-pet" element={<PrivateRoute allowedTypes={['admin', 'super_admin']}><AdminShell><AdminFichaDoPet /></AdminShell></PrivateRoute>} />
                 <Route path="/admin/atendimentos/:id/auditoria" element={<PrivateRoute allowedTypes={['admin', 'super_admin']}><AdminShell><AdminAtendimentoForensicTimeline /></AdminShell></PrivateRoute>} />
                 <Route path="/admin/cidades" element={<PrivateRoute allowedTypes={['admin', 'super_admin']}><AdminShell><AdminCidadesCobertura /></AdminShell></PrivateRoute>} />
                 <Route path="/admin/banners" element={<PrivateRoute allowedTypes={['admin', 'super_admin']}><AdminShell><AdminBannerManager /></AdminShell></PrivateRoute>} />

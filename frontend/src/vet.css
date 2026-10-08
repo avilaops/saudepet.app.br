@@ -1026,3 +1026,7 @@
 .vet-ditado__erro { color: #b3261e; font-size: .76rem; line-height: 1.5; }
 .vet-ditado__acoes { display: grid; gap: .45rem; }
 .vet-ditado__acoes small { color: #9aa3b5; font-size: .68rem; line-height: 1.5; }
+
+/* O histórico clínico dentro do painel do admin (`AdminFichaDoPet`): o mesmo
+   componente, sem a moldura de celular que o app do veterinário desenha. */
+.vet-app.vet-app--embutido { max-width: none; min-height: 0; margin: 0; background: transparent; border-radius: 0; box-shadow: none; overflow-x: visible; }
