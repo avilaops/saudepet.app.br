@@ -1,3 +1,4 @@
+import type { PdfService } from '../services/pdf.service';
 import { logoParaDocumento } from '../services/logo-veterinario.service';
 import type { Request, Response } from 'express';
 import type { Prisma, StatusAtendimento } from '@prisma/client';
@@ -880,7 +881,12 @@ class SolicitacaoController {
     let prontuario_pdf_url = null;
 
     try {
-      const pdfService = (require('../services/pdf.service') as typeof import('../services/pdf.service')).default;
+      // O módulo exporta a INSTÂNCIA (`module.exports = pdfService`). Até
+      // 08/10/2026 esta linha lia `.default`, que nesse formato não existe: o
+      // fechamento falhava com "Cannot read properties of undefined (reading
+      // 'gerarReceitaPdf')", o aviso era engolido e o tutor ficava sem receita
+      // e sem prontuário até a rotina de reemissão passar, até 30 minutos depois.
+      const pdfService: PdfService = require('../services/pdf.service');
       const resultadoReceita = await pdfService.gerarReceitaPdf({
         ...dadosDoPaciente,
         medicamentos: registro.prescricoes.map((item) => ({

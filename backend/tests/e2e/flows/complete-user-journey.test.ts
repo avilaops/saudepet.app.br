@@ -746,6 +746,12 @@ describe('🎯 FLUXO COMPLETO - Jornada Integrada do Usuário', () => {
       expect(response.body.prontuario).toBeTruthy();
       expect(response.body.prontuario.itensPrescricao).toHaveLength(2);
       expect(response.body.prontuario.examesSolicitados).toHaveLength(1);
+
+      // Os dois documentos saem no fechamento. Em produção eles não saíam: o
+      // controller lia o gerador de PDF por `.default`, que não existia, e o
+      // erro era engolido como aviso (08/10/2026).
+      expect(response.body.solicitacao.receita_pdf_url).toContain('receitas/');
+      expect(response.body.solicitacao.prontuario_pdf_url).toContain('prontuarios/');
     });
 
     it('5.2 tutor deve VER o diagnóstico e receita', async () => {

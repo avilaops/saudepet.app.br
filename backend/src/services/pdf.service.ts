@@ -458,6 +458,9 @@ const pdfService = new PdfService();
 // A exportação continua sendo a INSTÂNCIA: controllers e serviços fazem
 // `require('./pdf.service')` e chamam `.gerarReceitaPdf()` direto.
 module.exports = pdfService;
+// E também como `.default`: quem escrever `require(...).default` ou um
+// `import` dinâmico recebe a mesma instância, em vez de `undefined`.
+module.exports.default = pdfService;
 
 export type { PdfService };
 export default pdfService;

@@ -75,6 +75,16 @@ describe('pdf.service', () => {
     expect(ehPdf(enviados[0].buffer)).toBe(true);
   });
 
+  // O fechamento do atendimento lia `require('pdf.service').default`, que não
+  // existia: em produção nenhum PDF era gerado na hora de fechar.
+  it('o módulo entrega a mesma instância por require, por .default e por import', async () => {
+    const porImport = (await import('../../../src/services/pdf.service')).default;
+
+    expect(typeof pdfService.gerarReceitaPdf).toBe('function');
+    expect(pdfService.default).toBe(pdfService);
+    expect(typeof porImport.gerarProntuarioPdf).toBe('function');
+  });
+
   // Logo do consultório no cabeçalho (08/10/2026). O PDF passa a carregar uma
   // imagem; sem logo, ou com arquivo que o pdfkit não lê, o documento sai igual.
   describe('logo do veterinário', () => {

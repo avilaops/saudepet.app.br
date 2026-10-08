@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Receita e prontuário saem no fechamento
+
+### 🔧 Corrigido
+
+- **O fechamento do atendimento não gerava a receita nem o prontuário em PDF.** O controller
+  lia o gerador por `require('pdf.service').default`, e o módulo exporta a instância direto:
+  dava "Cannot read properties of undefined (reading 'gerarReceitaPdf')", o erro era engolido
+  como aviso e o tutor ficava sem os documentos até a rotina de reemissão passar (a cada 30
+  minutos). Achado no primeiro teste de ponta a ponta feito em produção com contas de teste.
+  A suíte de jornada completa passou a exigir os dois PDFs no fechamento.
+
 ## [Não versionado] - 2026-10-08 - Logo do veterinário na receita e no prontuário
 
 ### ✨ Novo
