@@ -11,6 +11,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
   publicado sozinho e a cópia ficou apontando para arquivos que não existiam mais. O backend
   passa a ler o `index.html` do contêiner `web`, com a cópia como reserva.
 
+- **Página pública respondia 429 depois de 150 acessos do mesmo IP em 15 minutos.** As páginas
+  em HTML passam pelo backend e gastavam o limite geral da API; com 142 páginas no sitemap, um
+  buscador lendo o site inteiro recebia JSON de erro no lugar da página. Páginas, sitemap, RSS
+  e `llms.txt` têm agora um limite próprio (1500 por 15 minutos) e não gastam o da API.
+
 ### ♻️ Mudado
 
 - **Toda página pública é desenhada pelo próprio `.tsx`, também no servidor.** Saíram o HTML

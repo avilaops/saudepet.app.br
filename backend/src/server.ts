@@ -165,6 +165,28 @@ const RESPOSTA_429 = (req: Request, res: Response) => {
   });
 };
 
+/**
+ * Páginas públicas em HTML e os arquivos que os buscadores leem (sitemap, RSS,
+ * llms.txt, artigo em Markdown). O nginx manda `/`, `/blog/...` e
+ * `/mercado/...` para `/api/public/render/...`, então cada página aberta
+ * passava pelo limite geral de 150 requisições por 15 minutos — e o site tem
+ * 142 páginas no sitemap. Um buscador que lesse o site inteiro, ou um
+ * escritório atrás do mesmo IP, recebia 429 em JSON no lugar da página
+ * (08/10/2026). Elas têm um limite próprio, folgado, e não gastam o da API.
+ */
+const PAGINA_PUBLICA = /^\/(v1\/)?public\/(render\/|markdown\/|sitemap\.xml$|rss\.xml$|llms(-full)?\.txt$)/;
+const ehPaginaPublica = (req: Request): boolean => req.method === 'GET' && PAGINA_PUBLICA.test(req.path);
+
+const limiterDePaginas = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 1500,
+  keyGenerator: (req: Request) => `pagina:${ipKeyGenerator(req.ip)}`,
+  skip: (req: Request) => !ehPaginaPublica(req),
+  handler: RESPOSTA_429,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: (req: Request) => (usuarioDoToken(req) ? 600 : 150),
@@ -177,7 +199,7 @@ const limiter = rateLimit({
   },
   // O monitor do servidor bate no health a cada 5 minutos e não é tráfego de
   // ninguém — contá-lo só serve para gastar o orçamento de quem compartilha IP.
-  skip: (req: Request) => req.path === '/health' || req.path === '/v1/health',
+  skip: (req: Request) => req.path === '/health' || req.path === '/v1/health' || ehPaginaPublica(req),
   handler: RESPOSTA_429,
   standardHeaders: true,
   legacyHeaders: false,
@@ -194,6 +216,7 @@ const authLimiter = rateLimit({
 
 // Aplicar rate limiting global
 app.use('/api/', limiter);
+app.use('/api/', limiterDePaginas);
 
 // ═══════════════════════════════════════════════════════
 // WEBHOOKS: cada gateway aplica o parser exigido pela sua assinatura.
