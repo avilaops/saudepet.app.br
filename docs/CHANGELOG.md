@@ -59,6 +59,19 @@ deste repositório falharam em `failed to push ghcr.io/avilaops/saudepet.app.br-
 permission_denied: read_package`. Os pacotes no GHCR existem de antes (repositório privado
 anterior) e este repositório não tem permissão de escrita neles, então a correção do login
 de 06/10 (`API_URL` em `/api`) ainda não chegou à produção por este caminho.
+## [Não versionado] - 2026-10-07 - Cadastro honesto sobre o e-mail de confirmação
+
+### 🔧 Corrigido
+
+- **O cadastro afirmava que o e-mail de confirmação tinha sido enviado mesmo quando o SMTP
+  recusava.** O controller engolia a falha e respondia "verifique seu email"; a tela do
+  veterinário mandava procurar na caixa de entrada um e-mail que nunca saiu. A conta continua
+  sendo criada (o link pode ser pedido de novo), mas `POST /auth/register` passa a devolver
+  `email_verificacao_enviado` e uma mensagem condizente, e `/register` mostra "Conta criada,
+  mas o e-mail não saiu" com o botão de pedir novo link em destaque. Três casos em
+  `tests/unit/controllers/cadastro-email-honesto.test.ts`.
+- **`docs/TELAS.md`** estava atrás do código em `/verify-email` (o formulário de pedir novo link
+  já existia) e em `/register`; as duas linhas foram atualizadas.
 
 ## [Não versionado] - 2026-09-11 - Auditoria, loja de demonstração fora do ar, nginx sem 502
 

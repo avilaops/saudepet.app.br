@@ -202,8 +202,8 @@ Números do levantamento: **19 telas de admin, 8 públicas/auth, 14 do tutor,
 | `/pet-tag/:id` | **CORRIGIDO**, cada leitura vira registro (com localização, se a pessoa autorizar) e o tutor recebe alerta; o tutor vê o histórico em `GET /pets/:id/leituras-da-tag` |
 | `/privacidade` | **CORRIGIDO**, `/tutor/privacidade` traz baixar meus dados, trocar senha e encerrar conta (anonimizando, com o prontuário do pet preservado por guarda obrigatória) |
 | `/login` | **CORRIGIDO**, a sessão renova sozinha via `POST /auth/refresh` (o token era emitido a cada login e descartado; a sessão morria em 7 dias) e o "Sair" invalida o token |
-| `/register` | `tenant_slug` fixo no front; falha de SMTP é engolida e a tela afirma que o e-mail foi enviado |
-| `/verify-email` | o texto manda "pedir um novo link" e **não há botão** para isso |
+| `/register` | **CORRIGIDO** em 07/10, a resposta traz `email_verificacao_enviado` e a tela diz quando o e-mail não saiu, com o botão de pedir novo link em destaque. `tenant_slug` segue fixo no front: o produto tem um tenant só |
+| `/verify-email` | **CORRIGIDO**, a tela de link inválido tem o formulário de pedir novo link (`POST /auth/resend-verification`) |
 | `/forgot-password` | **CORRIGIDO**, 4xx continua neutro por segurança; falha de rede e 5xx viram aviso honesto |
 | `/reset-password` | **CORRIGIDO**, a troca de senha derruba toda sessão emitida antes dela |
 
