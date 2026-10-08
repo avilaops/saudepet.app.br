@@ -45,12 +45,14 @@ jobs:
         working-directory: backend
         env:
           NODE_ENV: test
+  # Os workflows chamados abaixo sao os deste repositorio (./.github/workflows/),
+  # nao os do avilaops/infra: ver o cabecalho de container.yml.
   backend:
     needs: verify
     permissions:
       contents: read
       packages: write
-    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/container.yml
     with:
       context: .
       dockerfile: Dockerfile
@@ -62,7 +64,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/container.yml
     with:
       context: .
       dockerfile: Dockerfile
@@ -74,7 +76,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: avilaops/infra/.github/workflows/container.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/container.yml
     with:
       context: transcricao-service
       dockerfile: transcricao-service/Dockerfile
@@ -87,7 +89,7 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/deploy-ssh.yml
     with:
       application: saudepet-backend
       image: ${{ needs.backend.outputs.image }}
@@ -102,7 +104,7 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/deploy-ssh.yml
     with:
       application: saudepet.app.br
       image: ${{ needs.web.outputs.image }}
@@ -117,7 +119,7 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: avilaops/infra/.github/workflows/deploy-ssh.yml@5e560f44062c8e025ddcfd86197e5394b562deae
+    uses: ./.github/workflows/deploy-ssh.yml
     with:
       application: saudepet-transcricao
       image: ${{ needs.transcricao.outputs.image }}
