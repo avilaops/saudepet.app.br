@@ -58,21 +58,23 @@ imagens por digest via SSH, preservando os volumes de dados. O deploy deve ser
 verificado pelo nginx e por `bash scripts/verificar-deploy.sh`, com `REPO` apontando
 para o checkout do commit publicado.
 
-Desde 06/10/2026 esse pipeline está parado: o repositório foi recriado e perdeu as chaves
-de deploy, a variável `DEPLOY_ENABLED` e o acesso aos pacotes do GHCR. Em 08/10 (`fe6f492`)
-saiu a falha de inicialização: o repositório é público e chamava os workflows reutilizáveis
-do `avilaops/infra`, que é privado; `container.yml` e `deploy-ssh.yml` agora são cópias
-locais em `.github/workflows/` (mudou no `infra`, traga para cá). Os pacotes
-`saudepet.app.br-backend`, `-web` e `-transcricao` do GHCR tinham ficado sem repositório
-vinculado e recusavam o envio (`permission_denied`); o Nicolas devolveu o acesso do Actions
-em 08/10 (Package settings › Manage Actions access) e o run `37771974032` fechou verde, com
-as três imagens publicadas. **O deploy segue pulado:** faltam os segredos `DEPLOY_HOST`,
-`DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_BACKEND_SSH_KEY`, `DEPLOY_WEB_SSH_KEY` e
-`DEPLOY_TRANSCRICAO_SSH_KEY` e a variável `DEPLOY_ENABLED=true`. Enquanto isso não for refeito, o deploy é `bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
+**Push na `main` publica em produção** (desde 08/10/2026 12:2x UTC): `verify`, build das
+três imagens e deploy de backend, web e transcrição, nessa ordem; o do backend roda
+`prisma migrate deploy` antes da troca. Havendo migração, faça dump do banco antes do push.
+O pipeline ficou parado de 06 a 08/10: o repositório foi recriado e perdeu chaves, variável e
+acesso aos pacotes do GHCR, e, sendo público, não podia chamar os workflows reutilizáveis do
+`avilaops/infra`, privado. Por isso `container.yml` e `deploy-ssh.yml` são cópias locais em
+`.github/workflows/` (mudou no `infra`, traga para cá). Segredos do repositório:
+`DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS`, `DEPLOY_BACKEND_SSH_KEY`,
+`DEPLOY_WEB_SSH_KEY`, `DEPLOY_TRANSCRICAO_SSH_KEY`; variável `DEPLOY_ENABLED=true` (`false`
+desliga o deploy sem mexer no resto). Os pacotes do GHCR precisam do repositório em Package
+settings › Manage Actions access.
+
+Com o Actions fora do ar, a reserva é
+`bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
 rodado da máquina de desenvolvimento: o build acontece no `apps-noclient` (sem cliente
 nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e volta automática.
-Desde 08/10 backend e web saem por esse caminho (o `prisma migrate deploy` roda antes da
-troca, com a imagem nova). Publique o backend primeiro e o web depois, do mesmo commit, e
+Publique o backend primeiro e o web depois, do mesmo commit, e
 faça dump do banco antes quando houver migração.
 
 ### Páginas públicas: um `.tsx` só, desenhado também no servidor
