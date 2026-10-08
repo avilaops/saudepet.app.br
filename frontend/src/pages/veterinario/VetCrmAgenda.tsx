@@ -20,6 +20,13 @@ const statusClasse = (status: string) => ({
 const chaveDoDia = (data: ApiPayload) => new Date(data).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })
 const hora = (data: ApiPayload) => new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 
+/** `2026-10-09`, no fuso de quem está usando, para o `<input type="date">`. */
+const diaParaCampo = (data: ApiPayload) => {
+  const d = new Date(data)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+const minutosEntre = (inicio: ApiPayload, fim: ApiPayload) => Math.round((new Date(fim).getTime() - new Date(inicio).getTime()) / 60000)
+
 const FORM_VAZIO = { tutor: null, pet_id: '', tipo: 'consulta_domiciliar', data: '', inicio: '', duracao: 60, observacoes: '' }
 
 export default function VetCrmAgenda() {
@@ -48,6 +55,17 @@ export default function VetCrmAgenda() {
   const [motivoCancelamento, setMotivoCancelamento] = useState('')
   const [salvandoCancelamento, setSalvandoCancelamento] = useState(false)
   const [erroCancelamento, setErroCancelamento] = useState('')
+
+  // Remarcar: a rota existia desde a construção da agenda e nenhum botão a
+  // chamava. Para mudar o horário o veterinário cancelava e marcava de novo — e
+  // o tutor recebia um cancelamento seguido de uma consulta nova, em vez de um
+  // aviso só dizendo que o horário mudou.
+  const [remarcando, setRemarcando] = useState<ApiPayload | null>(null)
+  const [novaData, setNovaData] = useState('')
+  const [novoInicio, setNovoInicio] = useState('')
+  const [slotsDaRemarcacao, setSlotsDaRemarcacao] = useState<ApiPayload[] | null>(null)
+  const [salvandoRemarcacao, setSalvandoRemarcacao] = useState(false)
+  const [erroRemarcacao, setErroRemarcacao] = useState('')
 
   const carregar = useCallback(async () => {
     setLoading(true); setError('')
@@ -93,6 +111,19 @@ export default function VetCrmAgenda() {
       .then((response) => setSlots(response.data?.horarios || []))
       .catch(() => setSlots([]))
   }, [form.data, form.duracao])
+
+  // Horários livres do dia escolhido para a remarcação, com a mesma duração
+  // da consulta. O horário atual dela aparece ocupado: é por ela mesma.
+  const duracaoDaRemarcacao = remarcando ? minutosEntre(remarcando.inicio, remarcando.fim) : 0
+  useEffect(() => {
+    if (!remarcando || !novaData) { setSlotsDaRemarcacao(null); return undefined }
+    let vigente = true
+    setSlotsDaRemarcacao(null)
+    api.get(`/v1/veterinario/crm/agendamentos/horarios-livres?data=${novaData}&duracao=${duracaoDaRemarcacao}`)
+      .then((response) => { if (vigente) setSlotsDaRemarcacao(response.data?.horarios || []) })
+      .catch(() => { if (vigente) setSlotsDaRemarcacao([]) })
+    return () => { vigente = false }
+  }, [remarcando, novaData, duracaoDaRemarcacao])
 
   const grupos = useMemo(() => {
     const porDia = new Map()
@@ -159,6 +190,38 @@ export default function VetCrmAgenda() {
       setErroCancelamento(requestError.response?.data?.error || 'Não foi possível cancelar a consulta.')
     } finally {
       setSalvandoCancelamento(false)
+    }
+  }
+
+  const abrirRemarcacao = (agendamento: ApiPayload) => {
+    setRemarcando(agendamento)
+    setNovaData(diaParaCampo(agendamento.inicio))
+    setNovoInicio('')
+    setErroRemarcacao('')
+  }
+
+  const fecharRemarcacao = () => {
+    setRemarcando(null)
+    setNovaData('')
+    setNovoInicio('')
+    setErroRemarcacao('')
+  }
+
+  const confirmarRemarcacao = async () => {
+    if (!remarcando || !novaData || !novoInicio) return
+    setSalvandoRemarcacao(true)
+    setErroRemarcacao('')
+    try {
+      await api.put(`/v1/veterinario/crm/agendamentos/${remarcando.id}/remarcar`, {
+        inicio: new Date(`${novaData}T${novoInicio}`).toISOString(),
+        duracao_minutos: duracaoDaRemarcacao,
+      })
+      fecharRemarcacao()
+      await carregar()
+    } catch (requestError: any) {
+      setErroRemarcacao(requestError.response?.data?.error || 'Não foi possível remarcar a consulta.')
+    } finally {
+      setSalvandoRemarcacao(false)
     }
   }
 
@@ -235,6 +298,7 @@ export default function VetCrmAgenda() {
                           : <button type="button" disabled={iniciandoId === agendamento.id} onClick={() => iniciarAtendimento(agendamento)}>{iniciandoId === agendamento.id ? 'Abrindo…' : 'Iniciar atendimento'}</button>}
                         {agendamento.status === 'confirmado' && !agendamento.solicitacao_id && <button type="button" onClick={() => mudarStatus(agendamento, 'concluido')}>Concluir</button>}
                         {agendamento.status === 'confirmado' && <button type="button" onClick={() => mudarStatus(agendamento, 'nao_compareceu')}>Não veio</button>}
+                        {!agendamento.solicitacao_id && <button type="button" onClick={() => abrirRemarcacao(agendamento)}>Remarcar</button>}
                         <button type="button" className="is-danger" onClick={() => abrirCancelamento(agendamento)}>Cancelar</button>
                       </div>
                     )}
@@ -323,6 +387,55 @@ export default function VetCrmAgenda() {
               onClick={criarAgendamento}
             >
               {salvando ? 'Marcando…' : form.data && form.inicio ? `Marcar para ${form.data.split('-').reverse().join('/')} às ${form.inicio}` : 'Marcar consulta'}
+            </button>
+          </section>
+        </div>
+      )}
+
+      {remarcando && (
+        <div className="vet-modal-layer" role="presentation">
+          <section className="vet-modal" role="dialog" aria-modal="true" aria-labelledby="remarcar-consulta-title">
+            <div className="vet-modal__title">
+              <VetIcon name="calendar" />
+              <h2 id="remarcar-consulta-title">Remarcar consulta</h2>
+              <button className="vet-icon-button" type="button" onClick={fecharRemarcacao} aria-label="Fechar"><VetIcon name="close" size={18} /></button>
+            </div>
+            {erroRemarcacao && <p className="vet-card vet-request" role="alert">{erroRemarcacao}</p>}
+            <div className="vet-prescription-note">
+              <p><strong>{remarcando.pet?.nome || 'Pet'}</strong> · {remarcando.tutor?.nome}</p>
+              <p>Marcada para {chaveDoDia(remarcando.inicio)}, das {hora(remarcando.inicio)} às {hora(remarcando.fim)}.</p>
+              <label>Novo dia<input className="input" type="date" min={diaParaCampo(new Date())} value={novaData} onChange={(event) => { setNovaData(event.target.value); setNovoInicio('') }} /></label>
+              {novaData && slotsDaRemarcacao === null && <p className="vet-review-pending" role="status">Procurando horários livres…</p>}
+              {slotsDaRemarcacao && slotsDaRemarcacao.length > 0 && (
+                <div className="vet-crm-slots" role="group" aria-label="Horários livres">
+                  {slotsDaRemarcacao.map((slot: ApiPayload) => {
+                    const valor = hora(slot.inicio)
+                    return (
+                      <button key={slot.inicio} type="button" className={novoInicio === valor ? 'is-active' : ''} aria-pressed={novoInicio === valor} onClick={() => setNovoInicio(valor)}>
+                        {valor}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+              {/* Sem horário livre na lista: ou o dia está cheio, ou não há grade
+                  cadastrada (e aí qualquer horário vale). O campo manual atende os
+                  dois, e o servidor recusa o que conflitar. */}
+              {slotsDaRemarcacao && slotsDaRemarcacao.length === 0 && novaData && (
+                <label>Novo horário<input className="input" type="time" value={novoInicio} onChange={(event) => setNovoInicio(event.target.value)} /></label>
+              )}
+              <p className="vet-review-pending">A duração continua a mesma ({duracaoDaRemarcacao} min). O tutor é avisado do novo horário por e-mail e notificação.</p>
+            </div>
+            <div className="vet-crm-agendamento__actions">
+              <button type="button" onClick={fecharRemarcacao} disabled={salvandoRemarcacao}>Manter horário</button>
+            </div>
+            <button
+              className="vet-modal__submit"
+              type="button"
+              disabled={salvandoRemarcacao || !novaData || !novoInicio}
+              onClick={confirmarRemarcacao}
+            >
+              {salvandoRemarcacao ? 'Remarcando…' : novaData && novoInicio ? `Remarcar para ${novaData.split('-').reverse().join('/')} às ${novoInicio}` : 'Escolha o novo horário'}
             </button>
           </section>
         </div>

@@ -196,7 +196,7 @@ class CrmVeterinarioController {
   });
 
   alterarStatusAgendamento = asyncHandler(async (req: Request, res: Response) => {
-    await veterinarioDoUsuario(req);
+    const vet = await veterinarioDoUsuario(req);
     const corpo: CorpoDoStatus = req.body || {};
     const { status, motivo } = corpo;
 
@@ -207,6 +207,7 @@ class CrmVeterinarioController {
     const agendamento = await agendamentoService.alterarStatus({
       tenantId: tenantDe(req),
       agendamentoId: String(req.params.id),
+      veterinarioId: vet.id,
       novoStatus: status,
       usuarioId: req.userId,
       motivo
@@ -248,7 +249,7 @@ class CrmVeterinarioController {
   });
 
   remarcarAgendamento = asyncHandler(async (req: Request, res: Response) => {
-    await veterinarioDoUsuario(req);
+    const vet = await veterinarioDoUsuario(req);
     const corpo: CorpoDaRemarcacao = req.body || {};
     const { inicio, duracao_minutos: duracao } = corpo;
 
@@ -259,6 +260,7 @@ class CrmVeterinarioController {
     const agendamento = await agendamentoService.remarcar({
       tenantId: tenantDe(req),
       agendamentoId: String(req.params.id),
+      veterinarioId: vet.id,
       inicio,
       duracaoMinutos: duracao
     });

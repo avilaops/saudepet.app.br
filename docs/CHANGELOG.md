@@ -2,6 +2,23 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-08 - Agenda do veterinário: remarcar
+
+### ✨ Novo
+
+- **`/veterinario/crm/agenda` ganha o botão "Remarcar".** A rota
+  `PUT /veterinario/crm/agendamentos/:id/remarcar` existia desde a construção da agenda e
+  nenhum botão a chamava: para mudar o horário o veterinário cancelava e marcava de novo, e o
+  tutor recebia um cancelamento seguido de uma consulta nova. Agora escolhe o dia, vê os
+  horários livres da própria grade (ou digita, quando não há grade) e o tutor recebe um aviso
+  só, de horário alterado. A duração é mantida. Era a última "rota sem tela" do `TELAS.md`.
+
+### 🔒 Segurança
+
+- **Confirmar, cancelar, dar falta e remarcar exigem que a consulta seja do veterinário
+  logado.** As duas rotas conferiam só o tenant: conhecendo o id, um veterinário alterava a
+  agenda de um colega da mesma operação.
+
 ## [Não versionado] - 2026-10-08 - Páginas públicas em um `.tsx` só
 
 ### 🔧 Corrigido

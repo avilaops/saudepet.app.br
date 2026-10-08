@@ -257,15 +257,21 @@ export async function listarDoTutor({ tenantId, tutorId, incluirPassados = false
  * Muda o status. Cancelar exige motivo de quem cancelou, e o registro guarda
  * quem foi — cancelamento é o dado que mais gera disputa depois.
  */
-export async function alterarStatus({ tenantId, agendamentoId, novoStatus, usuarioId, motivo }: {
+export async function alterarStatus({ tenantId, agendamentoId, veterinarioId, novoStatus, usuarioId, motivo }: {
   tenantId: string;
   agendamentoId: string;
+  /**
+   * Quando quem pede é o veterinário, o agendamento tem de ser DELE. Sem isto
+   * bastava conhecer o id para confirmar, cancelar ou dar falta na consulta de
+   * um colega do mesmo tenant (até 08/10/2026 era assim).
+   */
+  veterinarioId?: string;
   novoStatus: StatusAgendamento;
   usuarioId?: string | null;
   motivo?: string | null;
 }) {
   const agendamento = await prisma.agendamento.findFirst({
-    where: { id: agendamentoId, tenant_id: tenantId }
+    where: { id: agendamentoId, tenant_id: tenantId, ...(veterinarioId ? { veterinario_id: veterinarioId } : {}) }
   });
 
   if (!agendamento) {
@@ -309,14 +315,16 @@ export async function alterarStatus({ tenantId, agendamentoId, novoStatus, usuar
  * checagens (grade e conflito), porque o horário novo é tão novo quanto o de
  * uma criação.
  */
-export async function remarcar({ tenantId, agendamentoId, inicio, duracaoMinutos }: {
+export async function remarcar({ tenantId, agendamentoId, veterinarioId, inicio, duracaoMinutos }: {
   tenantId: string;
   agendamentoId: string;
+  /** Só o dono da agenda remarca: ver `alterarStatus`. */
+  veterinarioId?: string;
   inicio: string | Date;
   duracaoMinutos?: number;
 }) {
   const agendamento = await prisma.agendamento.findFirst({
-    where: { id: agendamentoId, tenant_id: tenantId }
+    where: { id: agendamentoId, tenant_id: tenantId, ...(veterinarioId ? { veterinario_id: veterinarioId } : {}) }
   });
 
   if (!agendamento) {

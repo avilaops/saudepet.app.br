@@ -99,7 +99,7 @@ Números do levantamento: **19 telas de admin, 8 públicas/auth, 14 do tutor,
 | 9 | `VetOnboarding` | **CORRIGIDO**, virou lista de primeiros passos com o estado real de cada item (perfil, documento, conta bancária, online) e botão que leva ao lugar; as duas promessas inexistentes ("dica do dia", "avalie o tutor") saíram | **OK** |
 | 10 | Atendimento, encerrar por desistência | **CORRIGIDO**, "Não vou conseguir atender" em `PUT /solicitacoes/:id/desistir`, com motivo obrigatório e aviso ao tutor | **OK** |
 | 11 | Atendimento, "a caminho" | **CORRIGIDO**, `watchPosition` enquanto o status é `a_caminho`, com envio a cada 15 s | **OK** |
-| 12 | Agenda, remarcar | rota existe, sem botão | **ROTA SEM TELA** |
+| 12 | Agenda, remarcar | **CORRIGIDO** (08/10), botão "Remarcar" em `/veterinario/crm/agenda` com os horários livres do dia; mudar status e remarcar passaram a exigir que o agendamento seja do veterinário logado | **OK** |
 
 ---
 

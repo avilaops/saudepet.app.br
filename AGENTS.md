@@ -64,8 +64,9 @@ público e o `avilaops/infra`, de onde vêm os workflows, é privado. Enquanto i
 refeito, o deploy é `bash scripts/deploy-manual.sh <web|backend|transcricao> [commit]`,
 rodado da máquina de desenvolvimento: o build acontece no `apps-noclient` (sem cliente
 nenhum), nunca no servidor de produção, e a troca tem checagem de saúde e volta automática.
-Em 08/10 só o `web` foi publicado por esse caminho; o do `backend`, que aplica migração,
-ainda não foi exercitado. Antes de publicar o backend, fazer dump do banco.
+Desde 08/10 backend e web saem por esse caminho (o `prisma migrate deploy` roda antes da
+troca, com a imagem nova). Publique o backend primeiro e o web depois, do mesmo commit, e
+faça dump do banco antes quando houver migração.
 
 ### Páginas públicas: um `.tsx` só, desenhado também no servidor
 
