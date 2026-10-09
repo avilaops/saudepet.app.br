@@ -2,6 +2,25 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-09 - Cidades e tabela de preços do admin
+
+### 🔒 Segurança
+
+- **A gravação de cidade aceitava o id de qualquer organização.** `POST /api/v1/admin/cidades`
+  atualizava pelo id sem conferir de quem era a cidade: o admin de uma organização podia mudar
+  preço e comissão de outra. Agora a cidade alheia responde "não encontrada"; o super admin
+  continua alcançando todas.
+
+### 🔧 Corrigido
+
+- **Preço negativo era gravado, e valor inválido virava o padrão em silêncio.** Preço, raio e
+  percentual da plataforma fora da faixa são recusados com mensagem que diz a faixa. Comissão
+  zero deixou de virar 20% calada: é recusada.
+- **Atualização parcial apagava a tabela.** Campo não enviado voltava ao padrão (R$ 150, 20%);
+  agora mantém o que estava gravado, inclusive se a cidade está ativa.
+- Cidade repetida responde conflito (409) em vez de erro interno, e a trilha pericial guarda a
+  tabela de antes e a de depois.
+
 ## [Não versionado] - 2026-10-09 - Aviso de operação travada
 
 ### ✨ Adicionado

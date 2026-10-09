@@ -734,8 +734,8 @@ lista, escrita a partir de uma auditoria mais antiga, não sabia.*
   dias é o desejado.
 - ~~**nginx perdia o backend ao recriar o container**~~: **feito em 11/09**. `resolver
   127.0.0.11` com o upstream em variável; o deploy não precisa mais de `restart web`.
-- **Lixo na árvore do servidor**: `offer-expiry.worker.js` (JS órfão, não compila nem roda) e
-  seis `frontend/dist.bak.*` (57 MB). Remover no próximo deploy; `backups/` fica.
+- ~~**Lixo na árvore do servidor**~~: **limpo em 09/10.** Os `frontend/dist.bak.*` já não
+  existiam e o `offer-expiry.worker.js` órfão foi removido; `backups/` fica.
 
 ### Varredura de placeholder e retorno inventado: **feita em 26/08**
 
@@ -833,7 +833,11 @@ anúncio e Meta Verified.
   do R2, e `doc.image()` no cabeçalho dos dois PDFs (`pdf.service.js` hoje não desenha imagem
   nenhuma). Rever junto o rodapé "Documento assinado digitalmente através da plataforma
   Saúde PET" nos planos em que a marca do vet aparecer.
-- **Gestão de cidades e regras comerciais pelo painel**, tirando do código e do `.env`.
+- ~~**Gestão de cidades e regras comerciais pelo painel**~~ - **já existia; revisado em 09/10.**
+  `/admin/cidades` grava cidade, raio, os seis preços e o percentual da plataforma
+  (`CidadeCobertura`), e as regras comerciais da organização. Na revisão a gravação ganhou
+  conferência de organização, faixas válidas e trilha com antes e depois. Do `.env` resta só
+  `CIDADE_INICIAL`, usada como último recurso no cadastro.
 - ~~**Funil de conversão visível no dashboard admin**~~ - **já existia; revisado em 25/08.** Cinco
   etapas (sessões → leads → cadastros → solicitações → finalizados) em `/admin/analytics`, com
   backend e tela prontos. Mais uma entrada herdada de auditoria antiga.
