@@ -2,6 +2,25 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-09 - Datas "no futuro" e contador de atendimentos
+
+### 🔧 Corrigido
+
+- **Vacina aplicada hoje era recusada como "data no futuro".** A validação comparava com
+  `new Date()` calculado quando o servidor subiu, não com o agora: depois de um dia no ar, datas
+  válidas passavam a ser recusadas, cada dia mais. O mesmo erro estava na data de nascimento do
+  pet e do usuário. A comparação é feita a cada validação, e o dia de hoje no Brasil vale
+  inteiro. Um teste reprova qualquer schema que volte a congelar o agora.
+- **O contador de atendimentos do veterinário não saía de zero.** A soma tinha sido tirada da
+  avaliação ("quem conta é o fechamento") e o fechamento nunca passou a contar: o perfil dizia
+  "ainda sem atendimentos" e o tutor via 0 atendimentos ao escolher profissional. O fechamento
+  agora reconta na mesma transação, e a migração
+  `20261009040000_recontar_atendimentos_do_veterinario` acerta quem já atendeu.
+
+Achados ao exercitar em produção, com as contas de teste, a ficha do pet pelo tutor, lembretes,
+mensagens com anexo, o CRM do veterinário e o carrinho do Mercado; o restante desses fluxos
+respondeu certo.
+
 ## [Não versionado] - 2026-10-08 - Marcar consulta volta a funcionar
 
 ### 🔧 Corrigido

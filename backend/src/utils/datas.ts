@@ -131,3 +131,18 @@ export function hojeComoDiaDeCalendario(instante: Valor = new Date()): Date {
   const r = relogioDeParede(instante);
   return new Date(Date.UTC(r.ano, r.mes - 1, r.dia));
 }
+
+/**
+ * A data não está no futuro? Para validar "nasceu em", "aplicada em".
+ *
+ * Tem de ser FUNÇÃO chamada a cada validação. `z.date().max(new Date())`
+ * congela o "agora" na hora em que o servidor sobe: depois de um dia no ar a
+ * vacina aplicada hoje era recusada como "data no futuro", e a cada dia sem
+ * reinício a recusa pegava mais datas válidas (08/10/2026).
+ *
+ * O dia de hoje no Brasil vale inteiro, mesmo que em UTC ele ainda não tenha
+ * começado ou já tenha virado.
+ */
+export function naoEstaNoFuturo(data: Date): boolean {
+  return data.getTime() <= Math.max(Date.now(), hojeComoDiaDeCalendario().getTime());
+}

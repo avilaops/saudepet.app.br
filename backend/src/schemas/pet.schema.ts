@@ -1,3 +1,4 @@
+import { naoEstaNoFuturo } from '../utils/datas';
 import { z } from 'zod';
 
 // Campos numéricos chegam de <input> como string: "5" vale 5, e vazio/null
@@ -52,7 +53,7 @@ const createPetSchema = z.object({
     .nullable(),
 
   data_nascimento: z.coerce.date({ message: 'Data de nascimento inválida' })
-    .max(new Date(), 'Data de nascimento não pode estar no futuro')
+    .refine(naoEstaNoFuturo, 'Data de nascimento não pode estar no futuro')
     .optional()
     .nullable(),
 
@@ -118,7 +119,7 @@ const updatePetSchema = z.object({
   especie: z.string().max(30).trim().optional().nullable(),
   sexo: z.enum(['macho', 'femea'], { message: 'Sexo deve ser macho ou femea' }).optional().nullable(),
   data_nascimento: z.coerce.date({ message: 'Data de nascimento inválida' })
-    .max(new Date(), 'Data de nascimento não pode estar no futuro')
+    .refine(naoEstaNoFuturo, 'Data de nascimento não pode estar no futuro')
     .optional()
     .nullable(),
   porte: z.enum(['pequeno', 'medio', 'grande'], { message: 'Porte deve ser pequeno, medio ou grande' }).optional().nullable(),

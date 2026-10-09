@@ -1,3 +1,4 @@
+import { naoEstaNoFuturo } from '../utils/datas';
 import { z } from 'zod';
 
 const telefoneRegex = /^\(\d{2}\)\s?\d{4,5}-?\d{4}$/;
@@ -48,7 +49,7 @@ const updateProfileSchema = z.object({
     .optional(),
 
   data_nascimento: z.coerce.date({ message: 'Data de nascimento inválida' })
-    .max(new Date(), 'Data de nascimento não pode estar no futuro')
+    .refine(naoEstaNoFuturo, 'Data de nascimento não pode estar no futuro')
     .optional()
     .nullable(),
 

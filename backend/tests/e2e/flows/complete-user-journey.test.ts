@@ -754,6 +754,14 @@ describe('🎯 FLUXO COMPLETO - Jornada Integrada do Usuário', () => {
       // erro era engolido como aviso (08/10/2026).
       expect(response.body.solicitacao.receita_pdf_url).toContain('receitas/');
       expect(response.body.solicitacao.prontuario_pdf_url).toContain('prontuarios/');
+
+      // O fechamento conta o atendimento no perfil do veterinário. O contador
+      // ficava em zero para todos: a soma saiu da avaliação e nunca entrou aqui.
+      const vet = await prisma.veterinario.findUnique({
+        where: { id: context.veterinario.veterinarioId },
+        select: { total_atendimentos: true }
+      });
+      expect(vet.total_atendimentos).toBe(1);
     });
 
     it('5.2 tutor deve VER o diagnóstico e receita', async () => {

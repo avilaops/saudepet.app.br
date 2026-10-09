@@ -1,3 +1,4 @@
+import { naoEstaNoFuturo } from '../utils/datas';
 import { z } from 'zod';
 
 /**
@@ -41,7 +42,7 @@ const criarMedicamentoTutorSchema = z.object({
 const criarVacinaTutorSchema = z.object({
   nome_vacina: texto(120).min(2, 'Informe a vacina'),
   data_aplicacao: z.coerce.date({ message: 'Data de aplicação inválida' })
-    .max(new Date(), 'Data de aplicação não pode estar no futuro'),
+    .refine(naoEstaNoFuturo, 'Data de aplicação não pode estar no futuro'),
   proxima_dose: dataOpcional,
   laboratorio: texto(80).optional().nullable(),
   lote: texto(40).optional().nullable(),

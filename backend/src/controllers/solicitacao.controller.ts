@@ -961,6 +961,17 @@ class SolicitacaoController {
       observacao: 'Atendimento finalizado com prontuário registrado',
       include: SOLICITACAO_COMPLETA_INCLUDE,
       aposTransicao: async (tx, atendimentoId) => {
+        // O contador de atendimentos do veterinário é RECONTADO aqui, na mesma
+        // transação do fechamento. Ele tinha sido tirado da avaliação ("quem
+        // conta é o fechamento") e o fechamento nunca passou a contar: o número
+        // ficou em zero para todos — no perfil do profissional e na lista em
+        // que o tutor escolhe quem vai atender. Recontar em vez de somar não
+        // desanda se uma transação for revertida.
+        const totalDeAtendimentos = await tx.solicitacao.count({
+          where: { tenant_id: tenantDe(req), veterinario_id: veterinario.id, status: { in: STATUS_FINALIZADOS } }
+        });
+        await tx.veterinario.update({ where: { id: veterinario.id }, data: { total_atendimentos: totalDeAtendimentos } });
+
         await tx.prontuarioEletronico.create({
           data: {
             tenant_id: tenantDe(req),
