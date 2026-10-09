@@ -871,6 +871,11 @@ pendurada nos eventos que a Fase 3 vai centralizar. Fazer o n8n mandar no status
 seria mover a regra para fora do sistema que a garante. Portanto: **primeiro a Fase 3, depois o
 n8n consome o que ela emitir.**
 
+**Feito em 09/10/2026, a ação "notificar administrador":** o fluxo "Saúde Pet - Alerta de
+operação" lê `GET /api/v1/automation/operacao/saude` de hora em hora e avisa por e-mail quando
+há chamado, documento, pagamento, agendamento ou credenciamento parado. Não muda status de
+nada, só lê, dentro da observação acima.
+
 ---
 
 ## Fora de escopo

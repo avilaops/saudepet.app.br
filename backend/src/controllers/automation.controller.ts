@@ -1,6 +1,7 @@
 import { inicioDoDiaBr } from '../utils/datas';
 import type { Request, Response } from 'express';
 import prisma from '../config/database';
+import { medirSaudeOperacional } from '../services/saude-operacional.service';
 
 const texto = (valor: unknown, limite = 500) => String(valor ?? '').trim().slice(0, limite);
 
@@ -84,4 +85,9 @@ export async function operacaoCuritiba(_req: Request, res: Response) {
     prisma.avaliacao.count({ where: { criado_em: { gte: inicio } } })
   ]);
   return res.json({ data: inicio.toISOString().slice(0, 10), veterinariosPr, tutoresCuritiba, solicitacoesHoje: solicitacoes, pagamentosHoje: pagamentos, avaliacoesHoje: avaliacoes });
+}
+
+/** Sinais de operação travada, para o n8n avisar o administrador. */
+export async function saudeOperacional(_req: Request, res: Response) {
+  return res.json(await medirSaudeOperacional());
 }

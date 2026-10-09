@@ -2,6 +2,20 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [Não versionado] - 2026-10-09 - Aviso de operação travada
+
+### ✨ Adicionado
+
+- **O administrador é avisado por e-mail quando algo trava.** `GET /api/v1/automation/operacao/saude`
+  (chave de automação) devolve sete sinais: chamado buscando veterinário há mais de 30 minutos,
+  atendimento fechado há mais de 1 hora sem prontuário em PDF, pagamento recusado ou contestado
+  em 24 horas, tutor que ficou sem veterinário em 24 horas, atendimento em curso parado há mais
+  de 12 horas, agendamento sem resposta do veterinário há mais de 24 horas ou já vencido, e
+  cadastro de veterinário aguardando análise há mais de 2 dias. Só leitura.
+- O fluxo **"Saúde Pet - Alerta de operação"** no n8n consulta esse endereço de hora em hora e
+  manda e-mail quando o quadro de alertas muda, mais um resumo às 8h enquanto houver alerta.
+  A regra do que é "parado" fica no backend (`saude-operacional.service.ts`); o n8n só avisa.
+
 ## [Não versionado] - 2026-10-09 - Datas "no futuro" e contador de atendimentos
 
 ### 🔧 Corrigido
