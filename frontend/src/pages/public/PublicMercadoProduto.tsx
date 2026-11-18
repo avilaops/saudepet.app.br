@@ -81,7 +81,7 @@ export default function PublicMercadoProduto() {
   const destinoDaCompra = `/login?next=${encodeURIComponent(`/tutor/mercado/produto/${produto.id}`)}`
 
   return (
-    <PublicLayout>
+    <PublicLayout measurementReady={loja.slug === slug && produto.slug === produtoSlug}>
       <Seo
         title={`${nomeCompleto} — ${emReais(produto.preco_vigente)} na ${loja.nome_fantasia} | Saúde PET Mercado`}
         description={

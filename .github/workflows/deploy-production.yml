@@ -34,6 +34,12 @@ jobs:
       - name: Tipos do frontend
         run: npx tsc --noEmit
         working-directory: frontend
+      - name: Limites de medição por tela
+        run: node --experimental-strip-types --test scripts/measurement-policy.test.mjs
+      - name: Navegador para teste de consentimento
+        run: npx playwright install --with-deps chromium
+      - name: Consentimento e ausência de coleta em rotas sensíveis
+        run: node --test scripts/measurement-consent.test.mjs
       - name: Cliente do Prisma
         run: npx prisma generate
         working-directory: backend

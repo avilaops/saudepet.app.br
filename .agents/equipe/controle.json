@@ -3,6 +3,14 @@
   "application": "avila-saudepet-app-br",
   "members": [],
   "tasks": [],
-  "decisions": [],
+  "decisions": [
+    {
+      "id": "D-MEDICAO-20261118",
+      "date": "2026-11-18",
+      "decision": "Integrar o institucional e a aplicação Saúde PET no mesmo GA4, com contêineres GTM por operação e consentimento analítico obrigatório.",
+      "rationale": "Plano dos 33 endereços aprovado pelo proprietário. A fonte confirma a tela renderizada; o runtime não lê usuários, pets, tokens ou formulários.",
+      "evidence": "40 testes centrais, 4 da fonte, tipos, build e 11 casos SSR aprovados. SDK real no artefato local aprovado. Revisão independente sem crítico ou importante; Minor adiado: teste de navegador com PrivateRoute real e três estados de autorização. Publicação e sessão privada real ainda não comprovadas."
+    }
+  ],
   "integrations": []
 }

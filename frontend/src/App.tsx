@@ -5,6 +5,7 @@ import { SocketProvider } from './contexts/SocketContext'
 import FaixaDeSuporte from './components/FaixaDeSuporte'
 import AppErrorBoundary from './components/AppErrorBoundary'
 import type { PapelUsuario } from './types/api'
+import MeasurementScreen from './components/MeasurementScreen'
 
 /**
  * Página que chega desenhada pelo servidor (ver `entry-server.tsx`).
@@ -178,7 +179,7 @@ function PrivateRoute({ children, allowedTypes }: { children: ReactNode; allowed
     return <Navigate to={AREA_DO_TIPO[user.tipo_usuario] || '/'} replace />
   }
 
-  return children
+  return <><MeasurementScreen area="application" />{children}</>
 }
 
 function App() {
@@ -215,10 +216,10 @@ function App() {
                 <Route path="/mercado/:slug/:produto" element={<PublicMercadoProduto />} />
 
                 {/* Rotas de Autenticação */}
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<><MeasurementScreen area="public" /><Login /></>} />
                 <Route path="/onboarding/tutor" element={<OnboardingTutor />} />
-                <Route path="/cadastrar" element={<Register />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/cadastrar" element={<><MeasurementScreen area="public" /><Register /></>} />
+                <Route path="/register" element={<><MeasurementScreen area="public" /><Register /></>} />
                 <Route path="/verificar-email" element={<VerifyEmail />} />
                 <Route path="/esqueci-senha" element={<ForgotPassword />} />
                 <Route path="/redefinir-senha" element={<ResetPassword />} />

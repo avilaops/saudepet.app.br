@@ -130,7 +130,7 @@ export default function PublicMercadoLoja() {
     : ''
 
   return (
-    <PublicLayout>
+    <PublicLayout measurementReady={loja?.slug === slug}>
       {loja && (
         <Seo
           title={`${loja.nome_fantasia} — loja pet em ${loja.cidade} | Saúde PET Mercado`}

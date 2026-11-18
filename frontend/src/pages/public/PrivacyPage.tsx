@@ -25,14 +25,14 @@ export default function PrivacyPage() {
       <h2>Finalidade e bases de tratamento</h2>
       <p>Usamos os dados para executar o serviço contratado (arts. 7º, V da LGPD): conectar tutor e veterinário, registrar o atendimento e o prontuário, processar pagamentos e enviar as comunicações do próprio atendimento. Denúncias e registros de moderação atendem ao legítimo interesse de manter a plataforma segura. O aceite do formulário de contato vale para responder à solicitação — não é autorização genérica de marketing.</p>
 
-      <h2>Métricas próprias</h2>
-      <p>No site público registramos rota visitada, sessão anônima, origem, parâmetros UTM e categoria geral do dispositivo. Não guardamos o IP completo: geramos um identificador criptográfico não reversível para segurança e deduplicação. Não registramos conteúdo de formulários como evento analítico.</p>
+      <h2>Métricas e preferências</h2>
+      <p>Com sua permissão para análise, usamos métricas próprias e Google Analytics para entender a navegação. As páginas institucionais e a aplicação usam o mesmo destino do Saúde PET, com coleta separada por área. Endereços privados são reduzidos a um caminho genérico; identificadores de pets, conteúdo de formulários, prontuários e tokens não são enviados como eventos ao Google. Páginas de etiquetas de pets, formulários compartilhados e recuperação de senha ficam excluídas dessa medição. Você pode recusar ou retirar a permissão no botão de preferências de cookies.</p>
 
       <h2>Com quem compartilhamos</h2>
-      <p>Não vendemos dados. Compartilhamos apenas com operadores necessários ao serviço: <strong>Mercado Pago</strong> (processamento de pagamentos), <strong>Cloudflare</strong> (armazenamento de imagens e documentos), o provedor de e-mail transacional e o serviço de push do seu próprio navegador. O veterinário do atendimento acessa o histórico clínico do pet para continuidade do tratamento, dentro da mesma operação.</p>
+      <p>Não vendemos dados. Compartilhamos com operadores necessários ao serviço: <strong>Mercado Pago</strong> (processamento de pagamentos), <strong>Cloudflare</strong> (armazenamento de imagens e documentos), o provedor de e-mail transacional e o serviço de push do seu próprio navegador. Com sua permissão de análise, o Google recebe os eventos limitados descritos acima. O veterinário do atendimento acessa o histórico clínico do pet para continuidade do tratamento, dentro da mesma operação.</p>
 
       <h2>Armazenamento, segurança e retenção</h2>
-      <p>Os dados ficam em banco PostgreSQL da própria operação, com backup diário do banco e dos arquivos. Senhas usam hash com sal; credenciais de pagamento da operação e dados bancários de repasse são criptografados; toda ação relevante gera trilha de auditoria. Eventos analíticos têm retenção padrão de 180 dias. Prontuários são preservados pelo prazo exigido para registros clínicos; demais dados, pelo tempo necessário ao serviço e às obrigações legais.</p>
+      <p>Os dados ficam em banco PostgreSQL da própria operação, com backup diário do banco e dos arquivos. Senhas usam hash com sal; credenciais de pagamento da operação e dados bancários de repasse são criptografados; toda ação relevante gera trilha de auditoria. Eventos analíticos próprios têm retenção padrão de 180 dias. Prontuários são preservados pelo prazo exigido para registros clínicos; demais dados, pelo tempo necessário ao serviço e às obrigações legais.</p>
 
       <h2>Seus direitos</h2>
       <p>Você pode pedir confirmação do tratamento, acesso, correção, portabilidade quando aplicável, exclusão do que não formos obrigados a manter e revisão de decisões automatizadas. Notificações push podem ser desativadas a qualquer momento nas preferências do app.</p>
