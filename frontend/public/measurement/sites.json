@@ -1,0 +1,16 @@
+{
+  "operations": {
+    "institutional": { "id": "GTM-MMTBHNRN" },
+    "saas": { "id": "GTM-NQSKDVVG" }
+  },
+  "sites": [{
+    "domain": "saudepet.app.br",
+    "aliases": ["www.saudepet.app.br"],
+    "operation": "saas",
+    "consentAdapter": "zaraz",
+    "gatewayPath": "/avmetrics/",
+    "measurementId": "G-5EX4HBPD8W",
+    "applicationPrefixes": ["/tutor", "/veterinario", "/admin", "/dev", "/parceiro", "/mercado/loja"],
+    "publicPrefixes": ["/", "/faq", "/contato", "/blog", "/privacidade", "/mercado", "/login", "/register", "/cadastrar"]
+  }]
+}

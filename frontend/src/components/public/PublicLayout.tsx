@@ -22,11 +22,11 @@ import MenuDeEntrada from './MenuDeEntrada'
 // super admin no backend.
 const links = [['/', 'Início'], ['/#como-funciona', 'Como funciona'], ['/faq', 'FAQ'], ['/blog', 'Blog'], ['/contato', 'Contato']]
 
-export default function PublicLayout({ children }: ApiPayload) {
+export default function PublicLayout({ children, measurementReady = false }: ApiPayload) {
   const [open, setOpen] = useState(false)
   return (
     <div className="public-shell">
-      <AnalyticsTracker />
+      <AnalyticsTracker validDynamic={measurementReady} />
       <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
       <header className="public-header">
         <div className="public-wrap header-inner">

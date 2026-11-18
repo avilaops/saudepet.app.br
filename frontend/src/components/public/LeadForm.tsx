@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import api from '../../services/api'
 import { getAnalyticsSessionId } from './AnalyticsTracker'
+import { trackConfirmedContact } from '../../services/measurement'
 
 const initial = { name: '', phone: '', email: '', city: '', state: '', petName: '', petType: '', interest: '', preferredContactTime: '', privacyAccepted: false, website: '' }
 const maskPhone = (value: ApiPayload) => {
@@ -29,6 +30,7 @@ export default function LeadForm({ compact = false }) {
         utmCampaign: params.get('utm_campaign') || undefined, utmContent: params.get('utm_content') || undefined,
         utmTerm: params.get('utm_term') || undefined, anonymousSessionId: getAnalyticsSessionId()
       })
+      trackConfirmedContact()
       setForm(initial); setState({ loading: false, error: '', success: response.data.message })
     } catch (error: any) {
       const details = error.response?.data?.details?.map((item: ApiPayload) => item.message).join('. ')
